@@ -1,39 +1,28 @@
-# Portfolio_Lucas_Cardoso
+# Safe Nest
 
-### Portfólio digital que desenvolvi para meu irmão usando apenas HTML, CSS e JS
-
-## Screenshots
-
-![screenshot](screenshotDEMO1.png)
-![screenshot](screenshotDEMO2.png)
-![screenshot](screenshotDEMO3.png)
-
-## Tecnologias
-
-- HTML
-- CSS
-- JavaScript
+### O SafeNest é um projeto de conclusão de curso (TCC) que consiste em um sistema de monitoramento e segurança residencial. O sistema utiliza inteligência artificial (YOLOv5) para detecção de incêndios e possíveis invasões em tempo real e, além disso, possui uma fechadura inteligente que permite o controle de acesso via RFID, garantindo maior segurança e praticidade ao morador. O projeto também inclui mecanismos de alerta e registro de eventos via, garantindo maior organização e segurança aos usuários.
 
 ## Funcionalidades
 
-- Timeline interativa
-- Recriação do liquid glass usando css nativo
+- Detecção de incêndio por meio de visão computacional
+- Identificação de possíveis invasões
+- Fechadura inteligente com autenticação via RFID
+- Monitoramento em tempo real
+- Registro de eventos com data e horário
+-Sistema de alertas para o usuário
 
-## Como testar
+## Tecnologias
 
-Acesse o link do github pages do projeto: https://micardosofph.github.io/Portfolio_Lucas_Cardoso/
+- HTML5, CSS e JavaScript (interface web)
+- React Native (interface mobile)
+- Arduino Uno e ESP32
+- RFID (controle de acesso)
+- Sensor MQ2 (detecção de gás)
+- YOLOv5 
 
-## Como fazer edições no código
+## Desenvolvido por:
 
-1. Clone o repositório
-
-```bash
-git clone https://github.com/micardosofph/Portfolio_Lucas_Cardoso
-```
-
-2. Abra index.html no navegador
-
-## To Dos
-
-- Deixar 100% responsivo em todos os dispositivos
+- João Carlos de Lima
+- Maria Catarina Menegon Ferreira
+- Maria Eduarda de Páscoa Carneiro
 
