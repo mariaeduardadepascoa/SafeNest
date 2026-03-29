@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --azul-principal: #2B5081;
+    --preto-princial: #252525;
+    --azul-secundario: #586F8C;
+    --branco-principal: #FFFFFF;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 800;
+    --font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: var(--font-family);
+}
+
+
+.header {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    background-color: var(--branco-principal);
+    border: 1px solid #D2D2D2;
+    top: 0;
+    left: 0;  
+    width: 100%;
+    height: 5rem;
+    
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.9rem;
+    font-family: var(--font-family);
+}
+
+.header img {
+    height: 10rem;
+}
+
+.header a {
+    text-decoration: none;
+    color: var(--azul-principal);
+    font-weight: var(--font-weight-medium);
+}
+
+#links-header {
+    display: flex;
+    gap: 2rem;
+}
+
+.header button {
+    font-size: 1rem;
+    border: none;
+}
+
+#buttons-header {
+    display: flex;
+    gap: 2rem;
+}
+
+.header #button-login-header {
+    background-color: var(--branco-principal);
+    color: var(--azul-principal);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family);
+}
+
+.header #buttons-cadastro {
+    width: 10rem;
+}
+
+#buttons-cadastro {
+    background-color: var(--azul-principal);
+    border-radius: 0.6rem;
+    color: var(--branco-principal);
+    height: 3rem;
+    border: none;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-bold);
+}
+
+.inicial-page {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.inicial-page .conjuntoDivsInicio {
+    padding-left: 10rem;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.conjuntoDivsInicio #titulo-inicial-page {
+    font-weight: var(--font-weight-bold);
+    color: var(--preto-princial);
+    font-size: 5rem;
+}
+#titulo-inicial-page span {
+    color: var(--azul-principal);
+}
+
+#subtitulo-inicial-page {
+    font-weight: var(--font-weight-medium);
+    color: var(--azul-secundario);
+    font-size: 1.2rem;
+}
+
+.buttonsInicialPage {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.buttonsInicialPage #buttons-cadastro {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.1rem;
+    height: 8vh;
+    gap: 1.5rem;
+    width: 15vw;    
+}
+
+.buttonsInicialPage #buttons-cadastro img {
+    height: 50%;
+}
+
+.buttonsInicialPage #button-como-funciona {
+    height: 8vh;
+    color: var(--azul-principal);
+    background-color: var(--branco-principal);
+    border: 1px solid var(--azul-principal);
+    border-radius: 0.6rem;
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family);
+    width: 15vw; 
+}
+section {
+    display: flex;
+}
