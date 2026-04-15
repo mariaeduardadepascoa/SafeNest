@@ -20,6 +20,13 @@
 - Sensor MQ2 (detecção de gás)
 - YOLOv5 
 
+## Como executar
+
+1. Clone o repositório
+```bash
+git clone https://github.com/mariaeduardadepascoa/SafeNest.git
+```
+
 ## Desenvolvido por:
 
 - João Carlos de Lima
