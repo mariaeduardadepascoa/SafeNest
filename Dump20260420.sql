@@ -50,6 +50,22 @@ CREATE TABLE `alertas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `contatos_emergencia`
+--
+
+DROP TABLE IF EXISTS `contatos_emergencia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contatos_emergencia` (
+  `id_contato` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `nome_contato` varchar(30) NOT NULL,
+  `tel_contato` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_contato`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `nfc_tags`
 --
 
@@ -89,8 +105,8 @@ DROP TABLE IF EXISTS `sensor`;
 CREATE TABLE `sensor` (
   `id_sensor` int NOT NULL AUTO_INCREMENT,
   `id_porta` int NOT NULL,
-  `tipo_sensor` enum('_','FUMAÇA') DEFAULT NULL,
-  `det_datahota` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tipo_sensor` enum('VIBRAÇÃO','FUMAÇA') NOT NULL,
+  `data_hora` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_sensor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -121,4 +137,4 @@ CREATE TABLE `usuario` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-20 13:17:28
+-- Dump completed on 2026-04-20 14:17:37
