@@ -21,8 +21,13 @@
 - YOLOv5 
 
 ## Desenvolvido por:
+- João Carlos de Lima (https://github.com/joaocarlos-lima)
+- Maria Catarina Menegon Ferreira (https://github.com/MaryCat2025)
+- Maria Eduarda de Páscoa Carneiro (https://github.com/mariaeduardadepascoa)
 
-- João Carlos de Lima
-- Maria Catarina Menegon Ferreira
-- Maria Eduarda de Páscoa Carneiro
-
+## Como executar o site:
+1. Clone o repositório:
+```bash
+git clone https://github.com/mariaeduardadepascoa/SafeNest
+```
+2. Abra o index.html no navegador.
