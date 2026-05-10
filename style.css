@@ -5,6 +5,7 @@
     --preto-princial: #252525;
     --azul-secundario: #586F8C;
     --branco-principal: #FFFFFF;
+    --azul-terciario: #F7FAFF;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 800;
@@ -17,8 +18,33 @@ body {
     height: 100vh;
     width: 100vw;
     font-family: var(--font-family);
+    overflow-x: hidden;
 }
 
+section {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+/* BARRA VERTICAL DE ROLAGEM E HEADER */
+::-webkit-scrollbar { /* largura da barra */
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track { /* fundo da barra */
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb { /* parte que se mexe */
+  background: #dadada;
+  border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--azul-principal);
+}
 
 .header {
     display: flex;
@@ -30,6 +56,7 @@ body {
     left: 0;  
     width: 100%;
     height: 5rem;
+    z-index: 2;
     
     justify-content: space-around;
     align-items: center;
@@ -75,7 +102,7 @@ body {
 
 #buttons-cadastro {
     background-color: var(--azul-principal);
-    border-radius: 0.6rem;
+    border-radius: 1rem;
     color: var(--branco-principal);
     height: 3rem;
     border: none;
@@ -83,35 +110,46 @@ body {
     font-weight: var(--font-weight-bold);
 }
 
+/* SEÇÃO INICIAL */
 .inicial-page {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .inicial-page .conjuntoDivsInicio {
-    padding-left: 10rem;
-    width: 35%;
+    margin-left: 10rem;
+    width: 50vw;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+    z-index: 1;
 }
 
-.conjuntoDivsInicio #titulo-inicial-page {
+.inicial-page .inicialPage-imagem {
+    width: 50vw;
+    height: 60vh;
+    background-color: #898989;
+    position: absolute;
+    right: 0;
+    z-index: 0;
+}
+
+#titulo-inicial-page h1 {
+    margin: 0;
+    padding: 0;
     font-weight: var(--font-weight-bold);
     color: var(--preto-princial);
-    font-size: 5rem;
+    font-size: 4.5rem;
 }
+
 #titulo-inicial-page span {
     color: var(--azul-principal);
 }
 
-#subtitulo-inicial-page {
-    font-weight: var(--font-weight-medium);
-    color: var(--azul-secundario);
+#subtitulo-inicial-page h3 {
+    font-weight: var(--font-weight-regular);
+    color: var(--preto-princial);
     font-size: 1.2rem;
 }
 
@@ -141,11 +179,84 @@ body {
     color: var(--azul-principal);
     background-color: var(--branco-principal);
     border: 1px solid var(--azul-principal);
-    border-radius: 0.6rem;
+    border-radius: 1rem;  
     font-weight: var(--font-weight-bold);
     font-family: var(--font-family);
     width: 15vw; 
+    font-size: 1.1rem;
 }
-section {
+
+/* SEÇÃO DE RECURSOS */
+.recursos-page {
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: flex-start; */
+    background-color: var(--azul-terciario);
+}
+
+.recursos-page .top-texts {
+    align-self: flex-start;
+    justify-self: flex-start;
+    margin: 2rem 0 0 5rem;
+}
+
+.recursos-page .top-texts h1 {
+    color: var(--azul-principal);
+}
+
+.recursos-page .top-texts h3 {
+    color: var(--preto-princial);
+    font-weight: var(--font-weight-medium);
+}
+
+.recursos-page .recursos-cards {
     display: flex;
+    align-self: center;
+    flex-direction: row;
+}
+
+.recursos-page .buttons-recursos-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-self: flex-end;
+    margin-right: 2rem;
+}
+
+.recursos-page .button-voltar, .recursos-page .button-proximo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2vw;
+    height: 2vw;
+    border-radius: 0.5rem;
+}
+
+.recursos-page .button-voltar {
+    background-color: var(--branco-principal);
+    border: 1px solid var(--azul-principal);
+}
+
+.recursos-page .button-proximo {
+    background-color: var(--azul-principal);
+}
+
+.recursos-page .recursos-cards .background {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--branco-principal);
+    height: 50vh;
+    width: 40vw;
+    border-radius: 1.5rem;
+}
+
+.recursos-page .recursos-cards .background .imagem {
+    height: 50%;
+    width: 50%;
+    background-color: #898989;
+}
+
+.recursos-page .recursos-cards .background .conjunto-texts {
+    display: flex;
+    flex-direction: column;
 }
