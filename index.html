@@ -17,7 +17,7 @@
             </div>
             <div id="buttons-header">
                 <button id="button-login-header" onclick="abrirPaginaLogin()">Entrar</button>
-                <button id="buttons-cadastro" onclick="abrirPaginaCadastro()">Cadastre-se</button>
+                <button class="buttons-cadastro" onclick="abrirPaginaCadastro()">Cadastre-se</button>
             </div>
         </header>
         <div class="conjuntoDivsInicio">
@@ -26,21 +26,21 @@
                 <h3><span>O SafeNest é o sistema de segurança residencial inteligente que monitora, alerta e protege sua família 24 horas por dia.</span></h3>
             </div>    
             <div class="buttonsInicialPage">
-                <button id="buttons-cadastro" onclick="abrirPaginaCadastro()">Começar agora<img src="imagens/External link.svg" alt="Ícone branco de link externo"></button>
+                <button class="buttons-cadastro" onclick="abrirPaginaCadastro()">Começar agora<img src="imagens/External link.svg" alt="Ícone branco de link externo"></button>
                 <button id="button-como-funciona" href="#comece-a-usar">Como funciona</button>
             </div>
         </div>
         <div class="inicialPage-imagem"></div>    
     </section>
-    <section class="recursos-page">
+    <section class="recursos-page" >
         <div class="top-texts">
             <h1>Recursos pensados no que você precisa</h1>
             <h3>Lorem ipsum dolor sit amet, consectetur</h3>
         </div>
 
         <div class="buttons-recursos-cards">
-            <div class="button-voltar"><img src="imagens/_.svg" alt="Seta para voltar"></div>
-            <div class="button-proximo"><img src="imagens/_ (1).svg" alt="Seta para avançar"></div>
+            <button type="button" class="button-voltar"><img src="imagens/_.svg" alt="Seta para voltar" onclick="mostrarCards()"></button>
+            <button type="button" class="button-proximo"><img src="imagens/_ (1).svg" alt="Seta para avançar" onclick="mostrarCards()"></button>
         </div>
 
         <div class="recursos-cards">
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <div id="alarmes">
+            <div id="alarmes" class="none">
                 <div class="background">
                     <div class="imagem"></div>
                     <div class="conjunto-texts">
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="app-mobile">
+            <div id="app-mobile" class="none">
                 <div class="background">
                     <div class="imagem"></div>
                     <div class="conjunto-texts">
@@ -91,5 +91,7 @@
     <section id="recursos"></section>
     <section id="comece-a-usar"></section>
     <section id="sobre-nos"></section>
+
+    <script src="script.js"></script>
 </body>
 </html>

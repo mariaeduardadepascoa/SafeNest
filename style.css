@@ -96,11 +96,11 @@ section {
     font-family: var(--font-family);
 }
 
-.header #buttons-cadastro {
+.header .buttons-cadastro {
     width: 10rem;
 }
 
-#buttons-cadastro {
+.buttons-cadastro {
     background-color: var(--azul-principal);
     border-radius: 1rem;
     color: var(--branco-principal);
@@ -159,7 +159,7 @@ section {
     gap: 2rem;
 }
 
-.buttonsInicialPage #buttons-cadastro {
+.buttonsInicialPage .buttons-cadastro {
     align-items: center;
     justify-content: center;
     display: flex;
@@ -170,7 +170,7 @@ section {
     width: 15vw;    
 }
 
-.buttonsInicialPage #buttons-cadastro img {
+.buttonsInicialPage .buttons-cadastro img {
     height: 50%;
 }
 
@@ -189,9 +189,10 @@ section {
 /* SEÇÃO DE RECURSOS */
 .recursos-page {
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: flex-start; */
+    justify-content: center;
+    align-items: center;
     background-color: var(--azul-terciario);
+    gap: 1rem;
 }
 
 .recursos-page .top-texts {
@@ -211,8 +212,13 @@ section {
 
 .recursos-page .recursos-cards {
     display: flex;
-    align-self: center;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 3.5rem;
+    height: 45vh;
+
 }
 
 .recursos-page .buttons-recursos-cards {
@@ -235,28 +241,51 @@ section {
 .recursos-page .button-voltar {
     background-color: var(--branco-principal);
     border: 1px solid var(--azul-principal);
+    cursor: pointer;
 }
 
 .recursos-page .button-proximo {
     background-color: var(--azul-principal);
+    border: none;
+    cursor: pointer;
 }
+
 
 .recursos-page .recursos-cards .background {
     display: flex;
     flex-direction: row;
     background-color: var(--branco-principal);
-    height: 50vh;
+    height: 40vh;
     width: 40vw;
     border-radius: 1.5rem;
+    padding: 1rem;
+
+}
+
+.recursos-page .recursos-cards .none {
+    display: none;
 }
 
 .recursos-page .recursos-cards .background .imagem {
-    height: 50%;
-    width: 50%;
+    height: 100%;
+    width: 75%;
     background-color: #898989;
+    border-radius: 1rem;
 }
 
 .recursos-page .recursos-cards .background .conjunto-texts {
     display: flex;
     flex-direction: column;
+    padding-left: 2rem;
+    gap: 3rem;
+    justify-content: center;
+}
+
+.recursos-page .recursos-cards .background .conjunto-texts .title {
+    font-weight: var(--font-weight-medium);
+    font-size: 1.5rem;
+}
+
+.recursos-page .recursos-cards .background .conjunto-texts .subtext {
+    width: 85%;
 }
