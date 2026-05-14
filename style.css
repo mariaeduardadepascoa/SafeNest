@@ -5,7 +5,10 @@
     --preto-princial: #252525;
     --azul-secundario: #586F8C;
     --branco-principal: #FFFFFF;
+    --branco-secundario: #FAFAFA;
+    --branco-terciario: #E6E6E6;
     --azul-terciario: #F7FAFF;
+    --azul-quaternario:#00439A;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 800;
@@ -289,3 +292,170 @@ section {
 .recursos-page .recursos-cards .background .conjunto-texts .subtext {
     width: 85%;
 }
+
+/*pagina de sobre nós*/
+
+.main-sobrenos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    margin-top: 10rem;
+
+}
+
+.titulo-bolha-introducao{
+    background-color: #E2EFFF;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-family: var(--font-family);
+    color: var(--azul-principal);
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.sectionSobreNos{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+}
+
+.texto-subtitulo{
+    font-family: var(--font-family);
+    color: var(--azul-principal);
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.texto-center{
+    text-align: center;
+    width: 90%;
+}
+
+.texto-geral{
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-medium);
+}
+
+.sobrenos-texto{
+    color: #656565;
+    font-size: 1.5rem;
+}
+
+.comparacao-texto{
+    font-size: 1.2rem;
+    color: #464646;
+    width: 70%;
+    margin-left: 1.5rem;
+    margin-top:0.4rem;
+    margin-bottom: 0.4rem;
+
+}
+
+.sobrenos-coteiner-imagem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-SobreNos{
+    width: 270px;
+    height: 270px;
+    margin-left: 10vw;
+    border-radius: 2rem;
+    box-shadow: 0 5px 40px #ABD0FF;
+    padding: 0.5rem;
+}
+.comparacao-section{
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    width: 90%;
+}
+.section-PorqueSafeNest{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 2rem;
+    
+}
+
+.comparacao-subtitulo-bolha{
+    font-family: var(--font-family);
+    font-size: 20px;
+    font-weight: var(--font-weight-medium);
+    border: 3px solid;
+    position: absolute;
+    border-radius: 2rem;
+    padding: 0.5rem;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.comparacao-subtitulo-bolha-branco{
+     color: var(--preto-princial);
+    background-color: var(--branco-secundario);
+    border-color: var( --branco-terciario);
+
+}
+
+.comparacao-subtitulo-bolha-azul{
+    color: var(--branco-secundario);
+    background-color: var(--azul-quaternario);
+    border: 3px solid var(--azul-quaternario);
+}
+
+.comparacao-conteiner{
+    border-radius: 2rem;
+    border: 4px solid;
+    position: relative;
+    height: fit-content;
+
+}
+.comparacao-conteiner-branco{
+    background-color: var(--branco-secundario);
+    border-color: var( --branco-terciario);
+}
+.comparacao-conteiner-azul{
+    background-color:var(--branco-secundario);
+    color: var(--azul-quaternario);
+     border-color:var(--azul-quaternario);
+
+    box-shadow: 0px 0px 6px var(--azul-quaternario);
+}
+
+.comparacao-conteiner-linha{
+    display: flex;
+    flex-direction: row;
+    margin: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comparacao-conteiner-bola{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 500rem;
+    width: 50px;
+    height: 50px;
+    margin-right: 2rem;
+    
+}
+.comparacao-conteiner-bola-azul{
+    background-color: #00439A50;
+}
+.comparacao-conteiner-bola-branco{
+    background-color: var(--branco-terciario);
+}
+
+
