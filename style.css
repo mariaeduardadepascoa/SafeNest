@@ -490,43 +490,43 @@ section {
 }
 .login-titulo{
     font-family: var( --font-family);
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     color: #000000;
     margin: 0;
 }
 .login-subtitulo{
     font-family: var( --font-family);
-    font-size: 13px;
+    font-size: 20px;
     font-weight: var(--font-weight-regular);
     color: #848484;
 }
 .login-label{
     font-family: var( --font-family);
-    font-size: 13px;
+    font-size: 20px;
     font-weight: var(--font-weight-regular);
     color: #474747;
     margin-top: 0.5rem;
 }
 .login-icon-email{
     position: absolute;
-    margin-top: 28px;
-    margin-left: 19rem;
+    margin-top: 36px;
+    margin-left: 23rem;
 }
 .login-icon-senha{
     position: absolute;
-    margin-top: 5.15rem;
-    margin-left: 19rem;
+    margin-top: 7.3rem;
+    margin-left: 23rem;
     cursor: pointer;
 }
 .login-input{
     position: relative;
     font-family: var( --font-family);
-    font-size: 15px;
+    font-size: 20px;
     font-weight: var(--font-weight-regular);
     border: 2px solid #CDCDCD;
-    height: 1.5rem;
-    width: 20rem;
+    height: 2.5rem;
+    width: 25rem;
     border-radius: 10px;
     padding-left: 0.5rem;
     color: #757575;
@@ -540,11 +540,11 @@ section {
 }
 .login-botao{
     font-family: var( --font-family);
-    font-size: 20px;
+    font-size: 30px;
     background: linear-gradient(326deg, #3c74be 0%, #0d4b9b 52%, #012656 100%);
     color: #FFFFFF;
-    width: 20rem;
-    height: 2rem;
+    width: 25rem;
+    height: 4rem;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -562,11 +562,11 @@ section {
 }
 .login-textinhoTroca{
     font-family: var( --font-family);
-    font-size: 14px;
+    font-size: 18px;
 }
 .login-trocaPag{
     font-family: var( --font-family);
     color: #2B5081;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 18px;
 }
