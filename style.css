@@ -97,10 +97,12 @@ section {
     color: var(--azul-principal);
     font-weight: var(--font-weight-bold);
     font-family: var(--font-family);
+    cursor: pointer;
 }
 
 .header .buttons-cadastro {
     width: 10rem;
+    cursor: pointer;
 }
 
 .buttons-cadastro {
@@ -459,3 +461,112 @@ section {
 }
 
 
+
+/*pagina entrar e cadastro*/
+ 
+.login-main{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.ladoImg{
+    height: 95vh;
+    width: 50vw;
+    background-color: #D2D2D2;
+    border-radius: 20px;
+    margin-top: 3rem;
+    margin-left: 1rem;
+}
+.ladoConteudo{
+    width: 50%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
+    margin-top: 7rem;
+}
+.login-titulo{
+    font-family: var( --font-family);
+    font-size: 30px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+}
+.login-subtitulo{
+    font-family: var( --font-family);
+    font-size: 13px;
+    font-weight: var(--font-weight-regular);
+    color: #848484;
+}
+.login-label{
+    font-family: var( --font-family);
+    font-size: 13px;
+    font-weight: var(--font-weight-regular);
+    color: #474747;
+    margin-top: 0.5rem;
+}
+.login-icon-email{
+    position: absolute;
+    margin-top: 28px;
+    margin-left: 19rem;
+}
+.login-icon-senha{
+    position: absolute;
+    margin-top: 5.15rem;
+    margin-left: 19rem;
+    cursor: pointer;
+}
+.login-input{
+    position: relative;
+    font-family: var( --font-family);
+    font-size: 15px;
+    font-weight: var(--font-weight-regular);
+    border: 2px solid #CDCDCD;
+    height: 1.5rem;
+    width: 20rem;
+    border-radius: 10px;
+    padding-left: 0.5rem;
+    color: #757575;
+}
+
+.login-input:focus{
+    outline: none;
+    border-color:  #2B5081;
+    box-shadow: 0px 0px 10px #2B5081;
+    transition: box-shadow 1s;
+}
+.login-botao{
+    font-family: var( --font-family);
+    font-size: 20px;
+    background: linear-gradient(326deg, #3c74be 0%, #0d4b9b 52%, #012656 100%);
+    color: #FFFFFF;
+    width: 20rem;
+    height: 2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 0.55rem;
+    margin-top: 1rem;
+}
+.login-botao:hover{
+    background: linear-gradient(326deg, #2b558c 0%, #0a2d5c 52%, #011d42 100%);
+}
+
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+}
+.login-textinhoTroca{
+    font-family: var( --font-family);
+    font-size: 14px;
+}
+.login-trocaPag{
+    font-family: var( --font-family);
+    color: #2B5081;
+    cursor: pointer;
+    font-size: 14px;
+}

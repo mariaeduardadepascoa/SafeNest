@@ -53,3 +53,21 @@ function mostrarCards() {
     });
     
 }
+
+
+
+//entrar e cadastro
+
+function alterarVisibilidade(){
+    campo = document.getElementById('senha');
+    olho = document.getElementById('olho');
+    if(campo.type === 'password'){
+        campo.type = "text";
+        campo.placeholder = "Senha123#"
+        olho.src = "imagens/olhoAberto.svg";
+    }else if(campo.type === 'text'){
+        campo.type = "password";
+        campo.placeholder = "••••••••"
+        olho.src = "imagens/olhoFechado.svg";
+    }
+}
