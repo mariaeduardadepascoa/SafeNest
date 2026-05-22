@@ -92,7 +92,7 @@ section {
     gap: 2rem;
 }
 
-.header #button-login-header {
+.header #button-loginEcadastro-header {
     background-color: var(--branco-principal);
     color: var(--azul-principal);
     font-weight: var(--font-weight-bold);
@@ -463,8 +463,14 @@ section {
 
 
 /*pagina entrar e cadastro*/
- 
-.login-main{
+.loginEcadastro-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+
+.loginEcadastro-main{
     width: 90%;
     height: 90%;
     display: flex;
@@ -473,7 +479,7 @@ section {
     align-items: center;
 }
 .ladoImg{
-    height: 95vh;
+    height: 80vh;
     width: 50vw;
     background-color: #D2D2D2;
     border-radius: 20px;
@@ -488,41 +494,47 @@ section {
     margin-left: 3rem;
     margin-top: 7rem;
 }
-.login-titulo{
+.loginEcadastro-titulo{
     font-family: var( --font-family);
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
     color: #000000;
     margin: 0;
 }
-.login-subtitulo{
+.loginEcadastro-subtitulo{
     font-family: var( --font-family);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: var(--font-weight-regular);
     color: #848484;
 }
-.login-label{
+.loginEcadastro-label{
     font-family: var( --font-family);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: var(--font-weight-regular);
     color: #474747;
     margin-top: 0.5rem;
 }
-.login-icon-email{
+.loginEcadastro-icon-email{
     position: absolute;
     margin-top: 36px;
-    margin-left: 23rem;
+    margin-left: 23.6rem;
 }
-.login-icon-senha{
+.loginEcadastro-icon-senha{
     position: absolute;
     margin-top: 7.3rem;
-    margin-left: 23rem;
+    margin-left: 23.6rem;
     cursor: pointer;
 }
-.login-input{
+.loginEcadastro-icon-confirmarSenha{
+    position: absolute;
+    margin-top: 12rem;
+    margin-left: 23.6rem;
+    cursor: pointer;
+}
+.loginEcadastro-input{
     position: relative;
     font-family: var( --font-family);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: var(--font-weight-regular);
     border: 2px solid #CDCDCD;
     height: 2.5rem;
@@ -532,41 +544,47 @@ section {
     color: #757575;
 }
 
-.login-input:focus{
+.loginEcadastro-input:focus{
     outline: none;
     border-color:  #2B5081;
     box-shadow: 0px 0px 10px #2B5081;
     transition: box-shadow 1s;
 }
-.login-botao{
+.loginEcadastro-centralizar-botaoLoginEcadastro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    margin-top: 1rem;
+}
+.loginEcadastro-botao{
     font-family: var( --font-family);
-    font-size: 30px;
+    font-size: 25px;
     background: linear-gradient(326deg, #3c74be 0%, #0d4b9b 52%, #012656 100%);
     color: #FFFFFF;
-    width: 25rem;
-    height: 4rem;
+    width: 20rem;
+    height: 3.7rem;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin-left: 0.55rem;
-    margin-top: 1rem;
+    
 }
-.login-botao:hover{
+.loginEcadastro-botao:hover{
     background: linear-gradient(326deg, #2b558c 0%, #0a2d5c 52%, #011d42 100%);
 }
 
 
-.login-form{
+.loginEcadastro-form{
     display: flex;
     flex-direction: column;
 }
-.login-textinhoTroca{
+.loginEcadastro-textinhoTroca{
     font-family: var( --font-family);
-    font-size: 18px;
+    font-size: 16px;
 }
-.login-trocaPag{
+.loginEcadastro-trocaPag{
     font-family: var( --font-family);
     color: #2B5081;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
 }

@@ -58,9 +58,9 @@ function mostrarCards() {
 
 //entrar e cadastro
 
-function alterarVisibilidade(){
-    campo = document.getElementById('senha');
-    olho = document.getElementById('olho');
+function alterarVisibilidade(idOlho,idCampo){
+    campo = document.getElementById(idCampo);
+    olho = document.getElementById(idOlho);
     if(campo.type === 'password'){
         campo.type = "text";
         campo.placeholder = "Senha123#"
