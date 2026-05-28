@@ -588,3 +588,23 @@ section {
     cursor: pointer;
     font-size: 16px;
 }
+
+/* Seção de Comece a usar */
+#comece-a-usar {
+    background-color: var( --azul-terciario);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.passo-a-passo{
+    font-family: var( --font-family);
+    color: #2B5081;
+    font-size: 16px;
+    text-align: center;
+}
+
+.circulo{
+    width: 10px;
+    border-radius: 20px;
+    background-color: var( --preto-princial);
+}
