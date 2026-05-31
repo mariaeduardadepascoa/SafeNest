@@ -589,22 +589,138 @@ section {
     font-size: 16px;
 }
 
+
 /* Seção de Comece a usar */
 #comece-a-usar {
     background-color: var( --azul-terciario);
     display: flex;
+    align-items: self-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.comecar-text{
+    flex-direction: column;
+    display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 .passo-a-passo{
     font-family: var( --font-family);
-    color: #2B5081;
-    font-size: 16px;
+    color: var( --branco-principal);
+    font-size: 18px;
+    font-weight: normal;
     text-align: center;
 }
 
 .circulo{
-    width: 10px;
-    border-radius: 20px;
-    background-color: var( --preto-princial);
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    background-color: var( --azul-principal);
+}
+
+.seguranca{
+    color: var( --azul-principal);
+    font-size: 45px;
+}
+
+.comece-a-usar-imagem{
+    border-radius: 1.5rem;
+    width: 30vw;
+    height: 70vh;
+    background-color: #898989;
+    position: absolute;
+    right: 0;
+    margin: auto;
+    top: 185px;
+    right: 150px;
+}
+
+.retangulo{
+    background-color: var( --azul-principal);
+    width: 30rem;
+    height: 8.5rem;
+    border-radius: 1.5rem;
+    display: flex;
+    margin: auto;
+    margin-left: 6rem;
+}
+
+.number{
+    position: absolute;
+    top: 210px;
+    left: 125px;
+    font-size: 1.3rem;
+    color: var(--branco-principal);
+}
+
+.retangulo-title{
+    position: absolute;
+    top: 210px;
+    left: 165px;
+    font-size: 1.3rem;
+    color: var(--branco-principal);
+}
+
+.retangulo-subtitle{
+    position: absolute;
+    top: 245px;
+    left: 165px;
+    width: 16rem;
+    color: var(--branco-principal);
+    font-size: 1rem;
+}
+
+
+.number-two{
+    position: absolute;
+    top: 360px;
+    left: 125px;
+    font-size: 1.3rem;
+    color: var(--branco-principal);
+}
+
+.retangulo-title-two{
+    position: absolute;
+    top: 360px;
+    left: 165px;
+    font-size: 1.3rem;
+    color: var(--branco-principal);
+}
+
+.retangulo-subtitle-two{
+    position: absolute;
+    top: 395px;
+    left: 165px;
+    width: 16rem;
+    color: var(--branco-principal);
+    font-size: 1rem;
+}
+
+.number-three{
+    position: absolute;
+    top: 515px;
+    left: 125px;
+    font-size: 1.3rem;
+    color: var(--branco-principal);
+}
+
+.retangulo-title-three{
+    position: absolute;
+    top: 515px;
+    left: 165px;
+    font-size: 1.3rem;
+    color: var(--branco-principal);
+}
+
+.retangulo-subtitle-three{
+    position: absolute;
+    top: 550px;
+    left: 165px;
+    width: 16rem;
+    color: var(--branco-principal);
+    font-size: 1rem;
 }
