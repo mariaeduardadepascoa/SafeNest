@@ -71,3 +71,37 @@ function alterarVisibilidade(idOlho,idCampo){
         olho.src = "imagens/olhoFechado.svg";
     }
 }
+
+
+
+
+//comece a usar
+const cards = document.querySelectorAll(".card");
+
+cards.forEach(card => {
+
+    card.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        const aberto = card.classList.contains("ativo");
+
+        cards.forEach(c => {
+            c.classList.remove("ativo");
+        });
+
+        if (!aberto) {
+            card.classList.add("ativo");
+        }
+
+    });
+
+});
+
+document.addEventListener("click", () => {
+
+    cards.forEach(card => {
+        card.classList.remove("ativo");
+    });
+
+});
