@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="SafeNest icon" href="imagens/SafeNest.ico" type="image/x-icon">
     <title>SafeNest</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <section class="inicial-page">
         <header class="header">
@@ -17,30 +20,36 @@
             </div>
             <div id="buttons-header">
                 <button id="button-login-header" onclick="location.href ='entrar.html'">Entrar</button>
-                <button class="buttons-cadastro" onclick="abrirPaginaCadastro()">Cadastre-se</button>
+                <button class="buttons-cadastro" onclick="location.href ='cadastrar.html'">Cadastre-se</button>
             </div>
         </header>
         <div class="conjuntoDivsInicio">
-            <div id="titulo-inicial-page"><h1>Sua casa, <span>protegida.</span></h1></div>
+            <div id="titulo-inicial-page">
+                <h1>Sua casa, <span>protegida.</span></h1>
+            </div>
             <div id="subtitulo-inicial-page">
-                <h3><span>O SafeNest é o sistema de segurança residencial inteligente que monitora, alerta e protege sua família 24 horas por dia.</span></h3>
-            </div>    
+                <h3><span>O SafeNest é o sistema de segurança residencial inteligente que monitora, alerta e protege sua
+                        família 24 horas por dia.</span></h3>
+            </div>
             <div class="buttonsInicialPage">
-                <button class="buttons-cadastro" onclick="abrirPaginaCadastro()">Começar agora<img src="imagens/External link.svg" alt="Ícone branco de link externo"></button>
+                <button class="buttons-cadastro" onclick="abrirPaginaCadastro()">Começar agora<img
+                        src="imagens/External link.svg" alt="Ícone branco de link externo"></button>
                 <button id="button-como-funciona" href="#comece-a-usar">Como funciona</button>
             </div>
         </div>
-        <div class="inicialPage-imagem"></div>    
+        <div class="inicialPage-imagem"></div>
     </section>
-    <section class="recursos-page" >
+    <section class="recursos-page">
         <div class="top-texts">
             <h1>Recursos pensados no que você precisa</h1>
             <h3>Lorem ipsum dolor sit amet, consectetur</h3>
         </div>
 
         <div class="buttons-recursos-cards">
-            <button type="button" class="button-voltar"><img src="imagens/_.svg" alt="Seta para voltar" onclick="mostrarCards()"></button>
-            <button type="button" class="button-proximo"><img src="imagens/_ (1).svg" alt="Seta para avançar" onclick="mostrarCards()"></button>
+            <button type="button" class="button-voltar"><img src="imagens/_.svg" alt="Seta para voltar"
+                    onclick="mostrarCards()"></button>
+            <button type="button" class="button-proximo"><img src="imagens/_ (1).svg" alt="Seta para avançar"
+                    onclick="mostrarCards()"></button>
         </div>
 
         <div class="recursos-cards">
@@ -50,17 +59,19 @@
                     <div class="imagem"></div>
                     <div class="conjunto-texts">
                         <div class="title"><span>Fechadura</span></div>
-                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
+                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
                     </div>
                 </div>
             </div>
-            
+
             <div id="camera">
                 <div class="background">
                     <div class="imagem"></div>
                     <div class="conjunto-texts">
                         <div class="title"><span>Câmera</span></div>
-                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
+                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
                     </div>
                 </div>
             </div>
@@ -70,7 +81,8 @@
                     <div class="imagem"></div>
                     <div class="conjunto-texts">
                         <div class="title"><span>Alarmes</span></div>
-                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
+                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
                     </div>
                 </div>
             </div>
@@ -80,7 +92,8 @@
                     <div class="imagem"></div>
                     <div class="conjunto-texts">
                         <div class="title"><span>App Mobile</span></div>
-                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
+                        <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
                     </div>
                 </div>
             </div>
@@ -88,10 +101,68 @@
         </div>
     </section>
 
-    <section id="recursos"></section>
-    <section id="comece-a-usar"></section>
-    <section id="sobre-nos"></section>
+    <section id="comece-a-usar">
+        <div class="comece-a-usar-imagem"></div>
+        <div class="comecar-text">
+            <div class="circulo">
+                <h1 class="passo-a-passo">PASSO A PASSO</h1>
+            </div>
+            <h1 class="seguranca">Segurança sem complicações</h1>
+        </div>
+        <div class="passos">
 
+    <div class="card ativo">
+        <div class="cabecalho">
+            <span>1</span>
+            <h3>Instale os sensores</h3>
+        </div>
+
+        <div class="conteudo">
+            <p>
+                Coloque os sensores nas portas, 
+                janelas e outras áreas de sua preferência em sua casa.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="cabecalho">
+            <span>2</span>
+            <h3>Se conecte ao App</h3>
+        </div>
+
+        <div class="conteudo">
+            <p>
+                Entre no aplicativo do SafeNest e 
+                logue na sua conta para acompanhar tudo que 
+                acontece dentro e fora de sua casa.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="cabecalho">
+            <span>3</span>
+            <h3>Fique protegido</h3>
+        </div>
+
+        <div class="conteudo">
+            <p>
+                Receba alertas em tempo real, acesse gravações salvas e 
+                gerencie tudo pelo celular, de qualquer lugar e a hora que quiser.
+            </p>
+        </div>
+    </div>
+
+</div>
+      
+
+
+
+
+    </section>
+    <section id="sobre-nos"></section>
     <script src="script.js"></script>
 </body>
+
 </html>

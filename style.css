@@ -2,7 +2,7 @@
 
 :root {
     --azul-principal: #2B5081;
-    --preto-princial: #252525;
+    --preto-principal: #252525;
     --azul-secundario: #586F8C;
     --branco-principal: #FFFFFF;
     --branco-secundario: #FAFAFA;
@@ -92,7 +92,7 @@ section {
     gap: 2rem;
 }
 
-.header #button-login-header {
+.header #button-loginEcadastro-header {
     background-color: var(--branco-principal);
     color: var(--azul-principal);
     font-weight: var(--font-weight-bold);
@@ -144,7 +144,7 @@ section {
     margin: 0;
     padding: 0;
     font-weight: var(--font-weight-bold);
-    color: var(--preto-princial);
+    color: var(--preto-principal);
     font-size: 4.5rem;
 }
 
@@ -154,7 +154,7 @@ section {
 
 #subtitulo-inicial-page h3 {
     font-weight: var(--font-weight-regular);
-    color: var(--preto-princial);
+    color: var(--preto-principal);
     font-size: 1.2rem;
 }
 
@@ -211,7 +211,7 @@ section {
 }
 
 .recursos-page .top-texts h3 {
-    color: var(--preto-princial);
+    color: var(--preto-principal);
     font-weight: var(--font-weight-medium);
 }
 
@@ -404,7 +404,7 @@ section {
     transform: translateX(-50%);
 }
 .comparacao-subtitulo-bolha-branco{
-     color: var(--preto-princial);
+     color: var(--preto-principal);
     background-color: var(--branco-secundario);
     border-color: var( --branco-terciario);
 
@@ -463,8 +463,14 @@ section {
 
 
 /*pagina entrar e cadastro*/
- 
-.login-main{
+.loginEcadastro-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+
+.loginEcadastro-main{
     width: 90%;
     height: 90%;
     display: flex;
@@ -473,7 +479,7 @@ section {
     align-items: center;
 }
 .ladoImg{
-    height: 95vh;
+    height: 80vh;
     width: 50vw;
     background-color: #D2D2D2;
     border-radius: 20px;
@@ -488,41 +494,47 @@ section {
     margin-left: 3rem;
     margin-top: 7rem;
 }
-.login-titulo{
+.loginEcadastro-titulo{
     font-family: var( --font-family);
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
     color: #000000;
     margin: 0;
 }
-.login-subtitulo{
+.loginEcadastro-subtitulo{
     font-family: var( --font-family);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: var(--font-weight-regular);
     color: #848484;
 }
-.login-label{
+.loginEcadastro-label{
     font-family: var( --font-family);
-    font-size: 20px;
+    font-size: 19px;
     font-weight: var(--font-weight-regular);
     color: #474747;
     margin-top: 0.5rem;
 }
-.login-icon-email{
+.loginEcadastro-icon-email{
     position: absolute;
     margin-top: 36px;
-    margin-left: 23rem;
+    margin-left: 23.6rem;
 }
-.login-icon-senha{
+.loginEcadastro-icon-senha{
     position: absolute;
     margin-top: 7.3rem;
-    margin-left: 23rem;
+    margin-left: 23.6rem;
     cursor: pointer;
 }
-.login-input{
+.loginEcadastro-icon-confirmarSenha{
+    position: absolute;
+    margin-top: 12rem;
+    margin-left: 23.6rem;
+    cursor: pointer;
+}
+.loginEcadastro-input{
     position: relative;
     font-family: var( --font-family);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: var(--font-weight-regular);
     border: 2px solid #CDCDCD;
     height: 2.5rem;
@@ -532,41 +544,155 @@ section {
     color: #757575;
 }
 
-.login-input:focus{
+.loginEcadastro-input:focus{
     outline: none;
     border-color:  #2B5081;
     box-shadow: 0px 0px 10px #2B5081;
     transition: box-shadow 1s;
 }
-.login-botao{
+.loginEcadastro-centralizar-botaoLoginEcadastro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    margin-top: 1rem;
+}
+.loginEcadastro-botao{
     font-family: var( --font-family);
-    font-size: 30px;
+    font-size: 25px;
     background: linear-gradient(326deg, #3c74be 0%, #0d4b9b 52%, #012656 100%);
     color: #FFFFFF;
-    width: 25rem;
-    height: 4rem;
+    width: 20rem;
+    height: 3.7rem;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin-left: 0.55rem;
-    margin-top: 1rem;
+    
 }
-.login-botao:hover{
+.loginEcadastro-botao:hover{
     background: linear-gradient(326deg, #2b558c 0%, #0a2d5c 52%, #011d42 100%);
 }
 
 
-.login-form{
+.loginEcadastro-form{
     display: flex;
     flex-direction: column;
 }
-.login-textinhoTroca{
+.loginEcadastro-textinhoTroca{
     font-family: var( --font-family);
-    font-size: 18px;
+    font-size: 16px;
 }
-.login-trocaPag{
+.loginEcadastro-trocaPag{
     font-family: var( --font-family);
     color: #2B5081;
     cursor: pointer;
+    font-size: 16px;
+}
+
+
+/* Seção de Comece a usar */
+#comece-a-usar {
+    background-color: var( --azul-terciario);
+    display: flex;
+    align-items: self-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.comecar-text{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.passo-a-passo{
+    font-family: var( --font-family);
+    color: var( --branco-principal);
     font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.circulo{
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    background-color: var( --azul-principal);
+}
+
+.seguranca{
+    color: var( --azul-principal);
+    font-size: 45px;
+}
+
+.comece-a-usar-imagem{
+    border-radius: 1.5rem;
+    width: 30vw;
+    height: 70vh;
+    background-color: #898989;
+    position: absolute;
+    right: 0;
+    margin: auto;
+    top: 185px;
+    right: 150px;
+}
+
+.passos{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    width:35rem;
+    margin-right: 35rem;
+    margin-top: 2.5rem;
+    gap: 2rem;
+}
+
+.card{
+    background:var(--branco-principal);
+    border-radius:25px;
+    padding:25px;
+    cursor:pointer;
+    transition:0.3s;
+
+}
+
+.cabecalho{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.cabecalho span{
+    font-size:32px;
+    font-family: var(--font-family);
+}
+
+.cabecalho h3{
+    margin:0;
+    font-family: var(--font-family);
+}
+
+.conteudo{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:all .4s ease;
+}
+
+.card.ativo{
+    background:linear-gradient(
+        90deg,
+        var(--azul-quaternario),
+        var(--azul-secundario)
+    );
+    color:white;
+}
+
+.card.ativo .conteudo{
+    max-height:200px;
+    opacity:1;
+    margin-top:20px;
 }
