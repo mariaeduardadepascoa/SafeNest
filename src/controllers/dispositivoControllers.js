@@ -1,4 +1,4 @@
-// dados do esp e yolo
+//DADOS DO ESP E YOLO
 
 const tagsAutorizadas = [
     {
@@ -10,29 +10,32 @@ const tagsAutorizadas = [
 exports.verificarTag = (req, res) => {
     const { tagId } = req.body; // esp envia o ID da tag lida
 
-    if (tagsAutorizadas.includes(tagId)) {
+    const tagEncontrada = tagsAutorizadas.find(t => t.tag === tagId);
+    if (tagEncontrada) {
         return res.status(200).json({ autorizado: true, mensagem: "Acesso liberado!" });
     } else {
         return res.status(403).json({ autorizado: false, mensagem: "Tag não autorizada!" });
     }
 };
 
+
 // esp vai chamar essa função se detecatr vibracao (arrombamento)
 exports.receberVibracao = (req, res) => {
 
     console.log("Alerta de vibração recebido do ESP");
-    
+
 
     //função de enviar e-mail/notificação
-    function notificacao () {
+    function notificacao() {
 
     }
 
-    return res.status(201).json({ 
-        alarme_disparado: true, 
-        mensagem: "Alerta de possível invasão processado" 
+    return res.status(201).json({
+        alarme_disparado: true,
+        mensagem: "Alerta de possível invasão processado"
     });
 };
+
 
 // esp vai chamar essa função se detecatr fumaça ou gas
 exports.receberIncendio = (req, res) => {
@@ -44,5 +47,5 @@ exports.receberIncendio = (req, res) => {
         return res.status(201).json({ alarme_disparado: true, mensagem: "Fumaça/Gás detectado! Alerta enviado." });
     }
 
-    return res.status(200).json({ alarme_disparado: false, mensagem: "Níveis de gás normais." }); //nivel de gas normal
+    return res.status(200).json({ alarme_disparado: false, mensagem: "Níveis de gás normais." });
 };

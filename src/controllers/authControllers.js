@@ -1,4 +1,4 @@
-// usuarios
+//USUÁRIOS
 
 const usuarios = [
     {
@@ -13,9 +13,9 @@ const usuarios = [
 
 // LOGIN
 exports.login = (req, res) => {
-    const { email, senha } = req.body;
+    const { email, senha } = req.body; //pga so email e senha
 
-    const usuarioEncontrado = usuarios.find(u => u.email === email && u.senha === senha); //procura se ja existe no banco
+    const usuarioEncontrado = usuarios.find(u => u.email === email && u.senha === senha); //procura se ja existe no banco -> devolve o primeiro achado
 
     if (!usuarioEncontrado) {
         return res.status(401).json({ erro: "E-mail ou senha incorretos" });

@@ -1,4 +1,4 @@
-// dados do app e site para a visualizaçã do usuario
+//DADOS DO APP E SITE PARA A VISU DO USUARIO
 
 const historico = [
     { //ficticio
@@ -11,7 +11,7 @@ const historico = [
 exports.obterHistorico = (req, res) => {
     try {
         // No futuro: const data = await supabase.from...
-        return res.status(200).json(historicoMock);
+        return res.status(200).json(historico);
     } catch (error) {
         return res.status(500).json({ erro: "Erro ao buscar histórico" });
     }
