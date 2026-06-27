@@ -15,6 +15,10 @@
     --font-family: 'Roboto', sans-serif;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -215,7 +219,7 @@ section {
     font-weight: var(--font-weight-medium);
 }
 
-.recursos-page .recursos-cards {
+.recursos-page  .recursos-cards {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -225,7 +229,12 @@ section {
     height: 45vh;
 
 }
-
+.recursos-page .container-recursos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .recursos-page .buttons-recursos-cards {
     display: flex;
     flex-direction: row;
@@ -297,13 +306,13 @@ section {
 
 /*pagina de sobre nós*/
 
-.main-sobrenos{
+#sobre-nos{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: fit-content;
-    margin-top: 10rem;
+    
 
 }
 
@@ -317,9 +326,10 @@ section {
     color: var(--azul-principal);
     font-size: 20px;
     font-weight: normal;
+    margin-top: 6rem;
 }
 
-.sectionSobreNos{
+.containerSobreNos{
     display: flex;
     flex-direction: row;
     width: 90%;
@@ -330,7 +340,7 @@ section {
 .texto-subtitulo{
     font-family: var(--font-family);
     color: var(--azul-principal);
-    font-size: 3rem;
+    font-size: 48px;
     font-weight: 600;
     margin-bottom: 1rem;
 }
@@ -347,11 +357,11 @@ section {
 
 .sobrenos-texto{
     color: #656565;
-    font-size: 1.5rem;
+    font-size: 18px;    
 }
 
 .comparacao-texto{
-    font-size: 1.2rem;
+    font-size: 17px;
     color: #464646;
     width: 70%;
     margin-left: 1.5rem;
@@ -367,8 +377,8 @@ section {
 }
 
 .logo-SobreNos{
-    width: 270px;
-    height: 270px;
+    width: 240px;
+    height: 240px;
     margin-left: 10vw;
     border-radius: 2rem;
     box-shadow: 0 5px 40px #ABD0FF;
@@ -393,7 +403,7 @@ section {
 
 .comparacao-subtitulo-bolha{
     font-family: var(--font-family);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: var(--font-weight-medium);
     border: 3px solid;
     position: absolute;
@@ -594,6 +604,7 @@ section {
 #comece-a-usar {
     background-color: var( --azul-terciario);
     display: flex;
+    padding-bottom: 10px;
     align-items: self-start;
     align-items: center;
     flex-direction: column;
@@ -695,4 +706,48 @@ section {
     max-height:200px;
     opacity:1;
     margin-top:20px;
+}
+
+/* footer */
+.footer{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--azul-terciario);
+    margin-top: 20rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.footer-coluna1, .footer-coluna2, .footer-coluna3{
+    width: 30%;
+}
+.footer-texto{
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-regular);
+    color: #474747;
+    font-size: 15px;
+}
+.footer-titulo{
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-bold);
+    color: #252525;
+    font-size: 15px;
+}
+.footer-logo{
+    width: 180px;
+    height: 70px;
+
+}
+.footer-instagram, .footer-email{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+/* Sroll reveal */
+
+.SR{
+    visibility: hidden;
 }
