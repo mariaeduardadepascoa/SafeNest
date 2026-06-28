@@ -1,4 +1,4 @@
-window.revelar = ScrollReveal({ reset: true });
+window.revelar = ScrollReveal({ reset: false });
 // topo
 revelar.reveal('.inicialPage-imagem', {
     duration: 700,

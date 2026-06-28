@@ -118,7 +118,15 @@ section {
     font-family: var(--font-family);
     font-weight: var(--font-weight-bold);
 }
-
+.buttons-login{
+    background-color: var(--branco-principal);
+    border-radius: 1rem;
+    color: var(--azul-principal);
+    height: 3rem;
+    border: none;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-bold);
+}
 /* SEÇÃO INICIAL */
 .inicial-page {
     flex-direction: row;
@@ -693,12 +701,9 @@ section {
     transition:all .4s ease;
 }
 
+
 .card.ativo{
-    background:linear-gradient(
-        90deg,
-        var(--azul-quaternario),
-        var(--azul-secundario)
-    );
+    background: linear-gradient(130deg, #00439a 0%, #5189e8 100%);
     color:white;
 }
 
