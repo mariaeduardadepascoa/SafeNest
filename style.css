@@ -357,13 +357,6 @@ section {
     flex-direction: column;
 }
 
-#sobre-nos .containersComparacao {
-    flex-direction: row;
-    display: flex;
-    gap: 8rem;
-    margin-bottom: 4rem;
-}
-
 .conteiner-sobrenos {
     display: flex;
     flex-direction: row;
@@ -377,28 +370,35 @@ section {
     margin-bottom: 1rem;
 }
 
-#sobre-nos .mainContainer {
+#sobre-nos .container-comparacao {
     display: flex;
     flex-direction: column;
     gap: 4rem;
 }
+#sobre-nos .wrapper-comparacao-card{
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+    margin-bottom: 4rem;
+}
 
-.texto-center {
+ #sobre-nos .texto-center {
     text-align: center;
     width: 90%;
 }
 
-.texto-geral {
+#sobre-nos .texto-geral {
     font-family: var(--font-family);
     font-weight: var(--font-weight-medium);
 }
 
-.sobrenos-texto {
+#sobre-nos .sobrenos-texto {
     color: #656565;
     font-size: 18px;
 }
 
-.comparacao-texto {
+#sobre-nos .comparacao-texto {
     font-size: 17px;
     color: #464646;
     width: 70%;
@@ -408,13 +408,13 @@ section {
 
 }
 
-.sobrenos-coteiner-imagem {
+#sobre-nos .sobrenos-coteiner-imagem {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.logo-SobreNos {
+#sobre-nos .logo-SobreNos {
     width: 240px;
     height: 240px;
     margin-left: 10vw;
@@ -423,14 +423,14 @@ section {
     padding: 0.5rem;
 }
 
-.comparacao-section {
+#sobre-nos .comparacao-section {
     display: flex;
     flex-direction: row;
     gap: 5rem;
     width: 90%;
 }
 
-.comparacao-subtitulo-bolha {
+#sobre-nos .comparacao-card-titulo {
     font-family: var(--font-family);
     font-size: 18px;
     font-weight: var(--font-weight-medium);
@@ -441,41 +441,45 @@ section {
     top: -50px;
     left: 50%;
     transform: translateX(-50%);
+    text-align: center;
 }
 
-.comparacao-subtitulo-bolha-branco {
+#sobre-nos .comparacao-card-titulo-outros {
     color: var(--preto-principal);
     background-color: var(--branco-secundario);
     border-color: var(--branco-terciario);
-
+    width: 220px;
 }
 
-.comparacao-subtitulo-bolha-azul {
+#sobre-nos .comparacao-card-titulo-safenest {
     color: var(--branco-secundario);
     background-color: var(--azul-quaternario);
     border: 3px solid var(--azul-quaternario);
 }
 
-.comparacao-conteiner {
+#sobre-nos .comparacao-card {
     border-radius: 2rem;
     border: 4px solid;
     height: fit-content;
-    width: 35vw;
+    width: 400px;
 }
+#sobre-nos .comparacao-card ul{
+    padding: 0;
 
-.comparacao-conteiner-branco {
+}
+#sobre-nos .comparacao-card-outros {
     background-color: var(--branco-secundario);
     border-color: var(--branco-terciario);
 }
 
-.comparacao-conteiner-azul {
+#sobre-nos .comparacao-card-safenest {
     background-color: var(--branco-secundario);
     color: var(--azul-quaternario);
     border-color: var(--azul-quaternario);
     box-shadow: 0px 0px 6px var(--azul-quaternario);
 }
 
-.comparacao-conteiner-linha {
+#sobre-nos .comparacao-card-item {
     display: flex;
     flex-direction: row;
     margin: 0.5rem;
@@ -483,22 +487,22 @@ section {
     align-items: center;
 }
 
-.comparacao-conteiner-bola {
+#sobre-nos .comparacao-card-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 500rem;
     width: 50px;
     height: 50px;
-    margin-right: 2rem;
+    margin-right: 1.5rem;
 
 }
 
-.comparacao-conteiner-bola-azul {
+#sobre-nos .comparacao-card-icon-safenest {
     background-color: #00439A50;
 }
 
-.comparacao-conteiner-bola-branco {
+#sobre-nos .comparacao-card-icon-outros {
     background-color: var(--branco-terciario);
 }
 

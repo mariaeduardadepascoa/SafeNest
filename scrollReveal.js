@@ -78,12 +78,12 @@ revelar.reveal('.texto-subtitulo', {
     distance: '90px',
     origin: 'bottom'
 });
-revelar.reveal('.comparacao-conteiner-branco', {
+revelar.reveal('.comparacao-card-outros', {
     duration: 1000,
     distance: '90px',
     origin: 'left'
 });
-revelar.reveal('.comparacao-conteiner-azul', {
+revelar.reveal('.comparacao-card-safenest', {
     duration: 1200,
     distance: '90px',
     origin: 'right'
