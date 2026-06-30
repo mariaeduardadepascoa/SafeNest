@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style-in.css">
+
+
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="header-in">
+        <img src="../imagens/logoSafeNestescrita.svg" style="width:125px; height:40px;">
+    </header>
+    <main class="content-wrapper">
+        <nav id="nav-sidebar">
+            <div class="nav-tabs-wrapper">
+                <div id="nav-inicio" class="nav-tab nav-tab-ativo" onclick="trocaTab('nav-inicio')">
+                    <svg width="25" height="25" viewBox="0 0 26 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.25 26.75V14.25H16.75V26.75M1.75 10.5L13 1.75L24.25 10.5V24.25C24.25 24.913 23.9866 25.5489 23.5178 26.0178C23.0489 26.4866 22.413 26.75 21.75 26.75H4.25C3.58696 26.75 2.95107 26.4866 2.48223 26.0178C2.01339 25.5489 1.75 24.913 1.75 24.25V10.5Z"
+                            stroke="#252525" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p class="nav-texto"> Inicio</p>
+                </div>
+                <div id="nav-camera" class="nav-tab" onclick="trocaTab('nav-camera')">
+                    <svg width="25" height="25" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M28.75 21.75C28.75 22.413 28.4866 23.0489 28.0178 23.5178C27.5489 23.9866 26.913 24.25 26.25 24.25H3.75C3.08696 24.25 2.45107 23.9866 1.98223 23.5178C1.51339 23.0489 1.25 22.413 1.25 21.75V8C1.25 7.33696 1.51339 6.70107 1.98223 6.23223C2.45107 5.76339 3.08696 5.5 3.75 5.5H8.75L11.25 1.75H18.75L21.25 5.5H26.25C26.913 5.5 27.5489 5.76339 28.0178 6.23223C28.4866 6.70107 28.75 7.33696 28.75 8V21.75Z"
+                            stroke="#252525" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M15 19.25C17.7614 19.25 20 17.0114 20 14.25C20 11.4886 17.7614 9.25 15 9.25C12.2386 9.25 10 11.4886 10 14.25C10 17.0114 12.2386 19.25 15 19.25Z"
+                            stroke="#252525" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <p class="nav-texto">Câmera</p>
+                </div>
+                <div id="nav-historico" class="nav-tab" onclick="trocaTab('nav-historico')">
+                    <svg width="25" height="25" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20 2.5V7.5M10 2.5V7.5M3.75 12.5H26.25M6.25 5H23.75C25.1307 5 26.25 6.11929 26.25 7.5V25C26.25 26.3807 25.1307 27.5 23.75 27.5H6.25C4.86929 27.5 3.75 26.3807 3.75 25V7.5C3.75 6.11929 4.86929 5 6.25 5Z"
+                            stroke="#252525" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <p class="nav-texto">Histórico</p>
+                </div>
+                <div id="nav-emergencia" class="nav-tab" onclick="trocaTab('nav-emergencia')">
+                    <svg width="25" height="25" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15.0005 11.25V16.25M15.0005 21.25H15.013M12.863 4.82501L2.27545 22.5C2.05716 22.878 1.94166 23.3066 1.94044 23.7432C1.93922 24.1797 2.05232 24.6089 2.26849 24.9882C2.48466 25.3674 2.79636 25.6834 3.17259 25.9048C3.54882 26.1262 3.97645 26.2452 4.41295 26.25H25.588C26.0245 26.2452 26.4521 26.1262 26.8283 25.9048C27.2045 25.6834 27.5163 25.3674 27.7324 24.9882C27.9486 24.6089 28.0617 24.1797 28.0605 23.7432C28.0592 23.3066 27.9437 22.878 27.7255 22.5L17.138 4.82501C16.9151 4.45764 16.6014 4.15391 16.2269 3.94312C15.8525 3.73232 15.4301 3.62158 15.0005 3.62158C14.5708 3.62158 14.1484 3.73232 13.774 3.94312C13.3996 4.15391 13.0858 4.45764 12.863 4.82501Z"
+                            stroke="#252525" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <p class="nav-texto">Emergência</p>
+                </div>
+            </div>
+        </nav>
+        <section class="section-content">
+            <div id="inicio-content" class="content-ativo">
+                <p>conteudo do inicio</p>
+            </div>
+            <div id="camera-content" class="">
+                <p>camera</p>
+            </div>
+            <div id="historico-content" class="">
+                <p>hist</p>
+            </div>
+            <div id="emergencia-content" class="">
+                <p>emer</p>
+            </div>
+        </section>
+    </main>
+    <script src="script-in.js"></script>
+</body>
+
+</html>
