@@ -17,5 +17,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`SAFENEST API rodando na porta ${PORT}`);
+    console.log(`SAFENEST API rodando em http://localhost:${PORT}`);
 });

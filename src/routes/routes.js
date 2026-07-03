@@ -6,21 +6,22 @@
 const express = require('express');
 const router = express.Router();
 const historicoController = require('../controllers/historicoController');
-const authController = require('../controllers/authController');
-const dispositivoController = require('../controllers/dispositivoController');
+const authController = require('../controllers/authControllers');
+const dispositivoController = require('../controllers/dispositivoControllers');
 
 
 // --- APP E SITE
 router.get('/historico', historicoController.obterHistorico); //função de historicos de dados do app e site para a visualizaçã do usuario
 
 router.post('/auth/login', authController.login);
+router.post('/auth/cadastro', authController.cadastro);
 
 router.put('/status', (req, res) => res.json({ message: "Status do sensor atualizado" })); //qaundo o usuario ativar ou desativar algum sensor
 router.put('/usuario/config', (req, res) => res.json({ message: "Configuração salva" })); //se o usuário quer a "versão adaptada" e gerencia os contatso de emergência
 
 
 // --- DISPOSITIVOS
-router.get('/dispositivosDados', dispositivoController.tagsAutorizadas); //função de dados do esp e yolo
+router.get('/dispositivosDados', dispositivoController.obterTagsAutorizadas); //função de dados do esp e yolo
 
 router.post('/acesso/rfid', dispositivoController.verificarTag);
 router.post('/alertas/vibracao', dispositivoController.receberVibracao); //função de alerta de vibração

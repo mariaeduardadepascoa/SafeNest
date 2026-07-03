@@ -18,6 +18,9 @@ exports.verificarTag = (req, res) => {
     }
 };
 
+exports.obterTagsAutorizadas = (req, res) => {
+    return res.status(200).json(tagsAutorizadas);
+};
 
 // esp vai chamar essa função se detecatr vibracao (arrombamento)
 exports.receberVibracao = (req, res) => {

@@ -10,7 +10,6 @@ const historico = [
 
 exports.obterHistorico = (req, res) => {
     try {
-        // No futuro: const data = await supabase.from...
         return res.status(200).json(historico);
     } catch (error) {
         return res.status(500).json({ erro: "Erro ao buscar histórico" });
