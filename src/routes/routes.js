@@ -35,13 +35,14 @@ router.put('/usuario/config', (req, res) => res.json({ message: "Configuração 
 
 
 // --- DISPOSITIVOS
-router.get('/dispositivos', dispositivoController.obterTagsAutorizadas);
+router.post('/dispositivos', dispositivoController.obterTagsAutorizadas);
 router.post('/dispositivos/cadastro', dispositivoController.cadastrarTag);
 
 router.post('/acesso/rfid', dispositivoController.verificarTag);
 router.post('/alertas/vibracao', dispositivoController.receberVibracao); //função de alerta de vibração
 router.post('/alertas/incendio', dispositivoController.receberIncendio); //função de alerta de incendio
 router.post('/ia/analise', (req, res) => res.json({ message: "Análise da yolo recebida e processada" })); //info's da yolo (incluindo o link da imagem para salvar no banco)
+
 
 
 module.exports = router;

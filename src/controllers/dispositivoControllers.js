@@ -1,25 +1,54 @@
 //DADOS DO ESP E YOLO
+const mqtt = require("../config/MQTT");
 
-const tagsAutorizadas = [
-    {
-        id: 1,
-        tag: "ABC123XYZ"
-    }
-]
 
 //cadastrar uma tag
 exports.cadastrarTag = (req, res) => {
+    try {
+        const { uid } = req.body;
 
-}
+        if (!uid) {
+            return res.status(401).json({ erro: "E-mail ou senha incorretos" });
+
+        }
+        console.log("Enviando MQTT:", "fechadura/" + uid + "/command");
+        mqtt.publish("fechadura/" + uid + "/command", "registartag")
+        return res.status(200).json({
+            mensagem: "Login realizado com sucesso!",
+
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno no servidor" });
+    }
+};
+
 
 //listar todas as tags
 exports.obterTagsAutorizadas = (req, res) => {
-    
+    try {
+        const { uid } = req.body;
+
+        if (!uid) {
+            return res.status(401).json({ erro: "E-mail ou senha incorretos" });
+
+        }
+        mqtt.publish("fechadura/" + uid + "/command", "abrirfechadura")
+        return res.status(200).json({
+            mensagem: "Login realizado com sucesso!",
+
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno no servidor" });
+    }
 };
 
 //verificar a autencidade da tag para liberar a fechadura
 exports.verificarTag = (req, res) => {
-   
+
 };
 
 
