@@ -1,17 +1,6 @@
-//USUÁRIOS
+//AUTENTICAÇÃO DOS USUÁRIOS
 
-// const usuarios = [
-//     {
-//         id: 1,
-//         nome: "Carlos Silva",
-//         email: "carlos@email.com",
-//         senha: "123",
-//         versao_adaptada: false,
-//         contato_emergencia: "19999999999"
-//     }
-// ];
-
-// LOGIN
+// login
 const supabase = require('../config/supabaseClient');
 const usuario = require('../models/usuario');
 
@@ -46,7 +35,7 @@ exports.login = async (req, res) => {
     }
 };
 
-
+// cadastro
 exports.cadastro = async (req, res) => {
     try {
         const { nome_usuario, email_usuario, senha_usuario } = req.body;

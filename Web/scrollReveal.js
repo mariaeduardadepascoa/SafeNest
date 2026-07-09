@@ -41,7 +41,7 @@ revelar.reveal('.container-recursos', {
 });
 
 //passo a passo
-revelar.reveal('.comece-a-usar-imagem', {
+revelar.reveal('.comece-a-usar-wrapper', {
     duration: 900,
     distance: '90px',
     origin: 'right'

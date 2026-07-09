@@ -5,12 +5,26 @@
 
 const express = require('express');
 const router = express.Router();
+
 const historicoController = require('../controllers/historicoController');
 const authController = require('../controllers/authControllers');
 const dispositivoController = require('../controllers/dispositivoControllers');
+const usuarioController = require('../controllers/usuarioControllers');
+
+
+// --- CONTROLE INTERNO DE USUARIOS
+router.get('/usuarios', usuarioController.obterUsuarios); //pegar todos os usuarios
+router.get('/usuario/:id', usuarioController.obterUsuarioPorId); //usuario específico
+router.put('/usuario/:id', usuarioController.atualizarUsuario); //editar usuario
+router.delete('/usuario/:id', usuarioController.deletarUsuario); //excluir usuario
 
 
 // --- APP E SITE
+router.get('/usuario/:id/contatos');
+router.post('/usuario/:id/contatos');
+router.put('/usuario/:id/contatos/:contatoId');
+router.delete('/usuario/:id/contatos/:contatoId');
+
 router.get('/historico', historicoController.obterHistorico); //função de historicos de dados do app e site para a visualizaçã do usuario
 
 router.post('/auth/login', authController.login);
@@ -21,7 +35,8 @@ router.put('/usuario/config', (req, res) => res.json({ message: "Configuração 
 
 
 // --- DISPOSITIVOS
-router.get('/dispositivosDados', dispositivoController.obterTagsAutorizadas); //função de dados do esp e yolo
+router.get('/dispositivos', dispositivoController.obterTagsAutorizadas);
+router.post('/dispositivos/cadastro', dispositivoController.cadastrarTag);
 
 router.post('/acesso/rfid', dispositivoController.verificarTag);
 router.post('/alertas/vibracao', dispositivoController.receberVibracao); //função de alerta de vibração

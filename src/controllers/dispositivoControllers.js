@@ -7,36 +7,25 @@ const tagsAutorizadas = [
     }
 ]
 
-exports.verificarTag = (req, res) => {
-    const { tagId } = req.body; // esp envia o ID da tag lida
+//cadastrar uma tag
+exports.cadastrarTag = (req, res) => {
 
-    const tagEncontrada = tagsAutorizadas.find(t => t.tag === tagId);
-    if (tagEncontrada) {
-        return res.status(200).json({ autorizado: true, mensagem: "Acesso liberado!" });
-    } else {
-        return res.status(403).json({ autorizado: false, mensagem: "Tag não autorizada!" });
-    }
-};
+}
 
+//listar todas as tags
 exports.obterTagsAutorizadas = (req, res) => {
-    return res.status(200).json(tagsAutorizadas);
+    
 };
+
+//verificar a autencidade da tag para liberar a fechadura
+exports.verificarTag = (req, res) => {
+   
+};
+
 
 // esp vai chamar essa função se detecatr vibracao (arrombamento)
 exports.receberVibracao = (req, res) => {
 
-    console.log("Alerta de vibração recebido do ESP");
-
-
-    //função de enviar e-mail/notificação
-    function notificacao() {
-
-    }
-
-    return res.status(201).json({
-        alarme_disparado: true,
-        mensagem: "Alerta de possível invasão processado"
-    });
 };
 
 
