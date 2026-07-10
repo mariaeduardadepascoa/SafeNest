@@ -37,7 +37,8 @@ exports.obterUsuarioPorId = async (req, res) => {
             return res.status(404).json({ erro: "Usuário não encontrado" });
         }
 
-        return res.status(200).json(usuarioEncontrado);
+        const { senha_usuario, ...usuarioSemSenha } = usuarioEncontrado; //tira a senha e cria um novo objeto "usuarioSemSenha" para nao vazar a senha
+        return res.status(200).json(usuarioSemSenha);
 
     } catch (error) {
         console.error(error);
@@ -63,13 +64,12 @@ exports.atualizarUsuario = async (req, res) => {
 
         const usuarioAtualizado = await usuario.atualizarUsuario(id, dadosAtualizados); //novo objeto que guarda o usuario atualizado
 
-        if (!usuarioAtualizado || usuarioAtualizado.length === 0) { //verificação para mostrar se existir
+        if (!usuarioAtualizado) {
             return res.status(404).json({ erro: "Usuário não encontrado" });
         }
-
         return res.status(200).json({
             mensagem: "Usuário atualizado com sucesso",
-            usuario: usuarioAtualizado[0]
+            usuario: usuarioAtualizado
         });
 
     } catch (error) {

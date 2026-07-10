@@ -2,7 +2,7 @@
 const supabase = require('../config/supabaseClient');
 
 async function obterUsuarios() {
-    const { data, error } = await supabase.from('usuario').select('id, nome_usuario, email_usuario, versao_adaptada');
+    const { data, error } = await supabase.from('usuario').select('id_usuario, nome_usuario, email_usuario, versao_adaptada');
 
     if (error) {
         return null;
@@ -14,18 +14,19 @@ async function obterUsuarios() {
 async function obterUsuarioPorId(id) {
     const { data, error } = await supabase.from('usuario')
         .select('*') //pega tudo
-        .eq('id', id) //busca o usurio pelo id
+        .eq('id_usuario', id) //seleciona e busca o usurio pelo id
         .single(); //vem como um objeto e nao como um array
 
     if (error) return null;
     return data;
 }
 
-async function buscarPorEmailESenha(email, senha) {
+async function buscarEmail(email_usuario) {
+    const email = email_usuario.trim().toLowerCase(); //.trim -> tira espaços .toLowerCase -> deixa tudo minusculo para saber diferenciar (duda@gmail e DUDA@gmail)
+
     const { data, error } = await supabase.from('usuario')
         .select('*')
         .eq('email_usuario', email)
-        .eq('senha_usuario', senha)
         .single();
 
     if (error) return null;
@@ -35,8 +36,8 @@ async function buscarPorEmailESenha(email, senha) {
 async function atualizarUsuario(id, dadosAtualizados) {
     const { data, error } = await supabase.from('usuario')
         .update(dadosAtualizados)
-        .eq('id', id)
-        .select('id, nome_usuario, email_usuario, versao_adaptada')
+        .eq('id_usuario', id)
+        .select('id_usuario, nome_usuario, email_usuario, versao_adaptada')
         .single()
 
     if (error) return null;
@@ -46,12 +47,28 @@ async function atualizarUsuario(id, dadosAtualizados) {
 async function deletarUsuario(id) {
     const { data, error } = await supabase.from('usuario')
         .delete()
-        .eq('id', id)
-        .select('id, nome_usuario, email_usuario, versao_adaptada')
+        .eq('id_usuario', id)
+        .select('id_usuario, nome_usuario, email_usuario, versao_adaptada')
         .single()
 
     if (error) return null;
     return data;
 }
 
-module.exports = { obterUsuarios, obterUsuarioPorId, buscarPorEmailESenha, atualizarUsuario, deletarUsuario };
+async function criarUsuario(dadosUsuario) {
+    const { data, error } = await supabase.from('usuario')
+        .insert([dadosUsuario])
+        .select('id_usuario, nome_usuario, email_usuario, versao_adaptada')
+        .single();
+    if (error) {
+        console.log(error);
+        // if para evitar cadastro com o mesmo email
+        if (error.code === '23505') { //23505 -> erro do postgreSQL(supabase) quando algo é UNIQUE
+            return { erro: 'email_duplicado' };
+        }
+        return null;
+    }
+    return data;
+}
+
+module.exports = { obterUsuarios, obterUsuarioPorId, buscarEmail, atualizarUsuario, deletarUsuario, criarUsuario };

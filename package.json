@@ -1,12 +1,15 @@
 {
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "devDependencies": {
+    "nodemon": "^3.1.14",
     "supabase": "^2.109.0"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.18.0",

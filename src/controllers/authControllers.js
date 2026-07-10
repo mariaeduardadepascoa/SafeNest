@@ -1,30 +1,37 @@
 //AUTENTICAÇÃO DOS USUÁRIOS
 
-// login
 const supabase = require('../config/supabaseClient');
+const bcrypt = require('bcrypt');
 const usuario = require('../models/usuario');
 
+// login
 exports.login = async (req, res) => {
     try {
-        const { email, senha } = req.body;
+        const { email_usuario, senha_usuario } = req.body;
 
-        const usuarioEncontrado = await usuario.buscarPorEmailESenha(email, senha);
-
-        if (!usuarioEncontrado) {
-            return res.status(401).json({ erro: "E-mail ou senha incorretos" });
+        if (!email_usuario || !senha_usuario) {
+            return res.status(400).json({ erro: "Email e senha são obrigatórios" });
         }
 
-        // const senhaCorreta = await bcrypt.compare(senha, usuario.senha_usuario);
-        // if (!senhaCorreta) {
-        //     return res.status(401).json({ erro: "E-mail ou senha incorretos" });
-        // }
+        const email = email_usuario.trim().toLowerCase();
+        const usuarioEncontrado = await usuario.buscarEmail(email);
+
+        if (!usuarioEncontrado) {
+            return res.status(401).json({ erro: "Email ou senha inválidos" });
+        }
+
+        const senha = await bcrypt.compare(req.body.senha_usuario, usuarioEncontrado.senha_usuario); //compara a senha da req com alguma senha salva no supabase
+
+        if (!senha) {
+            return res.status(401).json({ erro: "Email ou senha inválidos" });
+        }
 
         return res.status(200).json({
             mensagem: "Login realizado com sucesso!",
             usuario: {
-                id: usuarioEncontrado.id,
-                nome: usuarioEncontrado.nome,
-                email: usuarioEncontrado.email,
+                id_usuario: usuarioEncontrado.id_usuario,
+                nome_usuario: usuarioEncontrado.nome_usuario,
+                email_usuario: usuarioEncontrado.email_usuario,
                 versao_adaptada: usuarioEncontrado.versao_adaptada
             }
         });
@@ -44,18 +51,31 @@ exports.cadastro = async (req, res) => {
             return res.status(400).json({ erro: "Email, senha e nome são obrigatórios" });
         }
 
-        const { data, error } = await supabase
-            .from('usuario')
-            .insert([{ nome_usuario, email_usuario, senha_usuario }])
+        const email = email_usuario.trim().toLowerCase();
 
-        if (error) {
-            return res.status(400).json({ erro: error.message });
+        if (senha_usuario.length < 6) {
+            return res.status(400).json({ erro: "A senha deve ter no mínimo 6 caracteres" });
         }
 
-        return res.status(201).json({ mensagem: "Usuário cadastrado com sucesso", data });
+        const hashedPassword = await bcrypt.hash(req.body.senha_usuario, 10); //10 mil criptografias diferentes para 10 mil senhas
+        const novoUser = await usuario.criarUsuario({
+            nome_usuario,
+            email_usuario: email,
+            senha_usuario: hashedPassword //para salvar agora em formato hash
+        });
+
+        if (!novoUser) {
+            return res.status(500).json({ mensagem: 'Erro ao criar usuário' });
+        }
+
+        if (novoUser.erro === 'email_duplicado') {
+            return res.status(409).json({ erro: "Este e-mail já está cadastrado no sistema." });
+        }
+
+        return res.status(201).json({ mensagem: "Usuário cadastrado com sucesso.", usuario: novoUser });
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ erro: "Erro interno no servidor" });
+        return res.status(500).json({ erro: "Erro interno no servidor." });
     }
 }
