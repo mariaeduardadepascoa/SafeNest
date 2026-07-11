@@ -1,4 +1,3 @@
-module.exports = router;
 const supabase = require('../config/supabaseClient');
 
 async function criarContato(dadosContatos) {
