@@ -3,6 +3,7 @@
 const supabase = require('../config/supabaseClient');
 const bcrypt = require('bcrypt');
 const usuario = require('../models/usuario');
+const jwt = require('jsonwebtoken');
 
 // login
 exports.login = async (req, res) => {
@@ -26,8 +27,11 @@ exports.login = async (req, res) => {
             return res.status(401).json({ erro: "Email ou senha inválidos" });
         }
 
+        const token = jwt.sign({id_usuario: usuarioEncontrado.id_usuario}, process.env.JWT_SECRET, {expiresIn: '1h'}); //token: payload(guarda -> id_usuario), secret e expiresIn
+
         return res.status(200).json({
             mensagem: "Login realizado com sucesso!",
+            token,
             usuario: {
                 id_usuario: usuarioEncontrado.id_usuario,
                 nome_usuario: usuarioEncontrado.nome_usuario,

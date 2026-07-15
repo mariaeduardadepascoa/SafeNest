@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors'); //por padrão um site não pode chamar uma API que está em outro endereço/porta, o cors resolve isso
 const routes = require('./routes/routes');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = 3000;
