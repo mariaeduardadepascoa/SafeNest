@@ -9,4 +9,4 @@ const serverMQTT = mqtt.connect({
     protocol: "mqtts"
 })
 
-module.exports = serverMQTT;
+module.exports = { client: serverMQTT };;
