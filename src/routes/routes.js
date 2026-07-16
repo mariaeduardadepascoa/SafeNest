@@ -1,6 +1,6 @@
 // REQUISIÇÕES E O MÉTODOS
 
-//padrão: router.METODO_HTTP('/caminho', funcao_que_resolve)
+//padrão: router.METODO_HTTP('/caminho', verificarToken.js, funcao_que_resolve)
 
 
 const express = require('express');
@@ -10,6 +10,7 @@ const usuarioController = require('../controllers/usuarioControllers');
 const authController = require('../controllers/authControllers');
 const contatoEmergenciaController = require('../controllers/contatoEmergenciaControllers');
 const historicoController = require('../controllers/historicoController');
+
 
 // --- CONTROLE INTERNO DE USUARIOS
 
