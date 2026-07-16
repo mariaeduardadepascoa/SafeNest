@@ -1,6 +1,4 @@
-require('dotenv').config({
-    path: 'C:/Users/PC/Desktop/SafeNest/.env'
-});
+require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js'); //conexão de usuario com o supabase
 
 const supabase = createClient(
