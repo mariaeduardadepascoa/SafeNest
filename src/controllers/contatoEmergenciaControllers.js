@@ -5,6 +5,10 @@ exports.criarContato = async (req, res) => {
     try {
         const { id } = req.params;
         const { nome_contato, telefone_contato } = req.body;
+        const idToken = req.id_usuario;
+        const idReq = parseInt(id);
+
+        if (idReq !== idToken) return res.status(403).json({erro: "Você não tem permissão para criar este contato"});
 
         if (!nome_contato || !telefone_contato) {
             return res.status(400).json({ erro: "Nome e telefone do contato são obrigatórios" });
@@ -31,6 +35,10 @@ exports.criarContato = async (req, res) => {
 exports.obterContatosPorUsuario = async (req, res) => {
     try {
         const { id } = req.params;
+        const idToken = req.id_usuario;
+        const idReq = parseInt(id);
+
+        if (idReq !== idToken) return res.status(403).json({erro: "Você não tem permissão para deletar este contato"});
         const contatos = await contatoEmergencia.obterContatosPorUsuario(id);
 
         if (!contatos) {
@@ -49,6 +57,14 @@ exports.atualizarContato = async (req, res) => {
     try {
         const { contatoId } = req.params;
         const { nome_contato, telefone_contato } = req.body;
+        const idToken = req.id_usuario;
+
+        const contatoEncontrado = await contatoEmergencia.obterContatoPorId(contatoId);
+        if (!contatoEncontrado) {
+            return res.status(404).json({ erro: 'Contato de emergencia não encontrado' });
+        }
+
+        if (contatoEncontrado.id_usuario !== idToken) return res.status(403).json({erro: "Você não tem permissão para alterar este contato"});
 
         const dadosAtualizados = {};
 
@@ -78,11 +94,14 @@ exports.atualizarContato = async (req, res) => {
 exports.deletarContato = async (req, res) => {
     try {
         const { contatoId } = req.params;
+        const idToken = req.id_usuario;
 
         const contatoEncontrado = await contatoEmergencia.obterContatoPorId(contatoId);
         if (!contatoEncontrado) {
             return res.status(404).json({ erro: 'Contato de emergencia não encontrado' });
         }
+
+        if (contatoEncontrado.id_usuario !== idToken) return res.status(403).json({erro: "Você não tem permissão para alterar este contato"});
 
         const contatoDeletado = await contatoEmergencia.deletarContato(contatoId);
         if (!contatoDeletado) {

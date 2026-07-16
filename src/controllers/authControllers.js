@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
             return res.status(401).json({ erro: "Email ou senha inválidos" });
         }
 
-        const token = jwt.sign({id_usuario: usuarioEncontrado.id_usuario}, process.env.JWT_SECRET, {expiresIn: '1h'}); //token: payload(guarda -> id_usuario), secret e expiresIn
+        const token = jwt.sign({id_usuario: usuarioEncontrado.id_usuario}, process.env.JWT_SECRET, {expiresIn: '2h'}); //token: payload(guarda -> id_usuario), secret e expiresIn
 
         return res.status(200).json({
             mensagem: "Login realizado com sucesso!",

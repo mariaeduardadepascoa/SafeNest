@@ -31,8 +31,14 @@ exports.obterUsuarios = async (req, res) => {
 exports.obterUsuarioPorId = async (req, res) => {
     try {
         const { id } = req.params;
-        const usuarioEncontrado = await usuario.obterUsuarioPorId(id);
+        const idReq = parseInt(id);
+        const idToken = req.id_usuario;
 
+        if (idReq !== idToken) {
+            return res.status(403).json({ erro: "Você não tem permissão para ver este usuário" });
+        }
+
+        const usuarioEncontrado = await usuario.obterUsuarioPorId(req.params.id);
         if (!usuarioEncontrado) {
             return res.status(404).json({ erro: "Usuário não encontrado" });
         }
@@ -51,6 +57,10 @@ exports.atualizarUsuario = async (req, res) => {
     try {
         const { id } = req.params;
         const { nome_usuario, email_usuario, versao_adaptada } = req.body;
+        const idToken = req.id_usuario;
+        const idReq = parseInt(id);
+
+        if (idReq !== idToken) return res.status(403).json({erro: "Você não tem permissão para alterar este usuário"});
 
         const dadosAtualizados = {};
         // definindo os campos que vieram
@@ -83,6 +93,10 @@ exports.deletarUsuario = async (req, res) => {
     try {
         const { id } = req.params;
         const usuarioEncontrado = await usuario.obterUsuarioPorId(id);
+        const idToken = req.id_usuario;
+        const idReq = parseInt(id);
+
+        if (idReq !== idToken) return res.status(403).json({erro: "Você não tem permissão para deletar este usuário"});
 
         if (!usuarioEncontrado) {
             return res.status(404).json({ erro: "Usuário não encontrado" });
