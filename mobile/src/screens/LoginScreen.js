@@ -25,7 +25,7 @@ export default function LoginScreen({ navigation }) {
                 </View>
 
             </View>
-            <TouchableOpacity style={styles.input}>
+            <TouchableOpacity style={styles.input} onPress={()=>navigation.navigate('Main')}>
                 <Text style={styles.text}>Entrar</Text>
             </TouchableOpacity>
             <Text style={styles.caption}>Não tem uma conta? <Text style={styles.caption2}>Faça cadastro.</Text></Text>
