@@ -11,31 +11,31 @@ const authController = require('../controllers/authControllers');
 const contatoEmergenciaController = require('../controllers/contatoEmergenciaControllers');
 const historicoController = require('../controllers/historicoController');
 const dispositivoController = require('../controllers/dispositivoControllers');
-const verificarToken = require('../middlewares/verificarToken');
+const verificarAccessToken = require('../middlewares/verificarAccessToken');
 const verificarAdmin = require('../middlewares/verificarAdmin');
 // --- CONTROLE INTERNO DE USUARIOS
 
-router.get('/usuarios', verificarToken, verificarAdmin, usuarioController.obterUsuarios); //pegar todos os usuarios
-router.get('/usuario/:id', verificarToken, usuarioController.obterUsuarioPorId); //usuario específico
-router.put('/usuario/:id', verificarToken, usuarioController.atualizarUsuario); //editar usuario
-router.delete('/usuario/:id', verificarToken, usuarioController.deletarUsuario); //excluir usuario
+router.get('/usuarios', verificarAccessToken, verificarAdmin, usuarioController.obterUsuarios); //pegar todos os usuarios
+router.get('/usuario/:id', verificarAccessToken, usuarioController.obterUsuarioPorId); //usuario específico
+router.put('/usuario/:id', verificarAccessToken, usuarioController.atualizarUsuario); //editar usuario
+router.delete('/usuario/:id', verificarAccessToken, usuarioController.deletarUsuario); //excluir usuario
 // router.put('/usuario/config', (req, res) => res.json({ message: "Configuração salva" })); //se o usuário quer a "versão adaptada"
 
 // metodos de login e cadastro
 router.post('/auth/login', authController.login);
 router.post('/auth/cadastro', authController.cadastro);
-
+router.post('/auth/refresh', authController.refreshToken); 
 
 // --- APP E SITE
 
 // contatos de emergencia
-router.post('/usuario/:id/contatos', verificarToken, contatoEmergenciaController.criarContato);
-router.get('/usuario/:id/contatos', verificarToken, contatoEmergenciaController.obterContatosPorUsuario);
-router.put('/usuario/:id/contatos/:contatoId', verificarToken, contatoEmergenciaController.atualizarContato);
-router.delete('/usuario/:id/contatos/:contatoId', verificarToken, contatoEmergenciaController.deletarContato);
+router.post('/usuario/:id/contatos', verificarAccessToken, contatoEmergenciaController.criarContato);
+router.get('/usuario/:id/contatos', verificarAccessToken, contatoEmergenciaController.obterContatosPorUsuario);
+router.put('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmergenciaController.atualizarContato);
+router.delete('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmergenciaController.deletarContato);
 
 // historico de dados do usuario
-router.get('/historico', verificarToken, historicoController.obterHistorico);
+router.get('/historico', verificarAccessToken, historicoController.obterHistorico);
 
 
 // --- DISPOSITIVOS
@@ -45,7 +45,7 @@ router.get('/historico', verificarToken, historicoController.obterHistorico);
 
 // tags rfid
 // router.post('/dispositivos', dispositivoController.obterTagsAutorizadas);
-router.post('/dispositivos/cadastrarTag', verificarToken, dispositivoController.cadastrarTag);
+router.post('/dispositivos/cadastrarTag', verificarAccessToken, dispositivoController.cadastrarTag);
 // router.post('/dispositivos/cadastro', dispositivoController.cadastrarTag);
 // router.post('/acesso/rfid', dispositivoController.verificarTag);
 

@@ -27,11 +27,13 @@ exports.login = async (req, res) => {
             return res.status(401).json({ erro: "Email ou senha inválidos" });
         }
 
-        const token = jwt.sign({id_usuario: usuarioEncontrado.id_usuario}, process.env.JWT_SECRET, {expiresIn: '2h'}); //token: payload(guarda -> id_usuario), secret e expiresIn
+        const accessToken = jwt.sign({id_usuario: usuarioEncontrado.id_usuario}, process.env.JWT_SECRET, {expiresIn: '2h'}); //token: payload(guarda -> id_usuario), secret e expiresIn
+        const refreshToken = jwt.sign({id_usuario: usuarioEncontrado.id_usuario}, process.env.JWT_REFRESH_SECRET, {expiresIn: '15d'});
 
         return res.status(200).json({
             mensagem: "Login realizado com sucesso!",
-            token,
+            accessToken,
+            refreshToken,
             usuario: {
                 id_usuario: usuarioEncontrado.id_usuario,
                 nome_usuario: usuarioEncontrado.nome_usuario,
@@ -77,6 +79,30 @@ exports.cadastro = async (req, res) => {
         }
 
         return res.status(201).json({ mensagem: "Usuário cadastrado com sucesso.", usuario: novoUser });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ erro: "Erro interno no servidor." });
+    }
+}
+
+exports.refreshToken = async(req, res) => {
+    try{
+        const { refreshToken } = req.body;
+
+        if (!refreshToken) {
+            return res.status(401).json({ erro: "Refresh token não fornecido" });
+        }
+
+        jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (error, decoded) => {
+            if (error) {
+                return res.status(403).json({erro: "Refresh token inválido/expirado"});
+            }
+            const novoAcessToken = jwt.sign({id_usuario: decoded.id_usuario}, process.env.JWT_SECRET, {expiresIn: '2h'}); //gerando um novo
+            
+            return res.status(200).json({accessToken: novoAcessToken});
+        });
+
 
     } catch (error) {
         console.log(error);
