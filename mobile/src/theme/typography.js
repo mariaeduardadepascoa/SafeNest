@@ -11,7 +11,7 @@ export const typography = {
   },
 
   body: {
-    fontSize: 17,
+    fontSize: 14,
     fontWeight: '400',
   },
 

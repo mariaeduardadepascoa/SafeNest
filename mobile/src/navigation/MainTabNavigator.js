@@ -32,7 +32,7 @@ export default function MainTabNavigator() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Início"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -41,7 +41,7 @@ export default function MainTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="History"
+        name="Histórico"
         component={HistoryScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -50,7 +50,7 @@ export default function MainTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Camera"
+        name="Câmera"
         component={CameraScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -59,7 +59,7 @@ export default function MainTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Emergency"
+        name="Emergência"
         component={EmergencyScreen}
         options={{
           tabBarIcon: ({ color }) => (
