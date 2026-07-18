@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         gap: 8,
-        width: '90%',
+        width: '100%',
     },
     bar: {
         flex: 1,
