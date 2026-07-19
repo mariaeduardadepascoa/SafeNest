@@ -1,16 +1,20 @@
 
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { colorsLightMode, colorsBlackMode, typography } from '../theme';
 import LogoSafeNest from '../../assets/Group 104.svg';
 import WifiIcon from '../../assets/Wifi.svg';
 import GroupIcon from '../../assets/groups.svg';
 import AlertCircleIcon from '../../assets/Alert circle.svg';
 import OrangeCameraIcon from '../../assets/Camera.svg';
-
+import SensorCard from '../components/SensoresCard';
+import ActivityCard from '../components/ActivitysCard';
+import HomeBlueIcon from '../../assets/Home.svg';
+import AlertOctagonRedIcon from '../../assets/Alert octagon.svg';
+import CheckCircleBlueIcon from '../../assets/Check circle.svg';
 
 export default function HomeScreen({ navigation }) {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
             <LogoSafeNest width={215} />
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
@@ -18,55 +22,62 @@ export default function HomeScreen({ navigation }) {
                     <Text style={styles.spanVerMais}>Ver todos </Text>
                 </View>
 
-                <View style={styles.cardWarningSensor}>
-                    <View style={styles.cardPrimeiroConjunto}>
-                        <OrangeCameraIcon width={26} height={26} />
-                        <Text style={styles.cardWarningTitle}>Câmera - entrada</Text>
-                    </View>
-                    <View style={styles.cardSegundoConjunto}>
-                        <Text style={styles.cardWarningTitle}>BATERIA</Text>
-                    </View>
-                </View>
+                <SensorCard
+                    Icon={OrangeCameraIcon}
+                    title="Câmera - entrada"
+                    status="BATERIA"
+                    warning
+                />
 
-                <View style={styles.cardNormalSensor}>
-                    <View style={styles.cardPrimeiroConjunto}>
-                        <GroupIcon width={26} height={26} />
-                        <Text style={styles.cardTitle}>Sensor de arrombamento</Text>
-                    </View>
-                    <View style={styles.cardSegundoConjunto}>
-                        <WifiIcon width={20} height={20} />
-                        <Text style={styles.cardTitle}>ON</Text>
-                    </View>
-                </View>
+                <SensorCard
+                    Icon={GroupIcon}
+                    title="Sensor de arrombamento"
+                    status="ON"
+                />
 
-                <View style={styles.cardNormalSensor}>
-                    <View style={styles.cardPrimeiroConjunto}>
-                        <AlertCircleIcon width={26} height={26} />
-                        <Text style={styles.cardTitle}>Sensor de incêndio</Text>
-                    </View>
-                    <View style={styles.cardSegundoConjunto}>
-                        <WifiIcon width={20} height={20} />
-                        <Text style={styles.cardTitle}>ON</Text>
-                    </View>
-                </View>
+                <SensorCard
+                    Icon={AlertCircleIcon}
+                    title="Sensor de incêndio"
+                    status="ON"
+                />
 
             </View>
+
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
                     <Text style={styles.titles}>ATIVIDADES RECENTES</Text>
                     <Text style={styles.spanVerMais}>Ver todos </Text>
                 </View>
+
+                <ActivityCard
+                    Icon={HomeBlueIcon}
+                    title="Porta aberta"
+                    time='3' />
+
+                <ActivityCard
+                    Icon={AlertOctagonRedIcon}
+                    title="Alerta acionado"
+                    time='4'
+                    danger />
+
+                <ActivityCard
+                    Icon={CheckCircleBlueIcon}
+                    title="Entrada permitida"
+                    time='8' />
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        top: 40,
-        gap: 45,
+    },
+    contentContainer: {
+        paddingTop: 40,
         paddingHorizontal: 12,
+        gap: 45,
+        paddingBottom: 100,
     },
     container2: {
         width: '100%',
@@ -85,46 +96,5 @@ const styles = StyleSheet.create({
     spanVerMais: {
         ...typography.caption,
         color: colorsLightMode.primary,
-    },
-    cardNormalSensor: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        height: 60,
-        paddingHorizontal: 10,
-        justifyContent: 'space-between',
-        backgroundColor: colorsLightMode.primary,
-        borderRadius: 15,
-    },
-    cardPrimeiroConjunto: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 8,
-    },
-    cardSegundoConjunto: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 4,
-    },
-    cardTitle: {
-        ...typography.body,
-        color: colorsLightMode.white,
-    },
-    cardWarningSensor: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        height: 60,
-        paddingHorizontal: 10,
-        justifyContent: 'space-between',
-        backgroundColor: colorsLightMode.primary,
-        borderRadius: 15,
-        borderColor: colorsLightMode.warning,
-        borderWidth: 2,
-    },
-    cardWarningTitle: {
-        ...typography.body,
-        color: colorsLightMode.warning,
     },
 });

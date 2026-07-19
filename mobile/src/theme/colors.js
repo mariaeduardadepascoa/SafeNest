@@ -2,6 +2,7 @@ export const colorsLightMode = {
   primary: '#2B5081',    
   background: '#F8FAFC',
   white: '#FFFFFF',
+  black: '#252525',
   gray: '#E2E2E2',
   danger: '#D54144',
   warning: '#EA8C2F',
