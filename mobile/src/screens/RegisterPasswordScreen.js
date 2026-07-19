@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet,Text,TouchableOpacity,View,TextInput} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
@@ -9,7 +10,8 @@ import LockIcon from '../../assets/Lock.svg';
 import EyeIcon from '../../assets/Eye.svg';
 import EyeOffIcon from '../../assets/Eye off.svg';
 
-export default function RegisterPasswordScreen({ navigation }) {
+export default function RegisterPasswordScreen({ navigation, route }) {
+    const { nome, email } = route.params; // pega o que veio da tela anterior
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -18,10 +20,16 @@ export default function RegisterPasswordScreen({ navigation }) {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     function handleConfirmPassword() {
+        if (password !== confirmPassword) {
+            Alert.alert('Atenção: as senhas não coincidem');
+            return;
+        }
+        if (password.length < 6) {
+            Alert.alert('Atenção: A senha deve ter no mínimo 6 caracteres');
+            return;
+        }
 
-        // validações futuras aqui
-
-        navigation.navigate('RegisterAge');
+        navigation.navigate('RegisterAge', { nome, email, senha: password });
     }
 
     return (
@@ -107,8 +115,8 @@ export default function RegisterPasswordScreen({ navigation }) {
                                 secureTextEntry={!showConfirmPassword}
                             />
 
-                            <TouchableOpacity onPress={() => setShowConfirmPassword( !showConfirmPassword)}>
-                                {showConfirmPassword? <EyeIcon />: <EyeOffIcon />}
+                            <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                {showConfirmPassword ? <EyeIcon /> : <EyeOffIcon />}
                             </TouchableOpacity>
 
                         </View>

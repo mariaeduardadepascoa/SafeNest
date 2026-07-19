@@ -1,12 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { colorsLightMode, colorsBlackMode, typography } from '../theme';
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import PersonIcon from '../../assets/person.svg';
 import LockIcon from '../../assets/Lock.svg';
+import { login } from '../services/api';
 
 
 export default function LoginScreen({ navigation }) {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [carregando, setCarregando] = useState(false);
+
+    async function handleLogin() {
+        if (!email || !senha) {
+            Alert.alert('Atenção: email e senha são obrigatórios!');
+            return;
+        }
+
+        setCarregando(true);
+
+        try {
+            await login(email, senha); // salva os tokens no SecureStore
+            navigation.replace('Main');
+        } catch (err) {
+            Alert.alert('Erro ao entrar ', err.message);
+        } finally {
+            setCarregando(false);
+        }
+    }
+
     return (
         <View style={styles.container}>
             <LogoSafeNest width={160} height={60} />
@@ -19,25 +43,42 @@ export default function LoginScreen({ navigation }) {
 
                 <View style={styles.authSubContainer}>
                     <Text style={styles.caption}>Insira seu email</Text>
-                    <TouchableOpacity style={styles.inputs}><PersonIcon width={30} height={30} /><Text style={styles.textSubContainer}> exemplo123@gmail.com</Text></TouchableOpacity>
+                    <View style={styles.inputs}>
+                        <PersonIcon width={30} height={30} />
+                        <TextInput
+                            style={styles.textSubContainer}
+                            placeholder="exemplo123@gmail.com"
+                            placeholderTextColor={colorsLightMode.subtitles}
+                            value={email}
+                            onChangeText={setEmail}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
+                        />
+                    </View>
                 </View>
 
                 <View style={styles.authSubContainer}>
                     <Text style={styles.caption}>Insira sua senha</Text>
-                    <TouchableOpacity style={styles.inputs}><LockIcon width={30} height={20} /><Text style={styles.textSubContainer}>Mínimo 6 caracteres</Text></TouchableOpacity>
+                    <View style={styles.inputs}>
+                        <LockIcon width={30} height={20} />
+                        <TextInput
+                            style={styles.textSubContainer}
+                            placeholder="Mínimo 6 caracteres"
+                            placeholderTextColor={colorsLightMode.subtitles}
+                            value={senha}
+                            onChangeText={setSenha}
+                            secureTextEntry
+                        />
+                    </View>
                 </View>
 
             </View>
-            <TouchableOpacity style={styles.input} onPress={() => navigation.navigate('Main')}>
-                <Text style={styles.text}>Entrar</Text>
+
+            <TouchableOpacity style={styles.input} onPress={handleLogin} disabled={carregando}>
+                { carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Entrar</Text> }
             </TouchableOpacity>
+
             <Text style={styles.caption}>Não tem uma conta? <Text style={styles.caption2} onPress={() => navigation.navigate('Register')}>Faça cadastro.</Text></Text>
-            {/* <Button
-                title='Ir para a tela Profile'
-                onPress={() => {
-                    navigation.navigate('Profile');
-                }}
-            /> */}
             <StatusBar style="auto" />
         </View>
     );

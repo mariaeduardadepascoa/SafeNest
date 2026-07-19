@@ -1,15 +1,16 @@
 
 import React, { useState, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet,Text, TouchableOpacity,View,TextInput} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import ProgressBar from '../components/ProgressBar';
 import PersonIcon from '../../assets/person.svg';
 
-export default function RegisterEmailScreen({ navigation }) {
-
+export default function RegisterEmailScreen({ navigation, route }) {
+    const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
 
@@ -35,18 +36,21 @@ export default function RegisterEmailScreen({ navigation }) {
     }
 
     function codeKeyPress(e, index) {
-        if (e.nativeEvent.key === 'Backspace' && code[index] === '' &&index > 0) { //volta para o quadrado anterior se o usuario apagar
+        if (e.nativeEvent.key === 'Backspace' && code[index] === '' && index > 0) { //volta para o quadrado anterior se o usuario apagar
             codeRefs[index - 1].current.focus();
         }
     }
 
     function confirmEmail() {
         if (!emailSent) {
+            if (!nome.trim() || !email.trim()) {
+                return; // depois dá pra trocar por um Alert avisando o usuário AARUMAR
+            }
             // enviar email aqui futuramente
             setEmailSent(true);
         } else {
-            // validar código aqui futuramente
-            navigation.navigate('RegisterPassword');
+            // validar código aqui futuramente ARRUMAR
+            navigation.navigate('RegisterPassword', { nome, email }); // manda nome e email pra próxima tela
         }
     }
 
@@ -82,10 +86,22 @@ export default function RegisterEmailScreen({ navigation }) {
 
                     <View style={styles.authSubContainer}>
 
-                        <Text style={styles.caption}>
-                            Insira seu email
-                        </Text>
+                        <Text style={styles.caption}>Insira seu nome</Text>
+                        <View style={styles.inputs}>
+                            <PersonIcon width={30} height={30} />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Seu nome completo"
+                                placeholderTextColor={colorsLightMode.subtitles}
+                                value={nome}
+                                onChangeText={setNome}
+                                editable={!emailSent}
+                            />
+                        </View>
+                    </View>
 
+                    <View style={styles.authSubContainer}>
+                        <Text style={styles.caption}>Insira seu email</Text>
                         <View style={styles.inputs}>
                             <PersonIcon width={30} height={30} />
 
@@ -100,7 +116,6 @@ export default function RegisterEmailScreen({ navigation }) {
                                 autoCapitalize="none"
                             />
                         </View>
-
                     </View>
 
                     {emailSent && (

@@ -11,13 +11,13 @@ const PORT = 3000;
 
 app.use(cors()); // permite que o app e o site acessem a API
 app.use(express.json()); //para conseguimos usar o req.body caso a req seja em json
-app.use('/api', routes); //prefixo das rotas (todas as rotas definidas no routes.js vão começar com /api)
+app.use(routes);
 
 
 app.use((req, res) => {
     res.status(404).json({ message: 'Rota não encontrada' });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`SAFENEST API rodando em http://localhost:${PORT}`);
 });

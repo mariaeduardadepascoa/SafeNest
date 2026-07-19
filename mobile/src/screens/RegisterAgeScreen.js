@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet,Text,TouchableOpacity,View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
+import { cadastro } from '../services/api';
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import ProgressBar from '../components/ProgressBar';
 
-export default function RegisterAgeScreen({ navigation }) {
+export default function RegisterAgeScreen({ navigation, route }) {
+    const { nome, email, senha } = route.params;
 
     const [ageRange, setAgeRange] = useState('18-60');
     const [infoCardOpen, setInfoCardOpen] = useState(false);
+    const [carregando, setCarregando] = useState(false);
 
-    function finishRegister() {
-        // futuramente enviar dados para API
-
-        navigation.replace('Main');
+    async function finishRegister() {
+        setCarregando(true);
+        try {
+            await cadastro(nome, email, senha);
+            navigation.replace('Main');
+        } catch (err) {
+            Alert.alert('Erro ao cadastrar', err.message);
+        } finally {
+            setCarregando(false);
+        }
     }
 
     return (
@@ -160,8 +170,8 @@ export default function RegisterAgeScreen({ navigation }) {
 
             </View>
 
-            <TouchableOpacity style={styles.input}onPress={finishRegister}>
-                <Text style={styles.text}>Cadastre-se</Text>
+            <TouchableOpacity style={styles.input} onPress={finishRegister} disabled={carregando}>
+                {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Cadastre-se</Text>}
             </TouchableOpacity>
 
             <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2}> Faça login.</Text></Text>
