@@ -24,7 +24,7 @@ router.delete('/usuario/:id', verificarAccessToken, usuarioController.deletarUsu
 // metodos de login e cadastro
 router.post('/auth/login', authController.login);
 router.post('/auth/cadastro', authController.cadastro);
-router.post('/auth/refresh', authController.refreshToken); 
+router.post('/auth/refresh', authController.refreshToken);
 router.post('/auth/verificar-email', authController.verificarEmail);
 
 // --- APP E SITE
@@ -47,6 +47,7 @@ router.get('/historico', verificarAccessToken, historicoController.obterHistoric
 // tags rfid
 // router.post('/dispositivos', dispositivoController.obterTagsAutorizadas);
 router.post('/dispositivos/cadastrarTag', verificarAccessToken, dispositivoController.cadastrarTag);
+router.get('dispositivos/listarFechadura', dispositivoController.listarFechadura);
 // router.post('/dispositivos/cadastro', dispositivoController.cadastrarTag);
 // router.post('/acesso/rfid', dispositivoController.verificarTag);
 

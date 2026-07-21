@@ -88,9 +88,27 @@ exports.obterTagsAutorizadas = (req, res) => {
     }
 };
 
-//verificar a autencidade da tag para liberar a fechadura
-exports.verificarTag = (req, res) => {
+//lista a fehcadura pro app ou web
+exports.listarFechadura = (req, res) => {
+    try {
+        const { id_usuario } = req.body;
 
+        if (!id_usuario) {
+            return res.status(400).json({ erro: "requisição sem id_usuario" });
+        }
+
+        const id_Fechadura = await fechadura.buscarFechaduraPorUsuario(id);
+        if (!id_Fechadura) {
+            return res.status(404).json({ erro: "Fechadura não encontrada" });
+        }
+
+        return res.status(200).json({
+            id_fechadura=id_Fechadura,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno no servidor" });
+    }
 };
 
 

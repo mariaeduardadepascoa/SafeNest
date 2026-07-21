@@ -27,6 +27,17 @@ async function buscarFechaduraPorMacAddress(mac) {
     return data.id;
 }
 
+async function buscarFechaduraPorUsuario(id_usuario){
+    const { data, error } = await supabase
+        .from('fechaduras')
+        .select('id')
+        .eq('id_usuario', id_usuario)
+        .single();
+
+    if (error) return null;
+    return data.id;
+}
+
 async function verificarTag(tag, lock) {
     const { data, error } = await supabase
         .from("nfc_tags")
@@ -62,6 +73,7 @@ async function salvarRegistroNoBanco(idUsuario, uidNfc, idFechadura) {
 module.exports = {
     buscarFechadura,
     buscarFechaduraPorMacAddress,
+    buscarFechaduraPorUsuario,
     verificarTag,
     salvarRegistroNoBanco
 };
