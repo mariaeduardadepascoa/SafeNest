@@ -6,12 +6,15 @@ import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import PersonIcon from '../../assets/person.svg';
 import LockIcon from '../../assets/Lock.svg';
 import { login } from '../services/api';
+import EyeIcon from '../../assets/Eye.svg';
+import EyeOffIcon from '../../assets/Eye off.svg';
 
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [carregando, setCarregando] = useState(false);
+    const [showSenha, setShowSenha] = useState(false);
 
     async function handleLogin() {
         if (!email || !senha) {
@@ -67,15 +70,18 @@ export default function LoginScreen({ navigation }) {
                             placeholderTextColor={colorsLightMode.subtitles}
                             value={senha}
                             onChangeText={setSenha}
-                            secureTextEntry
+                            secureTextEntry={!showSenha}
                         />
+                        <TouchableOpacity onPress={() => setShowSenha(!showSenha)}>
+                            {showSenha ? <EyeIcon /> : <EyeOffIcon />}
+                        </TouchableOpacity>
                     </View>
                 </View>
 
             </View>
 
             <TouchableOpacity style={styles.input} onPress={handleLogin} disabled={carregando}>
-                { carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Entrar</Text> }
+                {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Entrar</Text>}
             </TouchableOpacity>
             <Text style={styles.caption}>Não tem uma conta? <Text style={styles.caption2} onPress={() => navigation.navigate('Register')}>Faça cadastro.</Text></Text>
             <StatusBar style="auto" />
@@ -129,6 +135,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         paddingLeft: 12,
+        paddingRight: 12,
         gap: 8,
     },
     input: {
@@ -147,6 +154,6 @@ const styles = StyleSheet.create({
         ...typography.body,
         color: colorsLightMode.subtitles,
         height: '100%',
-        textAlign: 'center',
-    }
+        flex: 1,
+    },
 });

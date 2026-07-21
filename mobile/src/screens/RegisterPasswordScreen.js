@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         includeFontPadding: false,
     },
-    eyeIcon: {
+    EyeIcon: {
         fontSize: 18,
     },
     codeContainer: {

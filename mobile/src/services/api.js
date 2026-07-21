@@ -103,3 +103,31 @@ export async function verificarEmailExiste(email) {
 
     return data.existe; //true ou false
 }
+
+// ENVIAR CÓDIGO DE VERIFICAÇÃO DE EMAIL
+export async function enviarCodigoVerificacao(email) {
+    const resposta = await fetch(`${API_URL}/send-verification-code`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.error || "Erro ao enviar código de verificação");
+
+    return data;
+}
+
+// VERIFICAR CÓDIGO DE VERIFICAÇÃO DE EMAIL
+export async function verificarCodigoVerificacao(email, codigo) {
+    const resposta = await fetch(`${API_URL}/verify-code`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code: codigo }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.error || "Erro ao verificar código");
+
+    return data;
+}

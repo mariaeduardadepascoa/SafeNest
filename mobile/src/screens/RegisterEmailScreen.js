@@ -8,7 +8,7 @@ import { colorsLightMode, typography } from '../theme';
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import ProgressBar from '../components/ProgressBar';
 import PersonIcon from '../../assets/person.svg';
-import { cadastro, verificarEmailExiste } from '../services/api';
+import { cadastro, verificarEmailExiste, enviarCodigoVerificacao, verificarCodigoVerificacao } from '../services/api';
 
 export default function RegisterEmailScreen({ navigation, route }) {
     const [nome, setNome] = useState('');
@@ -70,12 +70,32 @@ export default function RegisterEmailScreen({ navigation, route }) {
                 setVerificando(false);
             }
 
-            // enviar email aqui futuramente
+            try {
+                await enviarCodigoVerificacao(email.trim().toLowerCase());
+            } catch (err) {
+                Alert.alert('Erro', 'Não foi possível enviar o código de verificação.');
+                return;
+            }
+
             setEmailSent(true);
 
         } else {
-            // validar código aqui futuramente ARRUMAR
-            navigation.navigate('RegisterPassword', { nome, email });
+            const codigoDigitado = code.join('');
+
+            if (codigoDigitado.length < 4) {
+                Alert.alert('Atenção: Insira o código completo.');
+                return;
+            }
+
+            setVerificando(true);
+            try {
+                await verificarCodigoVerificacao(email.trim().toLowerCase(), codigoDigitado);
+                navigation.navigate('RegisterPassword', { nome, email });
+            } catch (err) {
+                Alert.alert('Erro: ', err.message);
+            } finally {
+                setVerificando(false);
+            }
         }
     }
 
@@ -191,8 +211,7 @@ export default function RegisterEmailScreen({ navigation, route }) {
                 </>
             ) : (
                 <>
-                    <TouchableOpacity style={styles.input} onPress={confirmEmail}
-                    >
+                    <TouchableOpacity style={styles.input} onPress={confirmEmail} disabled={verificando}> {/*botao desabilitado enquanto verficando for true*/}
                         <Text style={styles.text}>Confirmar e-mail</Text>
                     </TouchableOpacity>
 
