@@ -77,7 +77,6 @@ export default function LoginScreen({ navigation }) {
             <TouchableOpacity style={styles.input} onPress={handleLogin} disabled={carregando}>
                 { carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Entrar</Text> }
             </TouchableOpacity>
-
             <Text style={styles.caption}>Não tem uma conta? <Text style={styles.caption2} onPress={() => navigation.navigate('Register')}>Faça cadastro.</Text></Text>
             <StatusBar style="auto" />
         </View>
