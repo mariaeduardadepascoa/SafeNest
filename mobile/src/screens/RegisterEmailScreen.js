@@ -8,11 +8,14 @@ import { colorsLightMode, typography } from '../theme';
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import ProgressBar from '../components/ProgressBar';
 import PersonIcon from '../../assets/person.svg';
+import { cadastro, verificarEmailExiste } from '../services/api';
 
 export default function RegisterEmailScreen({ navigation, route }) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [verificando, setVerificando] = useState(false);
 
     const [code, setCode] = useState(['', '', '', '']);
 
@@ -23,7 +26,8 @@ export default function RegisterEmailScreen({ navigation, route }) {
         useRef(null)
     ];
 
-    function codeChange(text, index) { //função para guardar oq foi digitado e em qual foi digitado, ex: codeChange("1", 0)
+    //função para guardar oq foi digitado e em qual foi digitado, ex: codeChange("1", 0)
+    function codeChange(text, index) {
         let newCode = [...code]; //copia o array
 
         newCode[index] = text; //salva o numero
@@ -41,16 +45,37 @@ export default function RegisterEmailScreen({ navigation, route }) {
         }
     }
 
-    function confirmEmail() {
+    // enviando e confirmando email
+    async function confirmEmail() {
         if (!emailSent) {
             if (!nome.trim() || !email.trim()) {
                 return; // depois dá pra trocar por um Alert avisando o usuário AARUMAR
             }
+
+            setVerificando(true);
+
+            try {
+
+                const existe = await verificarEmailExiste(email.trim().toLowerCase());
+                if (existe) {
+                    setEmailError(true);
+                    Alert.alert('Atenção: Este e-mail já está cadastrado no sistema.');
+                    return;
+                }
+
+            } catch (err) {
+                Alert.alert('Erro', err.message);
+                return;
+            } finally {
+                setVerificando(false);
+            }
+
             // enviar email aqui futuramente
             setEmailSent(true);
+
         } else {
             // validar código aqui futuramente ARRUMAR
-            navigation.navigate('RegisterPassword', { nome, email }); // manda nome e email pra próxima tela
+            navigation.navigate('RegisterPassword', { nome, email });
         }
     }
 
@@ -102,15 +127,17 @@ export default function RegisterEmailScreen({ navigation, route }) {
 
                     <View style={styles.authSubContainer}>
                         <Text style={styles.caption}>Insira seu email</Text>
-                        <View style={styles.inputs}>
+                        <View style={[styles.inputs, emailError && styles.inputsError]}>
                             <PersonIcon width={30} height={30} />
-
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="email123@email.com"
                                 placeholderTextColor={colorsLightMode.subtitles}
                                 value={email}
-                                onChangeText={setEmail}
+                                onChangeText={(text) => {
+                                    setEmail(text);
+                                    setEmailError(false);
+                                }}
                                 editable={!emailSent}
                                 keyboardType="email-address"
                                 autoCapitalize="none"
@@ -160,7 +187,7 @@ export default function RegisterEmailScreen({ navigation, route }) {
                         <Text style={styles.text}>Enviar código de confirmação</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2}> Faça login.</Text></Text>
+                    <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
                 </>
             ) : (
                 <>
@@ -169,7 +196,7 @@ export default function RegisterEmailScreen({ navigation, route }) {
                         <Text style={styles.text}>Confirmar e-mail</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2}> Faça login.</Text></Text>
+                    <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
                 </>
             )}
 
@@ -254,7 +281,6 @@ const styles = StyleSheet.create({
         paddingVertical: 0,
         margin: 0,
         textAlignVertical: 'center',
-        includeFontPadding: false,
     },
     eyeIcon: {
         fontSize: 18,
@@ -363,6 +389,9 @@ const styles = StyleSheet.create({
         ...typography.body,
         color: colorsLightMode.titles,
         fontWeight: 'bold',
+    },
+    inputsError: {
+        borderColor: '#E53E3E',
     },
 });
 

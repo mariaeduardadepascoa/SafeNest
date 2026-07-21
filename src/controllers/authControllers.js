@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
 // cadastro
 exports.cadastro = async (req, res) => {
     try {
-        const { nome_usuario, email_usuario, senha_usuario } = req.body;
+        const { nome_usuario, email_usuario, senha_usuario, versao_adaptada } = req.body;
 
         if (!nome_usuario || !email_usuario || !senha_usuario) {
             return res.status(400).json({ erro: "Email, senha e nome são obrigatórios" });
@@ -67,7 +67,8 @@ exports.cadastro = async (req, res) => {
         const novoUser = await usuario.criarUsuario({
             nome_usuario,
             email_usuario: email,
-            senha_usuario: hashedPassword //para salvar agora em formato hash
+            senha_usuario: hashedPassword, //para salvar agora em formato hash
+            versao_adaptada: versao_adaptada ?? false,
         });
 
         if (!novoUser) {
@@ -109,3 +110,23 @@ exports.refreshToken = async(req, res) => {
         return res.status(500).json({ erro: "Erro interno no servidor." });
     }
 }
+
+// VERFICANDO SE O EMAIL JA EXISTE NO BANCO
+exports.verificarEmail = async (req, res) => {
+    try {
+        const { email_usuario } = req.body;
+
+        if (!email_usuario) {
+            return res.status(400).json({ erro: "Email é obrigatório" });
+        }
+
+        const email = email_usuario.trim().toLowerCase();
+        const usuarioEncontrado = await usuario.buscarEmail(email);
+
+        return res.status(200).json({ existe: !!usuarioEncontrado });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ erro: "Erro interno no servidor." });
+    }
+};

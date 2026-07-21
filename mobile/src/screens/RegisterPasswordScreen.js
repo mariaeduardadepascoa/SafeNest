@@ -133,7 +133,7 @@ export default function RegisterPasswordScreen({ navigation, route }) {
             </TouchableOpacity>
 
             <Text style={styles.caption}>Já tem uma conta?
-                <Text style={styles.caption2}> Faça login.</Text>
+                <Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text>
             </Text>
 
             <StatusBar style="auto" />

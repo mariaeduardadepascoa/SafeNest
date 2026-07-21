@@ -63,7 +63,7 @@ export async function login(email, senha) {
 
 
 // CADASTRO
-export async function cadastro(nome, email, senha) {
+export async function cadastro(nome, email, senha, ageRange) {
     const resposta = await fetch(`${API_URL}/auth/cadastro`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -71,6 +71,7 @@ export async function cadastro(nome, email, senha) {
             nome_usuario: nome,
             email_usuario: email,
             senha_usuario: senha,
+            versao_adaptada: ageRange === '60+', //comparação que retorna true ou false
         }),
     });
 
@@ -87,4 +88,18 @@ export async function obterContatosEmergencia(id) {
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar contatos de emergência");
     return data;
+}
+
+// VERIFICAR SE O EMAIL JÁ EXISTE
+export async function verificarEmailExiste(email) {
+    const resposta = await fetch(`${API_URL}/auth/verificar-email`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email_usuario: email }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao verificar email");
+
+    return data.existe; //true ou false
 }

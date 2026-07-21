@@ -17,7 +17,7 @@ export default function RegisterAgeScreen({ navigation, route }) {
     async function finishRegister() {
         setCarregando(true);
         try {
-            await cadastro(nome, email, senha);
+            await cadastro(nome, email, senha, ageRange);
             navigation.replace('Main');
         } catch (err) {
             Alert.alert('Erro ao cadastrar', err.message);
@@ -174,7 +174,7 @@ export default function RegisterAgeScreen({ navigation, route }) {
                 {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Cadastre-se</Text>}
             </TouchableOpacity>
 
-            <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2}> Faça login.</Text></Text>
+            <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
 
             <StatusBar style="auto" />
 

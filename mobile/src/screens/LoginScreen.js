@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     textSubContainer: {
         ...typography.body,
         color: colorsLightMode.subtitles,
+        height: '100%',
         textAlign: 'center',
     }
 });

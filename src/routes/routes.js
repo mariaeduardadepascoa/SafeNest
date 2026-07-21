@@ -25,6 +25,7 @@ router.delete('/usuario/:id', verificarAccessToken, usuarioController.deletarUsu
 router.post('/auth/login', authController.login);
 router.post('/auth/cadastro', authController.cadastro);
 router.post('/auth/refresh', authController.refreshToken); 
+router.post('/auth/verificar-email', authController.verificarEmail);
 
 // --- APP E SITE
 
