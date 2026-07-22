@@ -4,6 +4,7 @@ const supabase = require('../config/supabaseClient');
 const bcrypt = require('bcrypt');
 const usuario = require('../models/usuario');
 const jwt = require('jsonwebtoken');
+const { reqPasswordReset, resetPassword } = require('../services/passwordServices');
 
 // login
 exports.login = async (req, res) => {
@@ -127,6 +128,43 @@ exports.verificarEmail = async (req, res) => {
 
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ erro: "Erro interno no servidor." });
+    }
+};
+
+exports.forgotPassword = async (req, res) => {
+    const {email} = req.body;
+
+    if (!email) return res.status(400).json({mensagem: 'Email é obrigatório.'});
+
+    try {
+        await reqPasswordReset(email);
+    } catch(error) {
+        console.log(error);
+        console.error('Erro ao processar reset de senha:', error);
+    }
+    return res.status(200).json({menssagem: 'Se o email existir em nossa base, você receberá instruções em instantes.'});
+}
+
+exports.resetPassword = async (req, res) => {
+    const { token, novaSenha } = req.body;
+
+    if (!token || !novaSenha) {
+        return res.status(400).json({ erro: "Token e nova senha são obrigatórios." });
+    }
+
+    if (novaSenha.length < 6) {
+        return res.status(400).json({ erro: "A senha deve ter no mínimo 6 caracteres." });
+    }
+
+    try {
+        await resetPassword(token, novaSenha);
+        return res.status(200).json({ mensagem: "Senha redefinida com sucesso." });
+    } catch (error) {
+        if (error.message === 'TOKEN_INVALIDO' || error.message === 'TOKEN_EXPIRADO') {
+            return res.status(400).json({ erro: "Link inválido ou expirado. Solicite a redefinição novamente." });
+        }
+        console.error('Erro ao redefinir senha:', error);
         return res.status(500).json({ erro: "Erro interno no servidor." });
     }
 };

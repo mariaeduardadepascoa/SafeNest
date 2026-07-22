@@ -14,6 +14,7 @@ const dispositivoController = require('../controllers/dispositivoControllers');
 const verificarAccessToken = require('../middlewares/verificarAccessToken');
 const verificarAdmin = require('../middlewares/verificarAdmin');
 const verificacaoController = require('../controllers/verificacaoController');
+
 // --- CONTROLE INTERNO DE USUARIOS
 
 router.get('/usuarios', verificarAccessToken, verificarAdmin, usuarioController.obterUsuarios); //pegar todos os usuarios
@@ -32,6 +33,11 @@ router.post('/auth/verificar-email', authController.verificarEmail);
 router.post('/send-verification-code', verificacaoController.sendCode);
 router.post('/verify-code', verificacaoController.checkCode);
 
+// senha
+router.post('/auth/forgot-password', authController.forgotPassword);
+router.post('/auth/reset-password', authController.resetPassword);
+
+
 // --- APP E SITE
 
 // contatos de emergencia
@@ -42,7 +48,6 @@ router.delete('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoE
 
 // historico de dados do usuario
 router.get('/historico', verificarAccessToken, historicoController.obterHistorico);
-
 // --- DISPOSITIVOS
 
 // status dos sensores
