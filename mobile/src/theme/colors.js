@@ -8,6 +8,7 @@ export const colorsLightMode = {
   warning: '#EA8C2F',
   titles: '#1E1E1E',
   subtitles: '#848484',
+  lightBlue: '#C2D1E4',
 };
 
 // NAO UTILIZAR AINDA
