@@ -24,16 +24,15 @@ async function sendVerificationEmail(email, code) {
 }
 
 // email de redefinição de senha
-async function sendPasswordResetEmail(email, rawToken) {
-    const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${rawToken}`;
-
+async function sendPasswordResetEmail(email, codigo) {
     await transport.sendMail({
         from: `SafeNest Corporation <${process.env.GMAIL_USER}>`,
         to: email,
-        subject: 'Redefinição de Senha - SAFENEST',
-        html: `<h2>Olá!</h2> <p>Recebemos uma solicitação para redefinir sua senha no SafeNest. Clique no link abaixo para criar uma nova senha:</p> <p><a href="${resetLink}">${resetLink}</a></p> <h4>Este link é válido por 20 minutos e só pode ser usado uma vez.</h4> <p>Caso não tenha solicitado essa alteração, pedimos que ignore esta mensagem — sua senha atual continuará funcionando normalmente.</p> <p>Ainda têm dúvidas? Entre em contato com a equipe do SafeNest pelo email: safenest.br@gmail.com.</p>`,
-        text: `Olá! Recebemos uma solicitação para redefinir sua senha no SafeNest. Acesse o link a seguir para criar uma nova senha: ${resetLink}. Este link é válido por 20 minutos e só pode ser usado uma vez. Caso não tenha solicitado essa alteração, pedimos que ignore esta mensagem. Ainda têm dúvidas? Entre em contato com a equipe do SafeNest pelo email: safenest.br@gmail.com`,
+        subject: 'Código de Redefinição de Senha - SAFENEST',
+        html: `<h2>Olá!</h2> <p>Use o código abaixo para redefinir sua senha:</p> <h2>${codigo}</h2> <h4>Este código é válido por 20 minutos.</h4>`,
+        text: `Olá! Use o código a seguir para redefinir sua senha: ${codigo}. Este código é válido por 20 minutos.`,
     });
 }
+
 
 module.exports = { sendVerificationEmail, sendPasswordResetEmail };

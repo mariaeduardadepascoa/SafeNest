@@ -133,12 +133,49 @@ export async function verificarCodigoVerificacao(email, codigo) {
 }
 
 
-
-
 //Usado para listar a fechadura   -- joao 
 export async function obterFechadura() {
     const resposta = await autenticacaoToken('/dispositivos/listarFechadura');
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar fechaduras");
     return data.fechaduras;
+}
+
+// SENHA ESQUECIDA
+export async function forgotPassword(email) {
+    const resposta = await fetch(`${API_URL}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    return data;
+}
+
+// SENHA RESETADA
+export async function resetPassword(token, novaSenha) {
+    const resposta = await fetch(`${API_URL}/auth/reset-password`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, novaSenha }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao redefinir senha");
+    return data;
+}
+
+// VALIDANDO CODIGO DE SENHA ANTES DE DEIXAR O USUARIO RESETÁ-LA
+export async function validateResetCode(code) {
+    const resposta = await fetch(`${API_URL}/auth/validate-reset-code`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao validar código");
+    return data;
 }

@@ -1,5 +1,5 @@
-const crypto = require('crypto');
 const supabase = require('../config/supabaseClient');
+const crypto = require('crypto');
 const { sendPasswordResetEmail } = require('../services/emailServices');
 const bcrypt = require('bcrypt');
 
@@ -14,9 +14,10 @@ async function reqPasswordReset(email) {
 
     if (!user) return; //se o usuario nao existir nao retorna nada, pois a mensagem de erro sera a mesma
 
-    const rawToken = crypto.randomBytes(32).toString('hex'); //gera token aleatorio
+    // gera código de 4 dígitos
+    const codigo = Math.floor(1000 + Math.random() * 9000).toString();
 
-    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex'); //transforma em hash e depois salva
+    const tokenHash = crypto.createHash('sha256').update(codigo).digest('hex'); //transforma em hash e depois salva
 
     const expira_em = new Date(Date.now() + token_expiration_time * 60 * 1000);
 
@@ -34,13 +35,13 @@ async function reqPasswordReset(email) {
             expira_em: expira_em.toISOString(),
         });
 
-    await sendPasswordResetEmail(user.email_usuario, rawToken);
+    await sendPasswordResetEmail(user.email_usuario, codigo);
 }
 
 // resentando a senha
-async function resetPassword(rawToken, novaSenha) {
+async function resetPassword(codigo, novaSenha) {
     // hash do token recebido pra comparar com o que está salvo
-    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+    const tokenHash = crypto.createHash('sha256').update(codigo).digest('hex');
 
     // busca o token no banco
     const { data: tokenRow } = await supabase

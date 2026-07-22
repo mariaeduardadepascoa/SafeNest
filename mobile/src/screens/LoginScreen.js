@@ -8,6 +8,7 @@ import LockIcon from '../../assets/Lock.svg';
 import { login } from '../services/api';
 import EyeIcon from '../../assets/Eye.svg';
 import EyeOffIcon from '../../assets/Eye off.svg';
+import ForgotPassword from '../screens/ForgotPasswordScreen.js';
 
 
 export default function LoginScreen({ navigation }) {
@@ -61,7 +62,10 @@ export default function LoginScreen({ navigation }) {
                 </View>
 
                 <View style={styles.authSubContainer}>
-                    <Text style={styles.caption}>Insira sua senha</Text>
+                    <View style={styles.titlesInputPassword}>
+                        <Text style={styles.caption}>Insira sua senha</Text>
+                        <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ForgotPassword')}>Esqueceu a senha?</Text>
+                    </View>
                     <View style={styles.inputs}>
                         <LockIcon width={30} height={20} />
                         <TextInput
@@ -79,7 +83,6 @@ export default function LoginScreen({ navigation }) {
                 </View>
 
             </View>
-
             <TouchableOpacity style={styles.input} onPress={handleLogin} disabled={carregando}>
                 {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Entrar</Text>}
             </TouchableOpacity>
@@ -155,5 +158,13 @@ const styles = StyleSheet.create({
         color: colorsLightMode.subtitles,
         height: '100%',
         flex: 1,
+    },
+    titlesInputPassword: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    forgotPassword: {
+        ...typography.body,
+        color: colorsLightMode.primary,
     },
 });

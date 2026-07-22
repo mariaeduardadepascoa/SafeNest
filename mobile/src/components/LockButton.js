@@ -12,17 +12,17 @@ const LockButton = () => {
                 height={70}
                 color="#d10f15" 
             />
-            <view  style={styles.containerbutton}>
+            <View  style={styles.containerbutton}>
                 < TouchableOpacity>
                      <Text style={styles.text}>Abrir</Text>
                 </TouchableOpacity>
-                < TouchableOpacity>
+                <TouchableOpacity>
                      <Text style={styles.text}>Cadastrar Tag</Text>
                 </TouchableOpacity>
-                < TouchableOpacity>
+                <TouchableOpacity>
                      <Text style={styles.text}>Travar fechadura</Text>
                 </TouchableOpacity>
-            </view>
+            </View>
         </View>
     );
 }

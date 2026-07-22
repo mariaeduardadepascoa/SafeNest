@@ -36,7 +36,7 @@ router.post('/verify-code', verificacaoController.checkCode);
 // senha
 router.post('/auth/forgot-password', authController.forgotPassword);
 router.post('/auth/reset-password', authController.resetPassword);
-
+router.post('/auth/validate-reset-code', authController.validateResetCode);
 
 // --- APP E SITE
 

@@ -168,3 +168,29 @@ exports.resetPassword = async (req, res) => {
         return res.status(500).json({ erro: "Erro interno no servidor." });
     }
 };
+
+// valida o codigo de resetar senha antes de mandar para a resetpasswordscreen
+exports.validateResetCode = async (req, res) => {
+    const { code } = req.body;
+    if (!code) return res.status(400).json({ erro: "Código é obrigatório." });
+
+    try {
+        const tokenHash = crypto.createHash('sha256').update(code).digest('hex');
+        const { data: tokenRow } = await supabase
+            .from('reset_password')
+            .select('id, id_usuario, expira_em')
+            .eq('token_hash', tokenHash)
+            .single();
+
+        if (!tokenRow) return res.status(400).json({ erro: "Código inválido." });
+        if (new Date(tokenRow.expira_em) < new Date()) {
+            await supabase.from('reset_password').delete().eq('id', tokenRow.id);
+            return res.status(400).json({ erro: "Código expirado." });
+        }
+
+        return res.status(200).json({ valido: true });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno no servidor." });
+    }
+};
