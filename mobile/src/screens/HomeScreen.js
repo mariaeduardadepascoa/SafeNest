@@ -11,12 +11,14 @@ import ActivityCard from '../components/ActivitysCard';
 import HomeBlueIcon from '../../assets/Home.svg';
 import AlertOctagonRedIcon from '../../assets/Alert octagon.svg';
 import CheckCircleBlueIcon from '../../assets/Check circle.svg';
-
 import { useState } from 'react';
-import AddLockButton from '../components/AddLockButton';
-import UrlModal from '../components/UrlModal';
+
+
+import LockButton from '../components/LockButton';
+
+
 export default function HomeScreen({ navigation }) {
-    const [modalVisible, setModalVisible] = useState(false);
+    
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
             <LogoSafeNest width={215} />
@@ -25,12 +27,11 @@ export default function HomeScreen({ navigation }) {
                     <Text style={styles.titles}>Fechadura</Text>
 
                 </View>
-                <AddLockButton onPress={() => setModalVisible(true)} />
-                <UrlModal
-                    visible={modalVisible}
-                    onClose={() => setModalVisible(false)}
-                    url="https://google.com"   // depois colocar o ip do wifi menager do esp
-                />
+
+                <LockButton></LockButton>
+
+
+
             </View>
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>

@@ -131,3 +131,14 @@ export async function verificarCodigoVerificacao(email, codigo) {
 
     return data;
 }
+
+
+
+
+//Usado para listar a fechadura   -- joao 
+export async function obterFechadura() {
+    const resposta = await autenticacaoToken('/dispositivos/listarFechadura');
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar fechaduras");
+    return data.fechaduras;
+}
