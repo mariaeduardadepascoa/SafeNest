@@ -13,7 +13,7 @@ const historicoController = require('../controllers/historicoController');
 const dispositivoController = require('../controllers/dispositivoControllers');
 const verificarAccessToken = require('../middlewares/verificarAccessToken');
 const verificarAdmin = require('../middlewares/verificarAdmin');
-const verificacaoController = require('../controllers/verificacaoController');
+const verificacaoController = require('../controllers/verificationControllers');
 
 // --- CONTROLE INTERNO DE USUARIOS
 
@@ -56,7 +56,7 @@ router.get('/historico', verificarAccessToken, historicoController.obterHistoric
 // tags rfid
 // router.post('/dispositivos', dispositivoController.obterTagsAutorizadas);
 router.post('/dispositivos/cadastrarTag', verificarAccessToken, dispositivoController.cadastrarTag);
-router.get('dispositivos/listarFechadura', dispositivoController.listarFechadura);
+router.get('/dispositivos/listarFechadura', verificarAccessToken, dispositivoController.listarFechadura);
 // router.post('/dispositivos/cadastro', dispositivoController.cadastrarTag);
 // router.post('/acesso/rfid', dispositivoController.verificarTag);
 

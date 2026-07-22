@@ -73,7 +73,7 @@ exports.obterTagsAutorizadas = (req, res) => {
         const { uid } = req.body;
 
         if (!uid) {
-            return res.status(401).json({ erro: "E-mail ou senha incorretos" });
+            return res.status(401).json({ erro: "Uid não encontrado" });
 
         }
         mqtt.publish("fechadura/" + uid + "/comando", "abrirfechadura")
@@ -89,22 +89,13 @@ exports.obterTagsAutorizadas = (req, res) => {
 };
 
 //lista a fehcadura pro app ou web
-exports.listarFechadura = (req, res) => {
+exports.listarFechadura = async (req, res) => {
     try {
-        const { id_usuario } = req.body;
+        const id_usuario = req.id_usuario; // vem do middleware verificarAccessToken
 
-        if (!id_usuario) {
-            return res.status(400).json({ erro: "requisição sem id_usuario" });
-        }
+        const fechaduras = await fechadura.buscarFechaduraPorUsuario(id_usuario);
 
-        const id_Fechadura = await fechadura.buscarFechaduraPorUsuario(id);
-        if (!id_Fechadura) {
-            return res.status(404).json({ erro: "Fechadura não encontrada" });
-        }
-
-        return res.status(200).json({
-            id_fechadura=id_Fechadura,
-        });
+        return res.status(200).json({ fechaduras: fechaduras || [] });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ erro: "Erro interno no servidor" });

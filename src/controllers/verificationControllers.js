@@ -1,5 +1,5 @@
-const { codigoVerificacao, verificarCodigo } = require('../services/verificationService');
-const { sendVerificationEmail } = require('../services/emailService');
+const { codigoVerificacao, verificarCodigo } = require('../services/verificationServices');
+const { sendVerificationEmail } = require('../services/emailServices');
 
 async function sendCode(req, res) {
     const { email } = req.body;
