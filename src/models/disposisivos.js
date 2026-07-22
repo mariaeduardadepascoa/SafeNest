@@ -27,15 +27,18 @@ async function buscarFechaduraPorMacAddress(mac) {
     return data.id;
 }
 
-async function buscarFechaduraPorUsuario(id_usuario){
+async function buscarFechaduraPorUsuario(id_usuario) {
     const { data, error } = await supabase
         .from('fechaduras')
         .select('id')
         .eq('id_usuario', id_usuario)
-        .single();
+        .maybeSingle(); 
 
-    if (error) return null;
-    return data.id;
+    if (error) {
+        console.error('Erro ao buscar fechadura do usuário:', error);
+        return null;
+    }
+    return data; 
 }
 
 async function verificarTag(tag, lock) {

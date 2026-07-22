@@ -20,11 +20,11 @@ async function codigoVerificacao(email) {
         .eq('verificado', false);
 
 
-    const { erro } = await supabase
+    const { error } = await supabase
         .from('codigo_verificacao')
         .insert({ email, codigo, expira_em: expira_em.toISOString() }); //coloca a data no padrao do supabase (2026-07-21T23:30:00.000Z)
 
-    if (erro) throw erro;
+    if (error) throw error;
 
     return codigo;
 }

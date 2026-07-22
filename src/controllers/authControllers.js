@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const usuario = require('../models/usuario');
 const jwt = require('jsonwebtoken');
 const { reqPasswordReset, resetPassword } = require('../services/passwordServices');
-
+const crypto = require('crypto');
 // login
 exports.login = async (req, res) => {
     try {

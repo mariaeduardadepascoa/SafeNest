@@ -59,7 +59,7 @@ export default function ForgotPasswordScreen({ navigation }) {
 
             try {
                 await validateResetCode(codigoDigitado);
-                navigation.navigate('ResetPasswordScreen', { token: codigoDigitado });
+                navigation.navigate('ResetPassword', { token: codigoDigitado });
             } catch (err) {
                 Alert.alert('Erro', err.message);
             } finally {

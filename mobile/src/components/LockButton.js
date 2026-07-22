@@ -2,9 +2,9 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { colorsLightMode, typography } from '../theme';
 import Locker from '../../assets/Locker.svg'
+import {abrirFechadura} from '../services/api'
 
-
-const LockButton = () => {
+const LockButton = ({id_fechadura}) => {
     return (
         <View style={styles.containerLock}>
             <Locker
@@ -13,13 +13,15 @@ const LockButton = () => {
                 color="#d10f15" 
             />
             <View  style={styles.containerbutton}>
-                < TouchableOpacity>
+                < TouchableOpacity onPress={() => abrirFechadura(id_fechadura)}>
                      <Text style={styles.text}>Abrir</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                {/* mandar o id usuario junto com o cadastrar tag -- fazer  */}
+                <TouchableOpacity onPress={() => cadastrarTag(id_fechadura)}>   
                      <Text style={styles.text}>Cadastrar Tag</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+
+                <TouchableOpacity onPress={() => travarFechadura(id_fechadura)}>
                      <Text style={styles.text}>Travar fechadura</Text>
                 </TouchableOpacity>
             </View>

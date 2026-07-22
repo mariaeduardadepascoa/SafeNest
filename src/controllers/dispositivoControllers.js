@@ -1,6 +1,3 @@
-//module.exports = { client: serverMQTT };;
-
-
 //DADOS DO ESP E YOLO
 const crypto = require("crypto");
 const mqtt = require("../config/MQTT");
@@ -66,6 +63,33 @@ exports.cadastrarTag = async (req, res) => {
     }
 };
 
+exports.abrirFechadura = async (req, res) => {
+    try {
+        const id_fechadura = req.body;
+        if (!id_fechadura) {
+            return res.status(400).json({ erro: "requisição sem ID" });
+        }
+        const address = await fechadura.buscarFechadura(id_fechadura);
+
+        if (!address) {
+            return res.status(404).json({ erro: "Fechadura nao encontrada" });
+        }
+        serviceMQTT.publish(
+            "fechadura/" + address + "/comando",
+            "abrir"
+        );
+
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno do servidor" })
+    }
+
+
+
+
+}
 
 //listar todas as tags
 exports.obterTagsAutorizadas = (req, res) => {
@@ -91,11 +115,9 @@ exports.obterTagsAutorizadas = (req, res) => {
 //lista a fehcadura pro app ou web
 exports.listarFechadura = async (req, res) => {
     try {
-        const id_usuario = req.id_usuario; // vem do middleware verificarAccessToken
-
-        const fechaduras = await fechadura.buscarFechaduraPorUsuario(id_usuario);
-
-        return res.status(200).json({ fechaduras: fechaduras || [] });
+        const id_usuario = req.id_usuario;
+        const fechadura = await fechadura.buscarFechaduraPorUsuario(id_usuario);
+        return res.status(200).json({ fechadura }); // objeto ou null, sem "s"
     } catch (error) {
         console.error(error);
         return res.status(500).json({ erro: "Erro interno no servidor" });

@@ -1,9 +1,10 @@
 // IMPLEMENTAÇÃO DOS MÉTODOS DA API
 
 import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens } from '../services/tokenStorage';
-
-const API_URL = 'http://192.168.15.163:3000'; //nao pode ser localhost pois no celular n roda
-
+//nao pode ser localhost pois no celular n roda
+//const API_URL = 'http://192.168.15.163:3000'; //duda
+const API_URL = 'http://192.168.1.2:3000';    //joao       
+//const API_URL = 'http://localhost:3000';         //cabo          
 //Adiciona o acessToken no header das rotas que são protegidas
 async function autenticacaoToken(endpoint, options = {}) {
     let accessToken = await obterAccessToken();
@@ -36,7 +37,7 @@ async function autenticacaoToken(endpoint, options = {}) {
     
         // repete a requisição original com o token novo
         resposta = await fetch(`${API_URL}${endpoint}`, {
-          ...options,
+          ...options, 
           headers: { "Content-Type": "application/json", "Authorization": `Bearer ${novoToken}`, ...options.headers },
         });
     }
@@ -138,8 +139,22 @@ export async function obterFechadura() {
     const resposta = await autenticacaoToken('/dispositivos/listarFechadura');
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar fechaduras");
-    return data.fechaduras;
+    return data.fechadura; // objeto ou null
 }
+
+export async function abrirFechadura(id_fechadura) {
+    const resposta = await fetch(`${API_URL}/dispositivos/abrirFechadura`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_fechadura }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    return data;
+}
+
+
 
 // SENHA ESQUECIDA
 export async function forgotPassword(email) {

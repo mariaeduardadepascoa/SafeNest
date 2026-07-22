@@ -14,7 +14,7 @@ import CheckCircleBlueIcon from '../../assets/Check circle.svg';
 import { useState } from 'react';
 
 
-import LockButton from '../components/LockButton';
+import { FechaduraSection } from '../components/FechaduraSection';
 
 
 export default function HomeScreen({ navigation }) {
@@ -28,7 +28,7 @@ export default function HomeScreen({ navigation }) {
 
                 </View>
 
-                <LockButton></LockButton>
+                <FechaduraSection></FechaduraSection>
 
 
 

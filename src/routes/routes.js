@@ -57,7 +57,7 @@ router.get('/historico', verificarAccessToken, historicoController.obterHistoric
 // router.post('/dispositivos', dispositivoController.obterTagsAutorizadas);
 router.post('/dispositivos/cadastrarTag', verificarAccessToken, dispositivoController.cadastrarTag);
 router.get('/dispositivos/listarFechadura', verificarAccessToken, dispositivoController.listarFechadura);
-// router.post('/dispositivos/cadastro', dispositivoController.cadastrarTag);
+router.post('/dispositivos/abrirFechadura', dispositivoController.abrirFechadura);
 // router.post('/acesso/rfid', dispositivoController.verificarTag);
 
 // alertas de emergencia dos dispositivos
