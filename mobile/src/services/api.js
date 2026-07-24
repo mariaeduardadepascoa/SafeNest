@@ -23,22 +23,22 @@ async function autenticacaoToken(endpoint, options = {}) {
         const refreshToken = await obterRefreshToken();
         const refreshResposta = await fetch(`${API_URL}/auth/refresh`, {
             method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({refreshToken}),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ refreshToken }),
         });
 
         if (!refreshResposta.ok) { //aqui o refreshToken expirou, então o usuario deve fazer login novamente
             await deletarTokens();
             throw new Error("SESSAO_EXPIRADA"); //tratar isso no front ARRUMAR
         }
-    
-        const {accessToken: novoToken } = await refreshResposta.json(); //cria novo accessToken
+
+        const { accessToken: novoToken } = await refreshResposta.json(); //cria novo accessToken
         await salvarTokens(novoToken, refreshToken);
-    
+
         // repete a requisição original com o token novo
         resposta = await fetch(`${API_URL}${endpoint}`, {
-          ...options, 
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${novoToken}`, ...options.headers },
+            ...options,
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${novoToken}`, ...options.headers },
         });
     }
 
@@ -139,7 +139,7 @@ export async function obterFechadura() {
     const resposta = await autenticacaoToken('/dispositivos/listarFechadura');
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar fechaduras");
-    return data.fechadura; // objeto ou null
+    return data.id_fechadura; // objeto ou null
 }
 
 export async function abrirFechadura(id_fechadura) {

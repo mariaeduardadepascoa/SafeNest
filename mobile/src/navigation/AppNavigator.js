@@ -11,11 +11,11 @@ const Stack = createNativeStackNavigator(); // criando as pilhas (stack)
 
 export default function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName='Main'>
+    <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name='Register' component={RegisterNavigator} options={{ headerShown: false }} />
       <Stack.Screen name='ForgotPassword' component={ForgotPassword} options={{ headerShown: false }} />
-      <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
       <Stack.Screen name='Main' component={MainTabNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

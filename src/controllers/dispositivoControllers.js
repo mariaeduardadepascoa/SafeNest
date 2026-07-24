@@ -116,8 +116,8 @@ exports.obterTagsAutorizadas = (req, res) => {
 exports.listarFechadura = async (req, res) => {
     try {
         const id_usuario = req.id_usuario;
-        const fechadura = await fechadura.buscarFechaduraPorUsuario(id_usuario);
-        return res.status(200).json({ fechadura }); // objeto ou null, sem "s"
+        const id_fechadura = await fechadura.buscarFechaduraPorUsuario(id_usuario);
+        return res.status(200).json({ id_fechadura }); // objeto ou null, sem "s"
     } catch (error) {
         console.error(error);
         return res.status(500).json({ erro: "Erro interno no servidor" });

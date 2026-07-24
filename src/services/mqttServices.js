@@ -1,11 +1,25 @@
 const mqtt = require("../config/MQTT");
-const { buscarFechaduraPorMacAddress, verificarTag } = require('../models/disposisivos');
+const { buscarFechaduraPorMacAddress, verificarTag, cadastrarFechaduraNoBanco } = require('../models/disposisivos');
 const { resolverResposta } = require('../services/saladeespera');
+const jwt = require('jsonwebtoken');
+
+function verificarToken(token) {
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return decoded.id_usuario;
+    } catch (error) {
+        return null;
+    }
+}
+
+
+
+
 
 mqtt.client.on("connect", () => {
     console.log("Conectado ao broker MQTT");
 
-    mqtt.client.subscribe(["fechadura/+/resposta", "fechadura/+/heartbeat", "fechadura/+/readTag"], (err) => {
+    mqtt.client.subscribe(["fechadura/+/resposta", "fechadura/+/heartbeat", "fechadura/+/readTag", "fechadura/+/cadastrarFechadura"], (err) => {
         if (err) {
             console.error("Erro ao se inscrever nos tópicos das fechaduras:", err);
         } else {
@@ -14,7 +28,6 @@ mqtt.client.on("connect", () => {
     });
 });
 
-// Escutador único: toda mensagem de QUALQUER fechadura cai aqui.
 mqtt.client.on("message", async (topic, data) => {
     const partes = topic.split("/"); // ["fechadura", "<endereco>", "<tipo>"]
     const endereco = partes[1];
@@ -22,8 +35,29 @@ mqtt.client.on("message", async (topic, data) => {
 
     if (tipo === "heartbeat") {
         console.log(`Fechadura ${endereco} está online (heartbeat)`);
-        // TODO opcional: atualizar um status "online"/"última vez visto" no banco ou cache
         return;
+    }
+
+    if (tipo === "cadastrarFechadura") {
+        try {
+            const payload = JSON.parse(data.toString());
+            const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
+            if (idFechadura) {
+
+                return;
+            }
+            const userid = await verificarToken(payload.user_id);
+            if (!userid) {
+                return;
+            }
+            await cadastrarFechaduraNoBanco(payload.device_address, userid);
+
+        }
+        catch (erro) {
+            console.error("Erro ao cadastrar fechadura no banco:", erro);
+        }
+        return;
+
     }
 
     if (tipo === "resposta") {
@@ -42,36 +76,36 @@ mqtt.client.on("message", async (topic, data) => {
     }
 
     if (tipo === "readTag") {
-    try {
-        const payload = JSON.parse(data.toString());
-        const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
+        try {
+            const payload = JSON.parse(data.toString());
+            const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
 
-        console.log("idFechadura encontrado:", idFechadura); // <-- adiciona
+            console.log("idFechadura encontrado:", idFechadura);
 
-        if (!idFechadura) {
-            console.warn("Fechadura não encontrada");
-            return;
+            if (!idFechadura) {
+                console.warn("Fechadura não encontrada");
+                return;
+            }
+
+            const tag = payload.tag_uid;
+            const address = payload.device_address;
+
+            console.log("Verificando tag:", tag, "na fechadura:", idFechadura);
+
+            const verify = await verificarTag(tag, idFechadura);
+
+            console.log("Resultado da verificação:", verify);
+
+            mqtt.client.publish(
+                "fechadura/" + address + "/comando",
+                JSON.stringify({ comando: verify ? "abrirfechadura" : "acessonegado" })
+            );
+
+        } catch (erro) {
+            console.error("Erro ao processar mensagem readTag:", erro);
         }
-
-        const tag = payload.tag_uid;
-        const address = payload.device_address;
-
-        console.log("Verificando tag:", tag, "na fechadura:", idFechadura); // <-- adiciona
-
-        const verify = await verificarTag(tag, idFechadura);
-
-        console.log("Resultado da verificação:", verify); // <-- adiciona
-
-        mqtt.client.publish(
-            "fechadura/" + address + "/comando",
-            JSON.stringify({ comando: verify ? "abrirfechadura" : "acessonegado" })
-        );
-
-    } catch (erro) {
-        console.error("Erro ao processar mensagem readTag:", erro);
+        return;
     }
-    return;
-}
 
     console.warn("Mensagem em tópico não tratado:", topic, data.toString());
 });

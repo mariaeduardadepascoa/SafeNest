@@ -73,12 +73,32 @@ async function salvarRegistroNoBanco(idUsuario, uidNfc, idFechadura) {
     return data;
 }
 
+async function cadastrarFechaduraNoBanco(idFechadura,idUsuario) {
+    const { data, error } = await supabase
+        .from("fechaduras")
+        .insert({
+            id_usuario: idUsuario,
+            mac_address: idFechadura,
+            status: true,
+            data_hora: new Date().toISOString()
+        });
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+    return data;
+}
+
+
+
 module.exports = {
     buscarFechadura,
     buscarFechaduraPorMacAddress,
     buscarFechaduraPorUsuario,
     verificarTag,
-    salvarRegistroNoBanco
+    salvarRegistroNoBanco,
+    cadastrarFechaduraNoBanco
 };
 
 // module.exports = { buscarFechadura,buscarFechaduraPorMacAddress,verificarTag,salvarRegistroNoBanco }
