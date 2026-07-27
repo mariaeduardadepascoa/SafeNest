@@ -1,6 +1,6 @@
-// CONTEXT PARA UM COMPONENTE DE AUTENTICAÇÃO QUE VERIFICA SE O USUARIO ESTÁ LOGADO OU NÃO EM QUALQUER TELA
+// CONTEXT PARA UM COMPONENTE DE AUTENTICAÇÃO QUE CARREGA O USUARIO E SUAS INFO'S SALVOS NO APP
 import { createContext, useState, useContext, useEffect } from 'react';
-import { obterAccessToken, deletarTokens } from '../services/tokenStorage';
+import { obterAccessToken, deletarTokens, obterUsuario, deletarUsuario } from '../services/tokenStorage';
 
 const AuthContext = createContext();
 
@@ -12,14 +12,20 @@ export function AuthProvider({ children }) {
     useEffect(()=> {    
         async function verificarSessao(){
             const accessToken = await obterAccessToken();
-            setUsuario(accessToken ? {} : null); //se existir retorna nada já q o usuario esta logado, ja se n existir retorna null (deslogado) ARRUMAR
-            setCarregando(false); //determina que parou de carregar
+            if (accessToken) {
+                const usuarioSalvo = await obterUsuario();
+                setUsuario(usuarioSalvo);
+            } else {
+                setUsuario(null);
+            }
+            setCarregando(false);
         }
         verificarSessao();
     }, []); //esse array garante que o useEffect só rode uma vez, ao montar(na primeira vez) e nunca mais
 
     async function logout() {
         await deletarTokens();
+        await deletarUsuario();
         setUsuario(null);
     }
 

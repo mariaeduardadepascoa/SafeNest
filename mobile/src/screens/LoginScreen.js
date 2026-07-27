@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { login } from '../services/api';
+import { useAuth } from '../context/AuthContext';
+
 import { colorsLightMode, colorsBlackMode, typography } from '../theme';
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import PersonIcon from '../../assets/person.svg';
 import LockIcon from '../../assets/Lock.svg';
-import { login } from '../services/api';
 import EyeIcon from '../../assets/Eye.svg';
 import EyeOffIcon from '../../assets/Eye off.svg';
 import ForgotPassword from '../screens/ForgotPasswordScreen.js';
@@ -16,6 +18,7 @@ export default function LoginScreen({ navigation }) {
     const [senha, setSenha] = useState('');
     const [carregando, setCarregando] = useState(false);
     const [showSenha, setShowSenha] = useState(false);
+    const { setUsuario } = useAuth();
 
     async function handleLogin() {
         if (!email || !senha) {
@@ -26,7 +29,8 @@ export default function LoginScreen({ navigation }) {
         setCarregando(true);
 
         try {
-            await login(email, senha); // salva os tokens no SecureStore
+            const usuarioLogado = await login(email, senha);
+            setUsuario(usuarioLogado);
             navigation.replace('Main');
         } catch (err) {
             Alert.alert('Erro ao entrar ', err.message);

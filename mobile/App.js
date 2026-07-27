@@ -1,9 +1,9 @@
 
 import { NavigationContainer } from '@react-navigation/native';
-import { useFonts, Roboto_400Regular,Roboto_500Medium ,Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 import AppNavigator from './src/navigation/AppNavigator.js';
-
+import { AuthProvider } from './src/context/AuthContext.js';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,11 +12,10 @@ export default function App() {
     RobotoBold: Roboto_700Bold,
   });
   return (
-
-    <NavigationContainer>
-      <AppNavigator />
-
-    </NavigationContainer>
-
+    <AuthProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }

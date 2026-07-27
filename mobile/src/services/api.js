@@ -1,10 +1,11 @@
 // IMPLEMENTAÇÃO DOS MÉTODOS DA API
 
-import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens } from '../services/tokenStorage';
+import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens, salvarUsuario, obterUsuario, deletarUsuario } from '../services/tokenStorage';
 //nao pode ser localhost pois no celular n roda
-//const API_URL = 'http://192.168.15.163:3000'; //duda
-const API_URL = 'http://192.168.1.2:3000';    //joao       
-//const API_URL = 'http://localhost:3000';         //cabo          
+const API_URL = 'http://192.168.15.163:3000'; //duda
+// const API_URL = 'http://192.168.1.2:3000';    //joao       
+//const API_URL = 'http://localhost:3000';         //cabo    
+
 //Adiciona o acessToken no header das rotas que são protegidas
 async function autenticacaoToken(endpoint, options = {}) {
     let accessToken = await obterAccessToken();
@@ -58,6 +59,7 @@ export async function login(email, senha) {
     if (!resposta.ok) throw new Error(data.erro || "Erro ao fazer login");
 
     await salvarTokens(data.accessToken, data.refreshToken); //salvando os dois tokens
+    await salvarUsuario(data.usuario);
 
     return data.usuario;
 }
@@ -79,9 +81,21 @@ export async function cadastro(nome, email, senha, ageRange) {
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao cadastrar");
 
+    await salvarUsuario(data.usuario);
     return data.usuario;
 }
 
+// CRIAR CONTATO DE EMERGÊNCIA
+export async function criarContatoEmergencia(id_usuario, nome_contato, telefone_contato) {
+    const resposta = await autenticacaoToken(`/usuario/${id_usuario}/contatos`, {
+        method: 'POST',
+        body: JSON.stringify({ nome_contato, telefone_contato }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao criar contato de emergência");
+    return data.contato_emergencia;
+}
 
 // OBTER CONTATOS DE EMERGÊNCIA
 export async function obterContatosEmergencia(id) {
@@ -89,6 +103,29 @@ export async function obterContatosEmergencia(id) {
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar contatos de emergência");
     return data;
+}
+
+// ATUALIZAR CONTATO DE EMERGÊNCIA
+export async function atualizarContatoEmergencia(idUsuario, id_contato, nome_contato, telefone_contato) {
+    const resposta = await autenticacaoToken(`/usuario/${idUsuario}/contatos/${id_contato}`, {
+        method: 'PUT',
+        body: JSON.stringify({ nome_contato, telefone_contato }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao atualizar contato de emergência");
+    return data.contato_emergencia;
+}
+
+// DELETAR CONTATO DE EMERGÊNCIA
+export async function deletarContatoEmergencia(idUsuario, contatoId) {
+    const resposta = await autenticacaoToken(`/usuario/${idUsuario}/contatos/${contatoId}`, {
+        method: 'DELETE',
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao excluir contato de emergência");
+    return data.contato_emergencia;
 }
 
 // VERIFICAR SE O EMAIL JÁ EXISTE

@@ -4,20 +4,22 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import { cadastro } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
 import ProgressBar from '../components/ProgressBar';
 
 export default function RegisterAgeScreen({ navigation, route }) {
     const { nome, email, senha } = route.params;
-
     const [ageRange, setAgeRange] = useState('18-60');
     const [infoCardOpen, setInfoCardOpen] = useState(false);
     const [carregando, setCarregando] = useState(false);
+    const { setUsuario } = useAuth();
 
     async function finishRegister() {
         setCarregando(true);
         try {
-            await cadastro(nome, email, senha, ageRange);
+            const usuarioCadastrado = await cadastro(nome, email, senha, ageRange);
+            setUsuario(usuarioCadastrado);
             navigation.replace('Main');
         } catch (err) {
             Alert.alert('Erro ao cadastrar', err.message);
