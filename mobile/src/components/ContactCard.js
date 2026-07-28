@@ -1,18 +1,30 @@
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
+import { Linking, Alert } from 'react-native';
 import EditIcon from '../../assets/Edit.svg';
 import PhoneCallIcon from '../../assets/Phone call.svg';
 import DeleteIcon from '../../assets/delete.svg';
 
 export default function ContactCard({ nome_contato, telefone, foto, onEdit, onDelete }) {
     const primeiraLetra = nome_contato ? nome_contato.charAt(0).toUpperCase() : '?';
+
+    async function ligacao(telefone) {
+        const numeroLimpo = telefone.replace(/[^0-9+]/g, ''); // remove qualquer caractere que não seja um número (parênteses, traços e espaços)
+
+        try {
+            await Linking.openURL(`tel:${numeroLimpo}`);
+        } catch (err) {
+            console.log('erro real:', err);
+            Alert.alert('Erro', 'Não foi possível realizar a ligação.');
+        }
+    }
     return (
 
         <View style={styles.contatos}>
             <View style={styles.card}>
 
                 <View style={styles.infoContato}>
-                    <View style={styles.contatoFoto}>{foto ? (<Image source={{ uri: foto }} style={styles.foto}/>) : (<Text style={styles.letraContato}>{primeiraLetra}</Text>)}
+                    <View style={styles.contatoFoto}>{foto ? (<Image source={{ uri: foto }} style={styles.foto} />) : (<Text style={styles.letraContato}>{primeiraLetra}</Text>)}
                     </View>
                     <Text style={styles.nomeContato} numberOfLines={1} ellipsizeMode="tail">{nome_contato}</Text>
                 </View>
@@ -24,10 +36,10 @@ export default function ContactCard({ nome_contato, telefone, foto, onEdit, onDe
                     <Pressable style={styles.deleteContato} onPress={onDelete}>
                         <DeleteIcon width={16} height={16} />
                     </Pressable>
-                    <View style={styles.callContato}>
+                    <Pressable style={styles.callContato} onPress={() => ligacao(telefone)}>
                         <PhoneCallIcon width={20} height={20} />
                         <Text style={styles.ligarText}>Ligar</Text>
-                    </View>
+                    </Pressable>
                 </View>
 
             </View>

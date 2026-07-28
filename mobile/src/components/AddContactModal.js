@@ -1,18 +1,42 @@
-import { View, Text, StyleSheet, Modal, TextInput, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Modal, TextInput, Pressable, ActivityIndicator, Image, Alert } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
-import PersonWhiteIcon from '../../assets/personWhiteIcon.svg';
 import { useEffect, useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
+import PersonWhiteIcon from '../../assets/personWhiteIcon.svg';
+import PenToolIcon from '../../assets/Pen tool.svg';
 
-export default function AddContactModal({ visible, onClose, onSave, contato }) {
+export default function AddContactModal({ visible, onClose, onSave, contato, salvando }) {
     const [nome, setNome] = useState('');
     const [telefone, setTelefone] = useState('');
+    const [foto, setFoto] = useState(null);
 
     useEffect(() => {
         if (visible) {
             setNome(contato?.nome || '');
             setTelefone(contato?.telefone || '');
+            setFoto(contato?.foto || null);
         }
     }, [visible, contato]);
+
+    async function escolherFoto() {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (status !== 'granted') {
+            Alert.alert('Permissão necessária', 'Precisamos de acesso às suas fotos para adicionar uma imagem ao contato.');
+            return;
+        }
+
+        const resultado = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            aspect: [1, 1], //corte quadrado
+            quality: 0.7,
+        });
+
+        if (!resultado.canceled) {
+            setFoto(resultado.assets[0].uri);
+        }
+    }
 
     return (
         <Modal
@@ -42,8 +66,17 @@ export default function AddContactModal({ visible, onClose, onSave, contato }) {
                         </Pressable>
                     </View>
 
-                    <Pressable style={styles.photoButton}>
-                        <PersonWhiteIcon width={80} height={80} />
+                    <Pressable style={styles.photoWrapper} onPress={escolherFoto}>
+                        <View style={styles.photoButton}>
+                            {foto ? (
+                                <Image source={{ uri: foto }} style={styles.photoImage} />
+                            ) : (
+                                <PersonWhiteIcon width={80} height={80} />
+                            )}
+                        </View>
+                        <View style={styles.editBadge}>
+                            <PenToolIcon width={14} height={14} />
+                        </View>
                     </Pressable>
 
                     <View style={styles.inputContainer}>
@@ -70,26 +103,24 @@ export default function AddContactModal({ visible, onClose, onSave, contato }) {
                     </View>
 
                     <Pressable
-                        style={styles.saveButton}
+                        style={[styles.saveButton, salvando && styles.saveButtonDisabled]}
+                        disabled={salvando}
                         onPress={() => {
                             onSave({
                                 id: contato?.id || Date.now().toString(),
                                 nome,
                                 telefone,
-                                foto: contato?.foto || null
+                                foto
                             });
-
-                            setNome('');
-                            setTelefone('');
                         }}
                     >
-                        <Text style={styles.saveText}>
-                            {
-                                contato
-                                    ? 'Salvar alterações'
-                                    : 'Salvar contato'
-                            }
-                        </Text>
+                        {salvando ? (
+                            <ActivityIndicator color="#FFF" />
+                        ) : (
+                            <Text style={styles.saveText}>
+                                {contato ? 'Salvar alterações' : 'Salvar contato'}
+                            </Text>
+                        )}
                     </Pressable>
 
                 </Pressable>
@@ -130,6 +161,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
+    photoWrapper: {
+        alignSelf: 'center',
+        marginBottom: 35,
+    },
     photoButton: {
         width: 110,
         height: 110,
@@ -137,8 +172,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#2F5B9A',
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center',
-        marginBottom: 35,
+        overflow: 'hidden',
+    },
+    photoImage: {
+        width: '100%',
+        height: '100%',
+    },
+    editBadge: {
+        position: 'absolute',
+        bottom: -2,
+        right: -2,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: '#2E2E2E',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: '#FFF',
     },
 
     inputContainer: {
@@ -157,7 +208,6 @@ const styles = StyleSheet.create({
         borderColor: colorsLightMode.gray,
         borderRadius: 8,
         ...typography.body,
-        // paddingHorizontal: 15,
         flexDirection: 'row',
         justifyContent: 'space-around'
     },

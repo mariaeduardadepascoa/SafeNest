@@ -4,6 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.4.3",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.18.3",
     "@react-navigation/drawer": "^7.12.3",
     "@react-navigation/native": "^7.3.4",
@@ -11,6 +12,7 @@
     "@react-navigation/stack": "^7.10.6",
     "expo": "~56.0.17",
     "expo-font": "~56.0.7",
+    "expo-image-picker": "~56.0.22",
     "expo-secure-store": "~56.0.4",
     "expo-status-bar": "~56.0.4",
     "phosphor-react-native": "^3.0.6",
