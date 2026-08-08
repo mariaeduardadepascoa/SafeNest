@@ -8,13 +8,13 @@ import { obterFechadura } from '../services/api';
 import { obterAccessToken } from '../services/tokenStorage';
 
 function useFechadura() {
-    const [fechadura, setFechadura] = useState(null); // Agora é um objeto ou null!
+    const [fechadura, setFechadura] = useState(null); 
     const [carregando, setCarregando] = useState(true);
 
     async function carregarFechadura() {
         try {
             setCarregando(true);
-            const data = await obterFechadura(); // Retorna o objeto direto do .single()
+            const data = await obterFechadura();
             setFechadura(data);
         } catch (err) {
             console.error(err);

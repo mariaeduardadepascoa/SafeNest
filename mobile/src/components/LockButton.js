@@ -20,7 +20,7 @@ const LockButton = ({id_fechadura}) => {
                 <TouchableOpacity onPress={() => cadastrarTag(id_fechadura)}>   
                      <Text style={styles.text}>Cadastrar Tag</Text>
                 </TouchableOpacity>
-
+                {/* o bota de travar fechadura pode operar com o endpoint travarFechadura(id_fechadura) */}
                 <TouchableOpacity onPress={() => travarFechadura(id_fechadura)}>
                      <Text style={styles.text}>Travar fechadura</Text>
                 </TouchableOpacity>

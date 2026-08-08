@@ -65,6 +65,31 @@ exports.cadastrarTag = async (req, res) => {
 
 exports.abrirFechadura = async (req, res) => {
     try {
+        const id_fechadura = req.body.id_fechadura;
+        if (!id_fechadura) {
+            return res.status(400).json({ erro: "requisição sem ID" });
+        }
+        const address = await fechadura.buscarFechadura(id_fechadura);
+        if (!address) {
+            return res.status(404).json({ erro: "Fechadura nao encontrada" });
+        }
+        serviceMQTT.publish(
+            "fechadura/" + address + "/comando",
+            JSON.stringify({"comando":"abrirfechadura"})
+        );
+
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno do servidor" })
+    }
+
+
+}
+
+exports.travarFechadura = async (req, res) => {
+    try {
         const id_fechadura = req.body;
         if (!id_fechadura) {
             return res.status(400).json({ erro: "requisição sem ID" });
@@ -76,21 +101,46 @@ exports.abrirFechadura = async (req, res) => {
         }
         serviceMQTT.publish(
             "fechadura/" + address + "/comando",
-            "abrir"
+            JSON.stringify({"comando":"travar"})
         );
 
-
-
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ erro: "Erro interno do servidor" })
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ erro: "Erro interno no servidor" });
+        }
+
+
     }
-
-
-
 
 }
 
+exports.destravarFechadura = async (req, res) => {
+    try {
+        const id_fechadura = req.body;
+        if (!id_fechadura) {
+            return res.status(400).json({ erro: "requisição sem ID" });
+        }
+        const address = await fechadura.buscarFechadura(id_fechadura);
+
+        if (!address) {
+            return res.status(404).json({ erro: "Fechadura nao encontrada" });
+        }
+        serviceMQTT.publish(
+            "fechadura/" + address + "/comando",
+            JSON.stringify({"comando":"destravar"})
+        );
+
+    } catch (error) {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ erro: "Erro interno no servidor" });
+        }
+
+
+    }
+
+}
 //listar todas as tags
 exports.obterTagsAutorizadas = (req, res) => {
     try {

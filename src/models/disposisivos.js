@@ -2,7 +2,7 @@
 const supabase = require('../config/supabaseClient');
 
 async function buscarFechadura(id_fechadura) {
-    console.log('id recebido:', id_fechadura); // <-- adiciona essa linha também
+
     const { data, error } = await supabase
         .from('fechaduras')
         .select('mac_address')
@@ -10,7 +10,7 @@ async function buscarFechadura(id_fechadura) {
         .single();
 
     if (error) {
-        console.error('Erro Supabase:', error); // <-- essa aqui
+        console.error('Erro Supabase:', error);
         return null;
     }
     return data.mac_address;
@@ -32,13 +32,13 @@ async function buscarFechaduraPorUsuario(id_usuario) {
         .from('fechaduras')
         .select('id')
         .eq('id_usuario', id_usuario)
-        .maybeSingle(); 
+        .maybeSingle();
 
     if (error) {
         console.error('Erro ao buscar fechadura do usuário:', error);
         return null;
     }
-    return data; 
+    return data;
 }
 
 async function verificarTag(tag, lock) {
@@ -73,14 +73,15 @@ async function salvarRegistroNoBanco(idUsuario, uidNfc, idFechadura) {
     return data;
 }
 
-async function cadastrarFechaduraNoBanco(idFechadura,idUsuario) {
+async function cadastrarFechaduraNoBanco(idFechadura, idUsuario) {
     const { data, error } = await supabase
         .from("fechaduras")
         .insert({
             id_usuario: idUsuario,
             mac_address: idFechadura,
             status: true,
-            data_hora: new Date().toISOString()
+            data_hora: new Date().toISOString(),
+            blocked: false
         });
 
     if (error) {
@@ -90,6 +91,19 @@ async function cadastrarFechaduraNoBanco(idFechadura,idUsuario) {
     return data;
 }
 
+async function verificarTrancada(idFechadura) {
+    const { data, error } = await supabase
+        .from("fechaduras")
+        .select("blocked")
+        .eq("id", idFechadura)
+        .single();
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+    return data;
+}
 
 
 module.exports = {

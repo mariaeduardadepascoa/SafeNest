@@ -43,7 +43,13 @@ mqtt.client.on("message", async (topic, data) => {
             const payload = JSON.parse(data.toString());
             const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
             if (idFechadura) {
-
+                const isBloqued = await verificarTrancada(idFechadura);
+                if (isBloqued) {
+                    serviceMQTT.publish(
+                        "fechadura/" + address + "/comando",
+                        "travar"
+                    );
+                }
                 return;
             }
             const userid = await verificarToken(payload.user_id);
