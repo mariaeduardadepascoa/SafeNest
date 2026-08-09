@@ -9,6 +9,7 @@ export const colorsLightMode = {
   titles: '#1E1E1E',
   subtitles: '#848484',
   lightBlue: '#C2D1E4',
+  lightBlueMobile: '#64748B',
 };
 
 // NAO UTILIZAR AINDA

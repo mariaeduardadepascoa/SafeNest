@@ -25,7 +25,6 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
                     <Text style={styles.titles}>Fechadura</Text>
-
                 </View>
 
                 <FechaduraSection></FechaduraSection>
