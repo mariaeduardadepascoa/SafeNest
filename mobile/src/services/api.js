@@ -190,8 +190,28 @@ export async function abrirFechadura(id_fechadura) {
     if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
     return data;
 }
+export async function travarFechadura(id_fechadura) {
+    const resposta = await fetch(`${API_URL}/dispositivos/travarFechadura`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_fechadura }),
+    });
 
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    return data;
+}
+export async function destravarFechadura(id_fechadura) {
+    const resposta = await fetch(`${API_URL}/dispositivos/destravarFechadura`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_fechadura }),
+    });
 
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    return data;
+}
 
 // SENHA ESQUECIDA
 export async function forgotPassword(email) {

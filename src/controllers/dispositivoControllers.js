@@ -22,19 +22,14 @@ exports.cadastrarTag = async (req, res) => {
         if (!address) {
             return res.status(404).json({ erro: "Fechadura não encontrada" });
         }
-
-        // gera o "número de protocolo" único pra essa requisição
         const correlationId = crypto.randomUUID();
 
-        // manda o comando já incluindo o protocolo, pra fechadura devolver junto
         serviceMQTT.publish(
             "fechadura/" + address + "/comando",
             JSON.stringify({ comando: "registrartag", correlationId })
         );
 
         try {
-            // fica esperando aqui (parado, mas sem travar outras requisições)
-            // até 8 segundos pela resposta com esse mesmo correlationId
             const resposta = await aguardarResposta(correlationId, 8000);
 
             console.log("Resposta recebida da fechadura:", resposta);
@@ -84,8 +79,7 @@ exports.abrirFechadura = async (req, res) => {
         console.error(error);
         return res.status(500).json({ erro: "Erro interno do servidor" })
     }
-
-
+    
 }
 
 exports.travarFechadura = async (req, res) => {
