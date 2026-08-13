@@ -4,6 +4,7 @@ export const colorsLightMode = {
   white: '#FFFFFF',
   black: '#252525',
   gray: '#E2E2E2',
+  darkGray: '#BABABB',
   danger: '#D54144',
   warning: '#EA8C2F',
   titles: '#1E1E1E',

@@ -23,5 +23,10 @@ export const typography = {
   boldTitlesForButtons: {
     fontSize: 16,
     fontWeight: '700',
-  }
+  },
+
+  regularText: {
+    fontSize: 16,
+    fontWeight: '400',
+  },
 };
