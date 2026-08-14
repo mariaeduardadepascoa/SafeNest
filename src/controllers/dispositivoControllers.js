@@ -8,7 +8,7 @@ const serviceMQTT = require("../services/mqttServices");
 //cadastrar uma tag
 exports.cadastrarTag = async (req, res) => {
     try {
-        const { id, id_usuario } = req.body;
+        const { id, id_usuario,user_Name } = req.body;
 
         if (!id) {
             return res.status(400).json({ erro: "requisição sem ID" });
@@ -17,7 +17,9 @@ exports.cadastrarTag = async (req, res) => {
         if (!id_usuario) {
             return res.status(400).json({ erro: "requisição sem id_usuario" });
         }
-
+        if (!user_Name) {
+            return res.status(400).json({ erro: "requisição sem ID" });
+        }
         const address = await fechadura.buscarFechadura(id);
         if (!address) {
             return res.status(404).json({ erro: "Fechadura não encontrada" });
@@ -37,7 +39,8 @@ exports.cadastrarTag = async (req, res) => {
             const registro = await fechadura.salvarRegistroNoBanco(
                 id_usuario,
                 resposta.tag_uid,
-                id
+                id,
+                user_Name
             );
 
             if (!registro) {

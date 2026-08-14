@@ -56,14 +56,15 @@ async function verificarTag(tag, lock) {
     return !!data;
 }
 
-async function salvarRegistroNoBanco(idUsuario, uidNfc, idFechadura) {
+async function salvarRegistroNoBanco(idUsuario, uidNfc, idFechadura, user_name) {
     const { data, error } = await supabase
         .from("nfc_tags")
         .insert({
             id_usuario: idUsuario,
             uid_nfc: uidNfc,
             id_fechadura: idFechadura,
-            data_hora: new Date().toISOString()
+            data_hora: new Date().toISOString(),
+            nome_tag: user_name
         });
 
     if (error) {
@@ -104,7 +105,44 @@ async function verificarTrancada(idFechadura) {
     }
     return data;
 }
-
+async function addAcesso(tag, user) {
+    const { data, error } = await supabase
+        .from("acessos")
+        .insert({
+            id_tag: tag,
+            id_usuario: user
+        })
+    if (error) {
+        console.error(error);
+        return null;
+    }
+    return data;
+}
+async function addAlerta(tipo, user) {
+    const { data, error } = await supabase
+        .from("alertas")
+        .insert({
+            tipo_alerta: tipo,
+            id_usuario: user
+        })
+    if (error) {
+        console.error(error);
+        return null;
+    }
+    return data;
+}
+async function buscarUsuarioPorFechadura(id_lock) {
+    const { data, error } = await supabase
+    .from("fechaduras")
+    .select("id_usuario")
+    .eq("id",id_lock)
+    .single();
+     if (error) {
+        console.error(error);
+        return null;
+    }
+    return data;
+}
 
 module.exports = {
     buscarFechadura,
@@ -112,7 +150,10 @@ module.exports = {
     buscarFechaduraPorUsuario,
     verificarTag,
     salvarRegistroNoBanco,
-    cadastrarFechaduraNoBanco
+    cadastrarFechaduraNoBanco,
+    addAcesso,
+    addAlerta,
+    buscarUsuarioPorFechadura
 };
 
 // module.exports = { buscarFechadura,buscarFechaduraPorMacAddress,verificarTag,salvarRegistroNoBanco }

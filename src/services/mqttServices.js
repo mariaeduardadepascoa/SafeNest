@@ -1,5 +1,5 @@
 const mqtt = require("../config/MQTT");
-const { buscarFechaduraPorMacAddress, verificarTag, cadastrarFechaduraNoBanco } = require('../models/disposisivos');
+const { buscarFechaduraPorMacAddress, verificarTag, cadastrarFechaduraNoBanco,addAcesso,buscarUsuarioPorFechadura, addAlerta } = require('../models/disposisivos');
 const { resolverResposta } = require('../services/saladeespera');
 const jwt = require('jsonwebtoken');
 
@@ -85,6 +85,7 @@ mqtt.client.on("message", async (topic, data) => {
         try {
             const payload = JSON.parse(data.toString());
             const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
+            const usuario = await buscarUsuarioPorFechadura(idFechadura)
 
             console.log("idFechadura encontrado:", idFechadura);
 
@@ -102,11 +103,24 @@ mqtt.client.on("message", async (topic, data) => {
 
             console.log("Resultado da verificação:", verify);
 
-            mqtt.client.publish(
+            if(!verify){
+             mqtt.client.publish(
+                "fechadura/" + address + "/comando", 
+                JSON.stringify({ comando:"acessonegado" })
+                
+            );    
+            addAlerta("ACESSONEGADO",usuario);
+            }else{
+                 mqtt.client.publish(
                 "fechadura/" + address + "/comando",
-                JSON.stringify({ comando: verify ? "abrirfechadura" : "acessonegado" })
+                JSON.stringify({ comando: "abrirfechadura" })
             );
+            addAcesso(tag,usuario);
+            }
 
+
+
+    
         } catch (erro) {
             console.error("Erro ao processar mensagem readTag:", erro);
         }
