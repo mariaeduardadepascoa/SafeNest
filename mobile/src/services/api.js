@@ -2,8 +2,8 @@
 
 import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens, salvarUsuario, obterUsuario, deletarUsuario } from '../services/tokenStorage';
 //nao pode ser localhost pois no celular n roda
-const API_URL = 'http://192.168.15.79:3000'; //duda
-// const API_URL = 'http://192.168.1.2:3000';    //joao       
+//const API_URL = 'http://192.168.15.79:3000'; //duda
+ const API_URL = 'http://192.168.1.2:3000';    //joao       
 //const API_URL = 'http://localhost:3000';         //cabo    
 
 //Adiciona o acessToken no header das rotas que são protegidas
@@ -212,6 +212,7 @@ export async function destravarFechadura(id_fechadura) {
     if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
     return data;
 }
+
 
 // SENHA ESQUECIDA
 export async function forgotPassword(email) {

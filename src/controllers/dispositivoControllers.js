@@ -84,7 +84,23 @@ exports.abrirFechadura = async (req, res) => {
     }
     
 }
+exports.removerFechadura = async (req, res) => {
+    try{
+        const id_lock = req.body;
+        if(!id_lock){
+            return res.status(400).json({erro: "requisição sem id"});
+        }
+        const deletado = await fechadura.removerFechaduradoBanco(id_lock);
+        if(!deletado){
+            return res.status(404).json({erro:"Não foi possivel remover a fechadura"});
+        }
 
+        res.status(204);
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({erro: "Erro interno do servidor"})
+    }
+}
 exports.travarFechadura = async (req, res) => {
     try {
         const id_fechadura = req.body;

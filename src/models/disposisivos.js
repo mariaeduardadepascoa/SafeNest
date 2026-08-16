@@ -143,6 +143,18 @@ async function buscarUsuarioPorFechadura(id_lock) {
     }
     return data;
 }
+async function removerFechaduradoBanco(id_lock) {
+    const {data,error} = await supabase
+    .from("fechaduras")
+    .delete()
+    .eq("id", id_lock)
+    .single();
+    if (error) {
+        console.error(error);
+        return null;
+    }
+    return data;
+}
 
 module.exports = {
     buscarFechadura,
@@ -153,7 +165,8 @@ module.exports = {
     cadastrarFechaduraNoBanco,
     addAcesso,
     addAlerta,
-    buscarUsuarioPorFechadura
+    buscarUsuarioPorFechadura,
+    removerFechaduradoBanco
 };
 
 // module.exports = { buscarFechadura,buscarFechaduraPorMacAddress,verificarTag,salvarRegistroNoBanco }
