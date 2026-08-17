@@ -76,7 +76,7 @@ export function FechaduraSection() {
 }
 const styles = StyleSheet.create({
     center: {
-        padding: 20,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     }

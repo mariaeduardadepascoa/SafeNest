@@ -29,4 +29,8 @@ export const typography = {
     fontSize: 16,
     fontWeight: '400',
   },
+  boldText: {
+    fontSize: 18,
+    fontWeight: '800',
+  },
 };
