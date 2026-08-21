@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable } from 'react-native'
 import React, { useState, useRef } from 'react'
 import { colorsLightMode, typography } from '../theme';
-import { abrirFechadura, excluirFechadura, cadastrarTag as cadastrarTagApi } from '../services/api';
+import { abrirFechadura,travarFechadura,destravarFechadura, excluirFechadura, cadastrarTag as cadastrarTagApi } from '../services/api';
 import Locker from '../../assets/Locker.svg';
 import LockIcon from '../../assets/Lock.svg';
 import UnlockIcon from '../../assets/UnlockIconWhite.svg';

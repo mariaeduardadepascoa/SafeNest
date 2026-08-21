@@ -57,12 +57,12 @@ router.get('/historico', verificarAccessToken, historicoController.obterHistoric
 // router.post('/dispositivos', dispositivoController.obterTagsAutorizadas);
 router.post('/dispositivos/cadastrarTag', verificarAccessToken, dispositivoController.cadastrarTag);
 router.get('/dispositivos/listarFechadura', verificarAccessToken, dispositivoController.listarFechadura);
-router.post('/dispositivos/abrirFechadura', dispositivoController.abrirFechadura);
-router.post('/dispositivos/travarFechadura', dispositivoController.travarFechadura);
-router.post('/dispositivos/destravarFechadura', dispositivoController.destravarFechadura);
-router.delete('/dispositivos/removerFechadura', dispositivoController.removerFechadura);
+router.post('/dispositivos/abrirFechadura', verificarAccessToken,dispositivoController.abrirFechadura);
+router.post('/dispositivos/travarFechadura', verificarAccessToken,dispositivoController.travarFechadura);
+router.post('/dispositivos/destravarFechadura', verificarAccessToken,dispositivoController.destravarFechadura);
+router.delete('/dispositivos/removerFechadura', verificarAccessToken,dispositivoController.removerFechadura);
 router.get('/dispositivos/listarAlertas',verificarAccessToken,dispositivoController.listarAlertas)
-router.grt('/dispositivos/listarAcessos',verificarAccessToken,dispositivoController.listarAcessos)
+router.get('/dispositivos/listarAcessos',verificarAccessToken,dispositivoController.listarAcessos)
 
 
 

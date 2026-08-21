@@ -84,7 +84,6 @@ async function cadastrarFechaduraNoBanco(idFechadura, idUsuario) {
             data_hora: new Date().toISOString(),
             blocked: false
         });
-
     if (error) {
         console.error(error);
         return null;
@@ -166,7 +165,7 @@ async function buscarUsuarioPorFechadura(id_lock) {
         console.error(error);
         return null;
     }
-    return data;
+    return data.id_usuario;
 }
 async function removerFechaduradoBanco(id_lock) {
     const {data,error} = await supabase

@@ -63,7 +63,11 @@ exports.cadastrarTag = async (req, res) => {
 
 exports.abrirFechadura = async (req, res) => {
     try {
-        const id_fechadura = req.body.id_fechadura;
+        const user = req.id_usuario
+        if (!user) {
+            return res.status(400).json({ erro: "requisição sem usuario" });
+        }
+        const id_fechadura = await fechadura.buscarFechaduraPorUsuario(user)
         if (!id_fechadura) {
             return res.status(400).json({ erro: "requisição sem ID" });
         }
@@ -86,16 +90,20 @@ exports.abrirFechadura = async (req, res) => {
 }
 exports.removerFechadura = async (req, res) => {
     try{
-        const id_lock = req.body;
-        if(!id_lock){
+        const user = req.id_usuario
+        if (!user) {
+            return res.status(400).json({ erro: "requisição sem usuario" });
+        }
+        const id_fechadura = await fechadura.buscarFechaduraPorUsuario(user);
+        if(!id_fechadura){
             return res.status(400).json({erro: "requisição sem id"});
         }
-        const deletado = await fechadura.removerFechaduradoBanco(id_lock);
+        const deletado = await fechadura.removerFechaduradoBanco(id_fechadura);
         if(!deletado){
             return res.status(404).json({erro:"Não foi possivel remover a fechadura"});
         }
 
-        res.status(204);
+        res.status(200).json({mensagem:"fechadura removida"});
     }catch(error){
         console.log(error);
         return res.status(500).json({erro: "Erro interno do servidor"})
@@ -103,7 +111,11 @@ exports.removerFechadura = async (req, res) => {
 }
 exports.travarFechadura = async (req, res) => {
     try {
-        const id_fechadura = req.body;
+        const user = req.id_usuario
+        if (!user) {
+            return res.status(400).json({ erro: "requisição sem usuario" });
+        }
+        const id_fechadura = await fechadura.buscarFechaduraPorUsuario(user);
         if (!id_fechadura) {
             return res.status(400).json({ erro: "requisição sem ID" });
         }
@@ -116,13 +128,10 @@ exports.travarFechadura = async (req, res) => {
             "fechadura/" + address + "/comando",
             JSON.stringify({"comando":"travar"})
         );
-
+        return res.status(200).json({ mensagem: "fechadura travada" });
     } catch (error) {
-        if (error) {
             console.error(error);
             return res.status(500).json({ erro: "Erro interno no servidor" });
-        }
-
 
     }
 
@@ -130,7 +139,11 @@ exports.travarFechadura = async (req, res) => {
 
 exports.destravarFechadura = async (req, res) => {
     try {
-        const id_fechadura = req.body;
+        const user = req.id_usuario
+        if (!user) {
+            return res.status(400).json({ erro: "requisição sem usuario" });
+        }
+        const id_fechadura = await fechadura.buscarFechaduraPorUsuario(user);
         if (!id_fechadura) {
             return res.status(400).json({ erro: "requisição sem ID" });
         }
@@ -143,7 +156,7 @@ exports.destravarFechadura = async (req, res) => {
             "fechadura/" + address + "/comando",
             JSON.stringify({"comando":"destravar"})
         );
-
+        return res.status(200).json({ mensagem: "fechadura destravada" });    
     } catch (error) {
         if (error) {
             console.error(error);

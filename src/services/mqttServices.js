@@ -57,7 +57,7 @@ mqtt.client.on("message", async (topic, data) => {
                 return;
             }
             await cadastrarFechaduraNoBanco(payload.device_address, userid);
-
+            await addAlerta("FECHADURANOVA",userid);
         }
         catch (erro) {
             console.error("Erro ao cadastrar fechadura no banco:", erro);
@@ -85,8 +85,8 @@ mqtt.client.on("message", async (topic, data) => {
         try {
             const payload = JSON.parse(data.toString());
             const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
-            const usuario = await buscarUsuarioPorFechadura(idFechadura)
-
+            const usuario = await buscarUsuarioPorFechadura(idFechadura);
+            
             console.log("idFechadura encontrado:", idFechadura);
 
             if (!idFechadura) {
