@@ -186,6 +186,37 @@ exports.listarFechadura = async (req, res) => {
         return res.status(500).json({ erro: "Erro interno no servidor" });
     }
 };
+exports.listarAcessos = async(req,res) => {
+    try{
+    const userID = req.body
+    if (!id) {
+            return res.status(400).json({ erro: "requisição sem ID" });
+    }
+    const acessos = await fechadura.obterAcessos(userID);
+
+    res.status(200).json(acessos);
+}catch (error){
+    console.error(error);
+    return res.status(500).json({ erro: "Erro interno no servidor" })
+}
+}
+
+exports.listarAlertas = async(req,res) => {
+    try{
+    const userID = req.body
+    if (!id) {
+            return res.status(400).json({ erro: "requisição sem ID" });
+    }
+    const alertas = await fechadura.obterAlertas(userID);
+
+    res.status(200).json(alertas);
+}catch (error){
+    console.error(error);
+    return res.status(500).json({ erro: "Erro interno no servidor" })
+}
+}
+
+
 
 
 // esp vai chamar essa função se detecatr vibracao (arrombamento)

@@ -61,6 +61,11 @@ router.post('/dispositivos/abrirFechadura', dispositivoController.abrirFechadura
 router.post('/dispositivos/travarFechadura', dispositivoController.travarFechadura);
 router.post('/dispositivos/destravarFechadura', dispositivoController.destravarFechadura);
 router.delete('/dispositivos/removerFechadura', dispositivoController.removerFechadura);
+router.get('/dispositivos/listarAlertas',verificarAccessToken,dispositivoController.listarAlertas)
+router.grt('/dispositivos/listarAcessos',verificarAccessToken,dispositivoController.listarAcessos)
+
+
+
 // router.post('/acesso/rfid', dispositivoController.verificarTag);
 
 // alertas de emergencia dos dispositivos

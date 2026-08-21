@@ -131,6 +131,31 @@ async function addAlerta(tipo, user) {
     }
     return data;
 }
+
+async function obterAlertas(user) {
+    const { data,error } = await supabase
+        .from("alertas")
+        .select('*')
+        .eq("id_usuario",user)
+
+    if(error){
+        console.error(error);
+        return null;
+    }
+    return data;
+}
+async function obterAcessos(user) {
+    const { data,error } = await supabase
+        .from("acessos")
+        .select('*')
+        .eq("id_usuario",user)
+
+    if(error){
+        console.error(error);
+        return null;
+    }
+    return data;
+}
 async function buscarUsuarioPorFechadura(id_lock) {
     const { data, error } = await supabase
     .from("fechaduras")
@@ -166,7 +191,9 @@ module.exports = {
     addAcesso,
     addAlerta,
     buscarUsuarioPorFechadura,
-    removerFechaduradoBanco
+    removerFechaduradoBanco,
+    obterAlertas,
+    obterAcessos
 };
 
 // module.exports = { buscarFechadura,buscarFechaduraPorMacAddress,verificarTag,salvarRegistroNoBanco }
