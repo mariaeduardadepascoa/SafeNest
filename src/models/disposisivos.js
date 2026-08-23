@@ -38,7 +38,7 @@ async function buscarFechaduraPorUsuario(id_usuario) {
         console.error('Erro ao buscar fechadura do usuário:', error);
         return null;
     }
-    return data;
+    return data.id;
 }
 
 async function verificarTag(tag, lock) {
@@ -47,7 +47,7 @@ async function verificarTag(tag, lock) {
         .select("id_tag")
         .eq("uid_nfc", tag)
         .eq("id_fechadura", lock)
-        .single();
+        .maybeSingle();
 
     if (error) {
         console.error("Erro ao verificar tag:", error);
@@ -65,15 +65,14 @@ async function salvarRegistroNoBanco(idUsuario, uidNfc, idFechadura, user_name) 
             id_fechadura: idFechadura,
             data_hora: new Date().toISOString(),
             nome_tag: user_name
-        });
-
+        })
+        .select();
     if (error) {
         console.error(error);
         return null;
     }
     return data;
 }
-
 async function cadastrarFechaduraNoBanco(idFechadura, idUsuario) {
     const { data, error } = await supabase
         .from("fechaduras")
@@ -179,7 +178,19 @@ async function removerFechaduradoBanco(id_lock) {
     }
     return data;
 }
+async function atualizarStatusFechadura(id_fechadura, blocked) {
+    const { data, error } = await supabase
+        .from('fechaduras')
+        .update({ blocked })
+        .eq('id', id_fechadura)
+        .select();
 
+    if (error) {
+        console.error('Erro ao atualizar status da fechadura:', error);
+        return null;
+    }
+    return data;
+}
 module.exports = {
     buscarFechadura,
     buscarFechaduraPorMacAddress,
@@ -192,7 +203,10 @@ module.exports = {
     buscarUsuarioPorFechadura,
     removerFechaduradoBanco,
     obterAlertas,
-    obterAcessos
+    obterAcessos,
+    verificarTag,
+    verificarTrancada,
+    atualizarStatusFechadura
 };
 
 // module.exports = { buscarFechadura,buscarFechaduraPorMacAddress,verificarTag,salvarRegistroNoBanco }

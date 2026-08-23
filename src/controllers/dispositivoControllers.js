@@ -8,22 +8,26 @@ const serviceMQTT = require("../services/mqttServices");
 //cadastrar uma tag
 exports.cadastrarTag = async (req, res) => {
     try {
-        const { id, id_usuario,user_Name } = req.body;
+        const user = req.id_usuario;
+        if (!user) {
+            return res.status(400).json({ erro: "requisição sem usuario" });
+        }
 
-        if (!id) {
+        const { nome_dono } = req.body;
+        if (!nome_dono) {
+            return res.status(400).json({ erro: "requisição sem nome do dono" });
+        }
+
+        const id_fechadura = await fechadura.buscarFechaduraPorUsuario(user);
+        if (!id_fechadura) {
             return res.status(400).json({ erro: "requisição sem ID" });
         }
 
-        if (!id_usuario) {
-            return res.status(400).json({ erro: "requisição sem id_usuario" });
-        }
-        if (!user_Name) {
-            return res.status(400).json({ erro: "requisição sem ID" });
-        }
-        const address = await fechadura.buscarFechadura(id);
+        const address = await fechadura.buscarFechadura(id_fechadura);
         if (!address) {
             return res.status(404).json({ erro: "Fechadura não encontrada" });
         }
+
         const correlationId = crypto.randomUUID();
 
         serviceMQTT.publish(
@@ -33,14 +37,13 @@ exports.cadastrarTag = async (req, res) => {
 
         try {
             const resposta = await aguardarResposta(correlationId, 8000);
-
             console.log("Resposta recebida da fechadura:", resposta);
 
             const registro = await fechadura.salvarRegistroNoBanco(
-                id_usuario,
+                user,
                 resposta.tag_uid,
-                id,
-                user_Name
+                id_fechadura,
+                nome_dono 
             );
 
             if (!registro) {
@@ -60,7 +63,29 @@ exports.cadastrarTag = async (req, res) => {
         return res.status(500).json({ erro: "Erro interno no servidor" });
     }
 };
+exports.statusFechadura = async (req, res) => {
+    try {
+        const user = req.id_usuario;
+        if (!user) {
+            return res.status(400).json({ erro: "requisição sem usuario" });
+        }
 
+        const id_fechadura = await fechadura.buscarFechaduraPorUsuario(user);
+        if (!id_fechadura) {
+            return res.status(400).json({ erro: "requisição sem ID" });
+        }
+
+        const status = await fechadura.verificarTrancada(id_fechadura);
+        if (status === null) {
+            return res.status(404).json({ erro: "Fechadura não encontrada" });
+        }
+
+        return res.status(200).json({ blocked: status.blocked });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno do servidor" });
+    }
+};
 exports.abrirFechadura = async (req, res) => {
     try {
         const user = req.id_usuario
@@ -77,36 +102,36 @@ exports.abrirFechadura = async (req, res) => {
         }
         serviceMQTT.publish(
             "fechadura/" + address + "/comando",
-            JSON.stringify({"comando":"abrirfechadura"})
+            JSON.stringify({ "comando": "abrirfechadura" })
         );
 
-
+        return res.status(200).json({ mensagem: "comando de abrir enviado" });
 
     } catch (error) {
         console.error(error);
         return res.status(500).json({ erro: "Erro interno do servidor" })
     }
-    
+
 }
 exports.removerFechadura = async (req, res) => {
-    try{
+    try {
         const user = req.id_usuario
         if (!user) {
             return res.status(400).json({ erro: "requisição sem usuario" });
         }
         const id_fechadura = await fechadura.buscarFechaduraPorUsuario(user);
-        if(!id_fechadura){
-            return res.status(400).json({erro: "requisição sem id"});
+        if (!id_fechadura) {
+            return res.status(400).json({ erro: "requisição sem id" });
         }
         const deletado = await fechadura.removerFechaduradoBanco(id_fechadura);
-        if(!deletado){
-            return res.status(404).json({erro:"Não foi possivel remover a fechadura"});
+        if (!deletado) {
+            return res.status(404).json({ erro: "Não foi possivel remover a fechadura" });
         }
 
-        res.status(200).json({mensagem:"fechadura removida"});
-    }catch(error){
+        res.status(200).json({ mensagem: "fechadura removida" });
+    } catch (error) {
         console.log(error);
-        return res.status(500).json({erro: "Erro interno do servidor"})
+        return res.status(500).json({ erro: "Erro interno do servidor" })
     }
 }
 exports.travarFechadura = async (req, res) => {
@@ -126,12 +151,13 @@ exports.travarFechadura = async (req, res) => {
         }
         serviceMQTT.publish(
             "fechadura/" + address + "/comando",
-            JSON.stringify({"comando":"travar"})
+            JSON.stringify({ "comando": "travar" })
         );
+        await fechadura.atualizarStatusFechadura(id_fechadura, true);
         return res.status(200).json({ mensagem: "fechadura travada" });
     } catch (error) {
-            console.error(error);
-            return res.status(500).json({ erro: "Erro interno no servidor" });
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno no servidor" });
 
     }
 
@@ -154,9 +180,10 @@ exports.destravarFechadura = async (req, res) => {
         }
         serviceMQTT.publish(
             "fechadura/" + address + "/comando",
-            JSON.stringify({"comando":"destravar"})
+            JSON.stringify({ "comando": "destravar" })
         );
-        return res.status(200).json({ mensagem: "fechadura destravada" });    
+        await fechadura.atualizarStatusFechadura(id_fechadura, false);
+        return res.status(200).json({ mensagem: "fechadura destravada" });
     } catch (error) {
         if (error) {
             console.error(error);
@@ -199,34 +226,34 @@ exports.listarFechadura = async (req, res) => {
         return res.status(500).json({ erro: "Erro interno no servidor" });
     }
 };
-exports.listarAcessos = async(req,res) => {
-    try{
-    const userID = req.body
-    if (!id) {
+exports.listarAcessos = async (req, res) => {
+    try {
+        const userID = req.body
+        if (!id) {
             return res.status(400).json({ erro: "requisição sem ID" });
+        }
+        const acessos = await fechadura.obterAcessos(userID);
+
+        res.status(200).json(acessos);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno no servidor" })
     }
-    const acessos = await fechadura.obterAcessos(userID);
-
-    res.status(200).json(acessos);
-}catch (error){
-    console.error(error);
-    return res.status(500).json({ erro: "Erro interno no servidor" })
-}
 }
 
-exports.listarAlertas = async(req,res) => {
-    try{
-    const userID = req.body
-    if (!id) {
+exports.listarAlertas = async (req, res) => {
+    try {
+        const userID = req.body
+        if (!id) {
             return res.status(400).json({ erro: "requisição sem ID" });
-    }
-    const alertas = await fechadura.obterAlertas(userID);
+        }
+        const alertas = await fechadura.obterAlertas(userID);
 
-    res.status(200).json(alertas);
-}catch (error){
-    console.error(error);
-    return res.status(500).json({ erro: "Erro interno no servidor" })
-}
+        res.status(200).json(alertas);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ erro: "Erro interno no servidor" })
+    }
 }
 
 

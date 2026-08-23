@@ -1,38 +1,102 @@
-import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable } from 'react-native'
-import React, { useState, useRef } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator } from 'react-native'
+import React, { useState, useRef, useEffect } from 'react'
 import { colorsLightMode, typography } from '../theme';
-import { abrirFechadura,travarFechadura,destravarFechadura, excluirFechadura, cadastrarTag as cadastrarTagApi } from '../services/api';
+import { abrirFechadura, statusFechadura, travarFechadura, destravarFechadura, excluirFechadura, cadastrarTag as cadastrarTagApi } from '../services/api';
 import Locker from '../../assets/Locker.svg';
 import LockIcon from '../../assets/Lock.svg';
 import UnlockIcon from '../../assets/UnlockIconWhite.svg';
 import TagIcon from '../../assets/Credit card.svg';
 import TrashRedIcon from '../../assets/icon.svg';
 import personIcon from '../../assets/personWhiteIcon.svg';
+import { obterAccessToken } from '../services/tokenStorage';
 
-
-const LockButton = ({ id_fechadura }) => {
+const LockButton = () => {
     const [travado, setTravado] = useState(false);
-    const [menuVisible, setMenuVisible] = useState(false); //popup de excluir fechadura
-    const [tagModalVisible, setTagModalVisible] = useState(false); //modal de cadastro de tag
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [tagModalVisible, setTagModalVisible] = useState(false);
     const [nomeDono, setNomeDono] = useState('');
 
-    // abrir popup de excluir fechadura
-    const abrirMenu = () => {
-        setMenuVisible(true);
-    };
+    // trava independente pra cada ação, pra não deixar toques acumularem
+    const [carregandoAbrir, setCarregandoAbrir] = useState(false);
+    const [carregandoTravar, setCarregandoTravar] = useState(false);
+    const [carregandoTag, setCarregandoTag] = useState(false);
 
-    // excluir fechadura
+    // ref pra checagem síncrona imediata (o state do React só atualiza no próximo render)
+    const acaoEmAndamento = useRef(false);
+
+    useEffect(() => {
+        const carregarStatus = async () => {
+            try {
+                const blocked = await statusFechadura();
+                setTravado(blocked);
+            } catch (error) {
+                console.error("Erro ao buscar status da fechadura:", error);
+            }
+        };
+        carregarStatus();
+    }, []);
+
+    const abrirMenu = () => setMenuVisible(true);
+
     const handleExcluir = () => {
         setMenuVisible(false);
-        excluirFechadura(id_fechadura);
+        excluirFechadura();
     };
 
-    // salvar tag
-    const handleSalvarTag = () => {
-        if (!nomeDono.trim()) return; //se nao existir nome nao salva nada e interrompe
-        cadastrarTagApi(id_fechadura, nomeDono);
-        setNomeDono('');
-        setTagModalVisible(false);
+    const handleAbrir = async () => {
+        if (acaoEmAndamento.current) return; // ignora toque se já tem algo rodando
+        acaoEmAndamento.current = true;
+        setCarregandoAbrir(true);
+        try {
+            await abrirFechadura();
+        } catch (error) {
+            console.error("Erro ao abrir fechadura:", error);
+        } finally {
+            setCarregandoAbrir(false);
+            acaoEmAndamento.current = false;
+        }
+    };
+
+    const handleToggleTravar = async (value) => {
+        if (acaoEmAndamento.current) return;
+        acaoEmAndamento.current = true;
+        setCarregandoTravar(true);
+        setTravado(value); // feedback visual imediato
+
+        try {
+            if (value) {
+                await travarFechadura();
+            } else {
+                await destravarFechadura();
+            }
+            const blockedAtual = await statusFechadura();
+            setTravado(blockedAtual);
+        } catch (error) {
+            console.error(error);
+            try {
+                const blockedAtual = await statusFechadura();
+                setTravado(blockedAtual);
+            } catch {
+                setTravado(!value); // reverte se nem isso funcionou
+            }
+        } finally {
+            setCarregandoTravar(false);
+            acaoEmAndamento.current = false;
+        }
+    };
+
+    const handleSalvarTag = async () => {
+        if (!nomeDono.trim() || carregandoTag) return;
+        setCarregandoTag(true);
+        try {
+            await cadastrarTagApi(nomeDono);
+            setNomeDono('');
+            setTagModalVisible(false);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setCarregandoTag(false);
+        }
     };
 
     return (
@@ -40,11 +104,7 @@ const LockButton = ({ id_fechadura }) => {
             <View style={styles.titlesView}>
                 <View style={styles.headerLeft}>
                     <View style={styles.containerIcon}>
-                        <Locker
-                            width={30}
-                            height={30}
-                            color={colorsLightMode.white}
-                        />
+                        <Locker width={30} height={30} color={colorsLightMode.white} />
                     </View>
                     <View style={styles.titles}>
                         <Text style={styles.title}>Fechadura - entrada</Text>
@@ -57,41 +117,49 @@ const LockButton = ({ id_fechadura }) => {
             </View>
 
             <View style={styles.content}>
-                <TouchableOpacity style={styles.principalButton} onPress={() => abrirFechadura(id_fechadura)}>
-                    <UnlockIcon
-                        width={20}
-                        height={20}
-                    />
-                    <Text style={styles.text1}>Abrir</Text>
+                <TouchableOpacity
+                    style={[styles.principalButton, carregandoAbrir && styles.buttonDisabled]}
+                    onPress={handleAbrir}
+                    disabled={carregandoAbrir}
+                >
+                    {carregandoAbrir ? (
+                        <ActivityIndicator color={colorsLightMode.white} />
+                    ) : (
+                        <>
+                            <UnlockIcon width={20} height={20} />
+                            <Text style={styles.text1}>Abrir</Text>
+                        </>
+                    )}
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.tagButton} onPress={() => setTagModalVisible(true)}>
-                    <TagIcon
-                        width={18}
-                        height={18}
-                    />
+                <TouchableOpacity
+                    style={[styles.tagButton, carregandoTag && styles.buttonDisabled]}
+                    onPress={() => setTagModalVisible(true)}
+                    disabled={carregandoTag}
+                >
+                    <TagIcon width={18} height={18} />
                     <Text style={styles.text2}>Cadastrar Tag</Text>
                 </TouchableOpacity>
 
                 <View style={styles.travarButton}>
                     <View style={styles.travarButtonTexts}>
-                        <LockIcon
-                            width={18}
-                            height={18}
-                        />
+                        <LockIcon width={18} height={18} />
                         <Text style={styles.text3}>Travar</Text>
                     </View>
-                    <Switch
-                        value={travado}
-                        onValueChange={(value) => {
-                            setTravado(value);
-                            travarFechadura(id_fechadura);
-                        }}
-                        trackColor={{ false: colorsLightMode.primary, true: colorsLightMode.primary }}
-                        thumbColor={colorsLightMode.white}
-                    />
+                    {carregandoTravar ? (
+                        <ActivityIndicator color={colorsLightMode.primary} />
+                    ) : (
+                        <Switch
+                            value={travado}
+                            onValueChange={handleToggleTravar}
+                            disabled={carregandoTravar}
+                            trackColor={{ false: colorsLightMode.primary, true: colorsLightMode.primary }}
+                            thumbColor={colorsLightMode.white}
+                        />
+                    )}
                 </View>
             </View>
+
 
             {/* --- Popup do menu (3 pontinhos) -> Excluir fechadura --- */}
             <Modal
@@ -131,7 +199,9 @@ const LockButton = ({ id_fechadura }) => {
                             placeholder="Nome do dono da tag"
                             placeholderTextColor={colorsLightMode.darkGray}
                             value={nomeDono}
-                            onChangeText={setNomeDono}
+                            onChangeText={(texto) => {
+                                setNomeDono(texto);
+                            }}
                         />
 
                         <View style={styles.tagModalButtons}>

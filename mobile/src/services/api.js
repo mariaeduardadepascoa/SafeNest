@@ -3,7 +3,7 @@
 import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens, salvarUsuario, obterUsuario, deletarUsuario } from '../services/tokenStorage';
 //nao pode ser localhost pois no celular n roda
 //const API_URL = 'http://192.168.15.79:3000'; //duda
-  const API_URL = 'http://192.168.1.2:3000';    //joao       
+const API_URL = 'http://192.168.1.2:3000';    //joao       
 //const API_URL = 'http://localhost:3000';         //cabo    
 
 //Adiciona o acessToken no header das rotas que são protegidas
@@ -179,40 +179,45 @@ export async function obterFechadura() {
     return data.id_fechadura; // objeto ou null
 }
 
-export async function abrirFechadura(id_fechadura) {
-    const resposta = await fetch(`${API_URL}/dispositivos/abrirFechadura`, {
+export async function abrirFechadura() {
+    const resposta = await autenticacaoToken('/dispositivos/abrirFechadura', {
         method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_fechadura }),
     });
 
     const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao abrir fechadura");
     return data;
 }
-export async function travarFechadura(id_fechadura) {
-    const resposta = await fetch(`${API_URL}/dispositivos/travarFechadura`, {
+
+export async function travarFechadura() {
+    const resposta = await autenticacaoToken('/dispositivos/travarFechadura', {
         method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_fechadura }),
     });
 
     const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao travar fechadura");
     return data;
 }
-export async function destravarFechadura(id_fechadura) {
-    const resposta = await fetch(`${API_URL}/dispositivos/destravarFechadura`, {
+
+export async function destravarFechadura() {
+    const resposta = await autenticacaoToken('/dispositivos/destravarFechadura', {
         method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_fechadura }),
     });
 
     const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao destravar fechadura");
     return data;
 }
 
+export async function excluirFechadura() {
+    const resposta = await autenticacaoToken('/dispositivos/removerFechadura', {
+        method: 'DELETE',
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao excluir fechadura");
+    return data;
+}
 
 // SENHA ESQUECIDA
 export async function forgotPassword(email) {
@@ -226,7 +231,34 @@ export async function forgotPassword(email) {
     if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
     return data;
 }
+export async function cadastrarTag(nome_dono) {
+    console.log("1. Iniciando cadastrarTag, nome:", nome_dono);
 
+    try {
+        const resposta = await autenticacaoToken('/dispositivos/cadastrarTag', {
+            method: 'POST',
+            body: JSON.stringify({ nome_dono }),
+        });
+
+        console.log("2. Fetch retornou, status:", resposta.status);
+
+        const textoResposta = await resposta.text();
+        console.log("3. Resposta bruta:", textoResposta);
+
+        const data = JSON.parse(textoResposta);
+        if (!resposta.ok) throw new Error(data.erro || "Erro ao cadastrar tag");
+        return data;
+    } catch (err) {
+        console.log("4. ERRO CAPTURADO:", err.message);
+        throw err;
+    }
+}
+export async function statusFechadura() {
+    const resposta = await autenticacaoToken('/dispositivos/statusFechadura');
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar status");
+    return data.blocked;
+}
 // SENHA RESETADA
 export async function resetPassword(token, novaSenha) {
     const resposta = await fetch(`${API_URL}/auth/reset-password`, {

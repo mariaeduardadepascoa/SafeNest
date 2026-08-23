@@ -63,7 +63,7 @@ router.post('/dispositivos/destravarFechadura', verificarAccessToken,dispositivo
 router.delete('/dispositivos/removerFechadura', verificarAccessToken,dispositivoController.removerFechadura);
 router.get('/dispositivos/listarAlertas',verificarAccessToken,dispositivoController.listarAlertas)
 router.get('/dispositivos/listarAcessos',verificarAccessToken,dispositivoController.listarAcessos)
-
+router.get('/dispositivos/statusFechadura',verificarAccessToken,dispositivoController.statusFechadura)
 
 
 // router.post('/acesso/rfid', dispositivoController.verificarTag);

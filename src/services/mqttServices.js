@@ -1,5 +1,5 @@
 const mqtt = require("../config/MQTT");
-const { buscarFechaduraPorMacAddress, verificarTag, cadastrarFechaduraNoBanco,addAcesso,buscarUsuarioPorFechadura, addAlerta } = require('../models/disposisivos');
+const { buscarFechaduraPorMacAddress, buscarFechadura, verificarTag, cadastrarFechaduraNoBanco, verificarTrancada, addAcesso, buscarUsuarioPorFechadura, addAlerta } = require('../models/disposisivos');
 const { resolverResposta } = require('../services/saladeespera');
 const jwt = require('jsonwebtoken');
 
@@ -43,11 +43,17 @@ mqtt.client.on("message", async (topic, data) => {
             const payload = JSON.parse(data.toString());
             const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
             if (idFechadura) {
+                const address = await buscarFechadura(idFechadura)
                 const isBloqued = await verificarTrancada(idFechadura);
                 if (isBloqued) {
-                    serviceMQTT.publish(
+                    publish(
                         "fechadura/" + address + "/comando",
-                        "travar"
+                         JSON.stringify({comando:"travar"})
+                    );
+                } else {
+                    publish(
+                        "fechadura/" + address + "/comando",
+                        JSON.stringify({comando:"destravar"})
                     );
                 }
                 return;
@@ -57,7 +63,7 @@ mqtt.client.on("message", async (topic, data) => {
                 return;
             }
             await cadastrarFechaduraNoBanco(payload.device_address, userid);
-            await addAlerta("FECHADURANOVA",userid);
+            await addAlerta("FECHADURANOVA", userid);
         }
         catch (erro) {
             console.error("Erro ao cadastrar fechadura no banco:", erro);
@@ -86,7 +92,7 @@ mqtt.client.on("message", async (topic, data) => {
             const payload = JSON.parse(data.toString());
             const idFechadura = await buscarFechaduraPorMacAddress(payload.device_address);
             const usuario = await buscarUsuarioPorFechadura(idFechadura);
-            
+
             console.log("idFechadura encontrado:", idFechadura);
 
             if (!idFechadura) {
@@ -103,24 +109,24 @@ mqtt.client.on("message", async (topic, data) => {
 
             console.log("Resultado da verificação:", verify);
 
-            if(!verify){
-             mqtt.client.publish(
-                "fechadura/" + address + "/comando", 
-                JSON.stringify({ comando:"acessonegado" })
-                
-            );    
-            addAlerta("ACESSONEGADO",usuario);
-            }else{
-                 mqtt.client.publish(
-                "fechadura/" + address + "/comando",
-                JSON.stringify({ comando: "abrirfechadura" })
-            );
-            addAcesso(tag,usuario);
+            if (!verify) {
+                mqtt.client.publish(
+                    "fechadura/" + address + "/comando",
+                    JSON.stringify({ comando: "acessonegado" })
+
+                );
+                addAlerta("ACESSONEGADO", usuario);
+            } else {
+                mqtt.client.publish(
+                    "fechadura/" + address + "/comando",
+                    JSON.stringify({ comando: "abrirfechadura" })
+                );
+                addAcesso(tag, usuario);
             }
 
 
 
-    
+
         } catch (erro) {
             console.error("Erro ao processar mensagem readTag:", erro);
         }
