@@ -15,7 +15,7 @@
 
 - HTML5, CSS e JavaScript (interface web)
 - React Native (interface mobile)
-- Arduino Uno e ESP32
+- ESP32
 - RFID (controle de acesso)
 - Sensor MQ2 (detecção de gás)
 - YOLOv11 
