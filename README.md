@@ -1,6 +1,6 @@
 # Safe Nest
 
-#### O SafeNest é um projeto de conclusão de curso (TCC) que consiste em um sistema de monitoramento e segurança residencial. O sistema utiliza inteligência artificial (YOLOv5) para detecção de incêndios e possíveis invasões em tempo real e, além disso, possui uma fechadura inteligente que permite o controle de acesso via RFID, garantindo maior segurança e praticidade ao morador. O projeto também inclui mecanismos de alerta e registro de eventos via app, garantindo maior organização e segurança aos usuários.
+#### O SafeNest é um projeto de conclusão de curso (TCC) que consiste em um sistema de monitoramento e segurança residencial. O sistema utiliza inteligência artificial (YOLOv11) para detecção de incêndios e possíveis invasões em tempo real e, além disso, possui uma fechadura inteligente que permite o controle de acesso via RFID, garantindo maior segurança e praticidade ao morador. O projeto também inclui mecanismos de alerta e registro de eventos via app, garantindo maior organização e segurança aos usuários.
 
 ## Funcionalidades
 
@@ -18,10 +18,10 @@
 - Arduino Uno e ESP32
 - RFID (controle de acesso)
 - Sensor MQ2 (detecção de gás)
-- YOLOv5 
+- YOLOv11 
 
 ## Desenvolvido por:
-- João Carlos de Lima (https://github.com/joaocarlos-lima)
+- João Carlos de Lima (https://github.com/oiejota)
 - Maria Catarina Menegon Ferreira (https://github.com/MaryCat2025)
 - Maria Eduarda de Páscoa Carneiro (https://github.com/mariaeduardadepascoa)
 
