@@ -12,16 +12,13 @@ async function reqPasswordReset(email) {
         .eq('email_usuario', email)
         .single()
 
-    if (!user) return; //se o usuario nao existir nao retorna nada, pois a mensagem de erro sera a mesma
-
-    // gera código de 4 dígitos
+    if (!user) return; 
     const codigo = Math.floor(1000 + Math.random() * 9000).toString();
 
-    const tokenHash = crypto.createHash('sha256').update(codigo).digest('hex'); //transforma em hash e depois salva
+    const tokenHash = crypto.createHash('sha256').update(codigo).digest('hex'); 
 
     const expira_em = new Date(Date.now() + token_expiration_time * 60 * 1000);
 
-    // deleta tokens invalidos
     await supabase
         .from('reset_password')
         .delete()
@@ -38,12 +35,9 @@ async function reqPasswordReset(email) {
     await sendPasswordResetEmail(user.email_usuario, codigo);
 }
 
-// resentando a senha
 async function resetPassword(codigo, novaSenha) {
-    // hash do token recebido pra comparar com o que está salvo
     const tokenHash = crypto.createHash('sha256').update(codigo).digest('hex');
 
-    // busca o token no banco
     const { data: tokenRow } = await supabase
         .from('reset_password')
         .select('id, id_usuario, expira_em')
@@ -54,17 +48,14 @@ async function resetPassword(codigo, novaSenha) {
         throw new Error('TOKEN_INVALIDO');
     }
 
-    // checa expiração
     if (new Date(tokenRow.expira_em) < new Date()) {
-        // token expirado: apaga e recusa
         await supabase.from('reset_password').delete().eq('id', tokenRow.id);
         throw new Error('TOKEN_EXPIRADO');
     }
 
-    // coloca hash na nova senha
+
     const senhaHash = await bcrypt.hash(novaSenha, 10);
 
-    // atualiza a senha do usuário
     const { error: updateError } = await supabase
         .from('usuario')
         .update({ senha_usuario: senhaHash })
@@ -74,7 +65,6 @@ async function resetPassword(codigo, novaSenha) {
         throw new Error('ERRO_AO_ATUALIZAR_SENHA');
     }
 
-    //invalida o token (uso único)
     await supabase.from('reset_password').delete().eq('id', tokenRow.id);
 
     return tokenRow.id_usuario;
