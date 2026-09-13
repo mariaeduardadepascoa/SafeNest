@@ -10,7 +10,7 @@ public class SafenestApplication {
     public static void main(String[] args) {
 
         Dotenv dotenv = Dotenv.configure()
-                .directory("SafeNest-Dispositivos")
+                .directory("./")
                 .load();
 
         System.out.println("DB HOST: " + dotenv.get("SUPABASE_DB_HOST"));

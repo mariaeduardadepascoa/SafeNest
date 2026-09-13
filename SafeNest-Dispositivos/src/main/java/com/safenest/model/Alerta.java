@@ -9,6 +9,7 @@ public class Alerta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id_alerta")
     private Long id;
 
     @Column(name = "tipo_alerta")
