@@ -1,9 +1,11 @@
 // IMPLEMENTAÇÃO DOS MÉTODOS DA API
 
+import { get } from 'react-native/Libraries/NativeComponent/NativeComponentRegistry';
 import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens, salvarUsuario, obterUsuario, deletarUsuario } from '../services/tokenStorage';
 //nao pode ser localhost pois no celular n roda
 //const API_URL = 'http://192.168.15.79:3000'; //duda
-const API_URL = 'http://192.168.1.2:3000';    //joao       
+const API_URL = 'http://192.168.1.5:3000';    //joao   
+const DISPOSITIVOS_API_URL = "http://192.168.1.5:8080";   
 //const API_URL = 'http://localhost:3000';         //cabo    
 
 //Adiciona o acessToken no header das rotas que são protegidas
@@ -46,7 +48,45 @@ async function autenticacaoToken(endpoint, options = {}) {
     return resposta;
 
 }
+async function autenticacaoTokenDispositivos(endpoint, options = {}) {
+    let accessToken = await obterAccessToken();
 
+    let resposta = await fetch(`${DISPOSITIVOS_API_URL}${endpoint}`, {
+        ...options,
+        headers: {
+            'Content-Type': "application/json",
+            "Authorization": `Bearer ${accessToken}`,
+            ...options.headers,
+        },
+    });
+
+    // Pede um token novo com o refreshToken ao invés de jogar o usuário pro login
+    if (resposta.status == 401) { //quando o accessToken expira o middleware da api retorna status 401 
+        const refreshToken = await obterRefreshToken();
+        const refreshResposta = await fetch(`${API_URL}/auth/refresh`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ refreshToken }),
+        });
+
+        if (!refreshResposta.ok) { //aqui o refreshToken expirou, então o usuario deve fazer login novamente
+            await deletarTokens();
+            throw new Error("SESSAO_EXPIRADA"); //tratar isso no front ARRUMAR
+        }
+
+        const { accessToken: novoToken } = await refreshResposta.json(); //cria novo accessToken
+        await salvarTokens(novoToken, refreshToken);
+
+        // repete a requisição original com o token novo
+        resposta = await fetch(`${DISPOSITIVOS_API_URL}${endpoint}`, {
+            ...options,
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${novoToken}`, ...options.headers },
+        });
+    }
+
+    return resposta;
+
+}
 // LOGIN
 export async function login(email, senha) {
     const resposta = await fetch(`${API_URL}/auth/login`, {
@@ -173,14 +213,16 @@ export async function verificarCodigoVerificacao(email, codigo) {
 
 //Usado para listar a fechadura   -- joao 
 export async function obterFechadura() {
-    const resposta = await autenticacaoToken('/dispositivos/listarFechadura');
+    const resposta = await autenticacaoTokenDispositivos('/fechadura',{
+        method: 'GET',
+    });
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar fechaduras");
     return data.id_fechadura; // objeto ou null
 }
 
 export async function abrirFechadura() {
-    const resposta = await autenticacaoToken('/dispositivos/abrirFechadura', {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura/abrir', {
         method: 'POST',
     });
 
@@ -190,7 +232,7 @@ export async function abrirFechadura() {
 }
 
 export async function travarFechadura() {
-    const resposta = await autenticacaoToken('/dispositivos/travarFechadura', {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura/travar', {
         method: 'POST',
     });
 
@@ -200,7 +242,7 @@ export async function travarFechadura() {
 }
 
 export async function destravarFechadura() {
-    const resposta = await autenticacaoToken('/dispositivos/destravarFechadura', {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura/destravar', {
         method: 'POST',
     });
 
@@ -210,7 +252,7 @@ export async function destravarFechadura() {
 }
 
 export async function excluirFechadura() {
-    const resposta = await autenticacaoToken('/dispositivos/removerFechadura', {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura    ', {
         method: 'DELETE',
     });
 
@@ -219,23 +261,11 @@ export async function excluirFechadura() {
     return data;
 }
 
-// SENHA ESQUECIDA
-export async function forgotPassword(email) {
-    const resposta = await fetch(`${API_URL}/auth/forgot-password`, {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-    });
-
-    const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
-    return data;
-}
 export async function cadastrarTag(nome_dono) {
     console.log("1. Iniciando cadastrarTag, nome:", nome_dono);
 
     try {
-        const resposta = await autenticacaoToken('/dispositivos/cadastrarTag', {
+        const resposta = await autenticacaoTokenDispositivos('/fechadura/tag', {
             method: 'POST',
             body: JSON.stringify({ nome_dono }),
         });
@@ -254,11 +284,24 @@ export async function cadastrarTag(nome_dono) {
     }
 }
 export async function statusFechadura() {
-    const resposta = await autenticacaoToken('/dispositivos/statusFechadura');
+    const resposta = await autenticacaoTokenDispositivos('/fechadura/status');
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar status");
     return data.blocked;
 }
+// SENHA ESQUECIDA
+export async function forgotPassword(email) {
+    const resposta = await fetch(`${API_URL}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+    });
+
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao enviar código");
+    return data;
+}
+
 // SENHA RESETADA
 export async function resetPassword(token, novaSenha) {
     const resposta = await fetch(`${API_URL}/auth/reset-password`, {

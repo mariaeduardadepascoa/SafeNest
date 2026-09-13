@@ -9,8 +9,6 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuarioControllers');
 const authController = require('../controllers/authControllers');
 const contatoEmergenciaController = require('../controllers/contatoEmergenciaControllers');
-const historicoController = require('../controllers/historicoController');
-const dispositivoController = require('../controllers/dispositivoControllers');
 const verificarAccessToken = require('../middlewares/verificarAccessToken');
 const verificarAdmin = require('../middlewares/verificarAdmin');
 const verificacaoController = require('../controllers/verificationControllers');
@@ -45,36 +43,6 @@ router.post('/usuario/:id/contatos', verificarAccessToken, contatoEmergenciaCont
 router.get('/usuario/:id/contatos', verificarAccessToken, contatoEmergenciaController.obterContatosPorUsuario);
 router.put('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmergenciaController.atualizarContato);
 router.delete('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmergenciaController.deletarContato);
-
-// historico de dados do usuario
-router.get('/historico', verificarAccessToken, historicoController.obterHistorico);
-// --- DISPOSITIVOS
-
-// status dos sensores
-// router.put('/status', (req, res) => res.json({ message: "Status do sensor atualizado" })); //qaundo o usuario ativar ou desativar algum sensor
-
-// tags rfid
-// router.post('/dispositivos', dispositivoController.obterTagsAutorizadas);
-router.post('/dispositivos/cadastrarTag', verificarAccessToken, dispositivoController.cadastrarTag);
-router.get('/dispositivos/listarFechadura', verificarAccessToken, dispositivoController.listarFechadura);
-router.post('/dispositivos/abrirFechadura', verificarAccessToken,dispositivoController.abrirFechadura);
-router.post('/dispositivos/travarFechadura', verificarAccessToken,dispositivoController.travarFechadura);
-router.post('/dispositivos/destravarFechadura', verificarAccessToken,dispositivoController.destravarFechadura);
-router.delete('/dispositivos/removerFechadura', verificarAccessToken,dispositivoController.removerFechadura);
-router.get('/dispositivos/listarAlertas',verificarAccessToken,dispositivoController.listarAlertas)
-router.get('/dispositivos/listarAcessos',verificarAccessToken,dispositivoController.listarAcessos)
-router.get('/dispositivos/statusFechadura',verificarAccessToken,dispositivoController.statusFechadura)
-
-
-// router.post('/acesso/rfid', dispositivoController.verificarTag);
-
-// alertas de emergencia dos dispositivos
-// router.post('/alertas/vibracao', dispositivoController.receberVibracao); //alerta de vibração
-// router.post('/alertas/incendio', dispositivoController.receberIncendio); //alerta de incendio
-
-
-// --- YOLO
-// router.post('/ia/analise', (req, res) => res.json({ message: "Análise da yolo recebida e processada" })); //info's + imagens da yolo
 
 
 
