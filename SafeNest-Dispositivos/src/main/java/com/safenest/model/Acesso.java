@@ -9,6 +9,7 @@ public class Acesso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id_acesso")
     private Long id;
 
     // uid da tag usada no acesso (mesmo valor gravado como "id_tag" no Node)
