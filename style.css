@@ -1,20 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 :root {
+    --branco-principal: #FFFFFF;
     --azul-principal: #2B5081;
     --preto-principal: #252525;
-    --azul-secundario: #586F8C;
-    --azul-quintenario: #5b83b3;
-    --cinza-principal: #474747;
-    --branco-principal: #FFFFFF;
+    --cinza-principal: #8A8A8A;
+
     --branco-secundario: #FAFAFA;
+    --azul-secundario: #93BAEF; 
+    
+    --azul-terciario: #A3BCDD;
     --branco-terciario: #E6E6E6;
-    --azul-terciario: #F7FAFF;
+
     --azul-quaternario: #00439A;
+
+    --azul-quinternario: #E2EFFF;
+    --azul-quinternario-claro: #F7FAFF;
+
+    /* FOR TEXT'S STYLE */
+    --font-family: 'Roboto', sans-serif;
+
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 800;
-    --font-family: 'Roboto', sans-serif;
+
+    --font-size-title: 2.2rem;
+    --font-size-subtitle: 1.2rem;
+    --font-size-normalText: 1rem;
 }
 
 html {
@@ -71,7 +83,7 @@ section {
 
     justify-content: space-around;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: var(--font-size-normalText);
     font-family: var(--font-family);
 }
 
@@ -91,7 +103,7 @@ section {
 }
 
 .header button {
-    font-size: 1rem;
+    font-size: var(--font-size-normalText);
     border: none;
 }
 
@@ -173,7 +185,7 @@ section {
 #subtitulo-inicial-page h3 {
     font-weight: var(--font-weight-regular);
     color: var(--preto-principal);
-    font-size: 1.2rem;
+    font-size: var(--font-size-subtitle);
 }
 
 .buttonsInicialPage {
@@ -187,7 +199,7 @@ section {
     justify-content: center;
     display: flex;
     flex-direction: row;
-    font-size: 1.1rem;
+    font-size: var(--font-size-normalText);
     height: 8vh;
     gap: 1.5rem;
     width: 15vw;
@@ -206,7 +218,7 @@ section {
     font-weight: var(--font-weight-bold);
     font-family: var(--font-family);
     width: 15vw;
-    font-size: 1.1rem;
+    font-size: var(--font-size-normalText);
 }
 
 /* SEÇÃO DE RECURSOS */
@@ -214,7 +226,7 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--azul-terciario);
+    background-color: var(--azul-quinternario-claro);
     gap: 1rem;
 }
 
@@ -314,29 +326,27 @@ section {
 
 .recursos-page .recursos-cards .background .conjunto-texts .title {
     font-weight: var(--font-weight-medium);
-    font-size: 1.5rem;
+    font-size: var(--font-size-subtitle);
 }
 
 .recursos-page .recursos-cards .background .conjunto-texts .subtext {
     width: 85%;
 }
 
-/*pagina de sobre nós*/
-
+/* pagina de sobre nós*/
 #sobre-nos {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color: var(--branco-secundario);
     height: auto;
     min-height: 100vh;
 }
 
-.titulo-bolha-introducao {
+#sobre-nos .titulo-bolha-introducao {
     background-color: var(--azul-principal);
     width: 100%;
-    height: 30vh;
+    height: 35vh;
     text-align: center;
     justify-content: center;
     flex-direction: column;
@@ -349,19 +359,8 @@ section {
     margin: 0;
 }
 
-.titulo-bolha-introducao img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.texto-sobreposto {
-    font-size: 2rem;
+#sobre-nos .texto-sobreposto {
+    font-size: var(--font-size-title);
     position: relative;
     z-index: 2;
     display: flex;
@@ -371,8 +370,8 @@ section {
     color: var(--branco-principal);
 }
 
-.texto-sobreposto2 {
-    font-size: 1rem;
+#sobre-nos .texto-sobreposto2 {
+    font-size: var(--font-size-subtitle);
     position: relative;
     font-weight: 500;
     z-index: 2;
@@ -380,196 +379,90 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--branco-terciario);
+    color: var(--azul-secundario);
 }
 
-
-.containerSobreNos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.conteiner-sobrenos {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 90%;
-    justify-content: center;
-}
-
-.containerSobreNos .texts {
-    flex-direction: column;
+#sobre-nos .subtitulo-introdutorio {
+    font-size: var(--font-size-subtitle);
+    font-weight: var(--font-weight-medium);
+    color: var(--cinza-principal);
     width: 80%;
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
-#sobre-nos .texto-subtitulo {
-    font-family: var(--font-family);
+#sobre-nos .miniRectangule {
+    background-color: var(--azul-quinternario);
+    border-radius: 2rem;
+}
+
+#sobre-nos .miniRectangule .title-miniRectangule {
+    margin: 0;
     color: var(--azul-principal);
-    font-size: 48px;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    width: 70%;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: var(--font-size-normalText);
 }
 
-#sobre-nos .container-comparacao {
+#sobre-nos .titulo-comparacoes {
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-bold);
+    color: var(--azul-principal);
+}
+
+#sobre-nos .comparacoes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#sobre-nos .comparacoes .card-outrasPlataformas {
+    background-color: var(--branco-secundario);
+    border: 3px solid var(--branco-terciario);
+    border-radius: 2rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-}
-
-#sobre-nos .wrapper-comparacao-card {
-    flex-direction: row;
-    display: flex;
     justify-content: center;
-    gap: 8rem;
-    margin-bottom: 4rem;
+    align-items: flex-start;
 }
 
-#sobre-nos .texto-center {
+/* #sobre-nos .comparacoes .card-nossaPlataformas {
+
+} */
+
+#sobre-nos .comparacoes .miniCircle {
+    background-color: var(--branco-terciario);
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 100%;
     text-align: center;
-    width: 90%;
-}
-
-#sobre-nos .texto-geral {
-    font-family: var(--font-family);
-    font-weight: var(--font-weight-medium);
-    width: 85%;
-}
-
-#sobre-nos .sobrenos-textoT {
-    color: var(--preto-principal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: var(--font-weight-bold);
-    font-size: 1.3rem;
-}
-
-#sobre-nos .sobrenos-texto {
-    color: var(--cinza);
-    font-size: 1.3rem;
-}
-
-#sobre-nos .comparacao-texto {
-    font-size: 17px;
-    color: #464646;
-    width: 70%;
-    margin-left: 1.5rem;
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
-
-}
-
-#sobre-nos .sobrenos-coteiner-imagem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#sobre-nos .imagemSobreNos {
-    width: 55vw;
-    height: 30vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: var(--cinza-principal);
 }
 
 
-#sobre-nos .logo-SobreNos {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border-radius: 10%;
-}
-
-
-#sobre-nos .comparacao-section {
+#sobre-nos .comparacoes .text {
     display: flex;
     flex-direction: row;
-    gap: 5rem;
-    width: 90%;
-}
-
-#sobre-nos .comparacao-card-titulo {
-    font-family: var(--font-family);
-    font-size: 18px;
-    font-weight: var(--font-weight-medium);
-    border: 3px solid;
-    position: absolute;
-    border-radius: 2rem;
-    padding: 0.5rem;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-}
-
-#sobre-nos .comparacao-card-titulo-outros {
-    color: var(--preto-principal);
-    background-color: var(--branco-secundario);
-    border-color: var(--branco-terciario);
-    width: 220px;
-}
-
-#sobre-nos .comparacao-card-titulo-safenest {
-    color: var(--branco-secundario);
-    background-color: var(--azul-quaternario);
-    border: 3px solid var(--azul-quaternario);
-}
-
-#sobre-nos .comparacao-card {
-    border-radius: 2rem;
-    border: 4px solid;
-    height: fit-content;
-    width: 400px;
-}
-
-#sobre-nos .comparacao-card ul {
-    padding: 0;
-
-}
-
-#sobre-nos .comparacao-card-outros {
-    background-color: var(--branco-secundario);
-    border-color: var(--branco-terciario);
-}
-
-#sobre-nos .comparacao-card-safenest {
-    background-color: var(--branco-secundario);
-    color: var(--azul-quaternario);
-    border-color: var(--azul-quaternario);
-    box-shadow: 0px 0px 6px var(--azul-quaternario);
-}
-
-#sobre-nos .comparacao-card-item {
-    display: flex;
-    flex-direction: row;
-    margin: 0.5rem;
     justify-content: space-between;
     align-items: center;
-}
-
-#sobre-nos .comparacao-card-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    width: 2.2rem;
-    height: 2.2rem;
-    margin-right: 1.5rem;
-
-}
-
-#sobre-nos .comparacao-card-icon-safenest {
-    background-color: #00439A50;
-}
-
-#sobre-nos .comparacao-card-icon-outros {
-    background-color: var(--branco-terciario);
+    color: var(--preto-principal);
 }
 
 
 
-/*pagina entrar e cadastro*/
+
+
+
+
+
+/* pagina entrar e cadastro*/
 .loginEcadastro-body {
     display: flex;
     justify-content: center;
@@ -607,7 +500,7 @@ section {
 .loginEcadastro-titulo {
     font-family: var(--font-family);
     font-size: 35px;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     color: #000000;
     margin: 0;
 }
@@ -731,7 +624,7 @@ section {
 .passo-a-passo {
     font-family: var(--font-family);
     color: var(--branco-principal);
-    font-size: 18px;
+    font-size: var(--font-size-normalText);
     font-weight: normal;
     text-align: center;
 }
@@ -746,7 +639,7 @@ section {
 
 .seguranca {
     color: var(--azul-principal);
-    font-size: 45px;
+    font-size: var(--font-size-title);
 }
 
 #comece-a-usar .mainContainer {
@@ -772,7 +665,7 @@ section {
     left: 0;
     width: 98%;
     height: 95%;
-    background-color: var(--azul-quintenario);
+    background-color: var(--azul-terciario);
     border-radius: 10%;
     transform: rotate(-10deg) scale(1.1);
     box-shadow: 0 15px 35px rgba(0, 0, 0, .12);
@@ -808,16 +701,21 @@ section {
     display: flex;
     align-items: center;
     gap: 20px;
+    text-align: center;
 }
 
 .cabecalho span {
-    font-size: 32px;
+    font-size: var(--font-size-subtitle);
     font-family: var(--font-family);
+    color: var(--azul-principal);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
 }
 
 .cabecalho h3 {
     margin: 0;
     font-family: var(--font-family);
+    text-align: center;
 }
 
 .conteudo {
@@ -830,13 +728,17 @@ section {
 
 .card.ativo {
     background: linear-gradient(130deg, #00439a 0%, #5189e8 100%);
-    color: white;
+    color: var(--branco-principal);
 }
 
 .card.ativo .conteudo {
     max-height: 200px;
     opacity: 1;
     margin-top: 20px;
+}
+
+.card.ativo span {
+    color: var(--branco-principal);
 }
 
 /* footer */
@@ -871,14 +773,14 @@ section {
     font-family: var(--font-family);
     font-weight: var(--font-weight-regular);
     color: #474747;
-    font-size: 15px;
+    font-size: var(--font-size-normalText);
 }
 
 .footer-titulo {
     font-family: var(--font-family);
     font-weight: var(--font-weight-bold);
     color: #252525;
-    font-size: 15px;
+    font-size: var(--font-size-normalText);
 }
 
 .footer-texto,
