@@ -146,13 +146,13 @@ section {
 }
 
 /* SEÇÃO INICIAL */
-.inicial-page {
+#inicial-page {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
 
-.inicial-page .conjuntoDivsInicio {
+#inicial-page .conjuntoDivsInicio {
     margin-left: 10rem;
     width: 50vw;
     display: flex;
@@ -161,7 +161,7 @@ section {
     z-index: 1;
 }
 
-.inicial-page .inicialPage-imagem {
+#inicial-page .inicialPage-imagem {
     width: 50vw;
     height: 60vh;
     background-color: #898989;
@@ -206,7 +206,7 @@ section {
 }
 
 .buttonsInicialPage .buttons-cadastro img {
-    height: 50%;
+    height: 40%;
 }
 
 .buttonsInicialPage #button-como-funciona {
