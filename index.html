@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="SafeNest icon" href="../imagens/SafeNest.ico" type="image/x-icon">
+    <link rel="SafeNest icon" href="./imagens/safenest2-removebg-preview.png" type="image/x-icon">
     <title>SafeNest</title>
     <link rel="stylesheet" href="style.css">
 
@@ -14,34 +14,44 @@
 
 <body>
     <section id="inicial-page">
+
         <header class="header">
-            <div id="logo"><img src="./imagens/image-removebg-preview (3).png" alt="Logo do SafeNest"></div>
+            <div id="logo"><img src="" alt="Logo SafeNest"></div>
             <div id="links-header">
-                <a href="#recursos-page">Recursos</a>
-                <a href="#comece-a-usar">Comece a usar</a>
-                <a href="#sobre-nos">Sobre nós</a>
+                <a id="a-recursos" href="#recursos-page">Recursos <div class="row"></div></a>
+                <a id="a-comeceAusar" href="#comece-a-usar">Comece a usar <div class="row"></div></a>
+                <a id="a-sobreNos" href="#sobre-nos">Sobre nós <div class="row"></div></a>
             </div>
+
             <div id="buttons-header">
                 <button class="buttons-login" id="button-login-header"
                     onclick="location.href ='entrar.html'">Entrar</button>
                 <button class="buttons-cadastro" onclick="location.href ='cadastrar.html'">Cadastre-se</button>
             </div>
         </header>
+
         <div class="conjuntoDivsInicio">
             <div id="titulo-inicial-page" class="SR">
                 <h1>Sua casa, <span>protegida.</span></h1>
             </div>
             <div id="subtitulo-inicial-page" class="SR">
                 <h3><span>O SafeNest é o sistema de segurança residencial inteligente que monitora, alerta e protege sua
-                        família 24 horas por dia.</span></h3>
+                        família 24 horas por dia, garantindo total tranquilidade e controle sobre o seu lar.</span></h3>
             </div>
             <div class="buttonsInicialPage">
-                <button class="buttons-cadastro SR" id="button-cadastro-page" onclick="abrirPaginaCadastro()">Começar
-                    agora<img src="./imagens/External link.svg" alt="Ícone outros de link externo"></button>
-                <button id="button-como-funciona" class="SR" href="#comece-a-usar">Como funciona</button>
+                <div id="wrapper-cadastro">
+                    <button class="buttons-cadastro" id="button-cadastro-page" onclick="abrirPaginaCadastro()">
+                        Começar agora<img src="./imagens/External link.svg" alt="Ícone outros de link externo">
+                    </button>
+                </div>
+
+                <div id="wrapper-como-funciona">
+                    <button id="button-como-funciona"><a href="#comece-a-usar">Como funciona</a></button>
+                </div>
             </div>
         </div>
-        <div class="inicialPage-imagem SR"></div>
+
+
     </section>
     <section class="recursos-page" id="recursos-page">
         <div class="top-texts SR">
@@ -119,13 +129,12 @@
                 <div class="card ativo">
                     <div class="cabecalho">
                         <span>1</span>
-                        <h3>Instale os sensores</h3>
+                        <h3>Crie sua conta e instale os sensores</h3>
                     </div>
 
                     <div class="conteudo">
                         <p>
-                            Coloque os sensores nas portas,
-                            janelas e outras áreas de sua preferência em sua casa.
+                            Crie seu cadastro aqui no site para ativar seu perfil. Em seguida, instale os sensores nas portas, janelas ou áreas de sua preferência.
                         </p>
                     </div>
                 </div>
@@ -133,14 +142,12 @@
                 <div class="card">
                     <div class="cabecalho">
                         <span>2</span>
-                        <h3>Se conecte ao App</h3>
+                        <h3>Baixe e conecte-se ao App</h3>
                     </div>
 
                     <div class="conteudo">
                         <p>
-                            Entre no aplicativo do SafeNest e
-                            logue na sua conta para acompanhar tudo que
-                            acontece dentro e fora de sua casa.
+                            Baixe o aplicativo do SafeNest no seu celular e entre com a conta que você acabou de criar. O controle do sistema é feito inteiramente pelo app.
                         </p>
                     </div>
                 </div>
@@ -153,16 +160,16 @@
 
                     <div class="conteudo">
                         <p>
-                            Receba alertas em tempo real, acesse gravações salvas e
-                            gerencie tudo pelo celular, de qualquer lugar e a hora que quiser.
+                            Receba alertas em tempo real, acesse gravações e gerencie toda a sua segurança direto na palma da sua mão, onde quer que você esteja e na hora que quiser.
                         </p>
                     </div>
                 </div>
 
             </div>
-            <div class="comece-a-usar-wrapper SR">
-                <div class="comece-a-usar-container"></div>
-                <div class="comece-a-usar-imagem"></div>
+            <div class="SR container-imagem-azul">
+                <div class="quadrado-azul-fundo"></div>
+                <img class="comece-a-usar-imagem" src="./imagens/safenestLockAndNFCPicture.svg"
+                    alt="Preview do App SafeNest no iPhone">
             </div>
         </div>
     </section>
@@ -180,53 +187,60 @@
         </div>
         <p class="titulo-comparacoes">Compare o SafeNest com outros sistemas de segurança</p>
         <div class="comparacoes">
-            <div class="card-outrasPlataformas">
-                <div class="title-card-outrasPlataformas">OUTRAS PLATAFORMAS</div>
-                <div class="text">Inteligência artificial para<br>monitoramento 24h
+            <div class="card-outras-plataformas">
+                <div class="cabecalho-card">
+                    <div class="icone-card"><img src="./imagens/unknownWhite.svg" alt="Outras Plataformas Logo"></div>
+                    <h3 class="titulo-card">Outras Plataformas</h3>
+                </div>
+                <div class="item-comparativo">Inteligência artificial para<br>monitoramento 24h
                     <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
-                <div class="text">Fechadura inteligente conectada à<br>internet
+                <div class="item-comparativo">Fechadura inteligente conectada à<br>internet
                     <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
-                <div class="text">Alertas em tempo real
+                <div class="item-comparativo">Alertas em tempo real
                     <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
-                <div class="text">Sistema de segurança acessível<br>financeiramente
+                <div class="item-comparativo">Sistema de segurança acessível<br>financeiramente
                     <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
-                <div class="text">Segurança contra invasões e incêndios
+                <div class="item-comparativo">Segurança contra invasões e incêndios
                     <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
-                <div class="text">Gravação contínua da sua residência
+                <div class="item-comparativo">Gravação contínua da sua residência
                     <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
-                <div class="text">Aplicativo com interface simples e<br>sistemas de contatos de emergência
+                <div class="item-comparativo">Aplicativo com interface simples e<br>sistemas de contatos de emergência
                     <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
             </div>
-            <div class="card-nossaPlataformas">
-                <div class="title-card-outrasPlataformas">SAFENEST</div>
-                <div class="text">Inteligência artificial para<br>monitoramento 24h
+            <div class="card-safenest">
+                <div class="cabecalho-card">
+                    <div class="icone-card"><img src="./imagens/iconSafenestWhite.svg" alt="Safenest White Logo"></div>
+                    <h3 class="titulo-card">SafeNest</h3>
+                </div>
+                <div class="item-comparativo">Inteligência artificial para<br>monitoramento 24h
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
-                <div class="text">Fechadura inteligente conectada à<br>internet
+                <div class="item-comparativo">Fechadura inteligente conectada à<br>internet
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
-                <div class="text">Alertas em tempo real
+                <div class="item-comparativo">Alertas em tempo real
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
-                <div class="text">Sistema de segurança acessível<br>financeiramente
+                <div class="item-comparativo">Sistema de segurança acessível<br>financeiramente
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
-                <div class="text">Segurança contra invasões e incêndios
+                <div class="item-comparativo">Segurança contra invasões e incêndios
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
-                <div class="text">Gravação contínua da sua residência
+                <div class="item-comparativo">Gravação contínua da sua residência
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
-                <div class="text">Aplicativo com interface simples e<br>sistemas de contatos de emergência
+                <div class="item-comparativo">Aplicativo com interface simples e<br>sistemas de contatos de emergência
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
+                <button class="cadastroButtonCard">Cadastre-se já!</button>
             </div>
         </div>
     </section>
@@ -238,7 +252,7 @@
             <div class="footer-externo">
                 <div class="footer-instagram">
                     <img src="./imagens/Instagram.svg">
-                    <a href="https://www.instagram.com/safenest_tcc" class="footer-texto2">safenest_tcc</a>
+                    <a href="https://www.instagram.com/safenest_tcc" class="footer-texto2">@safenest_tcc</a>
                 </div>
                 <div class="footer-email">
                     <img src="./imagens/Mail.svg">
@@ -248,10 +262,10 @@
         </div>
         <div class="footer-coluna2">
             <p class="footer-titulo">NAVEGAÇÃO</p>
-            <a href="#inicial-page" class="footer-texto">Início</a>
-            <a href="#recursos-page" class="footer-texto">Recursos</a>
-            <a href="#comece-a-usar" class="footer-texto">Comece a usar</a>
-            <a href="#sobre-nos" class="footer-texto">Sobre nós</a>
+            <a href="#inicial-page" class="footer-textoA">Início</a>
+            <a href="#recursos-page" class="footer-textoA">Recursos</a>
+            <a href="#comece-a-usar" class="footer-textoA">Comece a usar</a>
+            <a href="#sobre-nos" class="footer-textoA">Sobre nós</a>
         </div>
         <div class="footer-coluna3">
             <p class="footer-titulo">DESENVOLVEDORES</p>
@@ -261,9 +275,12 @@
         </div>
         <div class="footer-coluna4">
             <div class="footer-titulo">CONTATE-NOS</div>
-            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a href="https://github.com/oiejota">João Carlos L. Pinto</a></div>
-            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a href="https://github.com/MaryCat2025">Maria Catarina M. Ferreira</a></div>
-            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a href="https://github.com/mariaeduardadepascoa">Maria Eduarda P. Carneiro</a></div>
+            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a
+                    href="https://github.com/oiejota">João Carlos L. Pinto</a></div>
+            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a
+                    href="https://github.com/MaryCat2025">Maria Catarina M. Ferreira</a></div>
+            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a
+                    href="https://github.com/mariaeduardadepascoa">Maria Eduarda P. Carneiro</a></div>
         </div>
     </footer>
     <script src="script.js"></script>

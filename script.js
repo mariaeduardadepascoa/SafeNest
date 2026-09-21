@@ -1,7 +1,15 @@
-//criação dessa pasta e git: 23/03/2026
+// HEADER -> NAVEGAÇÃO
+const linksHeader = document.querySelectorAll('#links-header a');
 
-//primeiro git add/commit/push: escreve na branch do canto esquerdo oq se trata e envia, depois so att o github
-// ou escreve isso no terminal: git add . -----> git commit -m "mensagem explicando a mudança feita" -----> git push origin main
+linksHeader.forEach(link => {
+    link.addEventListener('click', () => {
+        linksHeader.forEach(l => l.querySelector('.row').classList.remove('active'));
+        link.querySelector('.row').classList.add('active');
+    });
+});
+
+
+// SEÇÃO RECURSOS
 function mostrarCards() {
     let fechadura = document.getElementById('fechadura');
     let camera = document.getElementById('camera');
@@ -10,8 +18,8 @@ function mostrarCards() {
 
     let buttonVoltar = document.querySelector('.button-voltar');
     let buttonProximo = document.querySelector('.button-proximo');
-    
-    buttonProximo.addEventListener('click', function() {
+
+    buttonProximo.addEventListener('click', function () {
         fechadura.classList.add('none');
         camera.classList.add('none');
 
@@ -21,7 +29,7 @@ function mostrarCards() {
         console.log('Botão de PRÓXIMO apertado');
     });
 
-    buttonVoltar.addEventListener('click', function() {
+    buttonVoltar.addEventListener('click', function () {
         alarmes.classList.add('none');
         appMobile.classList.add('none');
 
@@ -30,21 +38,21 @@ function mostrarCards() {
 
         console.log('Botão de VOLTAR apertado');
     });
-    
+
 }
 
 
+// TELAS DE LOGIN E CADASTRO
 
-//entrar e cadastro
-
-function alterarVisibilidade(idOlho,idCampo){
-    campo = document.getElementById(idCampo);
-    olho = document.getElementById(idOlho);
-    if(campo.type === 'password'){
+function alterarVisibilidade(idOlho, idCampo) {
+    let campo = document.getElementById(idCampo);
+    let olho = document.getElementById(idOlho);
+    
+    if (campo.type === 'password') {
         campo.type = "text";
         campo.placeholder = "Senha123#"
         olho.src = "imagens/olhoAberto.svg";
-    }else if(campo.type === 'text'){
+    } else if (campo.type === 'text') {
         campo.type = "password";
         campo.placeholder = "••••••••"
         olho.src = "imagens/olhoFechado.svg";

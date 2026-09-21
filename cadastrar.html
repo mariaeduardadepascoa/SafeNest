@@ -3,34 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="SafeNest icon" href="./imagens/safenest2-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>SafeNest - Criar Conta</title>
 </head>
 <body class="loginEcadastro-body">
     <main class="loginEcadastro-main">
         <div class="ladoImg">
-            <img>
+            <div class="quadrado-azul-fundo"></div>
+            <img class="comece-a-usar-imagem" src="./imagens/safenestLockAndNFCPicture.svg" alt="SafeNest Segurança">
         </div>
         <div class="ladoConteudo">
-            <h1 class="loginEcadastro-titulo">Crie sua conta</h1>
-            <h2 class="loginEcadastro-subtitulo">Crie sua conta e comece a usar SafeNest.</h2>
+            <div class="header-form">
+                <a href="index.html" class="voltar-link">← Voltar ao início</a>
+                <h1 class="loginEcadastro-titulo">Crie sua conta</h1>
+                <h2 class="loginEcadastro-subtitulo">Crie sua conta e comece a usar SafeNest.</h2>
+            </div>
+            
             <form class="loginEcadastro-form">
-                <label class="loginEcadastro-label">insira o seu email</label>
-                <input class="loginEcadastro-input" type="email" placeholder="email123@email.com">
-                <svg class="loginEcadastro-icon-email" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#757575"><path d="M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q560-607 560-640t-23.5-56.5Q513-720 480-720t-56.5 23.5Q400-673 400-640t23.5 56.5Q447-560 480-560t56.5-23.5ZM480-640Zm0 400Z"/></svg>
-                <label class="loginEcadastro-label">crie sua senha</label>
-                <input class="loginEcadastro-input" id="senha-login" type="password" placeholder="••••••••">
-                <img onclick="alterarVisibilidade('olho-login','senha-login')" id="olho-login" class="loginEcadastro-icon-senha" src="imagens/olhoFechado.svg" height="30px" height="30px">
-                <label class="loginEcadastro-label">confirme sua senha</label>
-                <input class="loginEcadastro-input" id="senha-confirmarSenha" type="password" placeholder="••••••••">
-                <img onclick="alterarVisibilidade('olho-confirmarSenha','senha-confirmarSenha')" id="olho-confirmarSenha" class="loginEcadastro-icon-confirmarSenha" src="imagens/olhoFechado.svg" height="30px" height="30px">
+                <div class="input-container">
+                    <label class="loginEcadastro-label" for="email-cadastro">Insira o seu e-mail</label>
+                    <div class="input-wrapper">
+                        <input id="email-cadastro" class="loginEcadastro-input" type="email" placeholder="email123@email.com" required>
+                        <svg class="loginEcadastro-icon-email" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--azul-principal)"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-600v360h640v-360L480-440Zm0-80 320-200H160l320 200ZM160-600v-120 480-360Z"/></svg>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <label class="loginEcadastro-label" for="senha-cadastro">Crie sua senha</label>
+                    <div class="input-wrapper">
+                        <input class="loginEcadastro-input" id="senha-cadastro" type="password" placeholder="••••••••" required>
+                        <img onclick="alterarVisibilidade('olho-cadastro','senha-cadastro')" id="olho-cadastro" class="loginEcadastro-icon-senha" src="imagens/olhoFechado.svg" alt="Mostrar senha">
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <label class="loginEcadastro-label" for="senha-confirmarSenha">Confirme sua senha</label>
+                    <div class="input-wrapper">
+                        <input class="loginEcadastro-input" id="senha-confirmarSenha" type="password" placeholder="••••••••" required>
+                        <img onclick="alterarVisibilidade('olho-confirmarSenha','senha-confirmarSenha')" id="olho-confirmarSenha" class="loginEcadastro-icon-confirmarSenha" src="imagens/olhoFechado.svg" alt="Mostrar senha">
+                    </div>
+                </div>
+
                 <div class="loginEcadastro-centralizar-botaoLoginEcadastro">
-                    <button class="loginEcadastro-botao">Criar conta</button>
+                    <button type="submit" class="loginEcadastro-botao">Criar conta</button>
                 </div>
             </form>
-            <p class="loginEcadastro-textinhoTroca">Já tem uma conta?<span class="loginEcadastro-trocaPag" onclick="location.href ='entrar.html'"> Faça login.</span></p>
+
+            <p class="loginEcadastro-textinhoTroca">Já tem uma conta? <span class="loginEcadastro-trocaPag" onclick="location.href='entrar.html'">Faça login.</span></p>
         </div>
     </main>
+    <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>

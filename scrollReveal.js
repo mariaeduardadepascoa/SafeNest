@@ -15,12 +15,12 @@ revelar.reveal('#subtitulo-inicial-page', {
     distance: '90px',
     origin: 'left'
 });
-revelar.reveal('#button-cadastro-page', {
+revelar.reveal('#wrapper-cadastro', {
     duration: 900,
     distance: '90px',
     origin: 'left'
 });
-revelar.reveal('#button-como-funciona', {
+revelar.reveal('#wrapper-como-funciona', {
     duration: 1100,
     distance: '90px',
     origin: 'left'
@@ -41,7 +41,7 @@ revelar.reveal('.container-recursos', {
 });
 
 //passo a passo
-revelar.reveal('.comece-a-usar-wrapper', {
+revelar.reveal('.container-imagem-azul', {
     duration: 900,
     distance: '90px',
     origin: 'right'
