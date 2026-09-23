@@ -17,10 +17,16 @@
 
         <header class="header">
             <div id="logo"><img src="" alt="Logo SafeNest"></div>
+            <button id="menu-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div id="links-header">
                 <a id="a-recursos" href="#recursos-page">Recursos <div class="row"></div></a>
                 <a id="a-comeceAusar" href="#comece-a-usar">Comece a usar <div class="row"></div></a>
-                <a id="a-sobreNos" href="#sobre-nos">Sobre nós <div class="row"></div></a>
+                <a id="a-sobreNos" href="#sobre-nos">Sobre nós<div class="row"></div></a>
+                <a id="a-sobreNos" href="#perguntas-frequentes">FAQ's<div class="row"></div></a>
             </div>
 
             <div id="buttons-header">
@@ -35,8 +41,8 @@
                 <h1>Sua casa, <span>protegida.</span></h1>
             </div>
             <div id="subtitulo-inicial-page" class="SR">
-                <h3><span>O SafeNest é o sistema de segurança residencial inteligente que monitora, alerta e protege sua
-                        família 24 horas por dia, garantindo total tranquilidade e controle sobre o seu lar.</span></h3>
+                <h3><span>Com o SafeNest, você tem o controle total da sua residência na palma da mão. Um sistema de
+                        segurança inteligente que cuida da sua casa 24 horas por dia.</span></h3>
             </div>
             <div class="buttonsInicialPage">
                 <div id="wrapper-cadastro">
@@ -54,64 +60,75 @@
 
     </section>
     <section class="recursos-page" id="recursos-page">
-        <div class="top-texts SR">
-            <h1>Recursos pensados no que você precisa</h1>
-            <h3>Lorem ipsum dolor sit amet, consectetur</h3>
-        </div>
-        <div class="container-recursos SR">
-            <div class="buttons-recursos-cards">
-                <button type="button" class="button-voltar"><img src="./imagens/menorIcon.svg" alt="Seta para voltar"
-                        onclick="mostrarCards()" style="color: #ffff"></button>
-                <button type="button" class="button-proximo"><img src="./imagens/maiorIcon.svg" alt="Seta para avançar"
-                        onclick="mostrarCards()"></button>
+        <div class="recursos-header-wrapper">
+            <div class="recursos-header">
+                <h2 class="recursos-titulo">Recursos pensados no que você precisa</h2>
+                <p class="recursos-subtitulo">Conheça as tecnologias inteligentes desenvolvidas para garantir a
+                    tranquilidade e a proteção contínua da sua família.</p>
             </div>
+            <div class="recursos-nav-buttons">
+                <button class="recursos-nav-btn" id="recursos-btn-prev" aria-label="Anterior">
+                    <</button>
+                        <button class="recursos-nav-btn" id="recursos-btn-next" aria-label="Próximo">></button>
+            </div>
+        </div>
 
-            <div class="recursos-cards">
-
-                <div id="fechadura">
-                    <div class="background">
-                        <div class="imagem"></div>
-                        <div class="conjunto-texts">
-                            <div class="title"><span>Fechadura</span></div>
-                            <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
-                        </div>
+        <div class="recursos-carousel-container">
+            <div class="recursos-grid" id="recursos-grid">
+                <div class="recurso-card">
+                    <div class="recurso-imagem-frame">
+                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Fechadura Inteligente"
+                            class="recurso-imagem-ilustracao">
+                        <span class="recurso-badge">Acesso Seguro</span>
+                    </div>
+                    <div class="recurso-conteudo">
+                        <h3>Fechadura Inteligente</h3>
+                        <p>Com a fechadura inteligente, o acesso à sua residência fica muito mais prático e rápido.
+                            Configure o uso de tags e cartões NFC para definir exatamente quem pode entrar.</p>
                     </div>
                 </div>
 
-                <div id="camera">
-                    <div class="background">
-                        <div class="imagem"></div>
-                        <div class="conjunto-texts">
-                            <div class="title"><span>Câmera</span></div>
-                            <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
-                        </div>
+                <div class="recurso-card">
+                    <div class="recurso-imagem-frame">
+                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Câmeras Inteligentes"
+                            class="recurso-imagem-ilustracao">
+                        <span class="recurso-badge">Monitoramento 24/7</span>
+                    </div>
+                    <div class="recurso-conteudo">
+                        <h3>Câmeras Inteligentes</h3>
+                        <p>Monitore sua residência em alta definição e em tempo real. Com Inteligência Artificial
+                            integrada, a câmera detecta sinais de incêndio logo no início, garantindo proteção contínua
+                            para a sua família.</p>
                     </div>
                 </div>
 
-                <div id="alarmes" class="none">
-                    <div class="background">
-                        <div class="imagem"></div>
-                        <div class="conjunto-texts">
-                            <div class="title"><span>Alarmes</span></div>
-                            <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
-                        </div>
+                <div class="recurso-card">
+                    <div class="recurso-imagem-frame">
+                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Alarmes"
+                            class="recurso-imagem-ilustracao">
+                        <span class="recurso-badge">Proteção Ativa</span>
+                    </div>
+                    <div class="recurso-conteudo">
+                        <h3>Alarmes</h3>
+                        <p>Fique sabendo de tudo no mesmo instante. O sistema envia notificações imediatas para o seu
+                            aplicativo e endereço de e-mail ao menor sinal de invasão ou movimento suspeito em sua
+                            residência.</p>
                     </div>
                 </div>
 
-                <div id="app-mobile" class="none">
-                    <div class="background">
-                        <div class="imagem"></div>
-                        <div class="conjunto-texts">
-                            <div class="title"><span>App Mobile</span></div>
-                            <div class="subtext"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></div>
-                        </div>
+                <div class="recurso-card">
+                    <div class="recurso-imagem-frame">
+                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Aplicativo Mobile"
+                            class="recurso-imagem-ilustracao">
+                        <span class="recurso-badge">Controle Total</span>
+                    </div>
+                    <div class="recurso-conteudo">
+                        <h3>Aplicativo Mobile</h3>
+                        <p>Tenha o controle total da sua casa na palma da sua mão. Pelo nosso aplicativo intuitivo, você
+                            gerencia todos os seus dispositivos, personaliza automações e recebe alertas instantâneos.
+                        </p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -134,7 +151,9 @@
 
                     <div class="conteudo">
                         <p>
-                            Crie seu cadastro aqui no site para ativar seu perfil. Em seguida, instale os sensores nas portas, janelas ou áreas de sua preferência.
+                            Crie seu cadastro aqui no site para ativar seu perfil. Em seguida, instale a câmera e a
+                            fechadura nas
+                            portas e áreas de sua preferência.
                         </p>
                     </div>
                 </div>
@@ -147,7 +166,8 @@
 
                     <div class="conteudo">
                         <p>
-                            Baixe o aplicativo do SafeNest no seu celular e entre com a conta que você acabou de criar. O controle do sistema é feito inteiramente pelo app.
+                            Baixe o aplicativo do SafeNest no seu celular e entre com a conta que você acabou de criar.
+                            O controle do sistema é feito inteiramente pelo app.
                         </p>
                     </div>
                 </div>
@@ -160,7 +180,8 @@
 
                     <div class="conteudo">
                         <p>
-                            Receba alertas em tempo real, acesse gravações e gerencie toda a sua segurança direto na palma da sua mão, onde quer que você esteja e na hora que quiser.
+                            Receba alertas em tempo real, acesse gravações e gerencie toda a sua segurança direto na
+                            palma da sua mão, onde quer que você esteja e na hora que quiser.
                         </p>
                     </div>
                 </div>
@@ -175,16 +196,87 @@
     </section>
 
     <section id="sobre-nos">
-        <h2 class="titulo-bolha-introducao SR">
-            <p class="texto-sobreposto">Sobre nós</p>
-            <p class="texto-sobreposto2">Cuidamos da sua segurança com inovação e confiança.</p>
-        </h2>
-        <p class="subtitulo-introdutorio">O SafeNest nasceu para tornar a segurança residencial simples, acessível e
-            inteligente. Unimos monitoramento em tempo real, sensores conectados e um app fácil de usar para dar
-            tranquilidade e praticidade para você e à sua família, todos os dias.</p>
-        <div class="miniRectangule">
-            <p class="title-miniRectangule">PORQUÊ O SAFENEST?</p>
+
+        <div class="titulo-bolha-introducao SR">
+            <span class="texto-pequeno-topo">NOSSO MANIFESTO</span>
+            <div class="conteudo-central">
+                <span class="texto-marca-fundo">SafeNest</span>
+                <p class="texto-sobreposto2">O SafeNest nasceu para tornar a segurança residencial simples, acessível e
+                    inteligente. Unimos
+                    monitoramento em tempo real, sensores e um app fácil de usar para dar tranquilidade e
+                    praticidade para você e à sua família, todos os dias.</p>
+            </div>
+            <div class="linha-decorativa"></div>
         </div>
+
+        <div class="miniRectangule">
+            <p class="title-miniRectangule">PORQUÊ O SAFENEST? - VEJA OS NOSSOS PILARES</p>
+        </div>
+
+        <div class="bloco-pilares">
+            <div class="pilares">
+                <div class="card-pilar">
+                    <div class="icone-pilar">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="titulo-card-pilar">Confiabilidade</h3>
+                    <p class="texto-card-pilar">
+                        Sistemas testados e monitoramento contínuo para você nunca se preocupar.
+                    </p>
+                </div>
+
+                <div class="card-pilar">
+                    <div class="icone-pilar">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="titulo-card-pilar">Tecnologia</h3>
+                    <p class="texto-card-pilar">
+                        Equipamentos de última geração e app intuitivo para controle total na sua mão.
+                    </p>
+                </div>
+
+                <div class="card-pilar">
+                    <div class="icone-pilar">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="titulo-card-pilar">Atendimento Humano</h3>
+                    <p class="texto-card-pilar">
+                        Pessoas reais, prontas para ajudar 24 horas por dia, com empatia e agilidade.
+                    </p>
+                </div>
+
+                <div class="card-pilar">
+                    <div class="icone-pilar">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            <circle cx="12" cy="12" r="2"></circle>
+                            <path d="M6 12h.01M18 12h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="titulo-card-pilar">Transparência</h3>
+                    <p class="texto-card-pilar">
+                        Planos claros, sem surpresas. Você sabe exatamente o que está contratando.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
         <p class="titulo-comparacoes">Compare o SafeNest com outros sistemas de segurança</p>
         <div class="comparacoes">
             <div class="card-outras-plataformas">
@@ -240,8 +332,73 @@
                 <div class="item-comparativo">Aplicativo com interface simples e<br>sistemas de contatos de emergência
                     <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
                 </div>
-                <button class="cadastroButtonCard">Cadastre-se já!</button>
+                <button class="cadastroButtonCard" onclick="location.href ='cadastrar.html'">Cadastre-se já!</button>
             </div>
+        </div>
+    </section>
+
+    <section id="perguntas-frequentes" class="secao-perguntas">
+        <div class="header-FAQ">
+            <h2 class="titulo-perguntas">Perguntas Frequentes</h2>
+            <p class="descricao-perguntas">
+                Tudo o que você precisa saber sobre nossos recursos, funcionamento, planos e suporte.
+            </p>
+        </div>
+
+        <div class="lista-perguntas">
+
+            <div class="item-pergunta aberta">
+                <div class="cabecalho-pergunta">
+                    <h3 class="texto-pergunta">Como a câmera identifica focos de incêndio?</h3>
+                    <span class="icone-pergunta">-</span>
+                </div>
+                <div class="resposta-pergunta">
+                    <p>Nossa câmera conta com uma Inteligência Artificial treinada para reconhecer padrões visuais
+                        de fumaça e chamas em segundos, detectando o fogo e enviando alertas imediatos para o seu
+                        celular e e-mail.
+                    </p>
+                </div>
+            </div>
+
+            <div class="item-pergunta">
+                <div class="cabecalho-pergunta">
+                    <h3 class="texto-pergunta">PERGUNTA</h3>
+                    <span class="icone-pergunta">+</span>
+                </div>
+                <div class="resposta-pergunta">
+                    <p>RESPOSTA</p>
+                </div>
+            </div>
+
+            <div class="item-pergunta">
+                <div class="cabecalho-pergunta">
+                    <h3 class="texto-pergunta">PERGUNTA</h3>
+                    <span class="icone-pergunta">+</span>
+                </div>
+                <div class="resposta-pergunta">
+                    <p>RESPOSTA</p>
+                </div>
+            </div>
+
+            <div class="item-pergunta">
+                <div class="cabecalho-pergunta">
+                    <h3 class="texto-pergunta">É fácil instalar os dispositivos da SafeNest?</h3>
+                    <span class="icone-pergunta">+</span>
+                </div>
+                <div class="resposta-pergunta">
+                    <p>Sim, o processo é simples e intuitivo. Basta conectar os aparelhos à tomada e seguir o passo
+                        a passo no aplicativo para realizar a configuração em poucos minutos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="caixa-ajuda">
+            <h4 class="titulo-ajuda">Ainda tem dúvidas?</h4>
+            <p class="texto-ajuda">
+                Fale com a nossa equipe de atendimento para tirar todas as suas dúvidas e proteger sua casa.
+            </p>
+            <button class="botao-contato"><a href="mailto:safenest.br@gmail.com" class="title-botaoContato">Falar com
+                    Suporte</a></button>
         </div>
     </section>
 
