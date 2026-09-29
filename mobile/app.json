@@ -22,9 +22,17 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font",
-      "expo-secure-store",
-      "expo-status-bar"
-    ]
+  "expo-font",
+  "expo-secure-store",
+  "expo-status-bar",
+  [
+    "expo-build-properties",
+    {
+      "android": {
+        "minSdkVersion": 26
+      }
+    }
+  ]
+]
   }
 }

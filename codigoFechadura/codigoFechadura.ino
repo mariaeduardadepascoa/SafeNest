@@ -40,6 +40,7 @@ String deviceAddress;
 String topicComando;
 String topicResposta;
 String correlationId;
+String topicStatus;
 
 String lockState;
 
@@ -374,24 +375,39 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void conectarMQTT() {
 
   mqtt.setServer(MQTT_BROKER, MQTT_PORT);
-
   mqtt.setCallback(callback);
 
   while (!mqtt.connected()) {
-    Serial.println("Conectando ao Broker MQTT...");
+
+    Serial.println("Conectando ao MQTT...");
+
+    String clientId = "SafeNest-" + deviceAddress;
+
+    topicStatus = "fechadura/" + deviceAddress + "/status";
+
+
     if (mqtt.connect(
-          deviceAddress.c_str(),
+          clientId.c_str(),
           MQTT_USER,
-          MQTT_PASSWORD
+          MQTT_PASSWORD,
+          topicStatus.c_str(),
+          0,
+          true,
+          "offline"
         )) {
 
-      Serial.println("Broker conectado!");
+      Serial.println("MQTT conectado!");
 
       mqtt.subscribe(topicComando.c_str());
 
       Serial.print("Inscrito em: ");
       Serial.println(topicComando);
 
+      mqtt.publish(
+        topicStatus.c_str(),
+        "online",
+        true
+      );
     } else {
 
       Serial.print("Erro MQTT: ");

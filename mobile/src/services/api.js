@@ -5,7 +5,7 @@ import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens, salva
 //nao pode ser localhost pois no celular n roda
 //const API_URL = 'http://192.168.15.79:3000'; //duda
 const API_URL = 'http://192.168.1.5:3000';    //joao   
-const DISPOSITIVOS_API_URL = "http://192.168.1.5:8080";   
+const DISPOSITIVOS_API_URL = "http://192.168.1.5:8080";
 //const API_URL = 'http://localhost:3000';         //cabo    
 
 //Adiciona o acessToken no header das rotas que são protegidas
@@ -213,7 +213,7 @@ export async function verificarCodigoVerificacao(email, codigo) {
 
 //Usado para listar a fechadura   -- joao 
 export async function obterFechadura() {
-    const resposta = await autenticacaoTokenDispositivos('/fechadura',{
+    const resposta = await autenticacaoTokenDispositivos('/fechadura', {
         method: 'GET',
     });
     const data = await resposta.json();

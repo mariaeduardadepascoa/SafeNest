@@ -11,6 +11,7 @@
     "@react-navigation/native-stack": "^7.17.6",
     "@react-navigation/stack": "^7.10.6",
     "expo": "~57.0.22",
+    "expo-build-properties": "~57.0.21",
     "expo-checkbox": "~57.0.0",
     "expo-font": "~57.0.4",
     "expo-image-picker": "~57.0.17",
@@ -25,6 +26,7 @@
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
     "react-native-svg": "15.15.4",
+    "react-native-vlc-media-player": "^1.0.98",
     "react-native-web": "^0.21.2",
     "react-native-webview": "13.16.1"
   },
