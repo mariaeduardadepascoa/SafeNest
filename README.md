@@ -14,10 +14,10 @@
 ## Tecnologias
 
 - HTML5, CSS e JavaScript (interface web)
+- Java e Node.js (back-end)
 - React Native (interface mobile)
 - ESP32
 - RFID (controle de acesso)
-- Sensor MQ2 (detecção de gás)
 - YOLOv11 
 
 ## Desenvolvido por:
