@@ -240,7 +240,14 @@ export async function travarFechadura() {
     if (!resposta.ok) throw new Error(data.erro || "Erro ao travar fechadura");
     return data;
 }
-
+export async function obterStatusFchadura() {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura/status', {
+        method: 'GET',
+    });
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao encontrar o status da fechadura");
+    return data;
+}
 export async function destravarFechadura() {
     const resposta = await autenticacaoTokenDispositivos('/fechadura/destravar', {
         method: 'POST',
