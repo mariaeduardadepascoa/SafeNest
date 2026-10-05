@@ -38,6 +38,8 @@ export default function MainTabNavigator() {
           tabBarIcon: ({ color }) => (
             <House size={24} color={color} weight="bold" />
           ),
+          tabBarLabel: 'Início',
+          tabBarAccessibilityLabel: 'Início, resumo dos sistemas da residência',
         }}
       />
       <Tab.Screen
@@ -47,6 +49,8 @@ export default function MainTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Clock size={24} color={color} weight="bold" />
           ),
+          tabBarLabel: 'Histórico',
+          tabBarAccessibilityLabel: 'Histórico, registros e alertas da residência',
         }}
       />
       <Tab.Screen
@@ -56,6 +60,8 @@ export default function MainTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Camera size={24} color={color} weight="bold" />
           ),
+          tabBarLabel: 'Câmera',
+          tabBarAccessibilityLabel: 'Câmera, gravações salvas da sua residência',
         }}
       />
       <Tab.Screen
@@ -65,6 +71,8 @@ export default function MainTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Warning size={24} color={color} weight="bold" />
           ),
+          tabBarLabel: 'Emergência',
+          tabBarAccessibilityLabel: 'Emergnência, contatos de emergência salvos',
         }}
       />
     </Tab.Navigator>

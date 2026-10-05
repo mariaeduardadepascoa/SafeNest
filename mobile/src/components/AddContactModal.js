@@ -43,17 +43,21 @@ export default function AddContactModal({ visible, onClose, onSave, contato, sal
             visible={visible}
             transparent
             animationType="fade"
+            onRequestClose={onClose}
         >
             <Pressable
                 style={styles.overlay}
                 onPress={onClose}
+                accessible={false}
             >
                 <Pressable
                     style={styles.modalCard}
                     onPress={() => { }}
+                    accessible={false}
+                    accessibilityViewIsModal
                 >
                     <View style={styles.titlesModal}>
-                        <Text style={styles.title}>
+                        <Text style={styles.title} accessibilityRole="header">
                             {
                                 contato
                                     ? 'Editando contato'
@@ -61,12 +65,29 @@ export default function AddContactModal({ visible, onClose, onSave, contato, sal
                             }
                         </Text>
 
-                        <Pressable onPress={onClose}>
-                            <Text style={styles.closeText}>✕</Text>
+                        <Pressable
+                            onPress={onClose}
+                            accessibilityRole="button"
+                            accessibilityLabel="Fechar"
+                            hitSlop={12} //margem invisivel
+                        >
+                            <Text style={styles.closeText}
+                                importantForAccessibility="no"
+                                accessibilityElementsHidden
+                            >✕</Text>
+
                         </Pressable>
                     </View>
 
-                    <Pressable style={styles.photoWrapper} onPress={escolherFoto}>
+                    <Pressable
+                        accessible
+                        accessibilityRole="button"
+                        accessibilityLabel={foto ? 'Alterar foto do contato' : 'Adicionar foto do contato'}
+                        accessibilityHint="Abre a galeria de imagens"
+                        style={styles.photoWrapper}
+                        onPress={escolherFoto}
+                    >
+
                         <View style={styles.photoButton}>
                             {foto ? (
                                 <Image source={{ uri: foto }} style={styles.photoImage} />
@@ -87,6 +108,7 @@ export default function AddContactModal({ visible, onClose, onSave, contato, sal
                             style={styles.input}
                             value={nome}
                             onChangeText={setNome}
+                            accessibilityLabel="Nome do contato"
                         />
                     </View>
 
@@ -99,6 +121,7 @@ export default function AddContactModal({ visible, onClose, onSave, contato, sal
                             style={styles.input}
                             value={telefone}
                             onChangeText={setTelefone}
+                            accessibilityLabel="Número do contato"
                         />
                     </View>
 
@@ -113,6 +136,9 @@ export default function AddContactModal({ visible, onClose, onSave, contato, sal
                                 foto
                             });
                         }}
+                        accessibilityRole="button"
+                        accessibilityLabel={salvando ? 'Salvando contato' : contato ? 'Salvar alterações' : 'Salvar contato'}
+                        accessibilityState={{ disabled: salvando, busy: salvando }}
                     >
                         {salvando ? (
                             <ActivityIndicator color="#FFF" />

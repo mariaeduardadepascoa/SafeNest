@@ -134,7 +134,6 @@ export default function EmergencyScreen({ navigation }) {
                     <ScrollView
                         style={styles.scrollArea}
                         contentContainerStyle={styles.scrollContent}
-                        // showsVerticalScrollIndicator={false}
                         indicatorStyle="black"
                     >
                         {contatos.map((contato) => (
