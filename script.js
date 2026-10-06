@@ -12,6 +12,22 @@ linkItems.forEach(link => {
     });
 });
 
+// HEADER -> TRANSPARENTE NA 1ª SEÇÃO, AZUL NO RESTI
+const header = document.querySelector('.header');
+const primeiraSecao = document.getElementById('inicial-page');
+
+function atualizarHeader() {
+    const limite = primeiraSecao.offsetHeight - header.offsetHeight;
+    header.classList.toggle('scrolled', window.scrollY >= limite);
+}
+
+window.addEventListener('scroll', atualizarHeader, { passive: true });
+window.addEventListener('resize', atualizarHeader);
+atualizarHeader();
+
+
+
+
 // BOTÃO HAMBURGUER
 const linksHeader = document.getElementById('links-header');
 const menuToggle = document.getElementById('menu-toggle');

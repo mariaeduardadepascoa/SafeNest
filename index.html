@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="SafeNest icon" href="./imagens/safenest2-removebg-preview.png" type="image/x-icon">
-    <title>SafeNest</title>
+    <title>SafeNest - Seu lar, mais seguro </title>
     <link rel="stylesheet" href="style.css">
 
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -16,7 +16,9 @@
     <section id="inicial-page">
 
         <header class="header">
-            <div id="logo"><img src="" alt="Logo SafeNest"></div>
+            <a id="a-logo" href="#inicial-page">
+                <div id="logo"><img src="./imagens/logo-white.svg" alt="Logo SafeNest"></div>
+            </a>
             <button id="menu-toggle" aria-label="Abrir menu">
                 <span></span>
                 <span></span>
@@ -46,7 +48,7 @@
             </div>
             <div class="buttonsInicialPage">
                 <div id="wrapper-cadastro">
-                    <button class="buttons-cadastro" id="button-cadastro-page" onclick="abrirPaginaCadastro()">
+                    <button class="buttons-cadastro" id="button-cadastro-page" onclick="location.href='cadastrar.html'">
                         Começar agora<img src="./imagens/External link.svg" alt="Ícone outros de link externo">
                     </button>
                 </div>
@@ -67,8 +69,7 @@
                     tranquilidade e a proteção contínua da sua família.</p>
             </div>
             <div class="recursos-nav-buttons">
-                <button class="recursos-nav-btn" id="recursos-btn-prev" aria-label="Anterior">
-                    << /button>
+                <button class="recursos-nav-btn" id="recursos-btn-prev" aria-label="Anterior">&lt;</button>
                         <button class="recursos-nav-btn" id="recursos-btn-next" aria-label="Próximo">></button>
             </div>
         </div>
