@@ -15,6 +15,7 @@ export default function EmergencyScreen({ navigation }) {
     const [contatoEditando, setContatoEditando] = useState(null);
     const [carregando, setCarregando] = useState(true);
     const [salvando, setSalvando] = useState(false);
+    
 
     useEffect(() => {
 
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
     scrollContent: {
-        paddingBottom: 24,
+        paddingBottom: 100,
     },
     centeredMessage: {
         flex: 1,
