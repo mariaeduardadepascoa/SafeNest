@@ -30,15 +30,14 @@ public class MqttListenerService implements MqttCallback {
         this.salaDeEsperaService = salaDeEsperaService;
     }
 
-    // equivalente ao mqtt.client.on("connect", ...) + subscribe do Node
     @PostConstruct
     public void iniciar() throws MqttException {
         mqttClient.setCallback(this);
         mqttClient.subscribe(new String[]{
                 "fechadura/+/resposta",
-                "fechadura/+/heartbeat",
                 "fechadura/+/readTag",
-                "fechadura/+/cadastrarFechadura"
+                "fechadura/+/cadastrarFechadura",
+                "fechadura/+/status"
         });
         System.out.println("Escutando tópicos das fechaduras");
     }
@@ -50,20 +49,29 @@ public class MqttListenerService implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
-        String[] partes = topic.split("/"); // ["fechadura", "<endereco>", "<tipo>"]
+        String[] partes = topic.split("/");
         String endereco = partes[1];
         String tipo = partes[2];
         String payloadStr = new String(message.getPayload());
 
         switch (tipo) {
-            case "heartbeat" -> System.out.println("Fechadura " + endereco + " está online (heartbeat)");
+            case "status" -> tratarStatus(payloadStr,endereco);
             case "cadastrarFechadura" -> tratarCadastrarFechadura(payloadStr);
             case "resposta" -> tratarResposta(payloadStr, topic);
             case "readTag" -> tratarReadTag(payloadStr);
             default -> System.out.println("Mensagem em tópico não tratado: " + topic + " " + payloadStr);
         }
     }
-
+    private void tratarStatus(String payloadStr, String endereco) {
+        Long idFechadura = dispositivosService.buscarFechaduraPorMacAddress(endereco);
+        if (idFechadura == null) {
+            System.out.println(
+                    "Status recebido de fechadura não cadastrada: " + endereco
+            );
+            return;
+        }
+        dispositivosService.atualizarStatusVida(idFechadura, payloadStr);
+    }
     private void tratarCadastrarFechadura(String payloadStr) {
         try {
             JsonNode payload = objectMapper.readTree(payloadStr);
@@ -152,7 +160,6 @@ public class MqttListenerService implements MqttCallback {
         }
     }
 
-    // equivalente a função publish() exportada no Node
     public void publish(String topico, String payload) {
         try {
             mqttClient.publish(topico, new MqttMessage(payload.getBytes()));
@@ -163,6 +170,6 @@ public class MqttListenerService implements MqttCallback {
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-        // sem tratamento necessário
+
     }
 }
