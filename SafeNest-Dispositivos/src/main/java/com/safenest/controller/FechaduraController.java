@@ -32,7 +32,6 @@ public class FechaduraController {
         this.mqttListenerService = mqttListenerService;
     }
 
-    // POST /fechadura/tag  { "nome_dono": "..." }
     @PostMapping("/tag")
     public ResponseEntity<?> cadastrarTag(HttpServletRequest request, @RequestBody Map<String, String> body) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -84,7 +83,6 @@ public class FechaduraController {
         }
     }
 
-    // GET /fechadura/status
     @GetMapping("/status")
     public ResponseEntity<?> statusFechadura(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -105,7 +103,6 @@ public class FechaduraController {
         return ResponseEntity.ok(Map.of("blocked", blocked));
     }
 
-    // POST /fechadura/abrir
     @PostMapping("/abrir")
     public ResponseEntity<?> abrirFechadura(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -128,7 +125,6 @@ public class FechaduraController {
         return ResponseEntity.ok(Map.of("mensagem", "comando de abrir enviado"));
     }
 
-    // DELETE /fechadura
     @DeleteMapping
     public ResponseEntity<?> removerFechadura(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -149,7 +145,6 @@ public class FechaduraController {
         return ResponseEntity.ok(Map.of("mensagem", "fechadura removida"));
     }
 
-    // POST /fechadura/travar
     @PostMapping("/travar")
     public ResponseEntity<?> travarFechadura(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -173,7 +168,6 @@ public class FechaduraController {
         return ResponseEntity.ok(Map.of("mensagem", "fechadura travada"));
     }
 
-    // POST /fechadura/destravar
     @PostMapping("/destravar")
     public ResponseEntity<?> destravarFechadura(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -197,7 +191,6 @@ public class FechaduraController {
         return ResponseEntity.ok(Map.of("mensagem", "fechadura destravada"));
     }
 
-    // GET /fechadura
     @GetMapping
     public ResponseEntity<?> listarFechadura(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -205,7 +198,6 @@ public class FechaduraController {
         return ResponseEntity.ok(Collections.singletonMap("id_fechadura", idFechadura));
     }
 
-    // GET /fechadura/acessos
     @GetMapping("/acessos")
     public ResponseEntity<?> listarAcessos(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -215,7 +207,6 @@ public class FechaduraController {
         return ResponseEntity.ok(dispositivosService.obterAcessos(idUsuario));
     }
 
-    // GET /fechadura/alertas
     @GetMapping("/alertas")
     public ResponseEntity<?> listarAlertas(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
@@ -225,7 +216,6 @@ public class FechaduraController {
         return ResponseEntity.ok(dispositivosService.obterAlertas(idUsuario));
     }
 
-    // POST /fechadura/incendio - chamado pelo proprio ESP, sem JWT de usuario (ver WebConfig)
     @PostMapping("/incendio")
     public ResponseEntity<?> receberIncendio(@RequestBody Map<String, Object> body) {
         Number nivelGas = (Number) body.get("nivelGas");

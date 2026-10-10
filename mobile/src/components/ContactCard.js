@@ -31,13 +31,13 @@ export default function ContactCard({ nome_contato, telefone, foto, onEdit, onDe
 
                 <View style={styles.botoesContato}>
                     <Pressable style={styles.editContato} onPress={onEdit}>
-                        <EditIcon width={12} height={12} />
+                        <EditIcon width={'50%'} height={'50%'} />
                     </Pressable>
                     <Pressable style={styles.deleteContato} onPress={onDelete}>
-                        <DeleteIcon width={16} height={16} />
+                        <DeleteIcon width={'60%'} height={'60%'} />
                     </Pressable>
                     <Pressable style={styles.callContato} onPress={() => ligacao(telefone)}>
-                        <PhoneCallIcon width={20} height={20} />
+                        <PhoneCallIcon width={18} height={'40%'} />
                         <Text style={styles.ligarText}>Ligar</Text>
                     </Pressable>
                 </View>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         flexShrink: 0,
     },
     ligarText: {
-        ...typography.body,
+        ...typography.caption,
         color: colorsLightMode.white,
     },
 });

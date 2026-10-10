@@ -28,9 +28,6 @@ export default function HomeScreen({ navigation }) {
                 </View>
 
                 <FechaduraSection></FechaduraSection>
-
-
-
             </View>
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>

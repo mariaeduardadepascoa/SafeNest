@@ -12,7 +12,7 @@ public class Acesso {
     @Column (name = "id_acesso")
     private Long id;
 
-    // uid da tag usada no acesso (mesmo valor gravado como "id_tag" no Node)
+
     @Column(name = "id_tag")
     private String idTag;
 

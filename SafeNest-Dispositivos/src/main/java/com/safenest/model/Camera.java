@@ -8,12 +8,11 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "fechaduras")
+@Table(name = "Cameras")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Fechadura {
-
+public class Camera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id")
@@ -22,13 +21,15 @@ public class Fechadura {
     @Column(name = "id_usuario")
     private Long idUsuario;
 
-    @Column(name = "mac_address")
-    private String macAddress;
+    @Column(name = "endereco")
+    private String endereco;
 
     private String status;
+
+    @Column(name = "nome_usuario")
+    private String nomeUsuario;
 
     @Column(name = "data_hora")
     private LocalDateTime dataHora;
 
-    private Boolean blocked;
 }
