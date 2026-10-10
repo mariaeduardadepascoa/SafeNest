@@ -1,9 +1,14 @@
 package com.safenest.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "alertas")
 public class Alerta {
 
@@ -21,15 +26,7 @@ public class Alerta {
     @Column(name = "data_hora")
     private LocalDateTime dataHora = LocalDateTime.now();
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @Column(name = "imagem_url")
+    private String imagemUrl;
 
-    public String getTipoAlerta() { return tipoAlerta; }
-    public void setTipoAlerta(String tipoAlerta) { this.tipoAlerta = tipoAlerta; }
-
-    public Long getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
-
-    public LocalDateTime getDataHora() { return dataHora; }
-    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
 }
