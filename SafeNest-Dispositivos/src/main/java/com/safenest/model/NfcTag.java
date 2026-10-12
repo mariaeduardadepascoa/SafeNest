@@ -1,9 +1,16 @@
 package com.safenest.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "nfc_tags")
 public class NfcTag {
 
@@ -27,21 +34,4 @@ public class NfcTag {
     @Column(name = "nome_tag")
     private String nomeTag;
 
-    public Long getIdTag() { return idTag; }
-    public void setIdTag(Long idTag) { this.idTag = idTag; }
-
-    public Long getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
-
-    public String getUidNfc() { return uidNfc; }
-    public void setUidNfc(String uidNfc) { this.uidNfc = uidNfc; }
-
-    public Long getIdFechadura() { return idFechadura; }
-    public void setIdFechadura(Long idFechadura) { this.idFechadura = idFechadura; }
-
-    public LocalDateTime getDataHora() { return dataHora; }
-    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-
-    public String getNomeTag() { return nomeTag; }
-    public void setNomeTag(String nomeTag) { this.nomeTag = nomeTag; }
 }

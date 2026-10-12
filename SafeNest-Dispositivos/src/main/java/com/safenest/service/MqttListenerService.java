@@ -2,6 +2,7 @@ package com.safenest.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safenest.model.NfcTag;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
@@ -117,33 +118,46 @@ public class MqttListenerService implements MqttCallback {
             JsonNode payload = objectMapper.readTree(payloadStr);
             String deviceAddress = payload.get("device_address").asText();
             String tag = payload.get("tag_uid").asText();
-
             Long idFechadura = dispositivosService.buscarFechaduraPorMacAddress(deviceAddress);
             System.out.println("idFechadura encontrado: " + idFechadura);
-
             if (idFechadura == null) {
                 System.out.println("Fechadura não encontrada");
                 return;
             }
-
             Long usuario = dispositivosService.buscarUsuarioPorFechadura(idFechadura);
-
             System.out.println("Verificando tag: " + tag + " na fechadura: " + idFechadura);
             boolean verify = dispositivosService.verificarTag(tag, idFechadura);
             System.out.println("Resultado da verificação: " + verify);
-
             if (!verify) {
-                publish("fechadura/" + deviceAddress + "/comando",
-                        objectMapper.writeValueAsString(Map.of("comando", "acessonegado")));
+                publish(
+                        "fechadura/" + deviceAddress + "/comando",
+                        objectMapper.writeValueAsString(
+                                Map.of("comando", "acessonegado")
+                        )
+                );
                 dispositivosService.addAlerta("ACESSONEGADO", usuario);
             } else {
-                publish("fechadura/" + deviceAddress + "/comando",
-                        objectMapper.writeValueAsString(Map.of("comando", "abrirfechadura")));
-                dispositivosService.addAcesso(tag, usuario);
-            }
+                NfcTag nfcTag = dispositivosService.buscarTag(tag, idFechadura);
 
+                if (nfcTag == null) {
+                    System.out.println("Tag não encontrada no banco.");
+                    return;
+                }
+                publish(
+                        "fechadura/" + deviceAddress + "/comando",
+                        objectMapper.writeValueAsString(
+                                Map.of("comando", "abrirfechadura")
+                        )
+                );
+                dispositivosService.addAcesso(
+                        nfcTag.getIdTag(),
+                        usuario
+                );
+            }
         } catch (Exception erro) {
-            System.err.println("Erro ao processar mensagem readTag: " + erro.getMessage());
+            System.err.println(
+                    "Erro ao processar mensagem readTag: " + erro.getMessage()
+            );
         }
     }
 

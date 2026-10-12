@@ -1,9 +1,16 @@
 package com.safenest.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "acessos")
 public class Acesso {
 
@@ -12,9 +19,8 @@ public class Acesso {
     @Column (name = "id_acesso")
     private Long id;
 
-
     @Column(name = "id_tag")
-    private String idTag;
+    private Long idTag;
 
     @Column(name = "id_usuario")
     private Long idUsuario;
@@ -22,15 +28,4 @@ public class Acesso {
     @Column(name = "data_hora")
     private LocalDateTime dataHora = LocalDateTime.now();
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getIdTag() { return idTag; }
-    public void setIdTag(String idTag) { this.idTag = idTag; }
-
-    public Long getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
-
-    public LocalDateTime getDataHora() { return dataHora; }
-    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
 }
