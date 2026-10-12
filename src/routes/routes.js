@@ -44,6 +44,7 @@ router.get('/usuario/:id/contatos', verificarAccessToken, contatoEmergenciaContr
 router.put('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmergenciaController.atualizarContato);
 router.delete('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmergenciaController.deletarContato);
 
+// alertas e acessos na residência
 
 
 module.exports = router;

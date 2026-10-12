@@ -125,6 +125,8 @@ export async function cadastro(nome, email, senha, ageRange) {
     return data.usuario;
 }
 
+
+// ------------------------------------ SEÇÃO DE CONTATOS DE EMERGENCIA
 // CRIAR CONTATO DE EMERGÊNCIA
 export async function criarContatoEmergencia(id_usuario, nome_contato, telefone_contato) {
     const resposta = await autenticacaoToken(`/usuario/${id_usuario}/contatos`, {
@@ -167,6 +169,20 @@ export async function deletarContatoEmergencia(idUsuario, contatoId) {
     if (!resposta.ok) throw new Error(data.erro || "Erro ao excluir contato de emergência");
     return data.contato_emergencia;
 }
+
+
+// ------------------------------------
+
+// ------------------------------------ SEÇÃO DE HISTÓRICO
+export async function obterAlertasEAcessos(id) {
+    const resposta = await autenticacaoToken(`/usuario/${id}/alertas-e-acessos`);
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar acessos e alertas");
+    return data;
+}
+
+
+// ------------------------------------
 
 // VERIFICAR SE O EMAIL JÁ EXISTE
 export async function verificarEmailExiste(email) {
