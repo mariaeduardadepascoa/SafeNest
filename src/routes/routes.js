@@ -9,9 +9,10 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuarioControllers');
 const authController = require('../controllers/authControllers');
 const contatoEmergenciaController = require('../controllers/contatoEmergenciaControllers');
+const verificacaoController = require('../controllers/verificationControllers');
+const historicoController = require('../controllers/historicoControllers');
 const verificarAccessToken = require('../middlewares/verificarAccessToken');
 const verificarAdmin = require('../middlewares/verificarAdmin');
-const verificacaoController = require('../controllers/verificationControllers');
 
 // --- CONTROLE INTERNO DE USUARIOS
 
@@ -45,6 +46,6 @@ router.put('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmer
 router.delete('/usuario/:id/contatos/:contatoId', verificarAccessToken, contatoEmergenciaController.deletarContato);
 
 // alertas e acessos na residência
-
+router.get('/usuario/:id/historico', verificarAccessToken, historicoController.obterHistorico);
 
 module.exports = router;

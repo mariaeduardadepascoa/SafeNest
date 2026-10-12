@@ -4,7 +4,7 @@ exports.obterHistorico = async (req, res) => {
     try {
         const { id } = req.params;
 
-        // para as duas serem chamadas ao meso tempo
+        // para as duas funções do model serem chamadas ao mesmo tempo
         const [acessos, alertas] = await Promise.all([
             historico.obterAcessos(id),
             historico.obterAlertas(id)

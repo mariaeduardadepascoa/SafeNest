@@ -174,10 +174,10 @@ export async function deletarContatoEmergencia(idUsuario, contatoId) {
 // ------------------------------------
 
 // ------------------------------------ SEÇÃO DE HISTÓRICO
-export async function obterAlertasEAcessos(id) {
-    const resposta = await autenticacaoToken(`/usuario/${id}/alertas-e-acessos`);
+export async function obterHistorico(id) {
+    const resposta = await autenticacaoToken(`/usuario/${id}/historico`);
     const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar acessos e alertas");
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar acessos e alertas deste usuário");
     return data;
 }
 
