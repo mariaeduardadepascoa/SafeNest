@@ -66,7 +66,7 @@ export function FechaduraSection() {
         );
     }
 
-    const id_fechadura = fechadura.id;
+   const id_fechadura = fechadura;
 
     return (
         <View>

@@ -6,7 +6,7 @@
 #include <PubSubClient.h>
 #include <WiFiClientSecure.h>
 #include "secrets.h"
-
+#include <nvs_flash.h>
 //==================== MQTT ====================
 
 WiFiClientSecure espClient;
@@ -368,6 +368,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
     delay(1000);
     return;
   }
+
+  if (comando == "excluir") {
+    Serial.println("excluindo");
+    internet.resetSettings();
+    WiFi.disconnect(true, true);
+    delay(500);
+    ESP.restart();
+    }
 }
 
 //====================================================

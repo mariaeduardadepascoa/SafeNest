@@ -10,7 +10,7 @@ import TrashRedIcon from '../../assets/icon.svg';
 import personIcon from '../../assets/personWhiteIcon.svg';
 import { obterAccessToken } from '../services/tokenStorage';
 
-const LockButton = () => {
+const LockButton = ({ id_fechadura }) => {
     const [travado, setTravado] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
     const [tagModalVisible, setTagModalVisible] = useState(false);

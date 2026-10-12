@@ -3,9 +3,9 @@
 // import { get } from 'react-native/Libraries/NativeComponent/NativeComponentRegistry';
 import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens, salvarUsuario, obterUsuario, deletarUsuario } from '../services/tokenStorage';
 //nao pode ser localhost pois no celular n roda
-const API_URL = 'http://192.168.15.79:3000'; //duda
-// const API_URL = 'http://192.168.1.5:3000';    //joao   
-const DISPOSITIVOS_API_URL = "http://192.168.1.5:8080";
+//const API_URL = 'http://192.168.15.79:3000'; //duda
+ const API_URL = 'http://192.168.1.7:3000';    //joao   
+const DISPOSITIVOS_API_URL = "http://192.168.1.7:8080";
 //const API_URL = 'http://localhost:3000';         //cabo    
 
 //Adiciona o acessToken no header das rotas que são protegidas
@@ -234,43 +234,53 @@ export async function obterFechadura() {
     });
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar fechaduras");
-    return data.id_fechadura; // objeto ou null
+    return data.id_fechadura;
 }
 
-export async function abrirFechadura() {
-    const resposta = await autenticacaoTokenDispositivos('/fechadura/abrir', {
-        method: 'POST',
-    });
+export async function abrirFechadura(id_fechadura) {
+    const resposta = await autenticacaoTokenDispositivos(
+        '/fechadura/abrir',
+        {
+            method: 'POST',
+            body: JSON.stringify({ id_fechadura }),
+        }
+    );
 
     const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao abrir fechadura");
+    if (!resposta.ok) {
+        throw new Error(data.erro || "Erro ao abrir fechadura");
+    }
     return data;
 }
 
-export async function travarFechadura() {
-    const resposta = await autenticacaoTokenDispositivos('/fechadura/travar', {
-        method: 'POST',
-    });
-
+export async function travarFechadura(id_fechadura) {
+    const resposta = await autenticacaoTokenDispositivos(
+        '/fechadura/travar',
+        {
+            method: 'POST',
+            body: JSON.stringify({ id_fechadura }),
+        }
+    );
     const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao travar fechadura");
+    if (!resposta.ok) {
+        throw new Error(data.erro || "Erro ao travar fechadura");
+    }
     return data;
 }
-export async function obterStatusFchadura() {
-    const resposta = await autenticacaoTokenDispositivos('/fechadura/status', {
-        method: 'GET',
-    });
-    const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao encontrar o status da fechadura");
-    return data;
-}
-export async function destravarFechadura() {
-    const resposta = await autenticacaoTokenDispositivos('/fechadura/destravar', {
-        method: 'POST',
-    });
 
+export async function destravarFechadura(id_fechadura) {
+    const resposta = await autenticacaoTokenDispositivos(
+        '/fechadura/destravar',
+        {
+            method: 'POST',
+            body: JSON.stringify({ id_fechadura }),
+        }
+    );
     const data = await resposta.json();
-    if (!resposta.ok) throw new Error(data.erro || "Erro ao destravar fechadura");
+
+    if (!resposta.ok) {
+        throw new Error(data.erro || "Erro ao destravar fechadura");
+    }
     return data;
 }
 
