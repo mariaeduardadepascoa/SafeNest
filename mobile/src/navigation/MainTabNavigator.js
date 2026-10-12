@@ -5,10 +5,13 @@ import HomeScreen from '../screens/HomeScreen.js';
 import HistoryScreen from '../screens/HistoryScreen.js';
 import CameraScreen from '../screens/CameraScreen.js';
 import EmergencyScreen from '../screens/EmergencyScreen.js';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Tab = createBottomTabNavigator();
 
+
 export default function MainTabNavigator() {
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialRouteName="Início"
@@ -22,7 +25,8 @@ export default function MainTabNavigator() {
         },
         tabBarStyle: {
           position: 'absolute',
-          height: 65,
+          height: 70 + insets.bottom,
+          paddingBottom: insets.bottom,
           backgroundColor: '#FFFFFF',
           borderTopWidth: 1,
           borderTopColor: '#E2E2E2',

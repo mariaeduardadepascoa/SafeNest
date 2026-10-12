@@ -1,26 +1,56 @@
 
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Pressable } from 'react-native';
+import { useState, useCallback } from 'react';
 import { colorsLightMode, colorsBlackMode, typography } from '../theme';
+import { useFocusEffect } from '@react-navigation/native';
+import { useAuth } from '../context/AuthContext';
+import { obterHistorico } from '../services/api';
+import SensorCard from '../components/SensoresCard';
+import ActivityCard from '../components/ActivitysCard';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import LogoSafeNest from '../../assets/Group 104.svg';
 import WifiIcon from '../../assets/Wifi.svg';
 import GroupIcon from '../../assets/groups.svg';
 import AlertCircleIcon from '../../assets/Alert circle.svg';
 import OrangeCameraIcon from '../../assets/Camera.svg';
-import SensorCard from '../components/SensoresCard';
-import ActivityCard from '../components/ActivitysCard';
 import HomeBlueIcon from '../../assets/Home.svg';
 import AlertOctagonRedIcon from '../../assets/Alert octagon.svg';
 import CheckCircleBlueIcon from '../../assets/Check circle.svg';
-import { useState } from 'react';
 
 
 import { FechaduraSection } from '../components/FechaduraSection';
 
 
 export default function HomeScreen({ navigation }) {
-    
+    const insets = useSafeAreaInsets();
+    const { usuario } = useAuth();
+    const [recentes, setRecentes] = useState([]);
+    const [carregandoAtividades, setCarregandoAtividades] = useState(true);
+
+    useFocusEffect(
+        useCallback(() => {
+            async function carregarAtividades() {
+                try {
+                    const dados = await obterHistorico(usuario.id_usuario);
+                    setRecentes(dados.slice(0, 3));
+                } catch (error) {
+                    console.log(error.message);
+                } finally {
+                    setCarregandoAtividades(false);
+                }
+            }
+
+            if (usuario?.id_usuario) {
+                carregarAtividades();
+            } else {
+                setCarregandoAtividades(false);
+            }
+        }, [usuario])
+    );
+
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
+        <ScrollView style={styles.container} contentContainerStyle={[styles.contentContainer, { paddingBottom: 100 + insets.bottom }]} showsVerticalScrollIndicator={false}>
             <LogoSafeNest width={215} />
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
@@ -59,24 +89,23 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
                     <Text style={styles.titles}>ATIVIDADES RECENTES</Text>
-                    <Text style={styles.spanVerMais}>Ver todos </Text>
+                    <Pressable onPress={() => navigation.navigate('Histórico')}>
+                        <Text style={styles.spanVerMais}>Ver todos </Text>
+                    </Pressable>
                 </View>
 
-                <ActivityCard
-                    Icon={HomeBlueIcon}
-                    title="Porta aberta"
-                    time='3' />
-
-                <ActivityCard
-                    Icon={AlertOctagonRedIcon}
-                    title="Alerta acionado"
-                    time='4'
-                    danger />
-
-                <ActivityCard
-                    Icon={CheckCircleBlueIcon}
-                    title="Entrada permitida"
-                    time='8' />
+                {carregandoAtividades ? (
+                    <ActivityIndicator size="small" color={colorsLightMode.primary} />
+                ) : recentes.length === 0 ? (
+                    <Text style={styles.emptyText}>Nenhuma atividade recente.</Text>
+                ) : (
+                    recentes.map((item) => (
+                        <ActivityCard
+                            key={item.tipo === 'acesso' ? 'acesso-' + item.id_acesso : 'alerta-' + item.id_alerta}
+                            item={item}
+                        />
+                    ))
+                )}
             </View>
         </ScrollView>
     );
@@ -109,5 +138,10 @@ const styles = StyleSheet.create({
     spanVerMais: {
         ...typography.caption,
         color: colorsLightMode.primary,
+    },
+    emptyText: {
+        ...typography.body,
+        color: colorsLightMode.subtitles,
+        textAlign: 'center',
     },
 });
