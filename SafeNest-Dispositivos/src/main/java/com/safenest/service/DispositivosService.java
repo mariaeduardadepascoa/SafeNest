@@ -155,8 +155,8 @@ public class DispositivosService {
         String macAddress = fechadura.getMacAddress();
 
         mqttPublisherService.publish(
-                "fechadura/" + macAddress + "/command",
-                "excluir_fechadura"
+                "fechadura/" + macAddress + "/comando",
+                "{\"comando\":\"excluir\"}"
         );
 
         fechaduraRepository.delete(fechadura);
