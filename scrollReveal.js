@@ -41,7 +41,7 @@ revelar.reveal('.container-recursos', {
 });
 
 //passo a passo
-revelar.reveal('.container-imagem-azul', {
+revelar.reveal('.container-imagem', {
     duration: 900,
     distance: '90px',
     origin: 'right'

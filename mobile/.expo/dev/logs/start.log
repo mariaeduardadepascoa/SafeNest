@@ -1,0 +1,655 @@
+{"_e":"root:init","_t":1791319237609,"format":"v0-jsonl","version":"57.0.28"}
+{"_e":"env:mode","_t":1791319237610,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1791319237615,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1791319238072,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1791319238577,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1791319239100,"plugins":[]}
+{"_e":"metro:instantiate","_t":1791319243031,"atlas":false,"workers":6,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1791319867335,"id":"2","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791319867336,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791319867339,"id":"2","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791319868169,"id":"2","progress":0.010000000000000002,"total":1,"current":1}
+{"_e":"metro:bundling:progress","_t":1791319868270,"id":"2","progress":0.010000000000000002,"total":3,"current":1}
+{"_e":"metro:bundling:progress","_t":1791319868389,"id":"2","progress":0.04000000000000001,"total":3,"current":2}
+{"_e":"metro:bundling:progress","_t":1791319868497,"id":"2","progress":0.0625,"total":16,"current":4}
+{"_e":"metro:bundling:progress","_t":1791319868610,"id":"2","progress":0.08163265306122448,"total":21,"current":6}
+{"_e":"metro:bundling:progress","_t":1791319868782,"id":"2","progress":0.1111111111111111,"total":21,"current":7}
+{"_e":"metro:bundling:progress","_t":1791319868894,"id":"2","progress":0.1111111111111111,"total":121,"current":8}
+{"_e":"metro:bundling:progress","_t":1791319868995,"id":"2","progress":0.1111111111111111,"total":124,"current":12}
+{"_e":"metro:bundling:progress","_t":1791319869098,"id":"2","progress":0.1111111111111111,"total":128,"current":14}
+{"_e":"metro:bundling:progress","_t":1791319869210,"id":"2","progress":0.1111111111111111,"total":134,"current":17}
+{"_e":"metro:bundling:progress","_t":1791319869317,"id":"2","progress":0.1111111111111111,"total":135,"current":19}
+{"_e":"metro:bundling:progress","_t":1791319869423,"id":"2","progress":0.1111111111111111,"total":135,"current":21}
+{"_e":"metro:bundling:progress","_t":1791319869524,"id":"2","progress":0.1111111111111111,"total":138,"current":22}
+{"_e":"metro:bundling:progress","_t":1791319869636,"id":"2","progress":0.1111111111111111,"total":142,"current":23}
+{"_e":"metro:bundling:progress","_t":1791319869745,"id":"2","progress":0.1111111111111111,"total":152,"current":27}
+{"_e":"metro:bundling:progress","_t":1791319869855,"id":"2","progress":0.1111111111111111,"total":157,"current":31}
+{"_e":"metro:bundling:progress","_t":1791319869963,"id":"2","progress":0.1111111111111111,"total":167,"current":36}
+{"_e":"metro:bundling:progress","_t":1791319870076,"id":"2","progress":0.1111111111111111,"total":193,"current":39}
+{"_e":"metro:bundling:progress","_t":1791319870224,"id":"2","progress":0.1111111111111111,"total":205,"current":44}
+{"_e":"metro:bundling:progress","_t":1791319870329,"id":"2","progress":0.1111111111111111,"total":211,"current":53}
+{"_e":"metro:bundling:progress","_t":1791319870428,"id":"2","progress":0.1111111111111111,"total":222,"current":64}
+{"_e":"metro:bundling:progress","_t":1791319870532,"id":"2","progress":0.1111111111111111,"total":236,"current":77}
+{"_e":"metro:bundling:progress","_t":1791319870631,"id":"2","progress":0.12473230032753845,"total":252,"current":89}
+{"_e":"metro:bundling:progress","_t":1791319870732,"id":"2","progress":0.15221820477502296,"total":264,"current":103}
+{"_e":"metro:bundling:progress","_t":1791319870832,"id":"2","progress":0.19860586011342155,"total":276,"current":123}
+{"_e":"metro:bundling:progress","_t":1791319870932,"id":"2","progress":0.21883366848606722,"total":295,"current":138}
+{"_e":"metro:bundling:progress","_t":1791319871038,"id":"2","progress":0.24367114284555155,"total":314,"current":155}
+{"_e":"metro:bundling:progress","_t":1791319871142,"id":"2","progress":0.24367114284555155,"total":368,"current":169}
+{"_e":"metro:bundling:progress","_t":1791319871242,"id":"2","progress":0.25937000893554446,"total":377,"current":192}
+{"_e":"metro:bundling:progress","_t":1791319871342,"id":"2","progress":0.2901543734722074,"total":388,"current":209}
+{"_e":"metro:bundling:progress","_t":1791319871444,"id":"2","progress":0.2901543734722074,"total":421,"current":221}
+{"_e":"metro:bundling:progress","_t":1791319871548,"id":"2","progress":0.30919584146071716,"total":446,"current":248}
+{"_e":"metro:bundling:progress","_t":1791319871654,"id":"2","progress":0.32480339701235283,"total":472,"current":269}
+{"_e":"metro:bundling:progress","_t":1791319871754,"id":"2","progress":0.3418866539170822,"total":484,"current":283}
+{"_e":"metro:bundling:progress","_t":1791319871858,"id":"2","progress":0.35321684104851286,"total":493,"current":293}
+{"_e":"metro:bundling:progress","_t":1791319871962,"id":"2","progress":0.38119375829795604,"total":494,"current":305}
+{"_e":"metro:bundling:progress","_t":1791319872062,"id":"2","progress":0.3853410942585886,"total":501,"current":311}
+{"_e":"metro:bundling:progress","_t":1791319872169,"id":"2","progress":0.39032283408595186,"total":517,"current":323}
+{"_e":"metro:bundling:progress","_t":1791319872269,"id":"2","progress":0.39032283408595186,"total":559,"current":342}
+{"_e":"metro:bundling:progress","_t":1791319872370,"id":"2","progress":0.4078054786088027,"total":570,"current":364}
+{"_e":"metro:bundling:progress","_t":1791319872470,"id":"2","progress":0.4242705585635615,"total":588,"current":383}
+{"_e":"metro:bundling:progress","_t":1791319872574,"id":"2","progress":0.4414515610736843,"total":593,"current":394}
+{"_e":"metro:bundling:progress","_t":1791319872677,"id":"2","progress":0.4755444574568713,"total":596,"current":411}
+{"_e":"metro:bundling:progress","_t":1791319872779,"id":"2","progress":0.5085132656232381,"total":603,"current":430}
+{"_e":"metro:bundling:progress","_t":1791319872882,"id":"2","progress":0.5490567051867777,"total":610,"current":452}
+{"_e":"metro:bundling:progress","_t":1791319872982,"id":"2","progress":0.5766118051424417,"total":615,"current":467}
+{"_e":"metro:bundling:progress","_t":1791319873086,"id":"2","progress":0.5795936049610471,"total":641,"current":488}
+{"_e":"metro:bundling:progress","_t":1791319873187,"id":"2","progress":0.5920773847677874,"total":655,"current":504}
+{"_e":"metro:bundling:progress","_t":1791319873290,"id":"2","progress":0.6101319655015072,"total":667,"current":521}
+{"_e":"metro:bundling:progress","_t":1791319873391,"id":"2","progress":0.6101319655015072,"total":685,"current":534}
+{"_e":"metro:bundling:progress","_t":1791319873493,"id":"2","progress":0.6289339261666956,"total":691,"current":548}
+{"_e":"metro:bundling:progress","_t":1791319873592,"id":"2","progress":0.644097446410124,"total":704,"current":565}
+{"_e":"metro:bundling:progress","_t":1791319873692,"id":"2","progress":0.644097446410124,"total":743,"current":574}
+{"_e":"metro:bundling:progress","_t":1791319873793,"id":"2","progress":0.644097446410124,"total":759,"current":581}
+{"_e":"metro:bundling:progress","_t":1791319874326,"id":"2","progress":0.644097446410124,"total":759,"current":582}
+{"_e":"metro:bundling:progress","_t":1791319874426,"id":"2","progress":0.644097446410124,"total":761,"current":592}
+{"_e":"metro:bundling:progress","_t":1791319874527,"id":"2","progress":0.644097446410124,"total":777,"current":608}
+{"_e":"metro:bundling:progress","_t":1791319874632,"id":"2","progress":0.644097446410124,"total":783,"current":621}
+{"_e":"metro:bundling:progress","_t":1791319874743,"id":"2","progress":0.644097446410124,"total":818,"current":643}
+{"_e":"metro:bundling:progress","_t":1791319874843,"id":"2","progress":0.644097446410124,"total":822,"current":651}
+{"_e":"metro:bundling:progress","_t":1791319874949,"id":"2","progress":0.644097446410124,"total":831,"current":664}
+{"_e":"metro:bundling:progress","_t":1791319875051,"id":"2","progress":0.674251933666624,"total":833,"current":684}
+{"_e":"metro:bundling:progress","_t":1791319875151,"id":"2","progress":0.6885048185941044,"total":840,"current":697}
+{"_e":"metro:bundling:progress","_t":1791319875255,"id":"2","progress":0.6947724380374375,"total":847,"current":706}
+{"_e":"metro:bundling:progress","_t":1791319875355,"id":"2","progress":0.7045762215695517,"total":853,"current":716}
+{"_e":"metro:bundling:progress","_t":1791319875455,"id":"2","progress":0.7332640951174775,"total":856,"current":733}
+{"_e":"metro:bundling:progress","_t":1791319875570,"id":"2","progress":0.7332640951174775,"total":910,"current":750}
+{"_e":"metro:bundling:progress","_t":1791319875671,"id":"2","progress":0.7332640951174775,"total":920,"current":760}
+{"_e":"metro:bundling:progress","_t":1791319875771,"id":"2","progress":0.7332640951174775,"total":930,"current":773}
+{"_e":"metro:bundling:progress","_t":1791319875873,"id":"2","progress":0.7332640951174775,"total":941,"current":790}
+{"_e":"metro:bundling:progress","_t":1791319875975,"id":"2","progress":0.7332640951174775,"total":948,"current":798}
+{"_e":"metro:bundling:progress","_t":1791319876074,"id":"2","progress":0.7332640951174775,"total":955,"current":811}
+{"_e":"metro:bundling:progress","_t":1791319876176,"id":"2","progress":0.7332640951174775,"total":960,"current":822}
+{"_e":"metro:bundling:progress","_t":1791319876275,"id":"2","progress":0.7413138547890017,"total":964,"current":830}
+{"_e":"metro:bundling:progress","_t":1791319876388,"id":"2","progress":0.7665329453693979,"total":964,"current":844}
+{"_e":"metro:bundling:progress","_t":1791319876498,"id":"2","progress":0.7665329453693979,"total":971,"current":850}
+{"_e":"metro:bundling:progress","_t":1791319876669,"id":"2","progress":0.7750479882569913,"total":978,"current":861}
+{"_e":"metro:bundling:progress","_t":1791319876926,"id":"2","progress":0.7750479882569913,"total":979,"current":861}
+{"_e":"metro:bundling:progress","_t":1791319877114,"id":"2","progress":0.7750479882569913,"total":2492,"current":866}
+{"_e":"metro:bundling:progress","_t":1791319877257,"id":"2","progress":0.7750479882569913,"total":2497,"current":875}
+{"_e":"metro:bundling:progress","_t":1791319877358,"id":"2","progress":0.7750479882569913,"total":2498,"current":891}
+{"_e":"metro:bundling:progress","_t":1791319877459,"id":"2","progress":0.7750479882569913,"total":2519,"current":908}
+{"_e":"metro:bundling:progress","_t":1791319877558,"id":"2","progress":0.7750479882569913,"total":2536,"current":920}
+{"_e":"metro:bundling:progress","_t":1791319877664,"id":"2","progress":0.7750479882569913,"total":2543,"current":935}
+{"_e":"metro:bundling:progress","_t":1791319877764,"id":"2","progress":0.7750479882569913,"total":2553,"current":949}
+{"_e":"metro:bundling:progress","_t":1791319877867,"id":"2","progress":0.7750479882569913,"total":2561,"current":965}
+{"_e":"metro:bundling:progress","_t":1791319877966,"id":"2","progress":0.7750479882569913,"total":2575,"current":985}
+{"_e":"metro:bundling:progress","_t":1791319878072,"id":"2","progress":0.7750479882569913,"total":2599,"current":1009}
+{"_e":"metro:bundling:progress","_t":1791319878174,"id":"2","progress":0.7750479882569913,"total":2605,"current":1016}
+{"_e":"metro:bundling:progress","_t":1791319878274,"id":"2","progress":0.7750479882569913,"total":2643,"current":1055}
+{"_e":"metro:bundling:progress","_t":1791319878376,"id":"2","progress":0.7750479882569913,"total":2678,"current":1090}
+{"_e":"metro:bundling:progress","_t":1791319878486,"id":"2","progress":0.7750479882569913,"total":2713,"current":1125}
+{"_e":"metro:bundling:progress","_t":1791319878586,"id":"2","progress":0.7750479882569913,"total":2750,"current":1161}
+{"_e":"metro:bundling:progress","_t":1791319878686,"id":"2","progress":0.7750479882569913,"total":2790,"current":1201}
+{"_e":"metro:bundling:progress","_t":1791319878786,"id":"2","progress":0.7750479882569913,"total":2824,"current":1235}
+{"_e":"metro:bundling:progress","_t":1791319878889,"id":"2","progress":0.7750479882569913,"total":2853,"current":1264}
+{"_e":"metro:bundling:progress","_t":1791319878989,"id":"2","progress":0.7750479882569913,"total":2893,"current":1304}
+{"_e":"metro:bundling:progress","_t":1791319879090,"id":"2","progress":0.7750479882569913,"total":2927,"current":1339}
+{"_e":"metro:bundling:progress","_t":1791319879191,"id":"2","progress":0.7750479882569913,"total":2942,"current":1354}
+{"_e":"metro:bundling:progress","_t":1791319879290,"id":"2","progress":0.7750479882569913,"total":2977,"current":1388}
+{"_e":"metro:bundling:progress","_t":1791319879390,"id":"2","progress":0.7750479882569913,"total":3018,"current":1429}
+{"_e":"metro:bundling:progress","_t":1791319879490,"id":"2","progress":0.7750479882569913,"total":3053,"current":1465}
+{"_e":"metro:bundling:progress","_t":1791319879590,"id":"2","progress":0.7750479882569913,"total":3090,"current":1502}
+{"_e":"metro:bundling:progress","_t":1791319879690,"id":"2","progress":0.7750479882569913,"total":3128,"current":1539}
+{"_e":"metro:bundling:progress","_t":1791319879795,"id":"2","progress":0.7750479882569913,"total":3164,"current":1575}
+{"_e":"metro:bundling:progress","_t":1791319879898,"id":"2","progress":0.7750479882569913,"total":3204,"current":1615}
+{"_e":"metro:bundling:progress","_t":1791319879999,"id":"2","progress":0.7750479882569913,"total":3245,"current":1657}
+{"_e":"metro:bundling:progress","_t":1791319880101,"id":"2","progress":0.7750479882569913,"total":3283,"current":1695}
+{"_e":"metro:bundling:progress","_t":1791319880200,"id":"2","progress":0.7750479882569913,"total":3303,"current":1714}
+{"_e":"metro:bundling:progress","_t":1791319880300,"id":"2","progress":0.7750479882569913,"total":3340,"current":1751}
+{"_e":"metro:bundling:progress","_t":1791319880400,"id":"2","progress":0.7750479882569913,"total":3376,"current":1788}
+{"_e":"metro:bundling:progress","_t":1791319880500,"id":"2","progress":0.7750479882569913,"total":3405,"current":1817}
+{"_e":"metro:bundling:progress","_t":1791319880600,"id":"2","progress":0.7750479882569913,"total":3447,"current":1858}
+{"_e":"metro:bundling:progress","_t":1791319880700,"id":"2","progress":0.7750479882569913,"total":3484,"current":1896}
+{"_e":"metro:bundling:progress","_t":1791319880800,"id":"2","progress":0.7750479882569913,"total":3524,"current":1935}
+{"_e":"metro:bundling:progress","_t":1791319880901,"id":"2","progress":0.7750479882569913,"total":3553,"current":1964}
+{"_e":"metro:bundling:progress","_t":1791319881002,"id":"2","progress":0.7750479882569913,"total":3592,"current":2004}
+{"_e":"metro:bundling:progress","_t":1791319881103,"id":"2","progress":0.7750479882569913,"total":3632,"current":2043}
+{"_e":"metro:bundling:progress","_t":1791319881203,"id":"2","progress":0.7750479882569913,"total":3673,"current":2085}
+{"_e":"metro:bundling:progress","_t":1791319881303,"id":"2","progress":0.7750479882569913,"total":3714,"current":2125}
+{"_e":"metro:bundling:progress","_t":1791319881404,"id":"2","progress":0.7750479882569913,"total":3751,"current":2163}
+{"_e":"metro:bundling:progress","_t":1791319881505,"id":"2","progress":0.7750479882569913,"total":3778,"current":2189}
+{"_e":"metro:bundling:progress","_t":1791319881605,"id":"2","progress":0.7750479882569913,"total":3816,"current":2227}
+{"_e":"metro:bundling:progress","_t":1791319881705,"id":"2","progress":0.7750479882569913,"total":3853,"current":2265}
+{"_e":"metro:bundling:progress","_t":1791319881805,"id":"2","progress":0.7750479882569913,"total":3896,"current":2307}
+{"_e":"metro:bundling:progress","_t":1791319881909,"id":"2","progress":0.7750479882569913,"total":3936,"current":2348}
+{"_e":"metro:bundling:progress","_t":1791319882008,"id":"2","progress":0.7750479882569913,"total":3979,"current":2391}
+{"_e":"metro:bundling:progress","_t":1791319882108,"id":"2","progress":0.7750479882569913,"total":4014,"current":2426}
+{"_e":"metro:bundling:progress","_t":1791319882209,"id":"2","progress":0.7750479882569913,"total":4052,"current":2464}
+{"_e":"metro:bundling:progress","_t":1791319882311,"id":"2","progress":0.7750479882569913,"total":4083,"current":2499}
+{"_e":"metro:bundling:progress","_t":1791319882413,"id":"2","progress":0.7750479882569913,"total":4087,"current":2525}
+{"_e":"metro:bundling:progress","_t":1791319882519,"id":"2","progress":0.7750479882569913,"total":4174,"current":2541}
+{"_e":"metro:bundling:progress","_t":1791319882634,"id":"2","progress":0.7750479882569913,"total":4178,"current":2560}
+{"_e":"metro:bundling:progress","_t":1791319882734,"id":"2","progress":0.7750479882569913,"total":4188,"current":2584}
+{"_e":"metro:bundling:progress","_t":1791319882834,"id":"2","progress":0.7750479882569913,"total":4189,"current":2625}
+{"_e":"metro:bundling:progress","_t":1791319882936,"id":"2","progress":0.7750479882569913,"total":4189,"current":2663}
+{"_e":"metro:bundling:progress","_t":1791319883037,"id":"2","progress":0.7750479882569913,"total":4189,"current":2702}
+{"_e":"metro:bundling:progress","_t":1791319883137,"id":"2","progress":0.7750479882569913,"total":4189,"current":2741}
+{"_e":"metro:bundling:progress","_t":1791319883242,"id":"2","progress":0.7750479882569913,"total":4189,"current":2780}
+{"_e":"metro:bundling:progress","_t":1791319883346,"id":"2","progress":0.7750479882569913,"total":4189,"current":2818}
+{"_e":"metro:bundling:progress","_t":1791319883447,"id":"2","progress":0.7750479882569913,"total":4189,"current":2863}
+{"_e":"metro:bundling:progress","_t":1791319883556,"id":"2","progress":0.7750479882569913,"total":4189,"current":2906}
+{"_e":"metro:bundling:progress","_t":1791319883656,"id":"2","progress":0.7750479882569913,"total":4189,"current":2935}
+{"_e":"metro:bundling:progress","_t":1791319883756,"id":"2","progress":0.7750479882569913,"total":4189,"current":2977}
+{"_e":"metro:bundling:progress","_t":1791319883856,"id":"2","progress":0.7750479882569913,"total":4189,"current":3022}
+{"_e":"metro:bundling:progress","_t":1791319883956,"id":"2","progress":0.7750479882569913,"total":4189,"current":3066}
+{"_e":"metro:bundling:progress","_t":1791319884056,"id":"2","progress":0.7750479882569913,"total":4189,"current":3099}
+{"_e":"metro:bundling:progress","_t":1791319884158,"id":"2","progress":0.7750479882569913,"total":4189,"current":3146}
+{"_e":"metro:bundling:progress","_t":1791319884258,"id":"2","progress":0.7750479882569913,"total":4189,"current":3180}
+{"_e":"metro:bundling:progress","_t":1791319884358,"id":"2","progress":0.7750479882569913,"total":4189,"current":3223}
+{"_e":"metro:bundling:progress","_t":1791319884460,"id":"2","progress":0.7750479882569913,"total":4189,"current":3257}
+{"_e":"metro:bundling:progress","_t":1791319884560,"id":"2","progress":0.7750479882569913,"total":4189,"current":3300}
+{"_e":"metro:bundling:progress","_t":1791319884661,"id":"2","progress":0.7750479882569913,"total":4189,"current":3344}
+{"_e":"metro:bundling:progress","_t":1791319884762,"id":"2","progress":0.7750479882569913,"total":4189,"current":3385}
+{"_e":"metro:bundling:progress","_t":1791319884862,"id":"2","progress":0.7750479882569913,"total":4189,"current":3427}
+{"_e":"metro:bundling:progress","_t":1791319884964,"id":"2","progress":0.7750479882569913,"total":4189,"current":3461}
+{"_e":"metro:bundling:progress","_t":1791319885066,"id":"2","progress":0.7750479882569913,"total":4189,"current":3501}
+{"_e":"metro:bundling:progress","_t":1791319885168,"id":"2","progress":0.7750479882569913,"total":4189,"current":3546}
+{"_e":"metro:bundling:progress","_t":1791319885268,"id":"2","progress":0.7750479882569913,"total":4189,"current":3591}
+{"_e":"metro:bundling:progress","_t":1791319885368,"id":"2","progress":0.7750479882569913,"total":4189,"current":3627}
+{"_e":"metro:bundling:progress","_t":1791319885468,"id":"2","progress":0.7750479882569913,"total":4189,"current":3668}
+{"_e":"metro:bundling:progress","_t":1791319885570,"id":"2","progress":0.7831130321709582,"total":4189,"current":3707}
+{"_e":"metro:bundling:progress","_t":1791319885669,"id":"2","progress":0.7966915475804521,"total":4189,"current":3739}
+{"_e":"metro:bundling:progress","_t":1791319885770,"id":"2","progress":0.8138288157191467,"total":4189,"current":3779}
+{"_e":"metro:bundling:progress","_t":1791319885870,"id":"2","progress":0.8298431460130921,"total":4189,"current":3816}
+{"_e":"metro:bundling:progress","_t":1791319885970,"id":"2","progress":0.8468920266056201,"total":4189,"current":3855}
+{"_e":"metro:bundling:progress","_t":1791319886070,"id":"2","progress":0.8645581383474241,"total":4189,"current":3895}
+{"_e":"metro:bundling:progress","_t":1791319886172,"id":"2","progress":0.8806135565980334,"total":4189,"current":3931}
+{"_e":"metro:bundling:progress","_t":1791319886273,"id":"2","progress":0.8959126373162647,"total":4189,"current":3965}
+{"_e":"metro:bundling:progress","_t":1791319886372,"id":"2","progress":0.9127113429715459,"total":4189,"current":4002}
+{"_e":"metro:bundling:progress","_t":1791319886472,"id":"2","progress":0.9315083708021116,"total":4189,"current":4043}
+{"_e":"metro:bundling:progress","_t":1791319886605,"id":"2","progress":0.949566271312383,"total":4189,"current":4082}
+{"_e":"metro:bundling:progress","_t":1791319886707,"id":"2","progress":0.9552208273371586,"total":4195,"current":4100}
+{"_e":"metro:bundling:progress","_t":1791319886810,"id":"2","progress":0.9655157770941484,"total":4197,"current":4124}
+{"_e":"metro:bundling:progress","_t":1791319886912,"id":"2","progress":0.9731049249327187,"total":4210,"current":4153}
+{"_e":"metro:bundling:progress","_t":1791319887017,"id":"2","progress":0.9843918677608137,"total":4212,"current":4179}
+{"_e":"metro:bundling:progress","_t":1791319887120,"id":"2","progress":0.9896104600694444,"total":4224,"current":4202}
+{"_e":"metro:bundling:progress","_t":1791319887225,"id":"2","progress":0.999,"total":4230,"current":4228}
+{"_e":"metro:bundling:progress","_t":1791319887359,"id":"2","progress":0.999,"total":4230,"current":4229}
+{"_e":"metro:bundling:progress","_t":1791319887458,"id":"2","progress":0.999,"total":4230,"current":4230}
+{"_e":"metro:bundling:done","_t":1791319887986,"id":"2","total":4230,"ms":20650.5415}
+{"_e":"metro:client_log","_t":1791319941722,"level":"warn","data":["Deep imports from the 'react-native' package are deprecated ('react-native/Libraries/NativeComponent/NativeComponentRegistry'). Source: C:\\tcc-certo\\SafeNest\\mobile\\src\\services\\api.js 3:0"]}
+{"_e":"metro:bundling:failed","_t":1791320355948,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\services\\api.js: Identifier 'API_URL' has already been declared. (7:6)\n\n   5 | //nao pode ser localhost pois no celular n roda\n   6 | const API_URL = 'http://192.168.15.79:3000'; //duda\n>  7 | const API_URL = 'http://192.168.1.5:3000';    //joao   \n     |       ^\n   8 | const DISPOSITIVOS_API_URL = \"http://192.168.1.5:8080\";\n   9 | //const API_URL = 'http://localhost:3000';         //cabo    \n  10 |","importStack":null,"filename":"src\\services\\api.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791320398181,"level":"warn","data":["Deep imports from the 'react-native' package are deprecated ('react-native/Libraries/NativeComponent/NativeComponentRegistry'). Source: C:\\tcc-certo\\SafeNest\\mobile\\src\\services\\api.js 3:0"]}
+{"_e":"metro:bundling:failed","_t":1791320490947,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HistoryScreen.js: Unexpected token, expected \"}\" (21:13)\n\n  19 |\n  20 | const styles = StyleSheet.create({\n> 21 |     container: {\n     |              ^\n  22 |         flex: 1,\n  23 |         justifyContent: 'center',\n  24 |         alignItems: 'center',","importStack":null,"filename":"src\\screens\\HistoryScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320500972,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HistoryScreen.js: Unexpected token, expected \"}\" (21:13)\n\n  19 |\n  20 | const styles = StyleSheet.create({\n> 21 |     container: {\n     |              ^\n  22 |         flex: 1,\n  23 |         justifyContent: 'center',\n  24 |         alignItems: 'center',","importStack":null,"filename":"src\\screens\\HistoryScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320503327,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HistoryScreen.js: Unexpected token, expected \"}\" (20:13)\n\n  18 |\n  19 | const styles = StyleSheet.create({\n> 20 |     container: {\n     |              ^\n  21 |         flex: 1,\n  22 |         justifyContent: 'center',\n  23 |         alignItems: 'center',","importStack":null,"filename":"src\\screens\\HistoryScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791320504846,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:bundling:failed","_t":1791320505203,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HistoryScreen.js: Unexpected token, expected \"}\" (19:13)\n\n  17 |\n  18 | const styles = StyleSheet.create({\n> 19 |     container: {\n     |              ^\n  20 |         flex: 1,\n  21 |         justifyContent: 'center',\n  22 |         alignItems: 'center',","importStack":null,"filename":"src\\screens\\HistoryScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320509019,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HistoryScreen.js: Unexpected token, expected \"}\" (21:13)\n\n  19 |\n  20 | const styles = StyleSheet.create({\n> 21 |     container: {\n     |              ^\n  22 |         flex: 1,\n  23 |         justifyContent: 'center',\n  24 |         alignItems: 'center',","importStack":null,"filename":"src\\screens\\HistoryScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320510249,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HistoryScreen.js: Unexpected token, expected \"}\" (21:13)\n\n  19 |\n  20 | const styles = StyleSheet.create({\n> 21 |     container: {\n     |              ^\n  22 |         flex: 1,\n  23 |         justifyContent: 'center',\n  24 |         alignItems: 'center',","importStack":null,"filename":"src\\screens\\HistoryScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791320529397,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:client_log","_t":1791320535515,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:client_log","_t":1791320584472,"level":"error","data":["[Invariant Violation: View config not found for component `RCTVLCPlayer`]"]}
+{"_e":"metro:client_log","_t":1791320713965,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:client_log","_t":1791320749806,"level":"error","data":["[Error: Objects are not valid as a React child (found: object with keys {flex, marginTop}). If you meant to render a collection of children, use an array instead.]"]}
+{"_e":"metro:bundling:failed","_t":1791320752560,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\EmergencyScreen.js: Expected corresponding JSX closing tag for <ScrollView>. (113:12)\n\n  111 |                         indicatorStyle=\"black\"\n  112 |                     >\n> 113 |             </View>\n      |             ^\n  114 |             <View style={styles.contentArea}>\n  115 |                 <View style={styles.titlesTop}>\n  116 |                     <Text style={styles.title}>CONTATOS DE EMERGÊNCIA</Text>","importStack":null,"filename":"src\\screens\\EmergencyScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791320799728,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:bundling:failed","_t":1791320840880,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\EmergencyScreen.js: Unexpected token (105:13)\n\n  103 |     return (\n  104 |         \n> 105 |             </View>\n      |              ^\n  106 |         </View>\n  107 |     );\n  108 | }","importStack":null,"filename":"src\\screens\\EmergencyScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320844518,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\EmergencyScreen.js: Unexpected token (104:8)\n\n  102 |\n  103 |     return (\n> 104 |         return (\n      |         ^\n  105 |     <ScrollView\n  106 |         style={styles.container}\n  107 |         contentContainerStyle={styles.scrollContent}","importStack":null,"filename":"src\\screens\\EmergencyScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320852969,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\EmergencyScreen.js: Unexpected token (104:8)\n\n  102 |\n  103 |     return (\n> 104 |         return (\n      |         ^\n  105 |     <ScrollView\n  106 |         style={styles.container}\n  107 |         contentContainerStyle={styles.scrollContent}","importStack":null,"filename":"src\\screens\\EmergencyScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320855469,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\EmergencyScreen.js: Unexpected token (104:8)\n\n  102 |\n  103 |     return (\n> 104 |         return (\n      |         ^\n  105 |     <ScrollView\n  106 |         style={styles.container}\n  107 |         contentContainerStyle={styles.scrollContent}","importStack":null,"filename":"src\\screens\\EmergencyScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791320858505,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\EmergencyScreen.js: Unexpected token (104:8)\n\n  102 |\n  103 |     return (\n> 104 |         return (\n      |         ^\n  105 |         <ScrollView\n  106 |             style={styles.container}\n  107 |             contentContainerStyle={styles.scrollContent}","importStack":null,"filename":"src\\screens\\EmergencyScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791320864361,"level":"error","data":["Text strings must be rendered within a <Text> component."]}
+{"_e":"metro:client_log","_t":1791320865433,"level":"error","data":["[Invariant Violation: ScrollView child layout ([\"alignItems\"]) must be applied through the contentContainerStyle prop.]"]}
+{"_e":"metro:client_log","_t":1791320908344,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:bundling:started","_t":1791320933943,"id":"j","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791320933943,"id":"j","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791320934094,"id":"j","total":1,"ms":150.9187}
+{"_e":"metro:client_log","_t":1791321005216,"level":"error","data":["[Invariant Violation: ScrollView child layout ([\"alignItems\"]) must be applied through the contentContainerStyle prop.]"]}
+{"_e":"metro:client_log","_t":1791321033084,"level":"error","data":["[Invariant Violation: View config not found for component `RCTVLCPlayer`]"]}
+{"_e":"metro:bundling:started","_t":1791321143079,"id":"p","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791321143079,"id":"p","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791321143223,"id":"p","total":1,"ms":144.0821}
+{"_e":"metro:bundling:failed","_t":1791321307687,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\components\\ContactCard.js: Unexpected token (34:44)\n\n  32 |                 <View style={styles.botoesContato}>\n  33 |                     <Pressable style={styles.editContato} onPress={onEdit}>\n> 34 |                         <EditIcon width={50%} height={12} />\n     |                                             ^\n  35 |                     </Pressable>\n  36 |                     <Pressable style={styles.deleteContato} onPress={onDelete}>\n  37 |                         <DeleteIcon width={16} height={16} />","importStack":null,"filename":"src\\components\\ContactCard.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791321315582,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\components\\ContactCard.js: Unterminated string constant. (34:46)\n\n  32 |                 <View style={styles.botoesContato}>\n  33 |                     <Pressable style={styles.editContato} onPress={onEdit}>\n> 34 |                         <EditIcon width={'50%''} height={12} />\n     |                                               ^\n  35 |                     </Pressable>\n  36 |                     <Pressable style={styles.deleteContato} onPress={onDelete}>\n  37 |                         <DeleteIcon width={16} height={16} />","importStack":null,"filename":"src\\components\\ContactCard.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791321344555,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:bundling:failed","_t":1791321490212,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\components\\ContactCard.js: JSX attributes must only be assigned a non-empty expression. (40:45)\n\n  38 |                     </Pressable>\n  39 |                     <Pressable style={styles.callContato} onPress={() => ligacao(telefone)}>\n> 40 |                         <PhoneCallIcon width={} height={'40%'} />\n     |                                              ^\n  41 |                         <Text style={styles.ligarText}>Ligar</Text>\n  42 |                     </Pressable>\n  43 |                 </View>","importStack":null,"filename":"src\\components\\ContactCard.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791321499309,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\components\\ContactCard.js: Unexpected token, expected \"}\" (40:60)\n\n  38 |                     </Pressable>\n  39 |                     <Pressable style={styles.callContato} onPress={() => ligacao(telefone)}>\n> 40 |                         <PhoneCallIcon width={'20} height={'40%'} />\n     |                                                             ^\n  41 |                         <Text style={styles.ligarText}>Ligar</Text>\n  42 |                     </Pressable>\n  43 |                 </View>","importStack":null,"filename":"src\\components\\ContactCard.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791321632946,"level":"error","data":["[ReferenceError: Property 'useBottomTabBarHeight' doesn't exist]"]}
+{"_e":"metro:client_log","_t":1791321664487,"level":"error","data":["[ReferenceError: Property 'useBottomTabBarHeight' doesn't exist]"]}
+{"_e":"metro:bundling:failed","_t":1791321731310,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\EmergencyScreen.js: Unexpected token (198:23)\n\n  196 |     },\n  197 |     scrollContent: {\n> 198 |         paddingBottom: ,\n      |                        ^\n  199 |     },\n  200 |     centeredMessage: {\n  201 |         flex: 1,","importStack":null,"filename":"src\\screens\\EmergencyScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791321792985,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:client_log","_t":1791321844431,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:client_log","_t":1791321924040,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:client_log","_t":1791322516065,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"metro:client_log","_t":1791322633476,"level":"error","data":["[Invariant Violation: View config not found for component `RCTVLCPlayer`]"]}
+{"_e":"metro:client_log","_t":1791322667668,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.5:8080]"]}
+{"_e":"root:init","_t":1791763560520,"format":"v0-jsonl","version":"57.0.28"}
+{"_e":"env:mode","_t":1791763560523,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1791763560529,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1791763561594,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1791763562464,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1791763563115,"plugins":[]}
+{"_e":"metro:instantiate","_t":1791763567708,"atlas":false,"workers":6,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1791763578272,"id":"1","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763578272,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763578279,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763579579,"id":"1","progress":0.010000000000000002,"total":1,"current":1}
+{"_e":"metro:bundling:progress","_t":1791763579682,"id":"1","progress":0.010000000000000002,"total":3,"current":1}
+{"_e":"metro:bundling:progress","_t":1791763579713,"id":"1","progress":0.04000000000000001,"total":3,"current":2}
+{"_e":"metro:bundling:progress","_t":1791763579823,"id":"1","progress":0.09,"total":10,"current":3}
+{"_e":"metro:bundling:progress","_t":1791763579924,"id":"1","progress":0.2177777777777778,"total":15,"current":7}
+{"_e":"metro:bundling:progress","_t":1791763580031,"id":"1","progress":0.2177777777777778,"total":17,"current":7}
+{"_e":"metro:bundling:progress","_t":1791763580218,"id":"1","progress":0.22145328719723184,"total":17,"current":8}
+{"_e":"metro:bundling:progress","_t":1791763580331,"id":"1","progress":0.25,"total":22,"current":11}
+{"_e":"metro:bundling:progress","_t":1791763580441,"id":"1","progress":0.32653061224489793,"total":28,"current":16}
+{"_e":"metro:bundling:progress","_t":1791763580567,"id":"1","progress":0.5377777777777777,"total":30,"current":22}
+{"_e":"metro:bundling:progress","_t":1791763580678,"id":"1","progress":0.5377777777777777,"total":41,"current":26}
+{"_e":"metro:bundling:progress","_t":1791763580789,"id":"1","progress":0.5377777777777777,"total":46,"current":30}
+{"_e":"metro:bundling:progress","_t":1791763580908,"id":"1","progress":0.5377777777777777,"total":52,"current":35}
+{"_e":"metro:bundling:progress","_t":1791763581156,"id":"1","progress":0.5377777777777777,"total":52,"current":36}
+{"_e":"metro:bundling:progress","_t":1791763581305,"id":"1","progress":0.5377777777777777,"total":59,"current":39}
+{"_e":"metro:bundling:progress","_t":1791763581310,"id":"1","progress":0.5377777777777777,"total":59,"current":40}
+{"_e":"metro:bundling:progress","_t":1791763581453,"id":"1","progress":0.5377777777777777,"total":86,"current":44}
+{"_e":"metro:bundling:progress","_t":1791763581503,"id":"1","progress":0.5377777777777777,"total":86,"current":45}
+{"_e":"metro:bundling:progress","_t":1791763581625,"id":"1","progress":0.5377777777777777,"total":92,"current":50}
+{"_e":"metro:bundling:progress","_t":1791763581726,"id":"1","progress":0.5377777777777777,"total":143,"current":61}
+{"_e":"metro:bundling:progress","_t":1791763581827,"id":"1","progress":0.5377777777777777,"total":146,"current":68}
+{"_e":"metro:bundling:progress","_t":1791763581938,"id":"1","progress":0.5377777777777777,"total":146,"current":75}
+{"_e":"metro:bundling:progress","_t":1791763582090,"id":"1","progress":0.5377777777777777,"total":151,"current":86}
+{"_e":"metro:bundling:progress","_t":1791763582192,"id":"1","progress":0.5377777777777777,"total":158,"current":92}
+{"_e":"metro:bundling:progress","_t":1791763582300,"id":"1","progress":0.5377777777777777,"total":193,"current":100}
+{"_e":"metro:bundling:progress","_t":1791763582399,"id":"1","progress":0.5377777777777777,"total":193,"current":111}
+{"_e":"metro:bundling:progress","_t":1791763582504,"id":"1","progress":0.5377777777777777,"total":207,"current":120}
+{"_e":"metro:bundling:progress","_t":1791763582604,"id":"1","progress":0.5377777777777777,"total":215,"current":127}
+{"_e":"metro:bundling:progress","_t":1791763582710,"id":"1","progress":0.5377777777777777,"total":226,"current":140}
+{"_e":"metro:bundling:progress","_t":1791763582821,"id":"1","progress":0.5377777777777777,"total":239,"current":151}
+{"_e":"metro:bundling:progress","_t":1791763582924,"id":"1","progress":0.5377777777777777,"total":264,"current":161}
+{"_e":"metro:bundling:progress","_t":1791763583029,"id":"1","progress":0.5377777777777777,"total":270,"current":172}
+{"_e":"metro:bundling:progress","_t":1791763583129,"id":"1","progress":0.5377777777777777,"total":280,"current":186}
+{"_e":"metro:bundling:progress","_t":1791763583243,"id":"1","progress":0.5377777777777777,"total":284,"current":193}
+{"_e":"metro:bundling:progress","_t":1791763583344,"id":"1","progress":0.5377777777777777,"total":308,"current":200}
+{"_e":"metro:bundling:progress","_t":1791763583445,"id":"1","progress":0.5377777777777777,"total":311,"current":202}
+{"_e":"metro:bundling:progress","_t":1791763584227,"id":"1","progress":0.5377777777777777,"total":311,"current":203}
+{"_e":"metro:bundling:progress","_t":1791763584331,"id":"1","progress":0.5377777777777777,"total":312,"current":210}
+{"_e":"metro:bundling:progress","_t":1791763584439,"id":"1","progress":0.5377777777777777,"total":316,"current":219}
+{"_e":"metro:bundling:progress","_t":1791763584545,"id":"1","progress":0.5377777777777777,"total":332,"current":227}
+{"_e":"metro:bundling:progress","_t":1791763584761,"id":"1","progress":0.5377777777777777,"total":353,"current":238}
+{"_e":"metro:bundling:progress","_t":1791763584861,"id":"1","progress":0.5377777777777777,"total":356,"current":249}
+{"_e":"metro:bundling:progress","_t":1791763584965,"id":"1","progress":0.5491504071519099,"total":363,"current":269}
+{"_e":"metro:bundling:progress","_t":1791763585066,"id":"1","progress":0.5665394843334489,"total":372,"current":280}
+{"_e":"metro:bundling:progress","_t":1791763585169,"id":"1","progress":0.600422137551054,"total":382,"current":296}
+{"_e":"metro:bundling:progress","_t":1791763585271,"id":"1","progress":0.600422137551054,"total":421,"current":311}
+{"_e":"metro:bundling:progress","_t":1791763585375,"id":"1","progress":0.600422137551054,"total":430,"current":329}
+{"_e":"metro:bundling:progress","_t":1791763585478,"id":"1","progress":0.600422137551054,"total":435,"current":335}
+{"_e":"metro:bundling:progress","_t":1791763585584,"id":"1","progress":0.6147985537190083,"total":440,"current":345}
+{"_e":"metro:bundling:progress","_t":1791763585688,"id":"1","progress":0.6147985537190083,"total":463,"current":354}
+{"_e":"metro:bundling:progress","_t":1791763585788,"id":"1","progress":0.6147985537190083,"total":476,"current":364}
+{"_e":"metro:bundling:progress","_t":1791763585890,"id":"1","progress":0.6175803182040189,"total":481,"current":378}
+{"_e":"metro:bundling:progress","_t":1791763585992,"id":"1","progress":0.658685150178534,"total":483,"current":392}
+{"_e":"metro:bundling:progress","_t":1791763586092,"id":"1","progress":0.701879250660921,"total":487,"current":408}
+{"_e":"metro:bundling:progress","_t":1791763586195,"id":"1","progress":0.701879250660921,"total":507,"current":419}
+{"_e":"metro:bundling:progress","_t":1791763586294,"id":"1","progress":0.701879250660921,"total":507,"current":419}
+{"_e":"metro:bundling:progress","_t":1791763586295,"id":"1","progress":0.701879250660921,"total":515,"current":428}
+{"_e":"metro:bundling:progress","_t":1791763586397,"id":"1","progress":0.701879250660921,"total":533,"current":439}
+{"_e":"metro:bundling:progress","_t":1791763586506,"id":"1","progress":0.7176554778886819,"total":543,"current":460}
+{"_e":"metro:bundling:progress","_t":1791763586606,"id":"1","progress":0.7458677685950413,"total":550,"current":475}
+{"_e":"metro:bundling:progress","_t":1791763586707,"id":"1","progress":0.779854174214585,"total":556,"current":491}
+{"_e":"metro:bundling:progress","_t":1791763586807,"id":"1","progress":0.7998908946637573,"total":568,"current":508}
+{"_e":"metro:bundling:progress","_t":1791763586908,"id":"1","progress":0.7998908946637573,"total":589,"current":519}
+{"_e":"metro:bundling:progress","_t":1791763587014,"id":"1","progress":0.7998908946637573,"total":633,"current":528}
+{"_e":"metro:bundling:progress","_t":1791763587122,"id":"1","progress":0.7998908946637573,"total":636,"current":536}
+{"_e":"metro:bundling:progress","_t":1791763587222,"id":"1","progress":0.7998908946637573,"total":643,"current":553}
+{"_e":"metro:bundling:progress","_t":1791763587325,"id":"1","progress":0.7998908946637573,"total":660,"current":568}
+{"_e":"metro:bundling:progress","_t":1791763587427,"id":"1","progress":0.7998908946637573,"total":668,"current":583}
+{"_e":"metro:bundling:progress","_t":1791763587527,"id":"1","progress":0.7998908946637573,"total":673,"current":597}
+{"_e":"metro:bundling:progress","_t":1791763587632,"id":"1","progress":0.8102643387434476,"total":681,"current":613}
+{"_e":"metro:bundling:progress","_t":1791763587735,"id":"1","progress":0.8336483931947068,"total":690,"current":630}
+{"_e":"metro:bundling:progress","_t":1791763587929,"id":"1","progress":0.8723613601230112,"total":697,"current":651}
+{"_e":"metro:bundling:progress","_t":1791763588143,"id":"1","progress":0.8723613601230112,"total":698,"current":651}
+{"_e":"metro:bundling:progress","_t":1791763588267,"id":"1","progress":0.8723613601230112,"total":2219,"current":658}
+{"_e":"metro:bundling:progress","_t":1791763588366,"id":"1","progress":0.8723613601230112,"total":2228,"current":683}
+{"_e":"metro:bundling:progress","_t":1791763588467,"id":"1","progress":0.8723613601230112,"total":2244,"current":709}
+{"_e":"metro:bundling:progress","_t":1791763588574,"id":"1","progress":0.8723613601230112,"total":2269,"current":735}
+{"_e":"metro:bundling:progress","_t":1791763588681,"id":"1","progress":0.8723613601230112,"total":2310,"current":765}
+{"_e":"metro:bundling:progress","_t":1791763588781,"id":"1","progress":0.8723613601230112,"total":2338,"current":793}
+{"_e":"metro:bundling:progress","_t":1791763588889,"id":"1","progress":0.8723613601230112,"total":2365,"current":820}
+{"_e":"metro:bundling:progress","_t":1791763588989,"id":"1","progress":0.8723613601230112,"total":2390,"current":846}
+{"_e":"metro:bundling:progress","_t":1791763589089,"id":"1","progress":0.8723613601230112,"total":2420,"current":875}
+{"_e":"metro:bundling:progress","_t":1791763589190,"id":"1","progress":0.8723613601230112,"total":2448,"current":904}
+{"_e":"metro:bundling:progress","_t":1791763589297,"id":"1","progress":0.8723613601230112,"total":2478,"current":933}
+{"_e":"metro:bundling:progress","_t":1791763589397,"id":"1","progress":0.8723613601230112,"total":2503,"current":958}
+{"_e":"metro:bundling:progress","_t":1791763589501,"id":"1","progress":0.8723613601230112,"total":2528,"current":983}
+{"_e":"metro:bundling:progress","_t":1791763589601,"id":"1","progress":0.8723613601230112,"total":2554,"current":1009}
+{"_e":"metro:bundling:progress","_t":1791763589706,"id":"1","progress":0.8723613601230112,"total":2580,"current":1035}
+{"_e":"metro:bundling:progress","_t":1791763589806,"id":"1","progress":0.8723613601230112,"total":2609,"current":1064}
+{"_e":"metro:bundling:progress","_t":1791763589907,"id":"1","progress":0.8723613601230112,"total":2633,"current":1088}
+{"_e":"metro:bundling:progress","_t":1791763590010,"id":"1","progress":0.8723613601230112,"total":2655,"current":1110}
+{"_e":"metro:bundling:progress","_t":1791763590112,"id":"1","progress":0.8723613601230112,"total":2677,"current":1132}
+{"_e":"metro:bundling:progress","_t":1791763590212,"id":"1","progress":0.8723613601230112,"total":2700,"current":1155}
+{"_e":"metro:bundling:progress","_t":1791763590312,"id":"1","progress":0.8723613601230112,"total":2719,"current":1174}
+{"_e":"metro:bundling:progress","_t":1791763590416,"id":"1","progress":0.8723613601230112,"total":2742,"current":1197}
+{"_e":"metro:bundling:progress","_t":1791763590516,"id":"1","progress":0.8723613601230112,"total":2769,"current":1224}
+{"_e":"metro:bundling:progress","_t":1791763590621,"id":"1","progress":0.8723613601230112,"total":2782,"current":1237}
+{"_e":"metro:bundling:progress","_t":1791763590724,"id":"1","progress":0.8723613601230112,"total":2802,"current":1258}
+{"_e":"metro:bundling:progress","_t":1791763590827,"id":"1","progress":0.8723613601230112,"total":2825,"current":1280}
+{"_e":"metro:bundling:progress","_t":1791763590927,"id":"1","progress":0.8723613601230112,"total":2849,"current":1304}
+{"_e":"metro:bundling:progress","_t":1791763591029,"id":"1","progress":0.8723613601230112,"total":2867,"current":1322}
+{"_e":"metro:bundling:progress","_t":1791763591136,"id":"1","progress":0.8723613601230112,"total":2893,"current":1349}
+{"_e":"metro:bundling:progress","_t":1791763591241,"id":"1","progress":0.8723613601230112,"total":2921,"current":1376}
+{"_e":"metro:bundling:progress","_t":1791763591347,"id":"1","progress":0.8723613601230112,"total":2949,"current":1404}
+{"_e":"metro:bundling:progress","_t":1791763591447,"id":"1","progress":0.8723613601230112,"total":2975,"current":1431}
+{"_e":"metro:bundling:progress","_t":1791763591557,"id":"1","progress":0.8723613601230112,"total":3003,"current":1458}
+{"_e":"metro:bundling:progress","_t":1791763591657,"id":"1","progress":0.8723613601230112,"total":3023,"current":1478}
+{"_e":"metro:bundling:progress","_t":1791763591766,"id":"1","progress":0.8723613601230112,"total":3050,"current":1506}
+{"_e":"metro:bundling:progress","_t":1791763591875,"id":"1","progress":0.8723613601230112,"total":3078,"current":1534}
+{"_e":"metro:bundling:progress","_t":1791763591976,"id":"1","progress":0.8723613601230112,"total":3106,"current":1562}
+{"_e":"metro:bundling:progress","_t":1791763592080,"id":"1","progress":0.8723613601230112,"total":3136,"current":1591}
+{"_e":"metro:bundling:progress","_t":1791763592183,"id":"1","progress":0.8723613601230112,"total":3165,"current":1620}
+{"_e":"metro:bundling:progress","_t":1791763592283,"id":"1","progress":0.8723613601230112,"total":3197,"current":1652}
+{"_e":"metro:bundling:progress","_t":1791763592383,"id":"1","progress":0.8723613601230112,"total":3226,"current":1682}
+{"_e":"metro:bundling:progress","_t":1791763592487,"id":"1","progress":0.8723613601230112,"total":3251,"current":1707}
+{"_e":"metro:bundling:progress","_t":1791763592590,"id":"1","progress":0.8723613601230112,"total":3278,"current":1733}
+{"_e":"metro:bundling:progress","_t":1791763592690,"id":"1","progress":0.8723613601230112,"total":3308,"current":1764}
+{"_e":"metro:bundling:progress","_t":1791763592790,"id":"1","progress":0.8723613601230112,"total":3343,"current":1798}
+{"_e":"metro:bundling:progress","_t":1791763592896,"id":"1","progress":0.8723613601230112,"total":3369,"current":1824}
+{"_e":"metro:bundling:progress","_t":1791763592997,"id":"1","progress":0.8723613601230112,"total":3390,"current":1846}
+{"_e":"metro:bundling:progress","_t":1791763593096,"id":"1","progress":0.8723613601230112,"total":3415,"current":1870}
+{"_e":"metro:bundling:progress","_t":1791763593198,"id":"1","progress":0.8723613601230112,"total":3440,"current":1896}
+{"_e":"metro:bundling:progress","_t":1791763593306,"id":"1","progress":0.8723613601230112,"total":3474,"current":1930}
+{"_e":"metro:bundling:progress","_t":1791763593407,"id":"1","progress":0.8723613601230112,"total":3504,"current":1960}
+{"_e":"metro:bundling:progress","_t":1791763593507,"id":"1","progress":0.8723613601230112,"total":3538,"current":1994}
+{"_e":"metro:bundling:progress","_t":1791763593607,"id":"1","progress":0.8723613601230112,"total":3563,"current":2018}
+{"_e":"metro:bundling:progress","_t":1791763593707,"id":"1","progress":0.8723613601230112,"total":3596,"current":2052}
+{"_e":"metro:bundling:progress","_t":1791763593807,"id":"1","progress":0.8723613601230112,"total":3626,"current":2081}
+{"_e":"metro:bundling:progress","_t":1791763593912,"id":"1","progress":0.8723613601230112,"total":3657,"current":2112}
+{"_e":"metro:bundling:progress","_t":1791763594013,"id":"1","progress":0.8723613601230112,"total":3681,"current":2137}
+{"_e":"metro:bundling:progress","_t":1791763594113,"id":"1","progress":0.8723613601230112,"total":3710,"current":2166}
+{"_e":"metro:bundling:progress","_t":1791763594213,"id":"1","progress":0.8723613601230112,"total":3744,"current":2199}
+{"_e":"metro:bundling:progress","_t":1791763594317,"id":"1","progress":0.8723613601230112,"total":3758,"current":2226}
+{"_e":"metro:bundling:progress","_t":1791763594424,"id":"1","progress":0.8723613601230112,"total":3758,"current":2249}
+{"_e":"metro:bundling:progress","_t":1791763594526,"id":"1","progress":0.8723613601230112,"total":3758,"current":2274}
+{"_e":"metro:bundling:progress","_t":1791763594626,"id":"1","progress":0.8723613601230112,"total":3758,"current":2304}
+{"_e":"metro:bundling:progress","_t":1791763594726,"id":"1","progress":0.8723613601230112,"total":3758,"current":2338}
+{"_e":"metro:bundling:progress","_t":1791763594826,"id":"1","progress":0.8723613601230112,"total":3758,"current":2370}
+{"_e":"metro:bundling:progress","_t":1791763594929,"id":"1","progress":0.8723613601230112,"total":3758,"current":2404}
+{"_e":"metro:bundling:progress","_t":1791763595029,"id":"1","progress":0.8723613601230112,"total":3758,"current":2435}
+{"_e":"metro:bundling:progress","_t":1791763595133,"id":"1","progress":0.8723613601230112,"total":3758,"current":2469}
+{"_e":"metro:bundling:progress","_t":1791763595238,"id":"1","progress":0.8723613601230112,"total":3758,"current":2502}
+{"_e":"metro:bundling:progress","_t":1791763595344,"id":"1","progress":0.8723613601230112,"total":3758,"current":2536}
+{"_e":"metro:bundling:progress","_t":1791763595444,"id":"1","progress":0.8723613601230112,"total":3758,"current":2567}
+{"_e":"metro:bundling:progress","_t":1791763595544,"id":"1","progress":0.8723613601230112,"total":3758,"current":2596}
+{"_e":"metro:bundling:progress","_t":1791763595648,"id":"1","progress":0.8723613601230112,"total":3758,"current":2628}
+{"_e":"metro:bundling:progress","_t":1791763595750,"id":"1","progress":0.8723613601230112,"total":3758,"current":2651}
+{"_e":"metro:bundling:progress","_t":1791763595851,"id":"1","progress":0.8723613601230112,"total":3758,"current":2678}
+{"_e":"metro:bundling:progress","_t":1791763595951,"id":"1","progress":0.8723613601230112,"total":3758,"current":2707}
+{"_e":"metro:bundling:progress","_t":1791763596058,"id":"1","progress":0.8723613601230112,"total":3758,"current":2738}
+{"_e":"metro:bundling:progress","_t":1791763596163,"id":"1","progress":0.8723613601230112,"total":3758,"current":2770}
+{"_e":"metro:bundling:progress","_t":1791763596263,"id":"1","progress":0.8723613601230112,"total":3758,"current":2800}
+{"_e":"metro:bundling:progress","_t":1791763596366,"id":"1","progress":0.8723613601230112,"total":3758,"current":2835}
+{"_e":"metro:bundling:progress","_t":1791763596491,"id":"1","progress":0.8723613601230112,"total":3758,"current":2858}
+{"_e":"metro:bundling:progress","_t":1791763596592,"id":"1","progress":0.8723613601230112,"total":3758,"current":2883}
+{"_e":"metro:bundling:progress","_t":1791763596692,"id":"1","progress":0.8723613601230112,"total":3758,"current":2914}
+{"_e":"metro:bundling:progress","_t":1791763596793,"id":"1","progress":0.8723613601230112,"total":3758,"current":2946}
+{"_e":"metro:bundling:progress","_t":1791763596894,"id":"1","progress":0.8723613601230112,"total":3758,"current":2977}
+{"_e":"metro:bundling:progress","_t":1791763596997,"id":"1","progress":0.8723613601230112,"total":3758,"current":3008}
+{"_e":"metro:bundling:progress","_t":1791763597098,"id":"1","progress":0.8723613601230112,"total":3758,"current":3031}
+{"_e":"metro:bundling:progress","_t":1791763597200,"id":"1","progress":0.8723613601230112,"total":3758,"current":3056}
+{"_e":"metro:bundling:progress","_t":1791763597305,"id":"1","progress":0.8723613601230112,"total":3758,"current":3080}
+{"_e":"metro:bundling:progress","_t":1791763597405,"id":"1","progress":0.8723613601230112,"total":3758,"current":3113}
+{"_e":"metro:bundling:progress","_t":1791763597509,"id":"1","progress":0.8723613601230112,"total":3758,"current":3141}
+{"_e":"metro:bundling:progress","_t":1791763597611,"id":"1","progress":0.8723613601230112,"total":3758,"current":3160}
+{"_e":"metro:bundling:progress","_t":1791763597717,"id":"1","progress":0.8723613601230112,"total":3758,"current":3192}
+{"_e":"metro:bundling:progress","_t":1791763597822,"id":"1","progress":0.8723613601230112,"total":3758,"current":3225}
+{"_e":"metro:bundling:progress","_t":1791763597922,"id":"1","progress":0.8723613601230112,"total":3758,"current":3252}
+{"_e":"metro:bundling:progress","_t":1791763598027,"id":"1","progress":0.8723613601230112,"total":3758,"current":3277}
+{"_e":"metro:bundling:progress","_t":1791763598130,"id":"1","progress":0.8723613601230112,"total":3758,"current":3310}
+{"_e":"metro:bundling:progress","_t":1791763598230,"id":"1","progress":0.8723613601230112,"total":3758,"current":3337}
+{"_e":"metro:bundling:progress","_t":1791763598330,"id":"1","progress":0.8723613601230112,"total":3758,"current":3363}
+{"_e":"metro:bundling:progress","_t":1791763598430,"id":"1","progress":0.8723613601230112,"total":3758,"current":3390}
+{"_e":"metro:bundling:progress","_t":1791763598530,"id":"1","progress":0.8723613601230112,"total":3758,"current":3419}
+{"_e":"metro:bundling:progress","_t":1791763598630,"id":"1","progress":0.8723613601230112,"total":3758,"current":3450}
+{"_e":"metro:bundling:progress","_t":1791763598731,"id":"1","progress":0.8723613601230112,"total":3758,"current":3481}
+{"_e":"metro:bundling:progress","_t":1791763598839,"id":"1","progress":0.8728670657821058,"total":3758,"current":3511}
+{"_e":"metro:bundling:progress","_t":1791763598939,"id":"1","progress":0.8893523867195787,"total":3758,"current":3544}
+{"_e":"metro:bundling:progress","_t":1791763599040,"id":"1","progress":0.9059919289443474,"total":3758,"current":3577}
+{"_e":"metro:bundling:progress","_t":1791763599139,"id":"1","progress":0.9238084529126581,"total":3758,"current":3612}
+{"_e":"metro:bundling:progress","_t":1791763599240,"id":"1","progress":0.9402496600475664,"total":3758,"current":3644}
+{"_e":"metro:bundling:progress","_t":1791763599340,"id":"1","progress":0.9552747645540852,"total":3758,"current":3673}
+{"_e":"metro:bundling:progress","_t":1791763599442,"id":"1","progress":0.9740923107163826,"total":3758,"current":3709}
+{"_e":"metro:bundling:progress","_t":1791763599546,"id":"1","progress":0.9920329622864515,"total":3758,"current":3743}
+{"_e":"metro:bundling:progress","_t":1791763599659,"id":"1","progress":0.998937018411542,"total":3762,"current":3760}
+{"_e":"metro:bundling:progress","_t":1791763599760,"id":"1","progress":0.999,"total":3762,"current":3762}
+{"_e":"metro:bundling:done","_t":1791763600031,"id":"1","total":3762,"ms":21758.8683}
+{"_e":"metro:client_log","_t":1791763600950,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763602613,"level":"error","data":["[TypeError: Cannot destructure property 'StyleSheet' of 'ReactNative.default' as it is undefined.]","\n\n\u001b[1mCode: CameraScreen.js\u001b[22m\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mStyleSheet\u001b[39m\u001b[33m,\u001b[39m\u001b[33mView\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-native'\u001b[39m\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 2 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mVLCPlayer\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-native-vlc-media-player'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 3 |\u001b[39m\n \u001b[90m 4 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mCameraScreen\u001b[39m() {\n \u001b[90m 5 |\u001b[39m   \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  <global> (src\\screens\\CameraScreen.js:2)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763621209,"id":"3","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763621209,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763621358,"id":"3","total":1,"ms":148.5564}
+{"_e":"metro:client_log","_t":1791763622279,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763622306,"level":"error","data":["[TypeError: Cannot destructure property 'StyleSheet' of 'ReactNative.default' as it is undefined.]","\n\n\u001b[1mCode: CameraScreen.js\u001b[22m\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mStyleSheet\u001b[39m\u001b[33m,\u001b[39m\u001b[33mView\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-native'\u001b[39m\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 2 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mVLCPlayer\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-native-vlc-media-player'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 3 |\u001b[39m\n \u001b[90m 4 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mCameraScreen\u001b[39m() {\n \u001b[90m 5 |\u001b[39m   \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  <global> (src\\screens\\CameraScreen.js:2)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763704600,"id":"5","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763704601,"id":"5","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763704605,"id":"5","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763704733,"id":"5","total":1,"ms":131.9384}
+{"_e":"metro:client_log","_t":1791763705516,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763705535,"level":"error","data":["[TypeError: Cannot destructure property 'StyleSheet' of 'ReactNative.default' as it is undefined.]","\n\n\u001b[1mCode: CameraScreen.js\u001b[22m\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[90m// import { StyleSheet,View } from 'react-native';\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 2 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mVLCPlayer\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-native-vlc-media-player'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 3 |\u001b[39m\n \u001b[90m 4 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mCameraScreen\u001b[39m() {\n \u001b[90m 5 |\u001b[39m   \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  <global> (src\\screens\\CameraScreen.js:2)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763707729,"id":"7","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763707729,"id":"7","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763707869,"id":"7","total":1,"ms":140.1886}
+{"_e":"metro:client_log","_t":1791763708705,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763708730,"level":"error","data":["[TypeError: Cannot destructure property 'StyleSheet' of 'ReactNative.default' as it is undefined.]","\n\n\u001b[1mCode: CameraScreen.js\u001b[22m\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[90m// import { StyleSheet,View } from 'react-native';\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 2 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mVLCPlayer\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-native-vlc-media-player'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 3 |\u001b[39m\n \u001b[90m 4 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mCameraScreen\u001b[39m() {\n \u001b[90m 5 |\u001b[39m   \u001b[36mreturn\u001b[39m (\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  <global> (src\\screens\\CameraScreen.js:2)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763748030,"id":"9","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763748030,"id":"9","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763748035,"id":"9","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763748184,"id":"9","total":1,"ms":153.9395}
+{"_e":"metro:client_log","_t":1791763749045,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763749045,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763749110,"level":"error","data":["[TypeError: ExpoSecureStore.default.getValueWithKeyAsync is not a function]","\n\n\u001b[1mCode: tokenStorage.js\u001b[22m\n\u001b[0m \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterAccessToken() {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'accessToken'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m }\n \u001b[90m 12 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterRefreshToken() {\n \u001b[90m 13 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'refreshToken'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  obterAccessToken (src\\services\\tokenStorage.js:10:30)\u001b[39m\n\u001b[90m  verificarSessao (src\\context\\AuthContext.js:14:55)\u001b[39m\n\u001b[90m  useEffect$argument_0 (src\\context\\AuthContext.js:23:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763778088,"id":"e","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763778088,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763778098,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763778459,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763778651,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763778751,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763778852,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763778952,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779052,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779152,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779252,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779352,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779452,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779552,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779663,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763779787,"id":"e","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763779936,"id":"e","total":1,"ms":1848.6087}
+{"_e":"metro:client_log","_t":1791763780873,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763780874,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763780876,"level":"warn","data":["An error occurred in the <BottomTabNavigator> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1791763780901,"level":"error","data":["[Error: Got an invalid value for 'component' prop for the screen 'Câmera'. It must be a valid React Component.]","\n\n\u001b[1mCode: useNavigationBuilder.js\u001b[22m\n\u001b[0m \u001b[90m 119 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 120 |\u001b[39m \u001b[32m        if (component !== undefined && !isValidElementType(component)) {\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 121 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'component'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a valid \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\n \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 122 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 123 |\u001b[39m \u001b[32m        if (getComponent !== undefined && typeof getComponent !== 'function') {\u001b[39m\n \u001b[90m 124 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'getComponent'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a \u001b[36mfunction\u001b[39m returning a \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  configs.forEach$argument_0 (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:121:17)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  Array.forEach (<anonymous>)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  getRouteConfigsFromChildren (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:100:13)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  useNavigationBuilder (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:180:24)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  BottomTabNavigator (node_modules\\@react-navigation\\bottom-tabs\\lib\\module\\navigators\\createBottomTabNavigator.js:24:27)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  callComponent.react_stack_bottom_frame (node_modules\\react-dom\\cjs\\react-dom-client.development.js:25904:20)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  renderWithHooks (node_modules\\react-dom\\cjs\\react-dom-client.development.js:7662:22)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  updateFunctionComponent (node_modules\\react-dom\\cjs\\react-dom-client.development.js:10166:19)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  beginWork (node_modules\\react-dom\\cjs\\react-dom-client.development.js:11778:18)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  runWithFiberInDEV (node_modules\\react-dom\\cjs\\react-dom-client.development.js:871:30)\u001b[39m\u001b[22m","\n\n\u001b[1mCode: MainTabNavigator.js\u001b[22m\n\u001b[0m \u001b[90m 11 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mMainTabNavigator\u001b[39m() {\n \u001b[90m 12 |\u001b[39m   \u001b[36mreturn\u001b[39m (\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33mTab\u001b[39m\u001b[33m.\u001b[39m\u001b[33mNavigator\u001b[39m\n \u001b[90m    |\u001b[39m     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m       initialRouteName\u001b[33m=\u001b[39m\u001b[32m\"Início\"\u001b[39m\n \u001b[90m 15 |\u001b[39m       screenOptions\u001b[33m=\u001b[39m{{\n \u001b[90m 16 |\u001b[39m         headerShown\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  MainTabNavigator (src\\navigation\\MainTabNavigator.js:13:5)\u001b[39m\n\u001b[90m  AppNavigator (src\\navigation\\AppNavigator.js:14:5)\u001b[39m\n\u001b[90m  App (App.js:17:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763785366,"id":"h","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763785367,"id":"h","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763785501,"id":"h","total":1,"ms":134.1654}
+{"_e":"metro:client_log","_t":1791763786423,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763786424,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763786427,"level":"warn","data":["An error occurred in the <BottomTabNavigator> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1791763786477,"level":"error","data":["[Error: Got an invalid value for 'component' prop for the screen 'Câmera'. It must be a valid React Component.]","\n\n\u001b[1mCode: useNavigationBuilder.js\u001b[22m\n\u001b[0m \u001b[90m 119 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 120 |\u001b[39m \u001b[32m        if (component !== undefined && !isValidElementType(component)) {\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 121 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'component'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a valid \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\n \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 122 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 123 |\u001b[39m \u001b[32m        if (getComponent !== undefined && typeof getComponent !== 'function') {\u001b[39m\n \u001b[90m 124 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'getComponent'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a \u001b[36mfunction\u001b[39m returning a \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  configs.forEach$argument_0 (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:121:17)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  Array.forEach (<anonymous>)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  getRouteConfigsFromChildren (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:100:13)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  useNavigationBuilder (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:180:24)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  BottomTabNavigator (node_modules\\@react-navigation\\bottom-tabs\\lib\\module\\navigators\\createBottomTabNavigator.js:24:27)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  callComponent.react_stack_bottom_frame (node_modules\\react-dom\\cjs\\react-dom-client.development.js:25904:20)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  renderWithHooks (node_modules\\react-dom\\cjs\\react-dom-client.development.js:7662:22)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  updateFunctionComponent (node_modules\\react-dom\\cjs\\react-dom-client.development.js:10166:19)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  beginWork (node_modules\\react-dom\\cjs\\react-dom-client.development.js:11778:18)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  runWithFiberInDEV (node_modules\\react-dom\\cjs\\react-dom-client.development.js:871:30)\u001b[39m\u001b[22m","\n\n\u001b[1mCode: MainTabNavigator.js\u001b[22m\n\u001b[0m \u001b[90m 11 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mMainTabNavigator\u001b[39m() {\n \u001b[90m 12 |\u001b[39m   \u001b[36mreturn\u001b[39m (\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33mTab\u001b[39m\u001b[33m.\u001b[39m\u001b[33mNavigator\u001b[39m\n \u001b[90m    |\u001b[39m     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m       initialRouteName\u001b[33m=\u001b[39m\u001b[32m\"Início\"\u001b[39m\n \u001b[90m 15 |\u001b[39m       screenOptions\u001b[33m=\u001b[39m{{\n \u001b[90m 16 |\u001b[39m         headerShown\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  MainTabNavigator (src\\navigation\\MainTabNavigator.js:13:5)\u001b[39m\n\u001b[90m  AppNavigator (src\\navigation\\AppNavigator.js:14:5)\u001b[39m\n\u001b[90m  App (App.js:17:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763790003,"id":"k","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763790004,"id":"k","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763790145,"id":"k","total":1,"ms":141.1644}
+{"_e":"metro:bundling:started","_t":1791763790177,"id":"l","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763790177,"id":"l","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763790343,"id":"l","total":1,"ms":165.8031}
+{"_e":"metro:client_log","_t":1791763791191,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763791192,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763791194,"level":"warn","data":["An error occurred in the <BottomTabNavigator> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1791763791227,"level":"error","data":["[Error: Got an invalid value for 'component' prop for the screen 'Câmera'. It must be a valid React Component.]","\n\n\u001b[1mCode: useNavigationBuilder.js\u001b[22m\n\u001b[0m \u001b[90m 119 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 120 |\u001b[39m \u001b[32m        if (component !== undefined && !isValidElementType(component)) {\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 121 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'component'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a valid \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\n \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 122 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 123 |\u001b[39m \u001b[32m        if (getComponent !== undefined && typeof getComponent !== 'function') {\u001b[39m\n \u001b[90m 124 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'getComponent'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a \u001b[36mfunction\u001b[39m returning a \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  configs.forEach$argument_0 (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:121:17)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  Array.forEach (<anonymous>)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  getRouteConfigsFromChildren (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:100:13)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  useNavigationBuilder (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:180:24)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  BottomTabNavigator (node_modules\\@react-navigation\\bottom-tabs\\lib\\module\\navigators\\createBottomTabNavigator.js:24:27)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  callComponent.react_stack_bottom_frame (node_modules\\react-dom\\cjs\\react-dom-client.development.js:25904:20)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  renderWithHooks (node_modules\\react-dom\\cjs\\react-dom-client.development.js:7662:22)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  updateFunctionComponent (node_modules\\react-dom\\cjs\\react-dom-client.development.js:10166:19)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  beginWork (node_modules\\react-dom\\cjs\\react-dom-client.development.js:11778:18)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  runWithFiberInDEV (node_modules\\react-dom\\cjs\\react-dom-client.development.js:871:30)\u001b[39m\u001b[22m","\n\n\u001b[1mCode: MainTabNavigator.js\u001b[22m\n\u001b[0m \u001b[90m 11 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mMainTabNavigator\u001b[39m() {\n \u001b[90m 12 |\u001b[39m   \u001b[36mreturn\u001b[39m (\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33mTab\u001b[39m\u001b[33m.\u001b[39m\u001b[33mNavigator\u001b[39m\n \u001b[90m    |\u001b[39m     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m       initialRouteName\u001b[33m=\u001b[39m\u001b[32m\"Início\"\u001b[39m\n \u001b[90m 15 |\u001b[39m       screenOptions\u001b[33m=\u001b[39m{{\n \u001b[90m 16 |\u001b[39m         headerShown\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  MainTabNavigator (src\\navigation\\MainTabNavigator.js:13:5)\u001b[39m\n\u001b[90m  AppNavigator (src\\navigation\\AppNavigator.js:14:5)\u001b[39m\n\u001b[90m  App (App.js:17:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763803876,"id":"o","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763803876,"id":"o","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763804002,"id":"o","total":1,"ms":126.1124}
+{"_e":"metro:client_log","_t":1791763804909,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763804909,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763804910,"level":"warn","data":["An error occurred in the <BottomTabNavigator> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1791763804929,"level":"error","data":["[Error: Got an invalid value for 'component' prop for the screen 'Câmera'. It must be a valid React Component.]","\n\n\u001b[1mCode: useNavigationBuilder.js\u001b[22m\n\u001b[0m \u001b[90m 119 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 120 |\u001b[39m \u001b[32m        if (component !== undefined && !isValidElementType(component)) {\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 121 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'component'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a valid \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\n \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 122 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 123 |\u001b[39m \u001b[32m        if (getComponent !== undefined && typeof getComponent !== 'function') {\u001b[39m\n \u001b[90m 124 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'getComponent'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a \u001b[36mfunction\u001b[39m returning a \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  configs.forEach$argument_0 (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:121:17)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  Array.forEach (<anonymous>)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  getRouteConfigsFromChildren (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:100:13)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  useNavigationBuilder (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:180:24)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  BottomTabNavigator (node_modules\\@react-navigation\\bottom-tabs\\lib\\module\\navigators\\createBottomTabNavigator.js:24:27)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  callComponent.react_stack_bottom_frame (node_modules\\react-dom\\cjs\\react-dom-client.development.js:25904:20)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  renderWithHooks (node_modules\\react-dom\\cjs\\react-dom-client.development.js:7662:22)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  updateFunctionComponent (node_modules\\react-dom\\cjs\\react-dom-client.development.js:10166:19)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  beginWork (node_modules\\react-dom\\cjs\\react-dom-client.development.js:11778:18)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  runWithFiberInDEV (node_modules\\react-dom\\cjs\\react-dom-client.development.js:871:30)\u001b[39m\u001b[22m","\n\n\u001b[1mCode: MainTabNavigator.js\u001b[22m\n\u001b[0m \u001b[90m 11 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mMainTabNavigator\u001b[39m() {\n \u001b[90m 12 |\u001b[39m   \u001b[36mreturn\u001b[39m (\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33mTab\u001b[39m\u001b[33m.\u001b[39m\u001b[33mNavigator\u001b[39m\n \u001b[90m    |\u001b[39m     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m       initialRouteName\u001b[33m=\u001b[39m\u001b[32m\"Início\"\u001b[39m\n \u001b[90m 15 |\u001b[39m       screenOptions\u001b[33m=\u001b[39m{{\n \u001b[90m 16 |\u001b[39m         headerShown\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  MainTabNavigator (src\\navigation\\MainTabNavigator.js:13:5)\u001b[39m\n\u001b[90m  AppNavigator (src\\navigation\\AppNavigator.js:14:5)\u001b[39m\n\u001b[90m  App (App.js:17:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763816673,"id":"r","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763816673,"id":"r","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791763816678,"id":"r","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763816801,"id":"r","total":1,"ms":128.0171}
+{"_e":"metro:client_log","_t":1791763817559,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763817559,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763817560,"level":"warn","data":["An error occurred in the <BottomTabNavigator> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1791763817591,"level":"error","data":["[Error: Got an invalid value for 'component' prop for the screen 'Câmera'. It must be a valid React Component.]","\n\n\u001b[1mCode: useNavigationBuilder.js\u001b[22m\n\u001b[0m \u001b[90m 119 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 120 |\u001b[39m \u001b[32m        if (component !== undefined && !isValidElementType(component)) {\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 121 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'component'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a valid \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\n \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 122 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 123 |\u001b[39m \u001b[32m        if (getComponent !== undefined && typeof getComponent !== 'function') {\u001b[39m\n \u001b[90m 124 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'getComponent'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a \u001b[36mfunction\u001b[39m returning a \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  configs.forEach$argument_0 (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:121:17)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  Array.forEach (<anonymous>)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  getRouteConfigsFromChildren (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:100:13)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  useNavigationBuilder (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:180:24)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  BottomTabNavigator (node_modules\\@react-navigation\\bottom-tabs\\lib\\module\\navigators\\createBottomTabNavigator.js:24:27)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  callComponent.react_stack_bottom_frame (node_modules\\react-dom\\cjs\\react-dom-client.development.js:25904:20)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  renderWithHooks (node_modules\\react-dom\\cjs\\react-dom-client.development.js:7662:22)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  updateFunctionComponent (node_modules\\react-dom\\cjs\\react-dom-client.development.js:10166:19)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  beginWork (node_modules\\react-dom\\cjs\\react-dom-client.development.js:11778:18)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  runWithFiberInDEV (node_modules\\react-dom\\cjs\\react-dom-client.development.js:871:30)\u001b[39m\u001b[22m"]}
+{"_e":"metro:bundling:started","_t":1791763818536,"id":"t","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763818536,"id":"t","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763818669,"id":"t","total":1,"ms":133.2178}
+{"_e":"metro:client_log","_t":1791763819445,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763819445,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763819446,"level":"warn","data":["An error occurred in the <BottomTabNavigator> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1791763819460,"level":"error","data":["[Error: Got an invalid value for 'component' prop for the screen 'Câmera'. It must be a valid React Component.]","\n\n\u001b[1mCode: useNavigationBuilder.js\u001b[22m\n\u001b[0m \u001b[90m 119 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 120 |\u001b[39m \u001b[32m        if (component !== undefined && !isValidElementType(component)) {\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 121 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'component'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a valid \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\n \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 122 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 123 |\u001b[39m \u001b[32m        if (getComponent !== undefined && typeof getComponent !== 'function') {\u001b[39m\n \u001b[90m 124 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'getComponent'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a \u001b[36mfunction\u001b[39m returning a \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  configs.forEach$argument_0 (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:121:17)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  Array.forEach (<anonymous>)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  getRouteConfigsFromChildren (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:100:13)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  useNavigationBuilder (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:180:24)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  BottomTabNavigator (node_modules\\@react-navigation\\bottom-tabs\\lib\\module\\navigators\\createBottomTabNavigator.js:24:27)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  callComponent.react_stack_bottom_frame (node_modules\\react-dom\\cjs\\react-dom-client.development.js:25904:20)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  renderWithHooks (node_modules\\react-dom\\cjs\\react-dom-client.development.js:7662:22)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  updateFunctionComponent (node_modules\\react-dom\\cjs\\react-dom-client.development.js:10166:19)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  beginWork (node_modules\\react-dom\\cjs\\react-dom-client.development.js:11778:18)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  runWithFiberInDEV (node_modules\\react-dom\\cjs\\react-dom-client.development.js:871:30)\u001b[39m\u001b[22m"]}
+{"_e":"metro:bundling:started","_t":1791763831162,"id":"v","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763831162,"id":"v","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763831301,"id":"v","total":1,"ms":138.7653}
+{"_e":"metro:client_log","_t":1791763832421,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763832421,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763832423,"level":"warn","data":["An error occurred in the <BottomTabNavigator> component.\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://react.dev/link/error-boundaries to learn more about error boundaries.\n"]}
+{"_e":"metro:client_log","_t":1791763832459,"level":"error","data":["[Error: Got an invalid value for 'component' prop for the screen 'Câmera'. It must be a valid React Component.]","\n\n\u001b[1mCode: useNavigationBuilder.js\u001b[22m\n\u001b[0m \u001b[90m 119 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 120 |\u001b[39m \u001b[32m        if (component !== undefined && !isValidElementType(component)) {\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 121 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'component'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a valid \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\n \u001b[90m     |\u001b[39m                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 122 |\u001b[39m \u001b[32m        }\u001b[39m\n \u001b[90m 123 |\u001b[39m \u001b[32m        if (getComponent !== undefined && typeof getComponent !== 'function') {\u001b[39m\n \u001b[90m 124 |\u001b[39m \u001b[32m          throw new Error(`\u001b[39m\u001b[33mGot\u001b[39m an invalid value \u001b[36mfor\u001b[39m \u001b[32m'getComponent'\u001b[39m prop \u001b[36mfor\u001b[39m the screen \u001b[32m'${name}'\u001b[39m\u001b[33m.\u001b[39m \u001b[33mIt\u001b[39m must be a \u001b[36mfunction\u001b[39m returning a \u001b[33mReact\u001b[39m \u001b[33mComponent\u001b[39m\u001b[33m.\u001b[39m\u001b[32m`);\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[2m\u001b[90m  configs.forEach$argument_0 (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:121:17)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  Array.forEach (<anonymous>)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  getRouteConfigsFromChildren (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:100:13)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  useNavigationBuilder (node_modules\\@react-navigation\\core\\lib\\module\\useNavigationBuilder.js:180:24)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  BottomTabNavigator (node_modules\\@react-navigation\\bottom-tabs\\lib\\module\\navigators\\createBottomTabNavigator.js:24:27)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  callComponent.react_stack_bottom_frame (node_modules\\react-dom\\cjs\\react-dom-client.development.js:25904:20)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  renderWithHooks (node_modules\\react-dom\\cjs\\react-dom-client.development.js:7662:22)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  updateFunctionComponent (node_modules\\react-dom\\cjs\\react-dom-client.development.js:10166:19)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  beginWork (node_modules\\react-dom\\cjs\\react-dom-client.development.js:11778:18)\u001b[39m\u001b[22m\n\u001b[2m\u001b[90m  runWithFiberInDEV (node_modules\\react-dom\\cjs\\react-dom-client.development.js:871:30)\u001b[39m\u001b[22m","\n\n\u001b[1mCode: MainTabNavigator.js\u001b[22m\n\u001b[0m \u001b[90m 11 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mfunction\u001b[39m \u001b[33mMainTabNavigator\u001b[39m() {\n \u001b[90m 12 |\u001b[39m   \u001b[36mreturn\u001b[39m (\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m     \u001b[33m<\u001b[39m\u001b[33mTab\u001b[39m\u001b[33m.\u001b[39m\u001b[33mNavigator\u001b[39m\n \u001b[90m    |\u001b[39m     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m       initialRouteName\u001b[33m=\u001b[39m\u001b[32m\"Início\"\u001b[39m\n \u001b[90m 15 |\u001b[39m       screenOptions\u001b[33m=\u001b[39m{{\n \u001b[90m 16 |\u001b[39m         headerShown\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  MainTabNavigator (src\\navigation\\MainTabNavigator.js:13:5)\u001b[39m\n\u001b[90m  AppNavigator (src\\navigation\\AppNavigator.js:14:5)\u001b[39m\n\u001b[90m  App (App.js:17:9)\u001b[39m"]}
+{"_e":"metro:client_log","_t":1791763832528,"level":"error","data":["[TypeError: ExpoSecureStore.default.getValueWithKeyAsync is not a function]","\n\n\u001b[1mCode: tokenStorage.js\u001b[22m\n\u001b[0m \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterAccessToken() {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'accessToken'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m }\n \u001b[90m 12 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterRefreshToken() {\n \u001b[90m 13 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'refreshToken'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  obterAccessToken (src\\services\\tokenStorage.js:10:30)\u001b[39m\n\u001b[90m  verificarSessao (src\\context\\AuthContext.js:14:55)\u001b[39m\n\u001b[90m  useEffect$argument_0 (src\\context\\AuthContext.js:23:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763832639,"id":"12","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763832639,"id":"12","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763832721,"id":"12","total":1,"ms":82.1982}
+{"_e":"metro:client_log","_t":1791763833547,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763833547,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763833586,"level":"error","data":["[TypeError: ExpoSecureStore.default.getValueWithKeyAsync is not a function]","\n\n\u001b[1mCode: tokenStorage.js\u001b[22m\n\u001b[0m \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterAccessToken() {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'accessToken'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m }\n \u001b[90m 12 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterRefreshToken() {\n \u001b[90m 13 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'refreshToken'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  obterAccessToken (src\\services\\tokenStorage.js:10:30)\u001b[39m\n\u001b[90m  verificarSessao (src\\context\\AuthContext.js:14:55)\u001b[39m\n\u001b[90m  useEffect$argument_0 (src\\context\\AuthContext.js:23:9)\u001b[39m"]}
+{"_e":"metro:client_log","_t":1791763945702,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"metro:bundling:started","_t":1791763957769,"id":"17","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763957769,"id":"17","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763957906,"id":"17","total":1,"ms":136.9623}
+{"_e":"metro:client_log","_t":1791763958754,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763958755,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763958802,"level":"error","data":["[TypeError: ExpoSecureStore.default.getValueWithKeyAsync is not a function]","\n\n\u001b[1mCode: tokenStorage.js\u001b[22m\n\u001b[0m \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterAccessToken() {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'accessToken'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m }\n \u001b[90m 12 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterRefreshToken() {\n \u001b[90m 13 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'refreshToken'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  obterAccessToken (src\\services\\tokenStorage.js:10:30)\u001b[39m\n\u001b[90m  verificarSessao (src\\context\\AuthContext.js:14:55)\u001b[39m\n\u001b[90m  useEffect$argument_0 (src\\context\\AuthContext.js:23:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763962027,"id":"1c","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763962027,"id":"1c","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763962173,"id":"1c","total":1,"ms":146.1896}
+{"_e":"metro:client_log","_t":1791763962889,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763962889,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763962923,"level":"error","data":["[TypeError: ExpoSecureStore.default.getValueWithKeyAsync is not a function]","\n\n\u001b[1mCode: tokenStorage.js\u001b[22m\n\u001b[0m \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterAccessToken() {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'accessToken'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m }\n \u001b[90m 12 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterRefreshToken() {\n \u001b[90m 13 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'refreshToken'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  obterAccessToken (src\\services\\tokenStorage.js:10:30)\u001b[39m\n\u001b[90m  verificarSessao (src\\context\\AuthContext.js:14:55)\u001b[39m\n\u001b[90m  useEffect$argument_0 (src\\context\\AuthContext.js:23:9)\u001b[39m"]}
+{"_e":"metro:bundling:started","_t":1791763965117,"id":"1h","platform":"web","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791763965118,"id":"1h","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791763965268,"id":"1h","total":1,"ms":150.0431}
+{"_e":"metro:client_log","_t":1791763965989,"level":"warn","data":["\"shadow*\" style props are deprecated. Use \"boxShadow\"."]}
+{"_e":"metro:client_log","_t":1791763965990,"level":"log","data":["Running application \"main\" with appParams:\n","{\"hydrate\": undefined, \"rootTag\": \"#root\"}","\nDevelopment-level warnings: ON.\nPerformance optimizations: OFF."]}
+{"_e":"metro:client_log","_t":1791763966025,"level":"error","data":["[TypeError: ExpoSecureStore.default.getValueWithKeyAsync is not a function]","\n\n\u001b[1mCode: tokenStorage.js\u001b[22m\n\u001b[0m \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterAccessToken() {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'accessToken'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m }\n \u001b[90m 12 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m obterRefreshToken() {\n \u001b[90m 13 |\u001b[39m     \u001b[36mreturn\u001b[39m \u001b[36mawait\u001b[39m \u001b[33mSecureStore\u001b[39m\u001b[33m.\u001b[39mgetItemAsync(\u001b[32m'refreshToken'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[1mCall Stack\u001b[22m\n\u001b[90m  obterAccessToken (src\\services\\tokenStorage.js:10:30)\u001b[39m\n\u001b[90m  verificarSessao (src\\context\\AuthContext.js:14:55)\u001b[39m\n\u001b[90m  useEffect$argument_0 (src\\context\\AuthContext.js:23:9)\u001b[39m"]}
+{"_e":"metro:client_log","_t":1791764002013,"level":"warn","data":["props.pointerEvents is deprecated. Use style.pointerEvents"]}
+{"_e":"root:init","_t":1791839836510,"format":"v0-jsonl","version":"57.0.28"}
+{"_e":"env:mode","_t":1791839836513,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1791839836517,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1791839837318,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1791839838134,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1791839838720,"plugins":[]}
+{"_e":"metro:instantiate","_t":1791839842892,"atlas":false,"workers":6,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1791839892248,"id":"4","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791839892248,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791839892254,"id":"4","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791839892355,"id":"4","progress":0.034082840236686396,"total":65,"current":12}
+{"_e":"metro:bundling:progress","_t":1791839892475,"id":"4","progress":0.17604772849528094,"total":143,"current":60}
+{"_e":"metro:bundling:progress","_t":1791839892576,"id":"4","progress":0.17604772849528094,"total":253,"current":74}
+{"_e":"metro:bundling:progress","_t":1791839892681,"id":"4","progress":0.20085700475907198,"total":328,"current":147}
+{"_e":"metro:bundling:progress","_t":1791839892781,"id":"4","progress":0.2364055502163931,"total":399,"current":194}
+{"_e":"metro:bundling:progress","_t":1791839892883,"id":"4","progress":0.35634917244554565,"total":459,"current":274}
+{"_e":"metro:bundling:progress","_t":1791839892983,"id":"4","progress":0.43872292043953653,"total":542,"current":359}
+{"_e":"metro:bundling:progress","_t":1791839893084,"id":"4","progress":0.503135848500957,"total":633,"current":449}
+{"_e":"metro:bundling:progress","_t":1791839893185,"id":"4","progress":0.503135848500957,"total":706,"current":490}
+{"_e":"metro:bundling:progress","_t":1791839893286,"id":"4","progress":0.5934255757400404,"total":762,"current":587}
+{"_e":"metro:bundling:progress","_t":1791839893399,"id":"4","progress":0.6359811716308691,"total":795,"current":634}
+{"_e":"metro:bundling:progress","_t":1791839894175,"id":"4","progress":0.6359811716308691,"total":796,"current":634}
+{"_e":"metro:bundling:progress","_t":1791839894357,"id":"4","progress":0.6359811716308691,"total":2308,"current":634}
+{"_e":"metro:bundling:progress","_t":1791839894470,"id":"4","progress":0.6359811716308691,"total":2308,"current":635}
+{"_e":"metro:bundling:progress","_t":1791839894704,"id":"4","progress":0.6359811716308691,"total":2357,"current":700}
+{"_e":"metro:bundling:progress","_t":1791839894712,"id":"4","progress":0.6359811716308691,"total":2357,"current":701}
+{"_e":"metro:bundling:progress","_t":1791839894811,"id":"4","progress":0.6359811716308691,"total":2435,"current":782}
+{"_e":"metro:bundling:progress","_t":1791839894944,"id":"4","progress":0.6359811716308691,"total":2437,"current":783}
+{"_e":"metro:bundling:progress","_t":1791839894950,"id":"4","progress":0.6359811716308691,"total":2437,"current":784}
+{"_e":"metro:bundling:progress","_t":1791839895050,"id":"4","progress":0.6359811716308691,"total":2503,"current":850}
+{"_e":"metro:bundling:progress","_t":1791839895150,"id":"4","progress":0.6359811716308691,"total":2724,"current":1071}
+{"_e":"metro:bundling:progress","_t":1791839895250,"id":"4","progress":0.6359811716308691,"total":2936,"current":1284}
+{"_e":"metro:bundling:progress","_t":1791839895350,"id":"4","progress":0.6359811716308691,"total":3171,"current":1518}
+{"_e":"metro:bundling:progress","_t":1791839895459,"id":"4","progress":0.6359811716308691,"total":3350,"current":1698}
+{"_e":"metro:bundling:progress","_t":1791839895559,"id":"4","progress":0.6359811716308691,"total":3581,"current":1928}
+{"_e":"metro:bundling:progress","_t":1791839895659,"id":"4","progress":0.6359811716308691,"total":3766,"current":2114}
+{"_e":"metro:bundling:progress","_t":1791839895759,"id":"4","progress":0.6359811716308691,"total":3906,"current":2253}
+{"_e":"metro:bundling:progress","_t":1791839895859,"id":"4","progress":0.6359811716308691,"total":3968,"current":2307}
+{"_e":"metro:bundling:progress","_t":1791839895959,"id":"4","progress":0.6359811716308691,"total":4092,"current":2405}
+{"_e":"metro:bundling:progress","_t":1791839896059,"id":"4","progress":0.6359811716308691,"total":4118,"current":2824}
+{"_e":"metro:bundling:progress","_t":1791839896159,"id":"4","progress":0.7207259567857481,"total":4118,"current":3496}
+{"_e":"metro:bundling:progress","_t":1791839896259,"id":"4","progress":0.8421338012836949,"total":4118,"current":3779}
+{"_e":"metro:bundling:progress","_t":1791839896389,"id":"4","progress":0.9603432440817817,"total":4144,"current":4061}
+{"_e":"metro:bundling:progress","_t":1791839896489,"id":"4","progress":0.9919383849822088,"total":4209,"current":4192}
+{"_e":"metro:bundling:progress","_t":1791839896619,"id":"4","progress":0.999,"total":4229,"current":4229}
+{"_e":"metro:bundling:done","_t":1791839896792,"id":"4","total":4229,"ms":4544.5285}
+{"_e":"metro:bundling:started","_t":1791840109880,"id":"8","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791840109881,"id":"8","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:done","_t":1791840110001,"id":"8","total":1,"ms":120.7916}
+{"_e":"metro:client_log","_t":1791840171433,"level":"error","data":["[ReferenceError: Property 'ActivitysCard' doesn't exist]"]}
+{"_e":"metro:client_log","_t":1791840234897,"level":"error","data":["[Invariant Violation: View config not found for component `RCTVLCPlayer`]"]}
+{"_e":"metro:client_log","_t":1791840351176,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"root:init","_t":1791840395294,"format":"v0-jsonl","version":"57.0.28"}
+{"_e":"env:mode","_t":1791840395295,"nodeEnv":"development","babelEnv":"development","mode":"development"}
+{"_e":"env:load","_t":1791840395299,"mode":"development","files":[],"env":{}}
+{"_e":"devserver:start","_t":1791840395727,"mode":"development","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":false}
+{"_e":"metro:config","_t":1791840396135,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":false,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"expo:dev-tools-plugin:load","_t":1791840396488,"plugins":[]}
+{"_e":"metro:instantiate","_t":1791840399425,"atlas":false,"workers":6,"host":"::","port":8081}
+{"_e":"metro:bundling:started","_t":1791840409732,"id":"3","platform":"android","environment":null,"entry":"index.js"}
+{"_e":"metro:bundling:progress","_t":1791840409732,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791840409738,"id":"3","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1791840409837,"id":"3","progress":0.10173900118906067,"total":232,"current":74}
+{"_e":"metro:bundling:progress","_t":1791840409937,"id":"3","progress":0.16045486828512398,"total":352,"current":141}
+{"_e":"metro:bundling:progress","_t":1791840410037,"id":"3","progress":0.2894167601345938,"total":474,"current":255}
+{"_e":"metro:bundling:progress","_t":1791840410266,"id":"3","progress":0.30009444294535004,"total":502,"current":275}
+{"_e":"metro:bundling:progress","_t":1791840410365,"id":"3","progress":0.30009444294535004,"total":2044,"current":313}
+{"_e":"metro:bundling:progress","_t":1791840410469,"id":"3","progress":0.30009444294535004,"total":2244,"current":495}
+{"_e":"metro:bundling:progress","_t":1791840410569,"id":"3","progress":0.30009444294535004,"total":2437,"current":693}
+{"_e":"metro:bundling:progress","_t":1791840410669,"id":"3","progress":0.30009444294535004,"total":2557,"current":813}
+{"_e":"metro:bundling:progress","_t":1791840410769,"id":"3","progress":0.30009444294535004,"total":2840,"current":1095}
+{"_e":"metro:bundling:progress","_t":1791840410872,"id":"3","progress":0.30009444294535004,"total":3067,"current":1323}
+{"_e":"metro:bundling:progress","_t":1791840410972,"id":"3","progress":0.30009444294535004,"total":3350,"current":1605}
+{"_e":"metro:bundling:progress","_t":1791840411072,"id":"3","progress":0.30009444294535004,"total":3591,"current":1847}
+{"_e":"metro:bundling:progress","_t":1791840411179,"id":"3","progress":0.30009444294535004,"total":3781,"current":2022}
+{"_e":"metro:bundling:progress","_t":1791840411279,"id":"3","progress":0.32904398805825297,"total":3905,"current":2240}
+{"_e":"metro:bundling:progress","_t":1791840411379,"id":"3","progress":0.4629574021945665,"total":3905,"current":2657}
+{"_e":"metro:bundling:progress","_t":1791840411479,"id":"3","progress":0.7973735369966277,"total":3905,"current":3487}
+{"_e":"metro:bundling:progress","_t":1791840411579,"id":"3","progress":0.9018233889604208,"total":4071,"current":3866}
+{"_e":"metro:bundling:progress","_t":1791840411679,"id":"3","progress":0.9463600638616572,"total":4156,"current":4043}
+{"_e":"metro:bundling:progress","_t":1791840411779,"id":"3","progress":0.9806402879621305,"total":4215,"current":4174}
+{"_e":"metro:bundling:done","_t":1791840411961,"id":"3","total":4215,"ms":2228.714}
+{"_e":"metro:client_log","_t":1791840605214,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"metro:client_log","_t":1791840725021,"level":"error","data":["[ReferenceError: Property 'StyleSheet' doesn't exist]"]}
+{"_e":"metro:client_log","_t":1791840725726,"level":"error","data":["[ReferenceError: Property 'FlatList' doesn't exist]"]}
+{"_e":"metro:client_log","_t":1791840961543,"level":"error","data":["[Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem.]"]}
+{"_e":"metro:client_log","_t":1791840964940,"level":"error","data":["[Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem.]"]}
+{"_e":"metro:client_log","_t":1791841184822,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"metro:client_log","_t":1791841225771,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"metro:client_log","_t":1791841524795,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"metro:client_log","_t":1791842747583,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"metro:client_log","_t":1791842946239,"level":"log","data":["fetch failed: java.net.SocketException: Connection reset"]}
+{"_e":"metro:client_log","_t":1791842980076,"level":"log","data":["fetch failed: java.net.SocketException: Connection reset"]}
+{"_e":"metro:client_log","_t":1791843075317,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"metro:bundling:failed","_t":1791843120635,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HomeScreen.js: Missing semicolon. (10:7)\n\n   8 | import SensorCard from '../components/SensoresCard';\n   9 | import ActivityCard from '../components/ActivitysCard';\n> 10 | immport { useSafeAreaInsets } from 'react-native-safe-area-context';\n     |        ^\n  11 |\n  12 | import LogoSafeNest from '../../assets/Group 104.svg';\n  13 | import WifiIcon from '../../assets/Wifi.svg';","importStack":null,"filename":"src\\screens\\HomeScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:bundling:failed","_t":1791843120826,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\HomeScreen.js: Missing semicolon. (10:7)\n\n   8 | import SensorCard from '../components/SensoresCard';\n   9 | import ActivityCard from '../components/ActivitysCard';\n> 10 | immport { useSafeAreaInsets } from 'react-native-safe-area-context';\n     |        ^\n  11 |\n  12 | import LogoSafeNest from '../../assets/Group 104.svg';\n  13 | import WifiIcon from '../../assets/Wifi.svg';","importStack":null,"filename":"src\\screens\\HomeScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791843129854,"level":"log","data":["fetch failed: java.net.SocketException: Connection reset"]}
+{"_e":"metro:client_log","_t":1791843259618,"level":"error","data":["[Error: fetch failed: java.net.ConnectException: Failed to connect to /192.168.1.7:8080]"]}
+{"_e":"metro:bundling:failed","_t":1791843289099,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\CameraScreen.js: Unexpected token (16:2)\n\n  14 |     //   autoplay={true}\n  15 |     // />\n> 16 |   );\n     |   ^\n  17 | }\n  18 |\n  19 | const styles = StyleSheet.create({","importStack":null,"filename":"src\\screens\\CameraScreen.js","targetModuleName":null,"originModulePath":null}
+{"_e":"metro:client_log","_t":1791843295430,"level":"error","data":["[Invariant Violation: View config not found for component `RCTVLCPlayer`]"]}
+{"_e":"metro:bundling:failed","_t":1791843296255,"id":null,"message":"SyntaxError: C:\\tcc-certo\\SafeNest\\mobile\\src\\screens\\CameraScreen.js: Unexpected token (16:2)\n\n  14 |     //   autoplay={true}\n  15 |     // />\n> 16 |   );\n     |   ^\n  17 | }\n  18 |\n  19 | const styles = StyleSheet.create({","importStack":null,"filename":"src\\screens\\CameraScreen.js","targetModuleName":null,"originModulePath":null}
