@@ -30,4 +30,17 @@ async function obterAlertas(id_usuario) {
     return data;
 }
 
-module.exports = { obterAcessos, obterAlertas };
+async function obterTags(id_usuario) {
+    const {data, error} = await supabase
+        .from('nfc_tags')
+        .select('id_tag, nome_tag')
+        .eq('id_usuario', id_usuario);
+
+    if (error) {
+        console.log(error);
+        return null;
+    }
+    return data;
+}
+
+module.exports = { obterAcessos, obterAlertas, obterTags };

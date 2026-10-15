@@ -1,12 +1,24 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
+import HouseIcon from '../../assets/houseIcon-entrada-permitida.svg';
+import AlertIcon from '../../assets/alertIcon-perigo.svg';
+import PerigoIcon from '../../assets/perigoIcon-acesso-negado2.svg';
+import CorrectIcon from '../../assets/okIcon-entrada-permitida.svg';
 
 const ALERTAS = {
-    fogo: { title: 'Alerta de incêndio acionado', variant: 'perigo' },
-    ACESSONEGADO: { title: 'Acesso negado', variant: 'perigo' },
-    FECHADURANOVA: { title: 'Nova fechadura cadastrada', variant: 'normal' },
+    fogo: { title: 'Alerta de incêndio acionado', variant: 'perigo', icone: 'alerta' },
+    ACESSONEGADO: { title: 'Acesso negado', variant: 'negado', icone: 'negado' },
+    FECHADURANOVA: { title: 'Nova fechadura cadastrada', variant: 'normal', icone: 'fechadura' },
 };
 
+const ICONES = {
+    casa: HouseIcon,
+    alerta: AlertIcon,
+    negado: PerigoIcon,
+    fechadura: CorrectIcon,
+};
+
+// função para traduzir as datas
 function tempoDecorrido(dataHora) {
     const minutos = Math.floor((Date.now() - new Date(dataHora).getTime()) / 60000);
 
@@ -20,40 +32,47 @@ function tempoDecorrido(dataHora) {
     return `Há ${dias} ${dias === 1 ? 'dia' : 'dias'}`;
 }
 
-export default function ActivitysCard({ item }) {
-    let title = 'Entrada permitida';
-    let subtitle = `Tag ${item.id_tag}`;
-    let variant = 'normal';
+export default function ActivitysCard({ historico, onPress }) {
 
-    if (item.tipo === 'alerta') {
-        const alerta = ALERTAS[item.tipo_alerta];
-        title = alerta ? alerta.title : item.tipo_alerta;
+    // estilização para os acessos
+    let title = 'Entrada permitida';
+    let subtitle = `Tag ${historico.id_tag}`;
+    let variant = 'normal';
+    let icone = 'casa'
+
+    //estilização para os alertas
+    if (historico.tipo === 'alerta') {
+        const alerta = ALERTAS[historico.tipo_alerta]; //busca o alerta na constante ALERTAS 
+        title = alerta ? alerta.title : historico.tipo_alerta;
         variant = alerta ? alerta.variant : 'perigo';
+        icone = alerta ? alerta.icone : 'alerta';
         subtitle = null;
     }
+
+    // para ser importado com letra maiscula
+    const Icone = ICONES[icone];
 
     const textoStyle = variant === 'negado' ? styles.negadoText : styles.normalText;
 
     return (
-        <View style={[
-            styles.card,
-            variant === 'perigo' && styles.perigoCard,
-            variant === 'negado' && styles.negadoCard,
-        ]}>
+        <Pressable
+            onPress={() => onPress && onPress({ ...historico, titulo: title })} //manda o item e o título para abrir os detalhes
+            style={[styles.card,
+            variant === 'perigo' && styles.perigoCard, //se variant === perigo -> perigoCard
+            variant === 'negado' && styles.negadoCard, //se variant === negado -> negadoCard
+            ]}>
             <View style={styles.left}>
-                {variant !== 'negado' && (
-                    <View style={styles.whiteContainerIcon}>
-                        {/* icone[ aqui: escolher por variant*/}
-                    </View>
-                )}
+                <View style={variant === 'negado' ? styles.redContainerIcon : styles.whiteContainerIcon}>
+                    <Icone width={20} height={20} />
+                </View>
                 <View style={styles.texts}>
                     <Text style={textoStyle} numberOfLines={2}>{title}</Text>
                     {subtitle && <Text style={[textoStyle, styles.subtitleText]} numberOfLines={1}>{subtitle}</Text>}
                 </View>
             </View>
 
-            <Text style={[textoStyle, styles.timeText]}>{tempoDecorrido(item.data_hora)}</Text>
-        </View>
+            <Text style={[textoStyle, styles.timeText]}>{tempoDecorrido(historico.data_hora)}</Text>
+        </Pressable>
     );
 }
 
@@ -76,6 +95,7 @@ const styles = StyleSheet.create({
     },
     negadoCard: {
         borderColor: colorsLightMode.danger,
+        borderWidth: 2,
     },
     left: {
         flexDirection: 'row',
@@ -91,16 +111,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    redContainerIcon: {
+        width: 34,
+        height: 34,
+        backgroundColor: colorsLightMode.danger,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     texts: {
         flexShrink: 1,
     },
     normalText: {
-        ...typography.body,
+        ...typography.bodyBold,
         color: colorsLightMode.white,
     },
     negadoText: {
-        ...typography.body,
-        color: colorsLightMode.danger,
+        ...typography.bodyBold,
+        color: colorsLightMode.white,
     },
     subtitleText: {
         fontSize: 11,

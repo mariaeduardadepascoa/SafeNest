@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import ActivitysCard from '../components/ActivitysCard';
+import HistoricoModal from '../components/HistoricoModal';
 
 import { obterHistorico } from '../services/api';
 
@@ -13,6 +14,7 @@ export default function HistoryScreen({ navigation }) {
     const [dados, setDados] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const secoes = agruparPorData(dados);
+    const [eventoSelecionado, setEventoSelecionado] = useState(null);
 
     // carregando o historico
     useFocusEffect(
@@ -42,13 +44,13 @@ export default function HistoryScreen({ navigation }) {
 
     function agruparPorData(lista) {
         const grupos = [];
-        lista.forEach((item) => {
-            const dia = new Date(item.data_hora).toLocaleDateString('pt-BR');
+        lista.forEach((historico) => {
+            const dia = new Date(historico.data_hora).toLocaleDateString('pt-BR');
             const ultimo = grupos[grupos.length - 1];
             if (ultimo && ultimo.title === dia) {
-                ultimo.data.push(item);
+                ultimo.data.push(historico);
             } else {
-                grupos.push({ title: dia, data: [item] });
+                grupos.push({ title: dia, data: [historico] });
             }
         });
         return grupos;
@@ -79,14 +81,20 @@ export default function HistoryScreen({ navigation }) {
                         renderSectionHeader={({ section }) => (
                             <Text style={styles.dateHeader}>{section.title}</Text>
                         )}
-                        renderItem={({ item }) => <ActivitysCard item={item} />}
+                        renderItem={({ item }) => <ActivitysCard historico={item} onPress={setEventoSelecionado} />}
                         ItemSeparatorComponent={ItemSeparator}
                         stickySectionHeadersEnabled={false}
-                        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 150 }}
+                        contentContainerStyle={{ paddingHorizontal: 23, paddingBottom: 100 }}
                     />
                 </View>
             )}
-        </View>
+
+            <HistoricoModal
+                visible={eventoSelecionado !== null}
+                evento={eventoSelecionado}
+                onClose={() => setEventoSelecionado(null)}
+            />
+        </View >
     );
 }
 

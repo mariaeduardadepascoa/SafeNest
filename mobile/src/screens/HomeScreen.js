@@ -17,6 +17,7 @@ import OrangeCameraIcon from '../../assets/Camera.svg';
 import HomeBlueIcon from '../../assets/Home.svg';
 import AlertOctagonRedIcon from '../../assets/Alert octagon.svg';
 import CheckCircleBlueIcon from '../../assets/Check circle.svg';
+import { Ionicons } from '@expo/vector-icons';
 
 
 import { FechaduraSection } from '../components/FechaduraSection';
@@ -61,8 +62,11 @@ export default function HomeScreen({ navigation }) {
             </View>
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
-                    <Text style={styles.titles}>SENSORES</Text>
+                    <Text style={styles.titles}>DISPOSITIVOS</Text>
+                    <Pressable style={styles.pressables} onPress={() => navigation.navigate('Histórico')}>
                     <Text style={styles.spanVerMais}>Ver todos </Text>
+                    <Ionicons name="chevron-forward" size={15} color={colorsLightMode.primary} style={{ marginTop: 1.5 }}/>
+                    </Pressable>
                 </View>
 
                 <SensorCard
@@ -89,8 +93,9 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
                     <Text style={styles.titles}>ATIVIDADES RECENTES</Text>
-                    <Pressable onPress={() => navigation.navigate('Histórico')}>
-                        <Text style={styles.spanVerMais}>Ver todos </Text>
+                    <Pressable style={styles.pressables} onPress={() => navigation.navigate('Histórico')}>
+                        <Text style={styles.spanVerMais}>Ver todos</Text>
+                        <Ionicons name="chevron-forward" size={15} color={colorsLightMode.primary} style={{ marginTop: 1.5 }}/>
                     </Pressable>
                 </View>
 
@@ -102,7 +107,7 @@ export default function HomeScreen({ navigation }) {
                     recentes.map((item) => (
                         <ActivityCard
                             key={item.tipo === 'acesso' ? 'acesso-' + item.id_acesso : 'alerta-' + item.id_alerta}
-                            item={item}
+                            historico={item}
                         />
                     ))
                 )}
@@ -138,6 +143,14 @@ const styles = StyleSheet.create({
     spanVerMais: {
         ...typography.caption,
         color: colorsLightMode.primary,
+        includeFontPadding: false,
+        textAlignVertical: 'center',
+    },
+    pressables: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
     },
     emptyText: {
         ...typography.body,
