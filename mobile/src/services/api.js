@@ -3,9 +3,11 @@
 // import { get } from 'react-native/Libraries/NativeComponent/NativeComponentRegistry';
 import { salvarTokens, obterAccessToken, obterRefreshToken, deletarTokens, salvarUsuario, obterUsuario, deletarUsuario } from '../services/tokenStorage';
 //nao pode ser localhost pois no celular n roda
-const API_URL = 'http://192.168.15.79:3000'; //duda
-//  const API_URL = 'http://192.168.1.7:3000';    //joao   
-const DISPOSITIVOS_API_URL = "http://192.168.15.79:8080";
+//const API_URL = 'http://192.168.15.79:3000'; //duda
+const API_URL = 'http://192.168.1.7:3000';    //joao   
+//const DISPOSITIVOS_API_URL = "http://192.168.15.79:8080";// duda
+const DISPOSITIVOS_API_URL = "http://192.168.1.7:8080";// joao
+
 
 //Adiciona o acessToken no header das rotas que são protegidas
 async function autenticacaoToken(endpoint, options = {}) {
