@@ -3,5 +3,12 @@ node_modules
 .env.local
 .env.*.local
 .expo/
+.env.online
 
 ./codigoFechadura/secrets.h
+
+.env.*
+**/.env
+**/.env.*
+supabase/.temp/
+supabase/.branches/

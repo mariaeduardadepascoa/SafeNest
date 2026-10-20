@@ -10,6 +10,7 @@
       "supportsTablet": true
     },
     "android": {
+      "usesClearTextTraffic": true,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -22,17 +23,22 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-  "expo-font",
-  "expo-secure-store",
-  "expo-status-bar",
-  [
-    "expo-build-properties",
-    {
-      "android": {
-        "minSdkVersion": 26
+      "expo-font",
+      "expo-secure-store",
+      "expo-status-bar",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "08757224-bca5-4b0e-9bec-c4777c5a0971"
       }
     }
-  ]
-]
   }
 }

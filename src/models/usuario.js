@@ -61,13 +61,15 @@ async function criarUsuario(dadosUsuario) {
         .select('id_usuario, nome_usuario, email_usuario, versao_adaptada')
         .single();
     if (error) {
-        console.log(error);
+        // console.log(error);
+        console.error("ERRO SUPABASE AO CADASTRAR:", error);
         // if para evitar cadastro com o mesmo email
         if (error.code === '23505') { //23505 -> erro do postgreSQL(supabase) quando algo é UNIQUE
             return { erro: 'email_duplicado' };
         }
         return null;
     }
+
     return data;
 }
 

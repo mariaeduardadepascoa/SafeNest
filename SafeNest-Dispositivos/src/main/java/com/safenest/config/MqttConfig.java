@@ -25,8 +25,7 @@ public class MqttConfig {
 
     @Bean
     public MqttClient mqttClient() throws MqttException {
-        String brokerUrl = "ssl://" + brokerHost + ":" + brokerPort; // equivalente ao protocol: "mqtts"
-
+        String brokerUrl = "tcp://" + brokerHost + ":" + brokerPort;
         MqttClient client = new MqttClient(
                 brokerUrl,
                 MqttClient.generateClientId(),
