@@ -1,0 +1,134 @@
+/* SafeNest · home v2 — carregue DEPOIS do style.css (usa as variáveis dele) */
+:root{--sn-txt:rgba(22,48,79,.7);--sn-linha:#d3dfef}
+
+/* base das novas seções */
+.sn{display:block;width:100%;min-height:0;padding:clamp(4rem,9vw,7rem) clamp(1.25rem,8vw,8rem);box-sizing:border-box;background:var(--azul-quinternario-claro);color:var(--azul-marinho)}
+.sn h2{margin:0;font-size:clamp(2.1rem,5.5vw,3.8rem);font-weight:500;line-height:1.05;letter-spacing:-.03em;color:var(--azul-marinho)}
+.sn p{margin:0;line-height:1.7;color:var(--sn-txt)}
+.sn small{display:block;margin-bottom:.4rem;color:var(--sn-txt)}
+.sn-eyebrow{display:block;margin:0 0 1.2rem;font-size:.78rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--azul-principal)}
+.sn-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:3rem}
+.sn-head p{max-width:24rem}
+.sn-btn{display:inline-flex;align-items:center;gap:.8rem;height:3.4rem;padding:0 1.8rem;border-radius:1rem;border:1px solid var(--azul-principal);background:var(--azul-principal);color:var(--branco-principal);font:500 1rem var(--font-family);text-decoration:none;cursor:pointer;transition:transform .3s ease}
+.sn-btn:hover{transform:scale(1.05)}
+.sn-btn.claro{background:var(--branco-principal);color:var(--azul-principal);border-color:var(--azul-quinternario)}
+
+/* hero (mantém foto, header e botões do seu style.css) */
+.sn-pill{display:flex;align-items:center;gap:.7rem;margin:0 0 1rem;font-size:.8rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--azul-secundario)}
+.sn-pill i{width:.6rem;height:.6rem;border-radius:50%;background:var(--azul-secundario)}
+#titulo-inicial-page span{color:var(--azul-secundario)}
+.sn-tag-hero{margin:0;font-size:.95rem;color:var(--branco-terciario);opacity:.85}
+
+/* faixa de destaques */
+.sn-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem 2rem;margin:0;padding:1.6rem clamp(1.25rem,8vw,8rem);list-style:none;background:var(--branco-principal);border-bottom:1px solid var(--sn-linha)}
+.sn-strip li{display:flex;align-items:center;gap:.7rem;font-size:.95rem;color:var(--sn-txt)}
+.sn-strip b{font-weight:500;color:var(--azul-principal)}
+
+/* três formas de cuidar */
+.sn-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.sn-card{display:flex;flex-direction:column;gap:1rem;padding:2.2rem;background:var(--branco-principal);border:1px solid var(--azul-quinternario);border-radius:1.6rem;transition:transform .3s ease,border-color .3s ease}
+.sn-card:hover{transform:translateY(-4px);border-color:var(--azul-principal)}
+.sn-ico{display:grid;place-items:center;width:3.4rem;height:3.4rem;margin-bottom:1rem;border-radius:1rem;background:var(--azul-quinternario);color:var(--azul-principal);font-size:1.4rem}
+.sn-card h3{margin:0;font-size:1.45rem;font-weight:500;letter-spacing:-.02em;color:var(--azul-marinho)}
+.sn-card .sn-tag{margin-top:auto;padding-top:1rem;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--azul-principal)}
+
+/* faixa azul marinho */
+.sn-dark{background:var(--azul-marinho)}
+.sn-dark .sn-eyebrow{color:var(--azul-secundario)}
+.sn-dark h2{max-width:14ch;color:var(--branco-principal)}
+.sn-dark p{max-width:34rem;margin:1.5rem 0 2rem;color:var(--azul-terciario)}
+
+/* conecte · acompanhe · cuide */
+.sn-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem 3rem;margin:3.5rem 0}
+.sn-step{padding-top:1.6rem;border-top:1px solid var(--sn-linha)}
+.sn-step i{display:block;margin-bottom:1.4rem;font-style:normal;font-size:2.4rem;color:var(--azul-terciario)}
+.sn-step h3{margin:0 0 .8rem;font-size:1.35rem;font-weight:500;color:var(--azul-marinho)}
+.sn-acc{display:flex;align-items:flex-start;gap:1.5rem;padding:2rem;border-radius:1.6rem;background:var(--azul-quinternario)}
+.sn-acc b{display:grid;place-items:center;flex:none;width:3.2rem;height:3.2rem;border-radius:1rem;background:var(--branco-principal);color:var(--azul-principal);font-size:1.3rem;font-weight:500}
+.sn-acc h3{margin:0 0 .5rem;font-size:1.6rem;font-weight:500;letter-spacing:-.02em;color:var(--azul-marinho)}
+
+/* FAQ (reaproveita as classes do seu script.js) */
+.sn-faq{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem 6rem}
+.sn-faq .item-pergunta{padding:1.4rem 0;border-bottom:1px solid var(--sn-linha)}
+.sn-faq .texto-pergunta{font-size:1.05rem;font-weight:500;color:var(--azul-marinho)}
+.sn-faq .icone-pergunta{margin-left:1rem;font-size:1.6rem;line-height:1;color:var(--azul-principal)}
+.sn-faq .resposta-pergunta{font-size:1rem}
+.sn-faq .caixa-ajuda{margin-top:2.5rem}
+.sn-faq .botao-contato{background:var(--azul-principal)}
+
+/* fechamento */
+.sn-fim{text-align:center;background:var(--azul-quinternario)}
+.sn-fim h2{max-width:14ch;margin:0 auto 1.5rem}
+.sn-fim p{max-width:38rem;margin:0 auto 1.8rem}
+.sn-fim .sn-btn{margin-top:2rem}
+
+/* responsivo */
+@media(max-width:900px){
+  .sn-cards,.sn-steps,.sn-faq{grid-template-columns:1fr}
+  .sn-head{flex-direction:column;align-items:flex-start;gap:1.2rem}
+  .sn-faq{gap:2rem}
+}
+@media(max-width:700px){
+  .sn-strip{grid-template-columns:1fr 1fr}
+  .sn-card{padding:1.8rem}
+}
+@media(max-width:600px){
+  #inicial-page .buttonsInicialPage{flex-direction:row;gap:.75rem}
+  .buttonsInicialPage>div{flex:1}
+  .buttonsInicialPage .buttons-cadastro,.buttonsInicialPage #button-como-funciona{width:100%;min-width:0;height:3.6rem;padding:0 1rem;gap:.5rem;font-size:.95rem}
+  .sn-acc{padding:1.5rem;gap:1rem}
+}
+
+/* ===== v2.1 ===== */
+/* header sempre azul marinho (o hero agora é claro) */
+.header,.header.scrolled{background-color:var(--azul-marinho)}
+.header .buttons-cadastro{background-color:var(--branco-principal);color:var(--azul-marinho);box-shadow:none}
+
+/* hero claro + card de imagem */
+#inicial-page{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center;min-height:0;padding:calc(4.6rem + clamp(2rem,5vw,4rem)) clamp(1.25rem,8vw,8rem) 4rem;background:var(--branco-secundario)}
+#inicial-page .conjuntoDivsInicio{width:auto;max-width:none;margin:0;padding:0;gap:1.6rem}
+.sn-pill{color:var(--azul-principal)}
+.sn-pill i{background:var(--azul-principal)}
+#titulo-inicial-page h1{font-size:clamp(2.7rem,6vw,4.8rem);font-weight:700;line-height:1.02;letter-spacing:-.03em;color:var(--azul-marinho);text-shadow:none}
+#titulo-inicial-page span{color:var(--azul-principal)}
+#subtitulo-inicial-page h3{width:100%;margin:0;font-size:1.15rem;line-height:1.7;color:var(--sn-txt);text-shadow:none}
+.sn-tag-hero{color:var(--sn-txt);opacity:1}
+#inicial-page .buttonsInicialPage{flex-wrap:nowrap;gap:1rem}
+.buttonsInicialPage .buttons-cadastro{width:auto;background-color:var(--azul-principal)}
+.sn-hero-card{position:relative;display:flex;align-items:flex-end;min-height:34rem;padding:2rem;box-sizing:border-box;border-radius:8rem 1.8rem 1.8rem 1.8rem;overflow:hidden;background:linear-gradient(180deg,rgba(22,48,79,0) 40%,rgba(22,48,79,.8)),url('./imagens/Gemini_Generated_Image_s2c5a0s2c5a0s2c5.jpg') center/cover}
+.sn-float{display:inline-flex;align-items:center;gap:.7rem;padding:.9rem 1.4rem;border-radius:1rem;background:var(--branco-principal);color:var(--azul-marinho);font-size:.95rem;box-shadow:0 10px 30px rgba(22,48,79,.18)}
+.sn-float i{flex:none;width:.6rem;height:.6rem;border-radius:50%;background:var(--azul-principal)}
+.sn-hero-card .sn-float{position:absolute;top:1.8rem;right:1.8rem;max-width:calc(100% - 3.6rem)}
+.sn-hero-cap small{display:block;margin-bottom:.8rem;font-size:.8rem;letter-spacing:.24em;color:var(--branco-terciario)}
+.sn-hero-cap strong{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--branco-principal)}
+
+/* card de acessibilidade e ícones sem o azul */
+.sn-ico,.sn-acc{background:rgba(22,48,79,.06)}
+.sn-acc b{background:rgba(255,255,255,.75)}
+
+/* faixa azul com o celular */
+.sn-dark{display:grid;grid-template-columns:1fr 1fr;gap:3rem 4rem;align-items:center;overflow:hidden;background:linear-gradient(160deg,var(--azul-marinho),var(--azul-principal))}
+.sn-phone{position:relative;display:flex;flex-direction:column;align-items:center;margin:0}
+.sn-phone::before{content:"";position:absolute;top:50%;left:50%;width:min(110%,34rem);aspect-ratio:1;transform:translate(-50%,-55%);border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 2.5rem rgba(255,255,255,.03)}
+.sn-phone img{position:relative;width:min(100%,24rem);height:auto;transform:rotate(-3deg);filter:drop-shadow(0 30px 40px rgba(0,0,0,.35))}
+.sn-phone .sn-float{position:absolute;left:50%;bottom:4.5rem;transform:translateX(-50%);white-space:nowrap}
+.sn-phone figcaption{margin-top:2.2rem;font-size:.9rem;letter-spacing:.2em;text-align:center;color:var(--azul-terciario)}
+
+/* "Ainda tem dúvidas?" na largura toda */
+.sn-faq .caixa-ajuda{grid-column:1/-1;width:auto;flex-direction:row;align-items:center;justify-content:space-between;gap:2rem;margin:0;padding:2rem 2.5rem;background:var(--branco-principal);border:1px solid var(--azul-quinternario);box-shadow:none}
+.sn-faq .botao-contato{flex:none;align-self:center;margin:0}
+
+/* rodapé azul marinho */
+.footer{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:3rem;align-items:start;padding:4.5rem clamp(1.25rem,8vw,8rem) 2rem;background:var(--azul-marinho)}
+.footer .footer-logo{width:170px;height:auto}
+.footer .footer-titulo{color:var(--azul-secundario);letter-spacing:.14em}
+.footer-fim{grid-column:1/-1;margin:1rem 0 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.14);font-size:.9rem;color:var(--azul-terciario)}
+
+@media(max-width:900px){
+  #inicial-page{grid-template-columns:1fr;gap:2.5rem}
+  .sn-hero-card{min-height:30rem;border-radius:6rem 1.6rem 1.6rem 1.6rem}
+  .sn-dark{grid-template-columns:1fr}
+  .sn-step{text-align:center}
+  .sn-faq .caixa-ajuda{flex-direction:column;align-items:flex-start;padding:1.6rem}
+}
+@media(max-width:800px){.footer{grid-template-columns:1fr;gap:2.2rem;padding:3.5rem 1.5rem 2rem}}

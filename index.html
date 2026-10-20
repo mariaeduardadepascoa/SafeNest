@@ -4,449 +4,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="SafeNest icon" href="./imagens/safenest2-removebg-preview.png" type="image/x-icon">
-    <title>SafeNest - Seu lar, mais seguro </title>
+    <link rel="icon" href="./imagens/safenest2-removebg-preview.png" type="image/png">
+    <title>SafeNest - Seu lar, mais seguro</title>
     <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="stylev2.css">
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="scrollReveal.js" defer></script>
 </head>
 
 <body>
     <section id="inicial-page">
-
         <header class="header">
             <a id="a-logo" href="#inicial-page">
                 <div id="logo"><img src="./imagens/logo-white.svg" alt="Logo SafeNest"></div>
             </a>
-            <button id="menu-toggle" aria-label="Abrir menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <button id="menu-toggle" aria-label="Abrir menu"><span></span><span></span><span></span></button>
             <div id="links-header">
-                <a id="a-recursos" href="#recursos-page">Recursos <div class="row"></div></a>
-                <a id="a-comeceAusar" href="#comece-a-usar">Comece a usar <div class="row"></div></a>
+                <a id="a-recursos" href="#cuidar">Recursos <div class="row"></div></a>
+                <a id="a-comeceAusar" href="#conecte">Comece a usar <div class="row"></div></a>
                 <a id="a-sobreNos" href="#sobre-nos">Sobre nós<div class="row"></div></a>
-                <a id="a-sobreNos" href="#perguntas-frequentes">FAQ's<div class="row"></div></a>
+                <a id="a-faq" href="#faq">FAQ's<div class="row"></div></a>
             </div>
-
             <div id="buttons-header">
-                <button class="buttons-login" id="button-login-header"
-                    onclick="location.href ='entrar.html'">Entrar</button>
-                <button class="buttons-cadastro" onclick="location.href ='cadastrar.html'">Cadastre-se</button>
+                <button class="buttons-login" id="button-login-header" onclick="location.href='entrar.html'">Entrar</button>
+                <button class="buttons-cadastro" onclick="location.href='cadastrar.html'">Cadastre-se</button>
             </div>
         </header>
 
         <div class="conjuntoDivsInicio">
             <div id="titulo-inicial-page" class="SR">
-                <h1>Sua casa, <span>protegida.</span></h1>
+                <p class="sn-pill"><i></i>Tecnologia que cuida do seu lar</p>
+                <h1>Seu lar merece mais <span>tranquilidade.</span></h1>
             </div>
             <div id="subtitulo-inicial-page" class="SR">
-                <h3><span>Com o SafeNest, você tem o controle total da sua residência na palma da mão. Um sistema de
-                        segurança inteligente que cuida da sua casa 24 horas por dia.</span></h3>
+                <h3>Inteligência artificial, sensores e controle de acesso conectados para ajudar a proteger quem e o que você ama.</h3>
             </div>
             <div class="buttonsInicialPage">
                 <div id="wrapper-cadastro">
-                    <button class="buttons-cadastro" id="button-cadastro-page" onclick="location.href='cadastrar.html'">
-                        Começar agora<img src="./imagens/External link.svg" alt="Ícone outros de link externo">
+                    <button class="buttons-cadastro" id="button-cadastro-page" onclick="location.href='#cuidar'">
+                        Descubra o SafeNest<img src="./imagens/External link.svg" alt="">
                     </button>
                 </div>
-
                 <div id="wrapper-como-funciona">
-                    <button id="button-como-funciona"><a href="#comece-a-usar">Como funciona</a></button>
+                    <button id="button-como-funciona"><a href="#conecte">Veja como funciona ↓</a></button>
                 </div>
             </div>
+            <p class="sn-tag-hero">Um projeto pensado para cuidar. Desenvolvido para conectar.</p>
         </div>
-
-
-    </section>
-    <section class="recursos-page" id="recursos-page">
-        <div class="recursos-header-wrapper">
-            <div class="recursos-header">
-                <h2 class="recursos-titulo">Recursos pensados no que você precisa</h2>
-                <p class="recursos-subtitulo">Conheça as tecnologias inteligentes desenvolvidas para garantir a
-                    tranquilidade e a proteção contínua da sua família.</p>
-            </div>
-            <div class="recursos-nav-buttons">
-                <button class="recursos-nav-btn" id="recursos-btn-prev" aria-label="Anterior">&lt;</button>
-                        <button class="recursos-nav-btn" id="recursos-btn-next" aria-label="Próximo">></button>
-            </div>
-        </div>
-
-        <div class="recursos-carousel-container">
-            <div class="recursos-grid" id="recursos-grid">
-                <div class="recurso-card">
-                    <div class="recurso-imagem-frame">
-                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Fechadura Inteligente"
-                            class="recurso-imagem-ilustracao">
-                        <span class="recurso-badge">Acesso Seguro</span>
-                    </div>
-                    <div class="recurso-conteudo">
-                        <h3>Fechadura Inteligente</h3>
-                        <p>Com a fechadura inteligente, o acesso à sua residência fica muito mais prático e rápido.
-                            Configure o uso de tags e cartões NFC para definir exatamente quem pode entrar.</p>
-                    </div>
-                </div>
-
-                <div class="recurso-card">
-                    <div class="recurso-imagem-frame">
-                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Câmeras Inteligentes"
-                            class="recurso-imagem-ilustracao">
-                        <span class="recurso-badge">Monitoramento 24/7</span>
-                    </div>
-                    <div class="recurso-conteudo">
-                        <h3>Câmeras Inteligentes</h3>
-                        <p>Monitore sua residência em alta definição e em tempo real. Com Inteligência Artificial
-                            integrada, a câmera detecta sinais de incêndio logo no início, garantindo proteção contínua
-                            para a sua família.</p>
-                    </div>
-                </div>
-
-                <div class="recurso-card">
-                    <div class="recurso-imagem-frame">
-                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Alarmes"
-                            class="recurso-imagem-ilustracao">
-                        <span class="recurso-badge">Proteção Ativa</span>
-                    </div>
-                    <div class="recurso-conteudo">
-                        <h3>Alarmes</h3>
-                        <p>Fique sabendo de tudo no mesmo instante. O sistema envia notificações imediatas para o seu
-                            aplicativo e endereço de e-mail ao menor sinal de invasão ou movimento suspeito em sua
-                            residência.</p>
-                    </div>
-                </div>
-
-                <div class="recurso-card">
-                    <div class="recurso-imagem-frame">
-                        <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Aplicativo Mobile"
-                            class="recurso-imagem-ilustracao">
-                        <span class="recurso-badge">Controle Total</span>
-                    </div>
-                    <div class="recurso-conteudo">
-                        <h3>Aplicativo Mobile</h3>
-                        <p>Tenha o controle total da sua casa na palma da sua mão. Pelo nosso aplicativo intuitivo, você
-                            gerencia todos os seus dispositivos, personaliza automações e recebe alertas instantâneos.
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="sn-hero-card">
+            <span class="sn-float"><i></i>Inteligência para proteger seu lar</span>
+            <div class="sn-hero-cap"><small>SEU LAR, SEMPRE SEGURO.</small><strong>Mais cuidado.<br>Mais tranquilidade.</strong></div>
         </div>
     </section>
 
-    <section id="comece-a-usar">
-        <div class="comecar-text SR">
-            <div class="circulo">
-                <h1 class="passo-a-passo">PASSO A PASSO</h1>
+    <ul class="sn-strip">
+        <li><b>◎</b>Monitoramento com IA</li>
+        <li><b>⌁</b>Sensores de fumaça</li>
+        <li><b>⌘</b>Acesso inteligente</li>
+        <li><b>↗</b>Alertas no aplicativo</li>
+    </ul>
+
+    <section class="sn" id="cuidar">
+        <div class="sn-head">
+            <div>
+                <span class="sn-eyebrow">Um olhar atento, mesmo à distância</span>
+                <h2>Três formas de cuidar.<br>Um só SafeNest.</h2>
             </div>
-            <h1 class="seguranca">Segurança sem complicações</h1>
+            <p>Da identificação de possíveis riscos ao controle de entradas, cada recurso faz parte de uma proteção integrada.</p>
         </div>
-        <div class="mainContainer">
-            <div class="passos SR">
+        <div class="sn-cards">
+            <article class="sn-card">
+                <div class="sn-ico">♨&#xFE0E;</div>
+                <h3>Atenção aos sinais de fogo</h3>
+                <p>A câmera utiliza inteligência artificial para identificar chamas. O sensor de fumaça complementa o monitoramento do ambiente.</p>
+                <span class="sn-tag">Câmera + sensor MQ-2</span>
+            </article>
+            <article class="sn-card">
+                <div class="sn-ico">⌘</div>
+                <h3>Você controla quem entra</h3>
+                <p>Fechadura com senha, tag NFC e chave física. Cadastre visitantes e acompanhe os registros de acesso pelo aplicativo.</p>
+                <span class="sn-tag">Controle de acesso</span>
+            </article>
+            <article class="sn-card">
+                <div class="sn-ico">♧</div>
+                <h3>Informação quando importa</h3>
+                <p>Receba avisos pelo aplicativo e e-mail, com imagem e horário da ocorrência. Consulte o histórico de alertas e entradas.</p>
+                <span class="sn-tag">Alertas + histórico</span>
+            </article>
+        </div>
+    </section>
 
-                <div class="card ativo">
-                    <div class="cabecalho">
-                        <span>1</span>
-                        <h3>Crie sua conta e instale os sensores</h3>
-                    </div>
+    <section class="sn sn-dark" id="app">
+        <div>
+            <span class="sn-eyebrow">Perto de casa, de onde estiver</span>
+            <h2>O que acontece no seu lar, chega até você.</h2>
+            <p>Alertas com imagem e horário, histórico de entradas e controle da fechadura, tudo na palma da sua mão.</p>
+            <a class="sn-btn claro" href="cadastrar.html">Criar minha conta ↗</a>
+        </div>
+        <figure class="sn-phone">
+            <img src="./imagens/safenestLockAndNFCPicture.svg" alt="Aplicativo SafeNest no celular">
+            <span class="sn-float"><i></i>Seu lar, sempre seguro.</span>
+            <figcaption>Design do aplicativo SafeNest</figcaption>
+        </figure>
+    </section>
 
-                    <div class="conteudo">
-                        <p>
-                            Crie seu cadastro aqui no site para ativar seu perfil. Em seguida, instale a câmera e a
-                            fechadura nas
-                            portas e áreas de sua preferência.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="cabecalho">
-                        <span>2</span>
-                        <h3>Baixe e conecte-se ao App</h3>
-                    </div>
-
-                    <div class="conteudo">
-                        <p>
-                            Baixe o aplicativo do SafeNest no seu celular e entre com a conta que você acabou de criar.
-                            O controle do sistema é feito inteiramente pelo app.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="cabecalho">
-                        <span>3</span>
-                        <h3>Fique protegido</h3>
-                    </div>
-
-                    <div class="conteudo">
-                        <p>
-                            Receba alertas em tempo real, acesse gravações e gerencie toda a sua segurança direto na
-                            palma da sua mão, onde quer que você esteja e na hora que quiser.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-            <div class="SR container-imagem">
-                <img class="comece-a-usar-imagem" src="./imagens/safenestLockAndNFCPicture.svg"
-                    alt="Preview do App SafeNest no iPhone">
+    <section class="sn" id="conecte">
+        <span class="sn-eyebrow">Conecte. Acompanhe. Cuide.</span>
+        <h2>A proteção começa com<br>uma casa conectada.</h2>
+        <div class="sn-steps">
+            <div class="sn-step"><i>01 /</i><h3>Configure os dispositivos</h3><p>Conecte a câmera, os sensores e a fechadura ao sistema de monitoramento da residência.</p></div>
+            <div class="sn-step"><i>02 /</i><h3>Personalize seus acessos</h3><p>Cadastre tags NFC, identifique visitantes e organize seus contatos de emergência no aplicativo.</p></div>
+            <div class="sn-step"><i>03 /</i><h3>Acompanhe pelo aplicativo</h3><p>Consulte os registros de entrada, veja o histórico e receba alertas sobre possíveis ocorrências.</p></div>
+        </div>
+        <div class="sn-acc">
+            <b>Aa</b>
+            <div>
+                <h3>Mais simples para mais pessoas.</h3>
+                <p>A versão adaptada do aplicativo foi pensada com botões maiores e tarefas simplificadas, para pessoas com baixa familiaridade com tecnologia e necessidades de acessibilidade.</p>
             </div>
         </div>
     </section>
 
     <section id="sobre-nos">
-
-        <div class="titulo-bolha-introducao SR">
-            <span class="texto-pequeno-topo">NOSSO MANIFESTO</span>
-            <div class="conteudo-central">
-                <span class="texto-marca-fundo">SafeNest</span>
-                <p class="texto-sobreposto2">O SafeNest nasceu para tornar a segurança residencial simples, acessível e
-                    inteligente. Unimos
-                    monitoramento em tempo real, sensores e um app fácil de usar para dar tranquilidade e
-                    praticidade para você e à sua família, todos os dias.</p>
-            </div>
-            <div class="linha-decorativa"></div>
-        </div>
-
-        <div class="miniRectangule">
-            <p class="title-miniRectangule">PORQUÊ O SAFENEST? - VEJA OS NOSSOS PILARES</p>
-        </div>
-
-        <div class="bloco-pilares">
-            <div class="pilares">
-                <div class="card-pilar">
-                    <div class="icone-pilar">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                    </div>
-                    <h3 class="titulo-card-pilar">Confiabilidade</h3>
-                    <p class="texto-card-pilar">
-                        Sistemas testados e monitoramento contínuo para você nunca se preocupar.
-                    </p>
-                </div>
-
-                <div class="card-pilar">
-                    <div class="icone-pilar">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
-                    </div>
-                    <h3 class="titulo-card-pilar">Tecnologia</h3>
-                    <p class="texto-card-pilar">
-                        Equipamentos preparados e app intuitivo para controle total na sua mão.
-                    </p>
-                </div>
-
-                <div class="card-pilar">
-                    <div class="icone-pilar">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </div>
-                    <h3 class="titulo-card-pilar">Atendimento Humano</h3>
-                    <p class="texto-card-pilar">
-                        Pessoas reais, prontas para ajudar 24 horas por dia, com empatia e agilidade.
-                    </p>
-                </div>
-
-                <div class="card-pilar">
-                    <div class="icone-pilar">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="4" y1="21" x2="4" y2="14"></line>
-                            <line x1="4" y1="10" x2="4" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12" y2="3"></line>
-                            <line x1="20" y1="21" x2="20" y2="16"></line>
-                            <line x1="20" y1="12" x2="20" y2="3"></line>
-                            <line x1="1" y1="14" x2="7" y2="14"></line>
-                            <line x1="9" y1="8" x2="15" y2="8"></line>
-                            <line x1="17" y1="16" x2="23" y2="16"></line>
-                        </svg>
-                    </div>
-                    <h3 class="titulo-card-pilar">Autonomia</h3>
-                    <p class="texto-card-pilar">
-                        Configurações personalizadas e liberdade total para gerenciar seus serviços do seu jeito.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
+        <div class="miniRectangule"><p class="title-miniRectangule">PORQUÊ O SAFENEST?</p></div>
         <p class="titulo-comparacoes">Compare o SafeNest com outros sistemas de segurança</p>
         <div class="comparacoes">
             <div class="card-outras-plataformas">
                 <div class="cabecalho-card">
-                    <div class="icone-card"><img src="./imagens/unknownWhite.svg" alt="Outras Plataformas Logo"></div>
+                    <div class="icone-card"><img src="./imagens/unknownWhite.svg" alt="Outras plataformas"></div>
                     <h3 class="titulo-card">Outras Plataformas</h3>
-                </div>
-                <div class="item-comparativo">Inteligência artificial para<br>monitoramento 24h
-                    <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
-                </div>
-                <div class="item-comparativo">Fechadura inteligente conectada à<br>internet
-                    <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
-                </div>
-                <div class="item-comparativo">Alertas em tempo real
-                    <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
-                </div>
-                <div class="item-comparativo">Sistema de segurança acessível<br>financeiramente
-                    <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
-                </div>
-                <div class="item-comparativo">Segurança contra invasões e incêndios
-                    <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
-                </div>
-                <div class="item-comparativo">Gravação contínua da sua residência
-                    <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
-                </div>
-                <div class="item-comparativo">Aplicativo com interface simples e<br>sistemas de contatos de emergência
-                    <div class="miniCircle"><img src="./imagens/Rectangle 61.svg" alt="Rectangule Icon"></div>
                 </div>
             </div>
             <div class="card-safenest">
                 <div class="cabecalho-card">
-                    <div class="icone-card"><img src="./imagens/iconSafenestWhite.svg" alt="Safenest White Logo"></div>
+                    <div class="icone-card"><img src="./imagens/iconSafenestWhite.svg" alt="SafeNest"></div>
                     <h3 class="titulo-card">SafeNest</h3>
                 </div>
-                <div class="item-comparativo">Inteligência artificial para<br>monitoramento 24h
-                    <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
-                </div>
-                <div class="item-comparativo">Fechadura inteligente conectada à<br>internet
-                    <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
-                </div>
-                <div class="item-comparativo">Alertas em tempo real
-                    <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
-                </div>
-                <div class="item-comparativo">Sistema de segurança acessível<br>financeiramente
-                    <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
-                </div>
-                <div class="item-comparativo">Segurança contra invasões e incêndios
-                    <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
-                </div>
-                <div class="item-comparativo">Gravação contínua da sua residência
-                    <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
-                </div>
-                <div class="item-comparativo">Aplicativo com interface simples e<br>sistemas de contatos de emergência
-                    <div class="miniCircle"><img src="./imagens/Icon.svg" alt="Correct Icon"></div>
-                </div>
-                <button class="cadastroButtonCard" onclick="location.href ='cadastrar.html'">Cadastre-se já!</button>
+                <button class="cadastroButtonCard" onclick="location.href='cadastrar.html'">Cadastre-se já!</button>
             </div>
         </div>
     </section>
 
-    <section id="perguntas-frequentes" class="secao-perguntas">
-        <div class="header-FAQ">
-            <h2 class="titulo-perguntas">Perguntas Frequentes</h2>
-            <p class="descricao-perguntas">
-                Tudo o que você precisa saber sobre nossos recursos, funcionamento, planos e suporte.
-            </p>
+    <section class="sn sn-faq" id="faq">
+        <div>
+            <span class="sn-eyebrow">Vamos esclarecer</span>
+            <h2>Algumas perguntas.<br>Mais tranquilidade.</h2>
+            <p style="margin-top:1.2rem">Conheça melhor a proposta do SafeNest.</p>
         </div>
-
-        <div class="lista-perguntas">
-
-            <div class="item-pergunta aberta">
-                <div class="cabecalho-pergunta">
-                    <h3 class="texto-pergunta">Como a câmera identifica focos de incêndio?</h3>
-                    <span class="icone-pergunta">-</span>
+        <div>
+            <div class="lista-perguntas">
+                <div class="item-pergunta aberta">
+                    <div class="cabecalho-pergunta"><h3 class="texto-pergunta">Como a câmera identifica possíveis focos de incêndio?</h3><span class="icone-pergunta">-</span></div>
+                    <div class="resposta-pergunta"><p>A inteligência artificial analisa as imagens da câmera para reconhecer padrões visuais de chamas. O sensor MQ-2 complementa o sistema na identificação de fumaça.</p></div>
                 </div>
-                <div class="resposta-pergunta">
-                    <p>Nossa câmera conta com uma Inteligência Artificial treinada para reconhecer padrões visuais
-                        de fumaça e chamas em segundos, detectando o fogo e enviando alertas imediatos para o seu
-                        celular e e-mail.
-                    </p>
+                <div class="item-pergunta">
+                    <div class="cabecalho-pergunta"><h3 class="texto-pergunta">Quais são as formas de abrir a fechadura?</h3><span class="icone-pergunta">+</span></div>
+                    <div class="resposta-pergunta"><p>Por senha, tag NFC ou chave física. Você também cadastra visitantes e acompanha os registros de acesso pelo aplicativo.</p></div>
                 </div>
-            </div>
-
-            <div class="item-pergunta">
-                <div class="cabecalho-pergunta">
-                    <h3 class="texto-pergunta">PERGUNTA</h3>
-                    <span class="icone-pergunta">+</span>
+                <div class="item-pergunta">
+                    <div class="cabecalho-pergunta"><h3 class="texto-pergunta">Posso acompanhar o histórico de alertas?</h3><span class="icone-pergunta">+</span></div>
+                    <div class="resposta-pergunta"><p>Sim! O SafeNest mantém um registro dos alertas detectados, incluindo data, horário e informações sobre cada ocorrência. Assim, você pode consultar os acontecimentos anteriores diretamente pelo aplicativo ou site.</p></div>
                 </div>
-                <div class="resposta-pergunta">
-                    <p>RESPOSTA</p>
+                <div class="item-pergunta">
+                    <div class="cabecalho-pergunta"><h3 class="texto-pergunta">O que acontece quando uma tentativa de acesso não autorizada é detectada?</h3><span class="icone-pergunta">+</span></div>
+                    <div class="resposta-pergunta"><p>O SafeNest monitora as tentativas de acesso à residência e identifica atividades suspeitas, registrando as ocorrências e enviando alertas para que você fique informado sobre a segurança do seu lar.</p></div>
                 </div>
-            </div>
-
-            <div class="item-pergunta">
-                <div class="cabecalho-pergunta">
-                    <h3 class="texto-pergunta">PERGUNTA</h3>
-                    <span class="icone-pergunta">+</span>
-                </div>
-                <div class="resposta-pergunta">
-                    <p>RESPOSTA</p>
-                </div>
-            </div>
-
-            <div class="item-pergunta">
-                <div class="cabecalho-pergunta">
-                    <h3 class="texto-pergunta">É fácil instalar os dispositivos da SafeNest?</h3>
-                    <span class="icone-pergunta">+</span>
-                </div>
-                <div class="resposta-pergunta">
-                    <p>Sim, o processo é simples e intuitivo. Basta conectar os aparelhos à tomada e seguir o passo
-                        a passo no aplicativo para realizar a configuração em poucos minutos.</p>
+                <div class="item-pergunta">
+                    <div class="cabecalho-pergunta"><h3 class="texto-pergunta">É fácil instalar os dispositivos do SafeNest?</h3><span class="icone-pergunta">+</span></div>
+                    <div class="resposta-pergunta"><p>Sim. Basta conectar os aparelhos à tomada e seguir o passo a passo no aplicativo para configurar tudo em poucos minutos.</p></div>
                 </div>
             </div>
         </div>
-
         <div class="caixa-ajuda">
-            <h4 class="titulo-ajuda">Ainda tem dúvidas?</h4>
-            <p class="texto-ajuda">
-                Fale com a nossa equipe de atendimento para tirar todas as suas dúvidas e proteger sua casa.
-            </p>
-            <button class="botao-contato"><a href="mailto:safenest.br@gmail.com" class="title-botaoContato">Falar com
-                    Suporte</a></button>
+            <div>
+                <h4 class="titulo-ajuda">Ainda tem dúvidas?</h4>
+                <p class="texto-ajuda">Fale com a nossa equipe para tirar todas as suas dúvidas.</p>
+            </div>
+            <button class="botao-contato"><a href="mailto:safenest.br@gmail.com" class="title-botaoContato">Falar com Suporte</a></button>
         </div>
+    </section>
+
+    <section class="sn sn-fim" id="projeto">
+        <span class="sn-eyebrow">Tecnologia com propósito</span>
+        <h2>Uma ideia que começa no cuidado.</h2>
+        <p>O SafeNest nasceu para unir tecnologia e segurança residencial em um sistema que ajuda a identificar ameaças e manter as pessoas informadas sobre seu lar.</p>
+        <small>Projeto de Desenvolvimento de Sistemas · ETEC Bento Quirino</small>
+        <small>Maria Eduarda · João Carlos · Maria Catarina</small>
+        <a class="sn-btn claro" href="#inicial-page">Voltar ao início ↑</a>
     </section>
 
     <footer class="footer">
         <div class="footer-coluna1">
             <img src="./imagens/logo-white.svg" alt="Logo SafeNest" class="footer-logo">
-            <p class="footer-texto1">Opite por SafeNest e faça de sua casa, um lugar mais seguro.</p>
+            <p class="footer-texto1">Seu lar, mais protegido.</p>
             <div class="footer-externo">
-                <div class="footer-instagram">
-                    <img src="./imagens/Instagram.svg">
-                    <a href="https://www.instagram.com/safenest_tcc" class="footer-texto2">@safenest_tcc</a>
-                </div>
-                <div class="footer-email">
-                    <img src="./imagens/Mail.svg">
-                    <a href="mailto:safenest.br@gmail.com" class="footer-texto2">safenest.br@gmail.com</a>
-                </div>
+                <div class="footer-instagram"><img src="./imagens/Instagram.svg" alt=""><a href="https://www.instagram.com/safenest_tcc" class="footer-texto2">@safenest_tcc</a></div>
+                <div class="footer-email"><img src="./imagens/Mail.svg" alt=""><a href="mailto:safenest.br@gmail.com" class="footer-texto2">safenest.br@gmail.com</a></div>
             </div>
         </div>
         <div class="footer-coluna2">
             <p class="footer-titulo">NAVEGAÇÃO</p>
             <a href="#inicial-page" class="footer-textoA">Início</a>
-            <a href="#recursos-page" class="footer-textoA">Recursos</a>
-            <a href="#comece-a-usar" class="footer-textoA">Comece a usar</a>
-            <a href="#sobre-nos" class="footer-textoA">Sobre nós</a>
-        </div>
-        <div class="footer-coluna3">
-            <p class="footer-titulo">DESENVOLVEDORES</p>
-            <p class="footer-texto">João Carlos de Lima Pinto</p>
-            <p class="footer-texto">Maria Catarina Menegon Ferreira</p>
-            <p class="footer-texto">Maria Eduarda de Páscoa Carneiro </p>
+            <a href="#cuidar" class="footer-textoA">Recursos</a>
+            <a href="#conecte" class="footer-textoA">Comece a usar</a>
+            <a href="#faq" class="footer-textoA">Perguntas frequentes ↗</a>
         </div>
         <div class="footer-coluna4">
             <div class="footer-titulo">CONTATE-NOS</div>
-            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a
-                    href="https://github.com/oiejota">João Carlos L. Pinto</a></div>
-            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a
-                    href="https://github.com/MaryCat2025">Maria Catarina M. Ferreira</a></div>
-            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt="Github Icon"><a
-                    href="https://github.com/mariaeduardadepascoa">Maria Eduarda P. Carneiro</a></div>
+            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt=""><a href="https://github.com/oiejota">João Carlos L. Pinto</a></div>
+            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt=""><a href="https://github.com/MaryCat2025">Maria Catarina M. Ferreira</a></div>
+            <div class="footer-texto3"><img src="./imagens/githubIcon.svg" alt=""><a href="https://github.com/mariaeduardadepascoa">Maria Eduarda P. Carneiro</a></div>
         </div>
+        <p class="footer-fim">© 2026 SafeNest · Projeto acadêmico</p>
     </footer>
+
     <script src="script.js"></script>
+    <script>
+        // Comparativo (usa as classes do seu style.css)
+        const itens = ["Inteligência artificial para<br>monitoramento 24h", "Fechadura inteligente conectada à<br>internet", "Alertas em tempo real", "Sistema de segurança acessível<br>financeiramente", "Segurança contra invasões e incêndios", "Gravação contínua da sua residência", "Aplicativo com interface simples e<br>sistemas de contatos de emergência"];
+        const lista = (img, alt) => itens.map(t => `<div class="item-comparativo">${t}<div class="miniCircle"><img src="./imagens/${img}" alt="${alt}"></div></div>`).join("");
+        document.querySelector(".card-outras-plataformas .cabecalho-card").insertAdjacentHTML("afterend", lista("Rectangle 61.svg", "Não possui"));
+        document.querySelector(".card-safenest .cabecalho-card").insertAdjacentHTML("afterend", lista("Icon.svg", "Possui"));
+    </script>
 </body>
 
 </html>
