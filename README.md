@@ -18,7 +18,10 @@
 - React Native (interface mobile)
 - ESP32
 - RFID (controle de acesso)
-- YOLOv11 
+- YOLOv11
+
+  ###Baixe o APK para android aqui
+  - https://github.com/mariaeduardadepascoa/SafeNest/releases/download/v1.0.0/application-ba550d5d-af3e-4240-b277-0214485159ca.apk
 
 ## Desenvolvido por:
 - João Carlos de Lima (https://github.com/oiejota)
