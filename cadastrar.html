@@ -3,56 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="SafeNest icon" href="./imagens/safenest2-removebg-preview.png" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <title>SafeNest - Criar Conta</title>
+    <meta name="theme-color" content="#2B5081">
+    <link rel="icon" href="./imagens/safenest2-removebg-preview.png" type="image/png">
+    <link rel="stylesheet" href="auth.css">
+    <title>SafeNest - Criar conta</title>
 </head>
-<body class="loginEcadastro-body">
-    <main class="loginEcadastro-main">
-        <div class="ladoImg">
-            <div class="quadrado-azul-fundo"></div>
-            <img class="comece-a-usar-imagem" src="./imagens/safenestLockAndNFCPicture.svg" alt="SafeNest Segurança">
-        </div>
-        <div class="ladoConteudo">
-            <div class="header-form">
-                <a href="index.html" class="voltar-link">← Voltar ao início</a>
-                <h1 class="loginEcadastro-titulo">Crie sua conta</h1>
-                <h2 class="loginEcadastro-subtitulo">Crie sua conta e comece a usar SafeNest.</h2>
+
+<body class="auth-body auth-cadastro">
+    <main class="auth-layout">
+        <aside class="auth-visual">
+            <img
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=85&fit=crop"
+                alt=""
+                fetchpriority="high"
+            >
+
+            <a class="auth-marca-visual" href="index.html" aria-label="SafeNest — início">
+                <img src="./imagens/logo-white.svg" alt="Logo branca do SafeNest">
+            </a>
+
+            <div class="auth-visual-texto">
+                <h2>Seu lar,<br>sempre seguro.</h2>
+                <p>
+                    Uma conexão mais próxima com o lugar onde suas melhores
+                    histórias acontecem.
+                </p>
             </div>
-            
-            <form class="loginEcadastro-form">
-                <div class="input-container">
-                    <label class="loginEcadastro-label" for="email-cadastro">Insira o seu e-mail</label>
-                    <div class="input-wrapper">
-                        <input id="email-cadastro" class="loginEcadastro-input" type="email" placeholder="email123@email.com" required>
-                        <svg class="loginEcadastro-icon-email" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--azul-principal)"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-600v360h640v-360L480-440Zm0-80 320-200H160l320 200ZM160-600v-120 480-360Z"/></svg>
+
+            <p class="auth-visual-rodape">
+                Tecnologia que cuida do seu lar.
+            </p>
+        </aside>
+
+        <div class="auth-conteudo">
+            <a class="auth-voltar" href="index.html">
+                <span aria-hidden="true">←</span>
+                Voltar para o site
+            </a>
+
+            <div class="auth-formulario">
+                <header class="auth-cabecalho">
+                    <span class="auth-sobretitulo">Comece sua jornada</span>
+                    <h1>Crie sua conta.</h1>
+                    <p>O primeiro passo para se conectar ao seu lar.</p>
+                </header>
+
+                <form class="loginEcadastro-form" id="form-cadastro" method="post">
+                    <div class="auth-campo">
+                        <label for="email-cadastro">E-mail</label>
+                        <input
+                            id="email-cadastro"
+                            name="email"
+                            type="email"
+                            placeholder="voce@exemplo.com"
+                            autocomplete="email"
+                            autocapitalize="none"
+                            spellcheck="false"
+                            required
+                        >
                     </div>
-                </div>
 
-                <div class="input-container">
-                    <label class="loginEcadastro-label" for="senha-cadastro">Crie sua senha</label>
-                    <div class="input-wrapper">
-                        <input class="loginEcadastro-input" id="senha-cadastro" type="password" placeholder="••••••••" required>
-                        <img onclick="alterarVisibilidade('olho-cadastro','senha-cadastro')" id="olho-cadastro" class="loginEcadastro-icon-senha" src="imagens/olhoFechado.svg" alt="Mostrar senha">
+                    <div class="auth-campo">
+                        <label for="senha-cadastro">Senha</label>
+
+                        <div class="auth-input-wrapper">
+                            <input
+                                id="senha-cadastro"
+                                name="senha"
+                                type="password"
+                                placeholder="Crie sua senha"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                class="auth-ver-senha"
+                                type="button"
+                                aria-label="Alternar visibilidade da senha"
+                                aria-controls="senha-cadastro"
+                                onclick="alterarVisibilidade('olho-cadastro', 'senha-cadastro')"
+                            >
+                                <img
+                                    id="olho-cadastro"
+                                    src="./imagens/olhoFechado.svg"
+                                    alt=""
+                                >
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="input-container">
-                    <label class="loginEcadastro-label" for="senha-confirmarSenha">Confirme sua senha</label>
-                    <div class="input-wrapper">
-                        <input class="loginEcadastro-input" id="senha-confirmarSenha" type="password" placeholder="••••••••" required>
-                        <img onclick="alterarVisibilidade('olho-confirmarSenha','senha-confirmarSenha')" id="olho-confirmarSenha" class="loginEcadastro-icon-confirmarSenha" src="imagens/olhoFechado.svg" alt="Mostrar senha">
+                    <div class="auth-campo">
+                        <label for="senha-confirmarSenha">Confirme sua senha</label>
+
+                        <div class="auth-input-wrapper">
+                            <input
+                                id="senha-confirmarSenha"
+                                name="confirmarSenha"
+                                type="password"
+                                placeholder="Repita sua senha"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                class="auth-ver-senha"
+                                type="button"
+                                aria-label="Alternar visibilidade da confirmação de senha"
+                                aria-controls="senha-confirmarSenha"
+                                onclick="alterarVisibilidade('olho-confirmarSenha', 'senha-confirmarSenha')"
+                            >
+                                <img
+                                    id="olho-confirmarSenha"
+                                    src="./imagens/olhoFechado.svg"
+                                    alt=""
+                                >
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="loginEcadastro-centralizar-botaoLoginEcadastro">
-                    <button type="submit" class="loginEcadastro-botao">Criar conta</button>
-                </div>
-            </form>
+                    <button class="loginEcadastro-botao" type="submit">
+                        Criar conta
+                        <span aria-hidden="true">↗</span>
+                    </button>
+                </form>
 
-            <p class="loginEcadastro-textinhoTroca">Já tem uma conta? <span class="loginEcadastro-trocaPag" onclick="location.href='entrar.html'">Faça login.</span></p>
+                <p class="auth-troca">
+                    Já tem uma conta?
+                    <a href="entrar.html">Entrar</a>
+                </p>
+            </div>
+
+            <footer class="auth-rodape">
+                <span>© 2026 SafeNest</span>
+                <a href="mailto:safenest.br@gmail.com">Precisa de ajuda?</a>
+            </footer>
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>

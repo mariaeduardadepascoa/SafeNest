@@ -156,13 +156,7 @@ section {
     gap: 2rem;
 }
 
-.header #button-loginEcadastro-header {
-    background-color: var(--branco-principal);
-    color: var(--azul-principal);
-    font-weight: var(--font-weight-bold);
-    font-family: var(--font-family);
-    cursor: pointer;
-}
+
 
 .header .buttons-cadastro {
     width: 8.5rem;
@@ -860,189 +854,7 @@ section {
 }
 
 
-/* pagina entrar e cadastro*/
-.loginEcadastro-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: var(--branco-secundario);
-    font-family: var(--font-family);
-    margin: 0;
-    padding: 2rem;
-    box-sizing: border-box;
-}
 
-.loginEcadastro-main {
-    width: 100%;
-    max-width: 1100px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 4rem;
-    background-color: var(--branco-principal);
-    padding: 3rem;
-    border-radius: 1.5rem;
-    box-shadow: rgba(100, 100, 111, 0.15) 0px 7px 29px 0px;
-}
-
-.ladoImg {
-    position: relative;
-    display: flex;
-    flex: 1;
-    max-width: 450px;
-    height: 580px;
-}
-
-.ladoImg .comece-a-usar-imagem {
-    position: relative;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 1rem;
-}
-
-.ladoConteudo {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.2rem;
-    max-width: 450px;
-}
-
-.voltar-link {
-    color: var(--azul-principal);
-    text-decoration: none;
-    font-size: var(--font-size-normalText);
-    font-weight: var(--font-weight-medium);
-    margin-bottom: 0.5rem;
-    display: inline-block;
-    transition: transform 0.2s ease;
-}
-
-.voltar-link:hover {
-    transform: translateX(-5px);
-}
-
-.loginEcadastro-titulo {
-    font-family: var(--font-family);
-    font-size: var(--font-size-title);
-    font-weight: var(--font-weight-bold);
-    color: var(--azul-principal);
-    margin: 0 0 0.3rem 0;
-}
-
-.loginEcadastro-subtitulo {
-    font-family: var(--font-family);
-    font-size: var(--font-size-normalText);
-    font-weight: var(--font-weight-regular);
-    color: var(--preto-principal);
-    margin: 0;
-    line-height: 1.4;
-    opacity: 0.8;
-}
-
-.loginEcadastro-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-
-.input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.loginEcadastro-label {
-    font-family: var(--font-family);
-    font-size: var(--font-size-normalText);
-    font-weight: var(--font-weight-medium);
-    color: var(--preto-principal);
-}
-
-.loginEcadastro-input {
-    width: 100%;
-    height: 3rem;
-    font-family: var(--font-family);
-    font-size: var(--font-size-normalText);
-    font-weight: var(--font-weight-regular);
-    border: 2px solid var(--branco-terciario);
-    border-radius: 0.5rem;
-    padding: 0 3rem 0 1rem;
-    color: var(--preto-principal);
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.loginEcadastro-input:focus {
-    outline: none;
-    border-color: var(--azul-principal);
-    box-shadow: 0px 0px 8px rgba(0, 67, 154, 0.25);
-}
-
-.loginEcadastro-icon-email,
-.loginEcadastro-icon-senha,
-.loginEcadastro-icon-confirmarSenha {
-    position: absolute;
-    right: 1rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.loginEcadastro-centralizar-botaoLoginEcadastro {
-    display: flex;
-    width: 100%;
-    margin-top: 0.5rem;
-}
-
-.loginEcadastro-botao {
-    width: 100%;
-    height: 3.2rem;
-    font-family: var(--font-family);
-    font-size: var(--font-size-normalText);
-    font-weight: var(--font-weight-bold);
-    background: linear-gradient(130deg, #00439a 0%, #5189e8 100%);
-    color: var(--branco-principal);
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.loginEcadastro-botao:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 5px 15px rgba(0, 67, 154, 0.3);
-}
-
-.loginEcadastro-textinhoTroca {
-    font-family: var(--font-family);
-    font-size: var(--font-size-normalText);
-    color: var(--preto-principal);
-    margin: 0;
-    text-align: center;
-}
-
-.loginEcadastro-trocaPag {
-    color: var(--azul-principal);
-    font-weight: var(--font-weight-bold);
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-}
-
-.loginEcadastro-trocaPag:hover {
-    text-decoration: underline;
-}
 
 /* Seção de Comece a usar */
 #comece-a-usar {
@@ -1590,12 +1402,6 @@ section {
         max-width: 100%;
     }
 
-    .loginEcadastro-main {
-        flex-direction: column;
-        padding: 2rem 1.5rem;
-        gap: 2rem;
-    }
-
     .ladoImg {
         display: none;
     }
@@ -1684,14 +1490,6 @@ section {
 
     .recurso-imagem-frame {
         height: 25vh;
-    }
-
-    .loginEcadastro-body {
-        padding: 1rem;
-    }
-
-    .loginEcadastro-main {
-        padding: 1.5rem 1rem;
     }
 
     .cabecalho-pergunta {

@@ -1,0 +1,10 @@
+{"_e":"root:init","_t":1792497832946,"format":"v0-jsonl","version":"57.0.9"}
+{"_e":"env:mode","_t":1792497833414,"nodeEnv":"production","babelEnv":"production","mode":"production"}
+{"_e":"env:load","_t":1792497833423,"mode":"production","files":["../..\\..\\.env"],"env":{"Broker_Host":"8b1eda07ef864af6b159573cc06f0df0.s1.eu.hivemq.cloud","Broker_Password":"#SafeNest123","Broker_Port":"8883","Broker_username":"SafeNest_Broker","GMAIL_PASSWORD":"fmxrfyprcunumxzx","GMAIL_USER":"safenest.br@gmail.com","JWT_REFRESH_SECRET":"30ffc3b742b942f70e76f6347c45251c648ab56bd3e143b568dd78eed6446caf87d477de69389d45c35d2b1b1d97cd5d9845c299ef09800c8900f6206d531baf","JWT_SECRET":"7efb3a9b47a4c1b39610af07e7a5e6bb44e0b15cd7ef688398684a2457fd21a5387a8207c6defe3bdd29dfe8ef12996c80526497f4a5fb084057a301b5caa588","SUPABASE_KEY":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU","SUPABASE_URL":"http://127.0.0.1:54321"}}
+{"_e":"devserver:start","_t":1792497833510,"mode":"production","web":true,"baseUrl":"","asyncRoutes":false,"routerRoot":"../..\\..\\app","serverComponents":false,"serverActions":false,"serverRendering":false,"apiRoutes":false,"exporting":true}
+{"_e":"metro:config","_t":1792497834345,"serverRoot":"../..\\..","projectRoot":"../..\\..","exporting":true,"flags":{"autolinkingModuleResolution":false,"serverActions":false,"serverComponents":false,"reactCompiler":false,"optimizeGraph":false,"treeshaking":false,"logbox":false}}
+{"_e":"metro:instantiate","_t":1792497834831,"atlas":false,"workers":6,"host":null,"port":null}
+{"_e":"metro:bundling:started","_t":1792497835639,"id":"1","platform":"android","environment":null,"entry":"node_modules\\expo\\AppEntry.js"}
+{"_e":"metro:bundling:progress","_t":1792497835640,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1792497835643,"id":"1","progress":0,"total":1,"current":0}
+{"_e":"metro:bundling:progress","_t":1792497836958,"id":"1","progress":0.010000000000000002,"total":1,"current":1}
