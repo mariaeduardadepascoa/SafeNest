@@ -8,6 +8,10 @@ const API_URL = 'http://192.168.1.7:3000';    //joao
 //const DISPOSITIVOS_API_URL = "http://192.168.15.79:8080";// duda
 const DISPOSITIVOS_API_URL = "http://192.168.1.7:8080";// joao
 
+// BENTOTEC
+// const API_URL = 'http://192.168.137.1:3000'; 
+// const DISPOSITIVOS_API_URL = "http://192.168.137.1:8080";
+
 
 //Adiciona o acessToken no header das rotas que são protegidas
 async function autenticacaoToken(endpoint, options = {}) {
