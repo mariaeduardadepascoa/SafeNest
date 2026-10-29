@@ -79,6 +79,7 @@ public class FechaduraController {
             ));
 
         } catch (TimeoutException | ExecutionException | InterruptedException e) {
+
             return ResponseEntity.status(504).body(Map.of("erro", "fechadura não respondeu a tempo"));
         }
     }

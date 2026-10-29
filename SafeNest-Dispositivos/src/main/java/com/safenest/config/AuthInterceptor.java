@@ -38,6 +38,8 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
 
         } catch (Exception e) {
+            e.printStackTrace();
+
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
             response.getWriter().write("{\"erro\":\"token inválido\"}");
