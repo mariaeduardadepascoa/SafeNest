@@ -6,7 +6,7 @@
 .sn h2{margin:0;font-size:clamp(2.1rem,5.5vw,3.8rem);font-weight:500;line-height:1.05;letter-spacing:-.03em;color:var(--azul-marinho)}
 .sn p{margin:0;line-height:1.7;color:var(--sn-txt)}
 .sn small{display:block;margin-bottom:.4rem;color:var(--sn-txt)}
-.sn-eyebrow{display:block;margin:0 0 1.2rem;font-size:.78rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--azul-principal)}
+.sn-eyebrow{display:block;margin:0 0 1.2rem;font-size:.78rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--azul-principal)}
 .sn-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:3rem}
 .sn-head p{max-width:24rem}
 .sn-btn{display:inline-flex;align-items:center;gap:.8rem;height:3.4rem;padding:0 1.8rem;border-radius:1rem;border:1px solid var(--azul-principal);background:var(--azul-principal);color:var(--branco-principal);font:500 1rem var(--font-family);text-decoration:none;cursor:pointer;transition:transform .3s ease}
@@ -39,7 +39,7 @@
 /* conecte · acompanhe · cuide */
 .sn-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem 3rem;margin:3.5rem 0}
 .sn-step{padding-top:1.6rem;border-top:1px solid var(--sn-linha)}
-.sn-step i{display:block;margin-bottom:1.4rem;font-style:normal;font-size:2.4rem;color:var(--azul-terciario)}
+.sn-step i{display:block;margin-bottom:1.4rem;font-style:normal;font-size:2.4rem;color:var(--azul-principal)}
 .sn-step h3{margin:0 0 .8rem;font-size:1.35rem;font-weight:500;color:var(--azul-marinho)}
 .sn-acc{display:flex;align-items:flex-start;gap:1.5rem;padding:2rem;border-radius:1.6rem;background:var(--azul-quinternario)}
 .sn-acc b{display:grid;place-items:center;flex:none;width:3.2rem;height:3.2rem;border-radius:1rem;background:var(--branco-principal);color:var(--azul-principal);font-size:1.3rem;font-weight:500}
