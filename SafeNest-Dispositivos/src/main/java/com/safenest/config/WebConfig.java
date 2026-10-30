@@ -17,7 +17,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/fechadura/**")
-                // rotas chamadas pelo proprio ESP/sensor, sem JWT de usuario
                 .excludePathPatterns("/fechadura/incendio");
     }
 }

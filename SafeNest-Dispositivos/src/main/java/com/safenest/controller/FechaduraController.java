@@ -82,7 +82,89 @@ public class FechaduraController {
             return ResponseEntity.status(504).body(Map.of("erro", "fechadura não respondeu a tempo"));
         }
     }
-
+    @GetMapping("/tags")
+    public ResponseEntity<?> listarTags(HttpServletRequest request) {
+        Long idUsuario = (Long) request.getAttribute("id_usuario");
+        if (idUsuario == null) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("erro", "Usuário não identificado"));
+        }
+        return ResponseEntity.ok(
+                dispositivosService.listarTags(idUsuario)
+        );
+    }
+    @GetMapping("/tag/{idTag}")
+    public ResponseEntity<?> buscarTag(
+            HttpServletRequest request,
+            @PathVariable Long idTag
+    ) {
+        Long idUsuario = (Long) request.getAttribute("id_usuario");
+        if (idUsuario == null) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("erro", "Usuário não identificado"));
+        }
+        NfcTag tag = dispositivosService.buscarTagPorId(
+                idTag,
+                idUsuario
+        );
+        if (tag == null) {
+            return ResponseEntity.status(404)
+                    .body(Map.of("erro", "Tag não encontrada"));
+        }
+        return ResponseEntity.ok(tag);
+    }
+    @PutMapping("/tag/{idTag}")
+    public ResponseEntity<?> atualizarTag(
+            HttpServletRequest request,
+            @PathVariable Long idTag,
+            @RequestBody Map<String, String> body
+    ) {
+        Long idUsuario = (Long) request.getAttribute("id_usuario");
+        if (idUsuario == null) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("erro", "Usuário não identificado"));
+        }
+        String nomeTag = body.get("nome_tag");
+        if (nomeTag == null || nomeTag.isBlank()) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("erro", "Nome da tag inválido"));
+        }
+        NfcTag tag = dispositivosService.atualizarTag(
+                idTag,
+                idUsuario,
+                nomeTag
+        );
+        if (tag == null) {
+            return ResponseEntity.status(404)
+                    .body(Map.of("erro", "Tag não encontrada"));
+        }
+        return ResponseEntity.ok(Map.of(
+                "mensagem", "Tag atualizada com sucesso",
+                "tag", tag
+        ));
+    }
+    @DeleteMapping("/tag/{idTag}")
+    public ResponseEntity<?> removerTag(
+            HttpServletRequest request,
+            @PathVariable Long idTag
+    ) {
+        Long idUsuario = (Long) request.getAttribute("id_usuario");
+        if (idUsuario == null) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("erro", "Usuário não identificado"));
+        }
+        boolean removido = dispositivosService.removerTag(
+                idTag,
+                idUsuario
+        );
+        if (!removido) {
+            return ResponseEntity.status(404)
+                    .body(Map.of("erro", "Tag não encontrada"));
+        }
+        return ResponseEntity.ok(Map.of(
+                "mensagem", "Tag removida com sucesso"
+        ));
+    }
     @GetMapping("/status")
     public ResponseEntity<?> statusFechadura(HttpServletRequest request) {
         Long idUsuario = (Long) request.getAttribute("id_usuario");
