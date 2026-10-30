@@ -321,6 +321,82 @@ export async function cadastrarTag(nome_dono) {
         throw err;
     }
 }
+
+// joaoo, para as tags
+
+// LISTAR TODAS AS TAGS DO USUÁRIO
+export async function obterTags() {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura/tags', {
+        method: 'GET',
+    });
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) {
+        throw new Error(data.erro || "Erro ao buscar tags");
+    }
+
+    return data;
+}
+
+// BUSCAR UMA TAG ESPECÍFICA
+export async function obterTag(idTag) {
+    const resposta = await autenticacaoTokenDispositivos(
+        `/fechadura/tag/${idTag}`,
+        {
+            method: 'GET',
+        }
+    );
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) {
+        throw new Error(data.erro || "Erro ao buscar tag");
+    }
+
+    return data;
+}
+
+// ATUALIZAR O NOME DE UMA TAG
+export async function atualizarTag(idTag, nomeTag) {
+    const resposta = await autenticacaoTokenDispositivos(
+        `/fechadura/tag/${idTag}`,
+        {
+            method: 'PUT',
+            body: JSON.stringify({
+                nome_tag: nomeTag,
+            }),
+        }
+    );
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) {
+        throw new Error(data.erro || "Erro ao atualizar tag");
+    }
+
+    return data;
+}
+
+// EXCLUIR UMA TAG
+export async function deletarTag(idTag) {
+    const resposta = await autenticacaoTokenDispositivos(
+        `/fechadura/tag/${idTag}`,
+        {
+            method: 'DELETE',
+        }
+    );
+
+    const texto = await resposta.text();
+    const data = texto ? JSON.parse(texto) : null;
+
+    if (!resposta.ok) {
+        throw new Error(data?.erro || "Erro ao excluir tag");
+    }
+
+    return data;
+}
+
 export async function statusFechadura() {
     const resposta = await autenticacaoTokenDispositivos('/fechadura/status');
     const data = await resposta.json();
