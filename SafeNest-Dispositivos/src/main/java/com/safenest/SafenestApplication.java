@@ -3,6 +3,8 @@ package com.safenest;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SafenestApplication {
@@ -43,5 +45,15 @@ public class SafenestApplication {
         System.setProperty("jwt.secret", dotenv.get("JWT_SECRET"));
 
         SpringApplication.run(SafenestApplication.class, args);
+    }
+    @Bean
+    public CommandLineRunner mensagemInicial() {
+        return args -> {
+            System.out.println("\n");
+            System.out.println("==============================================");
+            System.out.println("       RODANDO, DEU CERTO MONA");
+            System.out.println("==============================================");
+            System.out.println("\n");
+        };
     }
 }

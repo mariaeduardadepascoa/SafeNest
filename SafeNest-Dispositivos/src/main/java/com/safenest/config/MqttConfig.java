@@ -25,7 +25,7 @@ public class MqttConfig {
 
     @Bean
     public MqttClient mqttClient() throws MqttException {
-        String brokerUrl = "tcp://" + brokerHost + ":" + brokerPort;
+        String brokerUrl = "tcp://localhost:1883";
         MqttClient client = new MqttClient(
                 brokerUrl,
                 MqttClient.generateClientId(),

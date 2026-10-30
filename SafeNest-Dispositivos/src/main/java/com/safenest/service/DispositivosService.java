@@ -11,6 +11,7 @@ import com.safenest.repository.NfcTagRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DispositivosService {
@@ -127,6 +128,39 @@ public class DispositivosService {
         return nfcTagRepository
                 .findByUidNfcAndIdFechadura(tag, idFechadura)
                 .orElse(null);
+    }
+
+    // LISTAR TODAS AS TAGS DO USUÁRIO
+    public List<NfcTag> listarTags(Long idUsuario) {
+        return (List<NfcTag>) nfcTagRepository.findByIdUsuario(idUsuario);
+    }
+
+    // BUSCAR UMA TAG ESPECÍFICA
+    public NfcTag buscarTagPorId(Long idTag, Long idUsuario) {
+        return nfcTagRepository
+                .findByIdTagAndIdUsuario(idTag, idUsuario)
+                .orElse(null);
+    }
+
+    public NfcTag atualizarTag(
+            Long idTag,
+            Long idUsuario,
+            String nomeTag
+    ) {
+        NfcTag tag = buscarTagPorId(idTag, idUsuario);
+        if (tag == null) {
+            return null;
+        }
+        tag.setNomeTag(nomeTag);
+        return nfcTagRepository.save(tag);
+    }
+    public boolean removerTag(Long idTag, Long idUsuario) {
+        NfcTag tag = buscarTagPorId(idTag, idUsuario);
+        if (tag == null) {
+            return false;
+        }
+        nfcTagRepository.delete(tag);
+        return true;
     }
 
     public List<Alerta> obterAlertas(Long idUsuario) {
