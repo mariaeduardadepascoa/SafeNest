@@ -1,140 +1,145 @@
-// HEADER -> NAVEGAÇÃO
-const linkItems = document.querySelectorAll('#links-header a');
+// MENU DO CABECALHO
+const linksDoMenu = document.querySelectorAll('#links-header a');
 
-linkItems.forEach(link => {
+linksDoMenu.forEach(link => {
     link.addEventListener('click', () => {
-        linkItems.forEach(l => {
-            const row = l.querySelector('.row');
-            if (row) row.classList.remove('active');
+        linksDoMenu.forEach(item => {
+            const linha = item.querySelector('.linha-menu');
+            if (linha) {
+                linha.classList.remove('ativo');
+            }
         });
-        const activeRow = link.querySelector('.row');
-        if (activeRow) activeRow.classList.add('active');
+
+        const linhaAtiva = link.querySelector('.linha-menu');
+        if (linhaAtiva) {
+            linhaAtiva.classList.add('ativo');
+        }
     });
 });
 
-// HEADER -> TRANSPARENTE NA 1ª SEÇÃO, AZUL NO RESTI
-const header = document.querySelector('.header');
+// MUDA A COR DO CABECALHO QUANDO SAI DA PRIMEIRA SECAO
+const cabecalho = document.querySelector('.cabecalho-site');
 const primeiraSecao = document.getElementById('inicial-page');
 
-function atualizarHeader() {
-    const limite = primeiraSecao.offsetHeight - header.offsetHeight;
-    header.classList.toggle('scrolled', window.scrollY >= limite);
+function atualizarCabecalho() {
+    if (!cabecalho || !primeiraSecao) return;
+
+    const limite = primeiraSecao.offsetHeight - cabecalho.offsetHeight;
+    cabecalho.classList.toggle('rolado', window.scrollY >= limite);
 }
 
-window.addEventListener('scroll', atualizarHeader, { passive: true });
-window.addEventListener('resize', atualizarHeader);
-atualizarHeader();
+window.addEventListener('scroll', atualizarCabecalho, { passive: true });
+window.addEventListener('resize', atualizarCabecalho);
+atualizarCabecalho();
 
+// MENU HAMBURGUER DO CELULAR
+const linksCabecalho = document.getElementById('links-header');
+const botaoMenu = document.getElementById('menu-toggle');
 
-
-
-// BOTÃO HAMBURGUER
-const linksHeader = document.getElementById('links-header');
-const menuToggle = document.getElementById('menu-toggle');
-
-if (menuToggle && linksHeader) {
-    menuToggle.addEventListener('click', function () {
-        linksHeader.classList.toggle('open');
-        menuToggle.classList.toggle('active');
+if (botaoMenu && linksCabecalho) {
+    botaoMenu.addEventListener('click', () => {
+        linksCabecalho.classList.toggle('aberto');
+        botaoMenu.classList.toggle('ativo');
     });
 
-    linkItems.forEach(link => {
-        link.addEventListener('click', function () {
-            linksHeader.classList.remove('open');
-            menuToggle.classList.remove('active');
+    linksDoMenu.forEach(link => {
+        link.addEventListener('click', () => {
+            linksCabecalho.classList.remove('aberto');
+            botaoMenu.classList.remove('ativo');
         });
     });
 }
 
-// GRID DA SEÇÃO RECURSOS (CARROSSEL)
-const grid = document.getElementById('recursos-grid');
-const btnNext = document.getElementById('recursos-btn-next');
-const btnPrev = document.getElementById('recursos-btn-prev');
+// BOTOES DO CARROSSEL DE RECURSOS
+const gradeRecursos = document.getElementById('recursos-grid');
+const proximoRecurso = document.getElementById('recursos-btn-next');
+const recursoAnterior = document.getElementById('recursos-btn-prev');
 
-if (grid && btnNext && btnPrev) {
-    btnNext.addEventListener('click', () => {
-        grid.scrollBy({ left: 350, behavior: 'smooth' });
+if (gradeRecursos && proximoRecurso && recursoAnterior) {
+    proximoRecurso.addEventListener('click', () => {
+        gradeRecursos.scrollBy({ left: 350, behavior: 'smooth' });
     });
 
-    btnPrev.addEventListener('click', () => {
-        grid.scrollBy({ left: -350, behavior: 'smooth' });
+    recursoAnterior.addEventListener('click', () => {
+        gradeRecursos.scrollBy({ left: -350, behavior: 'smooth' });
     });
 }
 
+// ABRIR E FECHAR AS PERGUNTAS DO FAQ
+const perguntas = document.querySelectorAll('.item-pergunta');
 
+perguntas.forEach(item => {
+    const titulo = item.querySelector('.cabecalho-pergunta');
 
+    if (!titulo) return;
 
-document.addEventListener("DOMContentLoaded", function () {
-  const itensPergunta = document.querySelectorAll(".item-pergunta");
+    titulo.addEventListener('click', () => {
+        const jaEstavaAberta = item.classList.contains('aberta');
 
-  itensPergunta.forEach((item) => {
-    const cabecalho = item.querySelector(".cabecalho-pergunta");
+        perguntas.forEach(outraPergunta => {
+            outraPergunta.classList.remove('aberta');
+            const icone = outraPergunta.querySelector('.icone-pergunta');
+            if (icone) icone.textContent = '+';
+        });
 
-    cabecalho.addEventListener("click", () => {
-      const estaAberto = item.classList.contains("aberta");
-
-      itensPergunta.forEach((outroItem) => {
-        outroItem.classList.remove("aberta");
-        const icone = outroItem.querySelector(".icone-pergunta");
-        if (icone) icone.textContent = "+";
-      });
-
-      if (!estaAberto) {
-        item.classList.add("aberta");
-        const icone = item.querySelector(".icone-pergunta");
-        if (icone) icone.textContent = "-";
-      }
+        if (!jaEstavaAberta) {
+            item.classList.add('aberta');
+            const icone = item.querySelector('.icone-pergunta');
+            if (icone) icone.textContent = '-';
+        }
     });
-  });
-
-  const botoesCategoria = document.querySelectorAll(".botao-categoria");
-
-  botoesCategoria.forEach((botao) => {
-    botao.addEventListener("click", () => {
-      botoesCategoria.forEach((b) => b.classList.remove("ativo"));
-      botao.classList.add("ativo");
-    });
-  });
 });
 
+// BOTOES DE CATEGORIA, CASO ESTEJAM NA PAGINA
+const botoesCategoria = document.querySelectorAll('.botao-categoria');
 
+botoesCategoria.forEach(botao => {
+    botao.addEventListener('click', () => {
+        botoesCategoria.forEach(outroBotao => {
+            outroBotao.classList.remove('ativo');
+        });
+        botao.classList.add('ativo');
+    });
+});
 
-// TELAS DE LOGIN E CADASTRO
+// MOSTRAR OU ESCONDER A SENHA NAS TELAS DE LOGIN E CADASTRO
 function alterarVisibilidade(idOlho, idCampo) {
-    let campo = document.getElementById(idCampo);
-    let olho = document.getElementById(idOlho);
+    const campo = document.getElementById(idCampo);
+    const olho = document.getElementById(idOlho);
 
-    if (campo && olho) {
-        if (campo.type === 'password') {
-            campo.type = "text";
-            campo.placeholder = "Senha123#";
-            olho.src = "imagens/olhoAberto.svg";
-        } else if (campo.type === 'text') {
-            campo.type = "password";
-            campo.placeholder = "••••••••";
-            olho.src = "imagens/olhoFechado.svg";
-        }
+    if (!campo || !olho) return;
+
+    if (campo.type === 'password') {
+        campo.type = 'text';
+        campo.placeholder = 'Senha123#';
+        olho.src = 'imagens/olhoAberto.svg';
+    } else {
+        campo.type = 'password';
+        campo.placeholder = '••••••••';
+        olho.src = 'imagens/olhoFechado.svg';
     }
 }
 
-// comece a usar
-const cards = document.querySelectorAll(".card");
+// ABRIR OS CARDS DO PASSO A PASSO
+const cartoes = document.querySelectorAll('.card');
 
-cards.forEach(card => {
-    card.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const aberto = card.classList.contains("ativo");
+cartoes.forEach(cartao => {
+    cartao.addEventListener('click', evento => {
+        evento.stopPropagation();
+        const jaEstavaAberto = cartao.classList.contains('ativo');
 
-        cards.forEach(c => c.classList.remove("ativo"));
+        cartoes.forEach(outroCartao => {
+            outroCartao.classList.remove('ativo');
+        });
 
-        if (!aberto) {
-            card.classList.add("ativo");
+        if (!jaEstavaAberto) {
+            cartao.classList.add('ativo');
         }
     });
 });
 
-document.addEventListener("click", () => {
-    cards.forEach(card => {
-        card.classList.remove("ativo");
+document.addEventListener('click', () => {
+    cartoes.forEach(cartao => {
+        cartao.classList.remove('ativo');
     });
 });
