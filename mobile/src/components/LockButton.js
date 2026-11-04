@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator } from 'react-native'
-import React, { useState, useRef, useEffect } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native'
+import { useScreenStyles } from '../design/useScreenStyles';
+import React, { useState, useRef, useCallback } from 'react'
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { colorsLightMode, typography } from '../theme';
 import { abrirFechadura, statusFechadura, travarFechadura, destravarFechadura, excluirFechadura, cadastrarTag as cadastrarTagApi } from '../services/api';
 import Locker from '../../assets/Locker.svg';
@@ -11,10 +13,16 @@ import personIcon from '../../assets/personWhiteIcon.svg';
 import { obterAccessToken } from '../services/tokenStorage';
 
 const LockButton = ({ id_fechadura }) => {
+    const navigation = useNavigation();
+    const styles = useScreenStyles(legacyStyles, 'LockButton');
     const [travado, setTravado] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
     const [tagModalVisible, setTagModalVisible] = useState(false);
     const [nomeDono, setNomeDono] = useState('');
+    const [statusConhecido, setStatusConhecido] = useState(false);
+    const [refresh, setRefresh] = useState(0);
+    const [carregandoStatus, setCarregandoStatus] = useState(true);
+    const [erroStatus, setErroStatus] = useState('');
 
     // trava independente pra cada ação, pra não deixar toques acumularem
     const [carregandoAbrir, setCarregandoAbrir] = useState(false);
@@ -24,23 +32,43 @@ const LockButton = ({ id_fechadura }) => {
     // ref pra checagem síncrona imediata (o state do React só atualiza no próximo render)
     const acaoEmAndamento = useRef(false);
 
-    useEffect(() => {
+    // Consulta novamente ao voltar para a tela ou tocar em Atualizar estado.
+    useFocusEffect(useCallback(() => {
+        let telaAtiva = true;
         const carregarStatus = async () => {
+            setCarregandoStatus(true);
+            setStatusConhecido(false);
+            setErroStatus('');
             try {
                 const blocked = await statusFechadura();
-                setTravado(blocked);
+                if (telaAtiva) {
+                    setTravado(blocked);
+                    setStatusConhecido(true);
+                }
             } catch (error) {
-                console.error("Erro ao buscar status da fechadura:", error);
+                if (telaAtiva) {
+                    setStatusConhecido(false);
+                    setErroStatus('Não foi possível consultar a fechadura. Tente atualizar o estado.');
+                }
+            } finally {
+                if (telaAtiva) setCarregandoStatus(false);
             }
         };
         carregarStatus();
-    }, []);
+        return () => { telaAtiva = false; };
+    }, [refresh]));
 
     const abrirMenu = () => setMenuVisible(true);
 
     const handleExcluir = () => {
         setMenuVisible(false);
-        excluirFechadura();
+        Alert.alert('Remover fechadura?', 'O vínculo será removido da sua conta.', [
+            { text: 'Cancelar', style: 'cancel' },
+            { text: 'Remover', style: 'destructive', onPress: async () => {
+                try { await excluirFechadura(); setStatusConhecido(false); }
+                catch (error) { Alert.alert('Erro ao remover', error.message); }
+            } },
+        ]);
     };
 
     const handleAbrir = async () => {
@@ -48,8 +76,11 @@ const LockButton = ({ id_fechadura }) => {
         acaoEmAndamento.current = true;
         setCarregandoAbrir(true);
         try {
-            await abrirFechadura();
+            await abrirFechadura(id_fechadura);
+            Alert.alert('Comando enviado', 'O pedido de abertura foi enviado à fechadura.');
+            setRefresh(valor => valor + 1);
         } catch (error) {
+            Alert.alert('Erro ao abrir', error.message);
             console.error("Erro ao abrir fechadura:", error);
         } finally {
             setCarregandoAbrir(false);
@@ -65,19 +96,23 @@ const LockButton = ({ id_fechadura }) => {
 
         try {
             if (value) {
-                await travarFechadura();
+                await travarFechadura(id_fechadura);
             } else {
-                await destravarFechadura();
+                await destravarFechadura(id_fechadura);
             }
             const blockedAtual = await statusFechadura();
             setTravado(blockedAtual);
+            setStatusConhecido(true);
         } catch (error) {
+            Alert.alert('Erro ao alterar acesso', error.message);
             console.error(error);
             try {
                 const blockedAtual = await statusFechadura();
                 setTravado(blockedAtual);
+                setStatusConhecido(true);
             } catch {
-                setTravado(!value); // reverte se nem isso funcionou
+                setStatusConhecido(false);
+                setErroStatus('Estado indisponível. Atualize antes de enviar outro comando.');
             }
         } finally {
             setCarregandoTravar(false);
@@ -93,6 +128,7 @@ const LockButton = ({ id_fechadura }) => {
             setNomeDono('');
             setTagModalVisible(false);
         } catch (error) {
+            Alert.alert('Erro ao cadastrar tag', error.message);
             console.error(error);
         } finally {
             setCarregandoTag(false);
@@ -108,10 +144,10 @@ const LockButton = ({ id_fechadura }) => {
                     </View>
                     <View style={styles.titles}>
                         <Text style={styles.title}>Fechadura - entrada</Text>
-                        <Text style={styles.status}>Online</Text>
+                        <Text style={styles.status} accessibilityLiveRegion="polite">{carregandoStatus ? 'Consultando estado…' : statusConhecido ? (travado ? 'Acesso bloqueado' : 'Acesso liberado') : 'Estado indisponível'}</Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={abrirMenu}>
+                <TouchableOpacity accessibilityRole="button" accessibilityLabel="Opções da fechadura" hitSlop={12} onPress={abrirMenu}>
                     <Text style={styles.menuDots}>⋮</Text>
                 </TouchableOpacity>
             </View>
@@ -120,7 +156,9 @@ const LockButton = ({ id_fechadura }) => {
                 <TouchableOpacity
                     style={[styles.principalButton, carregandoAbrir && styles.buttonDisabled]}
                     onPress={handleAbrir}
-                    disabled={carregandoAbrir}
+                    accessibilityRole="button"
+                    accessibilityLabel="Abrir fechadura"
+                    disabled={carregandoAbrir || !statusConhecido}
                 >
                     {carregandoAbrir ? (
                         <ActivityIndicator color={colorsLightMode.white} />
@@ -135,10 +173,17 @@ const LockButton = ({ id_fechadura }) => {
                 <TouchableOpacity
                     style={[styles.tagButton, carregandoTag && styles.buttonDisabled]}
                     onPress={() => setTagModalVisible(true)}
-                    disabled={carregandoTag}
+                    accessibilityRole="button"
+                    disabled={carregandoTag || !statusConhecido}
                 >
                     <TagIcon width={18} height={18} />
                     <Text style={styles.text2}>Cadastrar Tag</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.tagButton, { minHeight: 56, height: undefined, paddingVertical: 12 }]}
+                    accessibilityRole="button" accessibilityLabel="Editar ou remover tags de acesso"
+                    onPress={() => navigation.navigate('Tags')}>
+                    <Text style={styles.text2}>Editar ou remover tags</Text>
                 </TouchableOpacity>
 
                 <View style={styles.travarButton}>
@@ -146,18 +191,25 @@ const LockButton = ({ id_fechadura }) => {
                         <LockIcon width={18} height={18} />
                         <Text style={styles.text3}>Travar</Text>
                     </View>
-                    {carregandoTravar ? (
+                    {carregandoTravar || carregandoStatus ? (
                         <ActivityIndicator color={colorsLightMode.primary} />
                     ) : (
                         <Switch
+                            accessibilityLabel="Bloquear acesso pela fechadura"
                             value={travado}
                             onValueChange={handleToggleTravar}
-                            disabled={carregandoTravar}
+                            disabled={carregandoTravar || !statusConhecido}
                             trackColor={{ false: colorsLightMode.primary, true: colorsLightMode.primary }}
                             thumbColor={colorsLightMode.white}
                         />
                     )}
                 </View>
+                {!!erroStatus && <Text accessibilityRole="alert" style={{ color: colorsLightMode.danger }}>{erroStatus}</Text>}
+                <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: carregandoStatus || carregandoAbrir || carregandoTravar || carregandoTag, busy: carregandoStatus }}
+                    disabled={carregandoStatus || carregandoAbrir || carregandoTravar || carregandoTag}
+                    onPress={() => setRefresh(v => v + 1)} style={[styles.tagButton, { minHeight: 56, height: undefined, paddingVertical: 12 }]}>
+                    <Text style={styles.text2}>{carregandoStatus ? 'Atualizando…' : 'Atualizar estado'}</Text>
+                </TouchableOpacity>
             </View>
 
 
@@ -195,6 +247,7 @@ const LockButton = ({ id_fechadura }) => {
                         </Text>
 
                         <TextInput
+                            accessibilityLabel="Nome do dono da tag"
                             style={styles.tagInput}
                             placeholder="Nome do dono da tag"
                             placeholderTextColor={colorsLightMode.darkGray}
@@ -224,7 +277,7 @@ const LockButton = ({ id_fechadura }) => {
 };
 
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         alignSelf: 'center',
         width: 320,

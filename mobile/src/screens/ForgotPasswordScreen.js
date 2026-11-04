@@ -1,3 +1,5 @@
+import AuthLayout from '../design/AuthLayout';
+import { useScreenStyles } from '../design/useScreenStyles';
 import React, { useState, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert } from 'react-native';
@@ -7,6 +9,7 @@ import PersonIcon from '../../assets/person.svg';
 import { forgotPassword, validateResetCode } from '../services/api';
 
 export default function ForgotPasswordScreen({ navigation }) {
+    const styles = useScreenStyles(legacyStyles, 'ForgotPasswordScreen');
     const [email, setEmail] = useState('');
     const [enviando, setEnviando] = useState(false);
     const [emailError, setEmailError] = useState(false);
@@ -69,9 +72,9 @@ export default function ForgotPasswordScreen({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <AuthLayout style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                <TouchableOpacity accessibilityRole="button" style={styles.backButton} onPress={() => navigation.goBack()}>
                     <Text style={styles.seta}>{'‹'}</Text>
                 </TouchableOpacity>
             </View>
@@ -92,7 +95,7 @@ export default function ForgotPasswordScreen({ navigation }) {
                         <Text style={styles.caption}>Insira seu email</Text>
                         <View style={[styles.inputs, emailError && styles.inputsError]}>
                             <PersonIcon width={30} height={30} />
-                            <TextInput
+                            <TextInput accessibilityLabel="E-mail"
                                 style={styles.textInput}
                                 placeholder="email123@email.com"
                                 value={email}
@@ -112,7 +115,7 @@ export default function ForgotPasswordScreen({ navigation }) {
                             <Text style={styles.caption}>Insira o código enviado por email</Text>
                             <View style={styles.codeContainer}>
                                 {code.map((digit, index) => (
-                                    <TextInput
+                                    <TextInput accessibilityLabel={`Dígito ${index + 1} do código de verificação`}
                                         key={index}
                                         ref={codeRefs[index]}
                                         style={styles.codeBox}
@@ -130,16 +133,16 @@ export default function ForgotPasswordScreen({ navigation }) {
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.input} onPress={handleSubmit} disabled={enviando || verificando}>
+            <TouchableOpacity accessibilityRole="button" style={styles.input} onPress={handleSubmit} disabled={enviando || verificando}>
                 <Text style={styles.text}>
                     {!emailSent ? (enviando ? 'Enviando...' : 'Enviar código') : (verificando ? 'Verificando...' : 'Confirmar código')}
                 </Text>
             </TouchableOpacity>
-        </View>
+        </AuthLayout>
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

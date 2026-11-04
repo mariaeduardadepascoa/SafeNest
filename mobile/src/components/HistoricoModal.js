@@ -1,7 +1,9 @@
+import { useScreenStyles } from '../design/useScreenStyles';
 import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 
 export default function HistoricoModal({ visible, evento, onClose }) {
+    const styles = useScreenStyles(legacyStyles, 'HistoricoModal');
     if (!evento) return null;
 
     const momento = new Date(evento.data_hora);
@@ -12,7 +14,7 @@ export default function HistoricoModal({ visible, evento, onClose }) {
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
             <Pressable style={styles.overlay} onPress={onClose}>
                 {/* Pressable vazio para que tocar dentro da caixa não feche o modal */}
-                <Pressable style={styles.container} onPress={() => { }}>
+                <Pressable style={styles.container} onPress={() => { }} accessible={false} accessibilityViewIsModal>
                     <Text style={styles.title}>{evento.titulo}</Text>
 
                     {evento.tipo === 'acesso' && (
@@ -32,7 +34,7 @@ export default function HistoricoModal({ visible, evento, onClose }) {
                         <Text style={styles.value}>{hora}</Text>
                     </View>
 
-                    <Pressable style={styles.closeButton} onPress={onClose}>
+                    <Pressable accessibilityRole="button" accessibilityLabel="Fechar detalhes do evento" style={styles.closeButton} onPress={onClose}>
                         <Text style={styles.closeText}>Fechar</Text>
                     </Pressable>
                 </Pressable>
@@ -41,7 +43,7 @@ export default function HistoricoModal({ visible, evento, onClose }) {
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     overlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',

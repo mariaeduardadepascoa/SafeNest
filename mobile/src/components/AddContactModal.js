@@ -1,3 +1,4 @@
+import { useScreenStyles } from '../design/useScreenStyles';
 import { View, Text, StyleSheet, Modal, TextInput, Pressable, ActivityIndicator, Image, Alert } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import { useEffect, useState } from 'react';
@@ -6,6 +7,7 @@ import PersonWhiteIcon from '../../assets/personWhiteIcon.svg';
 import PenToolIcon from '../../assets/Pen tool.svg';
 
 export default function AddContactModal({ visible, onClose, onSave, contato, salvando }) {
+    const styles = useScreenStyles(legacyStyles, 'AddContactModal');
     const [nome, setNome] = useState('');
     const [telefone, setTelefone] = useState('');
     const [foto, setFoto] = useState(null);
@@ -155,7 +157,7 @@ export default function AddContactModal({ visible, onClose, onSave, contato, sal
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     overlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.35)',

@@ -1,7 +1,9 @@
+import { useScreenStyles } from '../design/useScreenStyles';
 import { View, StyleSheet } from 'react-native';
 import { colorsLightMode } from '../theme';
 
 export default function ProgressBar({ totalSteps = 3, currentStep = 1 }) {
+    const styles = useScreenStyles(legacyStyles, 'ProgressBar');
     return (
         <View style={styles.container}>
             {Array.from({ length: totalSteps }).map((_, index) => (
@@ -17,7 +19,7 @@ export default function ProgressBar({ totalSteps = 3, currentStep = 1 }) {
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         gap: 8,

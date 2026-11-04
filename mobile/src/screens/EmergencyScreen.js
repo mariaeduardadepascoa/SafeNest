@@ -1,3 +1,6 @@
+import { useScreenStyles } from '../design/useScreenStyles';
+import { useDesign } from '../design/DesignProvider';
+import { Screen } from '../design/UI';
 import { StyleSheet, Text, View, Pressable, Alert, ScrollView, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import ContactCard from '../components/ContactCard.js';
@@ -9,6 +12,8 @@ import { obterContatosEmergencia, criarContatoEmergencia, atualizarContatoEmerge
 import { getFotosLocais, salvarFotoLocal, removerFotoLocal } from '../services/fotosLocais';
 
 export default function EmergencyScreen({ navigation }) {
+    const styles = useScreenStyles(legacyStyles, 'EmergencyScreen');
+    const { prefs } = useDesign();
     const { usuario } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
     const [contatos, setContatos] = useState([]);
@@ -101,7 +106,7 @@ export default function EmergencyScreen({ navigation }) {
         );
     }
 
-    return (
+    const content = (
         <View style={styles.container}>
             <View style={styles.containerTitlesPage}>
                 <Text style={styles.titlePage}>Emergência</Text>
@@ -110,7 +115,7 @@ export default function EmergencyScreen({ navigation }) {
             <View style={styles.contentArea}>
                 <View style={styles.titlesTop}>
                     <Text style={styles.title}>CONTATOS DE EMERGÊNCIA</Text>
-                    <Pressable onPress={() => { setContatoEditando(null); setModalVisible(true); }}>
+                    <Pressable accessibilityRole="button" accessibilityLabel="Adicionar contato de emergência" style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }} onPress={() => { setContatoEditando(null); setModalVisible(true); }}>
                         <PlusCircleIcon width={28} height={28} />
                     </Pressable>
                 </View>
@@ -152,9 +157,10 @@ export default function EmergencyScreen({ navigation }) {
             </View>
         </View>
     );
+    return prefs.adapted ? content : <Screen navigation={navigation} scroll={false}>{content}</Screen>;
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

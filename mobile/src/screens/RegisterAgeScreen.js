@@ -1,35 +1,51 @@
-import React, { useState } from 'react';
+import AuthLayout from '../design/AuthLayout';
+import { useScreenStyles } from '../design/useScreenStyles';
+import React, { useRef, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Switch } from 'react-native';
 import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
-import { cadastro } from '../services/api';
+import { cadastro, login } from '../services/api';
+import { useDesign } from '../design/DesignProvider';
 import { useAuth } from '../context/AuthContext';
-import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
+import LogoSafeNest from '../design/AuthBrand';
 import ProgressBar from '../components/ProgressBar';
 
 export default function RegisterAgeScreen({ navigation, route }) {
+    const styles = useScreenStyles(legacyStyles, 'RegisterAgeScreen');
+    const { prefs } = useDesign();
+    const [wantsAccessible, setWantsAccessible] = useState(prefs.adapted);
     const { nome, email, senha } = route.params;
     const [ageRange, setAgeRange] = useState('18-60');
     const [infoCardOpen, setInfoCardOpen] = useState(false);
     const [carregando, setCarregando] = useState(false);
     const { setUsuario } = useAuth();
+    const cadastroEmAndamento = useRef(false);
 
     async function finishRegister() {
+        if (cadastroEmAndamento.current) return;
+        cadastroEmAndamento.current = true;
         setCarregando(true);
         try {
-            const usuarioCadastrado = await cadastro(nome, email, senha, ageRange);
-            setUsuario(usuarioCadastrado);
-            navigation.replace('Main');
+            await cadastro(nome, email, senha, ageRange, wantsAccessible);
+            try {
+                const usuarioLogado = await login(email, senha);
+                setUsuario(usuarioLogado);
+                navigation.getParent().replace('Main');
+            } catch {
+                Alert.alert('Conta criada', 'Faça login para iniciar sua sessão com segurança.');
+                navigation.getParent().replace('Login');
+            }
         } catch (err) {
             Alert.alert('Erro ao cadastrar', err.message);
         } finally {
+            cadastroEmAndamento.current = false;
             setCarregando(false);
         }
     }
 
     return (
-        <View style={styles.container}>
+        <AuthLayout style={styles.container}>
 
             <LogoSafeNest
                 width={160}
@@ -37,7 +53,7 @@ export default function RegisterAgeScreen({ navigation, route }) {
                 style={{ marginTop: 15 }}
             />
 
-            <View style={styles.progressBarContainer}>
+            <View style={styles.progressBarContainer} accessible accessibilityLabel="Cadastro, etapa 3 de 3">
                 <ProgressBar
                     totalSteps={3}
                     currentStep={3}
@@ -69,7 +85,10 @@ export default function RegisterAgeScreen({ navigation, route }) {
                             Nos informe sua faixa etária
                         </Text>
 
-                        <TouchableOpacity
+                        <TouchableOpacity accessibilityRole="button"
+                            accessibilityLabel="Informações sobre o design acessível"
+                            accessibilityState={{ expanded: infoCardOpen }}
+                            style={styles.visibilityButton}
                             onPress={() =>
                                 setInfoCardOpen(!infoCardOpen)
                             }
@@ -85,9 +104,8 @@ export default function RegisterAgeScreen({ navigation, route }) {
                         <View style={styles.infoCard}>
 
                             <Text style={styles.infoCardText}>
-                                Nós possuímos um sistema de adaptação conforme a idade.
-                                Se você possuir mais de 60 anos o SafeNest irá se
-                                adaptar visualmente para você.
+                                Você pode escolher o design acessível original do SafeNest,
+                                independentemente da sua idade.
                             </Text>
 
                             <Text style={styles.infoCardTextBold}>
@@ -98,7 +116,7 @@ export default function RegisterAgeScreen({ navigation, route }) {
                         </View>
                     )}
 
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="radio" accessibilityState={{ checked: ageRange === '18-60' }}
                         style={[
                             styles.radioOption,
                             ageRange === '18-60' &&
@@ -133,7 +151,7 @@ export default function RegisterAgeScreen({ navigation, route }) {
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity
+                    <TouchableOpacity accessibilityRole="radio" accessibilityState={{ checked: ageRange === '60+' }}
                         style={[
                             styles.radioOption,
                             ageRange === '60+' &&
@@ -172,19 +190,23 @@ export default function RegisterAgeScreen({ navigation, route }) {
 
             </View>
 
-            <TouchableOpacity style={styles.input} onPress={finishRegister} disabled={carregando}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, maxWidth: '100%', paddingVertical: 12 }}>
+                <Text style={[styles.caption, { flexShrink: 1 }]}>Quero usar o design acessível original</Text>
+                <Switch accessibilityLabel="Quero usar o design acessível original" value={wantsAccessible} onValueChange={setWantsAccessible} disabled={carregando} />
+            </View>
+            <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: carregando, busy: carregando }} style={styles.input} onPress={finishRegister} disabled={carregando}>
                 {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Cadastre-se</Text>}
             </TouchableOpacity>
 
-            <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
+            <Text style={styles.caption}>Já tem uma conta?<Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
 
             <StatusBar style="auto" />
 
-        </View>
+        </AuthLayout>
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
