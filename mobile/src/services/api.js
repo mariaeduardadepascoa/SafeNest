@@ -111,7 +111,7 @@ export async function login(email, senha) {
 
 
 // CADASTRO
-export async function cadastro(nome, email, senha, ageRange) {
+export async function cadastro(nome, email, senha, ageRange, versaoAdaptada = ageRange === '60+') {
     const resposta = await fetch(`${API_URL}/auth/cadastro`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -119,7 +119,7 @@ export async function cadastro(nome, email, senha, ageRange) {
             nome_usuario: nome,
             email_usuario: email,
             senha_usuario: senha,
-            versao_adaptada: ageRange === '60+', //comparação que retorna true ou false
+            versao_adaptada: versaoAdaptada,
         }),
     });
 
@@ -290,7 +290,7 @@ export async function destravarFechadura(id_fechadura) {
 }
 
 export async function excluirFechadura() {
-    const resposta = await autenticacaoTokenDispositivos('/fechadura    ', {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura', {
         method: 'DELETE',
     });
 
@@ -440,4 +440,15 @@ export async function validateResetCode(code) {
     const data = await resposta.json();
     if (!resposta.ok) throw new Error(data.erro || "Erro ao validar código");
     return data;
+}
+
+// Uses the existing authenticated account endpoint; never stores a simulated setting.
+export async function atualizarPreferenciaAcessivel(id, versao_adaptada) {
+    const resposta = await autenticacaoToken(`/usuario/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ versao_adaptada }),
+    });
+    const data = await resposta.json();
+    if (!resposta.ok) throw new Error(data.erro || 'Não foi possível salvar o design acessível');
+    return data.usuario;
 }

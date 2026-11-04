@@ -1,3 +1,5 @@
+import AuthLayout from '../design/AuthLayout';
+import { useScreenStyles } from '../design/useScreenStyles';
 
 import React, { useState, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
@@ -5,17 +7,19 @@ import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-nativ
 import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 
-import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
+import LogoSafeNest from '../design/AuthBrand';
 import ProgressBar from '../components/ProgressBar';
 import PersonIcon from '../../assets/person.svg';
 import { cadastro, verificarEmailExiste, enviarCodigoVerificacao, verificarCodigoVerificacao } from '../services/api';
 
 export default function RegisterEmailScreen({ navigation, route }) {
+    const styles = useScreenStyles(legacyStyles, 'RegisterEmailScreen');
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [verificando, setVerificando] = useState(false);
+    const verificacaoEmAndamento = useRef(false);
 
     const [code, setCode] = useState(['', '', '', '']);
 
@@ -28,14 +32,17 @@ export default function RegisterEmailScreen({ navigation, route }) {
 
     //função para guardar oq foi digitado e em qual foi digitado, ex: codeChange("1", 0)
     function codeChange(text, index) {
-        let newCode = [...code]; //copia o array
-
-        newCode[index] = text; //salva o numero
-
+        const digitos = text.replace(/\D/g, '').slice(0, 4 - index);
+        const newCode = [...code];
+        newCode[index] = '';
+        for (let posicao = 0; posicao < digitos.length; posicao++) {
+            newCode[index + posicao] = digitos[posicao];
+        }
         setCode(newCode);
 
-        if (text !== '' && index < 3) { //vai automaticamente para o proximo quadrado quando algo for digitado
-            codeRefs[index + 1].current.focus();
+        if (digitos.length > 0) {
+            const proximoCampo = Math.min(index + digitos.length, 3);
+            codeRefs[proximoCampo].current?.focus();
         }
     }
 
@@ -47,60 +54,50 @@ export default function RegisterEmailScreen({ navigation, route }) {
 
     // enviando e confirmando email
     async function confirmEmail() {
+        if (verificacaoEmAndamento.current) return;
         if (!emailSent) {
             if (!nome.trim() || !email.trim()) {
-                return; // depois dá pra trocar por um Alert avisando o usuário AARUMAR
+                Alert.alert('Preencha seus dados', 'Informe seu nome e e-mail para continuar.');
+                return;
             }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+                setEmailError(true);
+                Alert.alert('Confira seu e-mail', 'Digite um e-mail válido, como nome@exemplo.com.');
+                return;
+            }
+        } else if (!/^\d{4}$/.test(code.join(''))) {
+            Alert.alert('Confira o código', 'Insira os quatro números enviados para seu e-mail.');
+            return;
+        }
 
-            setVerificando(true);
-
-            try {
-
-                const existe = await verificarEmailExiste(email.trim().toLowerCase());
+        verificacaoEmAndamento.current = true;
+        setVerificando(true);
+        try {
+            const emailNormalizado = email.trim().toLowerCase();
+            if (!emailSent) {
+                const existe = await verificarEmailExiste(emailNormalizado);
                 if (existe) {
                     setEmailError(true);
                     Alert.alert('Atenção: Este e-mail já está cadastrado no sistema.');
                     return;
                 }
 
-            } catch (err) {
-                Alert.alert('Erro', err.message);
-                return;
-            } finally {
-                setVerificando(false);
+                await enviarCodigoVerificacao(emailNormalizado);
+                setEmailSent(true);
+            } else {
+                await verificarCodigoVerificacao(emailNormalizado, code.join(''));
+                navigation.navigate('RegisterPassword', { nome: nome.trim(), email: emailNormalizado });
             }
-
-            try {
-                await enviarCodigoVerificacao(email.trim().toLowerCase());
-            } catch (err) {
-                Alert.alert('Erro', 'Não foi possível enviar o código de verificação.');
-                return;
-            }
-
-            setEmailSent(true);
-
-        } else {
-            const codigoDigitado = code.join('');
-
-            if (codigoDigitado.length < 4) {
-                Alert.alert('Atenção: Insira o código completo.');
-                return;
-            }
-
-            setVerificando(true);
-            try {
-                await verificarCodigoVerificacao(email.trim().toLowerCase(), codigoDigitado);
-                navigation.navigate('RegisterPassword', { nome, email });
-            } catch (err) {
-                Alert.alert('Erro: ', err.message);
-            } finally {
-                setVerificando(false);
-            }
+        } catch (err) {
+            Alert.alert('Não foi possível continuar', err.message);
+        } finally {
+            verificacaoEmAndamento.current = false;
+            setVerificando(false);
         }
     }
 
     return (
-        <View style={styles.container}>
+        <AuthLayout style={styles.container}>
 
             <LogoSafeNest
                 width={160}
@@ -108,7 +105,7 @@ export default function RegisterEmailScreen({ navigation, route }) {
                 style={{ marginTop: 15 }}
             />
 
-            <View style={styles.progressBarContainer}>
+            <View style={styles.progressBarContainer} accessible accessibilityLabel="Cadastro, etapa 1 de 3">
                 <ProgressBar
                     totalSteps={3}
                     currentStep={1}
@@ -134,13 +131,13 @@ export default function RegisterEmailScreen({ navigation, route }) {
                         <Text style={styles.caption}>Insira seu nome</Text>
                         <View style={styles.inputs}>
                             <PersonIcon width={30} height={30} />
-                            <TextInput
+                            <TextInput accessibilityLabel="Nome completo"
                                 style={styles.textInput}
                                 placeholder="Seu nome completo"
-                                placeholderTextColor={colorsLightMode.subtitles}
+                                placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
                                 value={nome}
                                 onChangeText={setNome}
-                                editable={!emailSent}
+                                editable={!emailSent && !verificando}
                             />
                         </View>
                     </View>
@@ -149,18 +146,20 @@ export default function RegisterEmailScreen({ navigation, route }) {
                         <Text style={styles.caption}>Insira seu email</Text>
                         <View style={[styles.inputs, emailError && styles.inputsError]}>
                             <PersonIcon width={30} height={30} />
-                            <TextInput
+                            <TextInput accessibilityLabel="E-mail"
                                 style={styles.textInput}
                                 placeholder="email123@email.com"
-                                placeholderTextColor={colorsLightMode.subtitles}
+                                placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
                                 value={email}
                                 onChangeText={(text) => {
                                     setEmail(text);
                                     setEmailError(false);
                                 }}
-                                editable={!emailSent}
+                                editable={!emailSent && !verificando}
                                 keyboardType="email-address"
                                 autoCapitalize="none"
+                                autoCorrect={false}
+                                autoComplete="email"
                             />
                         </View>
                     </View>
@@ -175,7 +174,7 @@ export default function RegisterEmailScreen({ navigation, route }) {
                             <View style={styles.codeContainer}>
 
                                 {code.map((digit, index) => (
-                                    <TextInput
+                                    <TextInput accessibilityLabel={`Dígito ${index + 1} do código de verificação`}
                                         key={index}
                                         ref={codeRefs[index]}
                                         style={styles.codeBox}
@@ -186,7 +185,8 @@ export default function RegisterEmailScreen({ navigation, route }) {
                                         onKeyPress={(e) =>
                                             codeKeyPress(e, index)
                                         }
-                                        maxLength={1}
+                                        maxLength={4 - index}
+                                        editable={!verificando}
                                         keyboardType="number-pad"
                                         textAlign="center"
                                     />
@@ -203,29 +203,29 @@ export default function RegisterEmailScreen({ navigation, route }) {
 
             {!emailSent ? (
                 <>
-                    <TouchableOpacity style={styles.input} onPress={confirmEmail}>
-                        <Text style={styles.text}>Enviar código de confirmação</Text>
+                    <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: verificando, busy: verificando }} style={styles.input} onPress={confirmEmail} disabled={verificando}>
+                        <Text style={styles.text}>{verificando ? 'Enviando código…' : 'Enviar código de confirmação'}</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
+                    <Text style={styles.caption}>Já tem uma conta?<Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
                 </>
             ) : (
                 <>
-                    <TouchableOpacity style={styles.input} onPress={confirmEmail} disabled={verificando}> {/*botao desabilitado enquanto verficando for true*/}
-                        <Text style={styles.text}>Confirmar e-mail</Text>
+                    <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: verificando, busy: verificando }} style={styles.input} onPress={confirmEmail} disabled={verificando}>
+                        <Text style={styles.text}>{verificando ? 'Verificando código…' : 'Confirmar e-mail'}</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.caption}>Já tem uma conta?<Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
+                    <Text style={styles.caption}>Já tem uma conta?<Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
                 </>
             )}
 
             <StatusBar style="auto" />
 
-        </View>
+        </AuthLayout>
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

@@ -63,30 +63,23 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
                     <Text style={styles.titles}>DISPOSITIVOS</Text>
-                    <Pressable style={styles.pressables} onPress={() => navigation.navigate('Histórico')}>
+                    <Pressable accessibilityRole="button" accessibilityLabel="Ver todos os dispositivos" style={styles.pressables} onPress={() => navigation.navigate('Dispositivos')}>
                     <Text style={styles.spanVerMais}>Ver todos </Text>
                     <Ionicons name="chevron-forward" size={15} color={colorsLightMode.primary} style={{ marginTop: 1.5 }}/>
                     </Pressable>
                 </View>
 
-                <SensorCard
+                <Pressable accessibilityRole="button" accessibilityLabel="Abrir câmera" onPress={() => navigation.navigate('Câmera')}><SensorCard
                     Icon={OrangeCameraIcon}
                     title="Câmera - entrada"
-                    status="BATERIA"
-                    warning
-                />
+                    status="VER"
+                /></Pressable>
 
-                <SensorCard
+                <Pressable accessibilityRole="button" accessibilityLabel="Gerenciar tags de acesso" onPress={() => navigation.navigate('Tags')}><SensorCard
                     Icon={GroupIcon}
-                    title="Sensor de arrombamento"
-                    status="ON"
-                />
-
-                <SensorCard
-                    Icon={AlertCircleIcon}
-                    title="Sensor de incêndio"
-                    status="ON"
-                />
+                    title="Tags de acesso"
+                    status="VER"
+                /></Pressable>
 
             </View>
 

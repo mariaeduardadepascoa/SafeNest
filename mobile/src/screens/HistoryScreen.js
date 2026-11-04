@@ -1,5 +1,8 @@
+import { useScreenStyles } from '../design/useScreenStyles';
 // import { StyleSheet, Text, View, Alert, ActivityIndicator, FlatList } from 'react-native';
-import { StyleSheet, Text, View, Alert, ActivityIndicator, SectionList } from 'react-native';
+import { StyleSheet, Text, View, Alert, ActivityIndicator, SectionList, Pressable } from 'react-native';
+import { useDesign } from '../design/DesignProvider';
+import { Screen } from '../design/UI';
 import { colorsLightMode, typography } from '../theme';
 import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
@@ -10,10 +13,14 @@ import HistoricoModal from '../components/HistoricoModal';
 import { obterHistorico } from '../services/api';
 
 export default function HistoryScreen({ navigation }) {
+    const styles = useScreenStyles(legacyStyles, 'HistoryScreen');
+    const { prefs, c } = useDesign();
+    const [filter, setFilter] = useState('Todos');
     const { usuario } = useAuth();
     const [dados, setDados] = useState([]);
     const [carregando, setCarregando] = useState(true);
-    const secoes = agruparPorData(dados);
+    const visible = filter === 'Todos' ? dados : dados.filter(event => event.tipo === (filter === 'Alertas' ? 'alerta' : 'acesso'));
+    const secoes = agruparPorData(visible);
     const [eventoSelecionado, setEventoSelecionado] = useState(null);
 
     // carregando o historico
@@ -58,20 +65,27 @@ export default function HistoryScreen({ navigation }) {
 
 
 
-    return (
+    const content = (
         <View style={styles.container}>
             <View style={styles.containerTitlesPage}>
                 <Text style={styles.titlePage}>Histórico</Text>
                 <Text style={styles.subtitlePage}>Visualize todos os eventos aqui.</Text>
             </View>
 
+            <View style={{ flexDirection: 'row', flexWrap: prefs.adapted ? 'wrap' : 'nowrap', marginHorizontal: prefs.adapted ? 12 : 22, marginBottom: 16, padding: 4, borderRadius: 26, backgroundColor: c.raised }}>
+                {['Todos', 'Acessos', 'Alertas'].map(label => <Pressable key={label} accessibilityRole="button" accessibilityState={{ selected: filter === label }}
+                    onPress={() => setFilter(label)} style={{ flex: 1, minWidth: prefs.adapted ? 88 : undefined, minHeight: prefs.adapted ? 56 : 44, paddingVertical: prefs.adapted ? 12 : 0, justifyContent: 'center', alignItems: 'center', borderRadius: 22, backgroundColor: filter === label ? c.accent : 'transparent' }}>
+                    <Text style={{ color: filter === label ? '#FFFFFF' : prefs.adapted ? '#2B5081' : c.muted, fontSize: prefs.adapted ? 18 : undefined }}>{label}</Text>
+                </Pressable>)}
+            </View>
+
             {carregando ? (
                 <View style={styles.centeredMessage}>
                     <ActivityIndicator size="large" color={colorsLightMode.primary} />
                 </View>
-            ) : dados.length === 0 ? (
+            ) : visible.length === 0 ? (
                 <View style={styles.centeredMessage}>
-                    <Text style={styles.emptyText}>Você não tem nenhum alerta ou registro de acessos ainda.</Text>
+                    <Text style={styles.emptyText}>Nenhum evento encontrado.</Text>
                 </View>
             ) : (
                 <View style={styles.scrollArea}>
@@ -96,9 +110,10 @@ export default function HistoryScreen({ navigation }) {
             />
         </View >
     );
+    return prefs.adapted ? content : <Screen navigation={navigation} scroll={false}>{content}</Screen>;
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,

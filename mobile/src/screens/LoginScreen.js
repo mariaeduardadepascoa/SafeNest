@@ -1,11 +1,15 @@
+import AuthLayout from '../design/AuthLayout';
+import { useDesign } from '../design/DesignProvider';
+import { Button } from '../design/UI';
+import { useScreenStyles } from '../design/useScreenStyles';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { login } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
 import { colorsLightMode, colorsBlackMode, typography } from '../theme';
-import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
+import LogoSafeNest from '../design/AuthBrand';
 import PersonIcon from '../../assets/person.svg';
 import LockIcon from '../../assets/Lock.svg';
 import EyeIcon from '../../assets/Eye.svg';
@@ -14,33 +18,39 @@ import ForgotPassword from '../screens/ForgotPasswordScreen.js';
 
 
 export default function LoginScreen({ navigation }) {
+    const styles = useScreenStyles(legacyStyles, 'LoginScreen');
+    const { prefs, ready, saving, savePreferences } = useDesign();
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [carregando, setCarregando] = useState(false);
     const [showSenha, setShowSenha] = useState(false);
     const { setUsuario } = useAuth();
+    const loginEmAndamento = useRef(false);
 
     async function handleLogin() {
-        if (!email || !senha) {
+        if (loginEmAndamento.current) return;
+        if (!email.trim() || !senha) {
             Alert.alert('Atenção: email e senha são obrigatórios!');
             return;
         }
 
+        loginEmAndamento.current = true;
         setCarregando(true);
 
         try {
-            const usuarioLogado = await login(email, senha);
+            const usuarioLogado = await login(email.trim().toLowerCase(), senha);
             setUsuario(usuarioLogado);
             navigation.replace('Main');
         } catch (err) {
             Alert.alert('Erro ao entrar ', err.message);
         } finally {
+            loginEmAndamento.current = false;
             setCarregando(false);
         }
     }
 
     return (
-        <View style={styles.container}>
+        <AuthLayout style={styles.container}>
             <LogoSafeNest width={160} height={60} />
             <View style={styles.mainTexts}>
                 <Text style={styles.title}>Faça login e sinta-se em casa.</Text>
@@ -54,12 +64,15 @@ export default function LoginScreen({ navigation }) {
                     <View style={styles.inputs}>
                         <PersonIcon width={30} height={30} />
                         <TextInput
+                            accessibilityLabel="E-mail"
                             style={styles.textSubContainer}
                             placeholder="exemplo123@gmail.com"
-                            placeholderTextColor={colorsLightMode.subtitles}
+                            placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
                             value={email}
                             onChangeText={setEmail}
                             autoCapitalize="none"
+                            autoCorrect={false}
+                            autoComplete="email"
                             keyboardType="email-address"
                         />
                     </View>
@@ -68,35 +81,43 @@ export default function LoginScreen({ navigation }) {
                 <View style={styles.authSubContainer}>
                     <View style={styles.titlesInputPassword}>
                         <Text style={styles.caption}>Insira sua senha</Text>
-                        <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ForgotPassword')}>Esqueceu a senha?</Text>
+                        <Text accessibilityRole="link" style={styles.forgotPassword} onPress={() => navigation.navigate('ForgotPassword')}>Esqueceu a senha?</Text>
                     </View>
                     <View style={styles.inputs}>
                         <LockIcon width={30} height={20} />
                         <TextInput
+                            accessibilityLabel="Senha"
                             style={styles.textSubContainer}
                             placeholder="Mínimo 6 caracteres"
-                            placeholderTextColor={colorsLightMode.subtitles}
+                            placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
                             value={senha}
                             onChangeText={setSenha}
                             secureTextEntry={!showSenha}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            autoComplete="current-password"
+                            returnKeyType="go"
+                            onSubmitEditing={handleLogin}
                         />
-                        <TouchableOpacity onPress={() => setShowSenha(!showSenha)}>
+                        <TouchableOpacity accessibilityRole="button" accessibilityLabel={showSenha ? 'Ocultar senha' : 'Mostrar senha'} style={[{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }, styles.visibilityButton]} onPress={() => setShowSenha(!showSenha)}>
                             {showSenha ? <EyeIcon /> : <EyeOffIcon />}
                         </TouchableOpacity>
                     </View>
                 </View>
 
             </View>
-            <TouchableOpacity style={styles.input} onPress={handleLogin} disabled={carregando}>
+            <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: carregando, busy: carregando }} style={styles.input} onPress={handleLogin} disabled={carregando}>
                 {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Entrar</Text>}
             </TouchableOpacity>
-            <Text style={styles.caption}>Não tem uma conta? <Text style={styles.caption2} onPress={() => navigation.navigate('Register')}>Faça cadastro.</Text></Text>
+            <Text style={styles.caption}>Não tem uma conta? <Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Register')}>Faça cadastro.</Text></Text>
+            <Button title={prefs.adapted ? 'Usar novo visual' : 'Usar design acessível'} secondary disabled={!ready || saving}
+                onPress={async () => { try { await savePreferences({ adapted: !prefs.adapted }); } catch (error) { Alert.alert('Erro ao salvar preferência', error.message); } }} />
             <StatusBar style="auto" />
-        </View>
+        </AuthLayout>
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
