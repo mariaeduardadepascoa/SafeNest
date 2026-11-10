@@ -445,3 +445,152 @@ export async function validateResetCode(code) {
     if (!resposta.ok) throw new Error(data.erro || "Erro ao validar código");
     return data;
 }
+// ------------------------------------ SEÇÃO DE ACESSIBILIDADE
+
+export async function atualizarPreferenciaAcessivel(id, versao_adaptada) {
+    const resposta = await autenticacaoToken(`/usuario/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ versao_adaptada }),
+    });
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Não foi possível salvar o design acessível");
+
+    return data.usuario;
+}
+
+
+//cameraa joaoaoaoa
+
+// LISTAR CÂMERAS DO USUÁRIO
+export async function obterCameras(idUsuario) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/usuario/${idUsuario}`);
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar câmeras");
+
+    return data;
+}
+
+// CADASTRAR CÂMERA
+export async function cadastrarCamera(camera) {
+    const resposta = await autenticacaoTokenDispositivos('/cameras/usuario', {
+        method: 'POST',
+        body: JSON.stringify(camera),
+    });
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao cadastrar câmera");
+
+    return data;
+}
+
+// ATUALIZAR CÂMERA
+export async function atualizarCamera(idCamera, camera) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/${idCamera}`, {
+        method: 'PUT',
+        body: JSON.stringify(camera),
+    });
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao atualizar câmera");
+
+    return data;
+}
+
+// REMOVER CÂMERA
+export async function removerCamera(idCamera) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/${idCamera}`, {
+        method: 'DELETE',
+    });
+
+    if (!resposta.ok) {
+        const data = await resposta.json().catch(() => ({}));
+        throw new Error(data.erro || "Erro ao remover câmera");
+    }
+
+    return true;
+}
+
+// CONSULTAR STATUS DA CÂMERA
+export async function obterStatusCamera(idCamera) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/${idCamera}/status`);
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar status da câmera");
+
+    return data;
+}
+
+// SINCRONIZAR TODAS AS CÂMERAS DO USUÁRIO
+export async function sincronizarCameras(idUsuario) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/usuario/${idUsuario}/sincronizar`, {
+        method: 'POST',
+    });
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao sincronizar câmeras");
+
+    return data;
+}
+
+// SINCRONIZAR UMA CÂMERA
+export async function sincronizarCamera(idCamera) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/${idCamera}/sincronizar`, {
+        method: 'POST',
+    });
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao sincronizar câmera");
+
+    return data;
+}
+
+// CONSULTAR STATUS DA IA
+export async function obterStatusIaCamera(idCamera) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/${idCamera}/ia/status`);
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar status da IA");
+
+    return data;
+}
+
+// OBTER URL DA TRANSMISSÃO WEBRTC
+export async function obterVideoCamera(idCamera) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/${idCamera}/video`);
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao obter transmissão da câmera");
+
+    return data.url;
+}
+
+// OBTER FOTO DO ÚLTIMO ALERTA DA IA
+export async function obterFotoCamera(idCamera) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/${idCamera}/ia/foto`);
+
+    if (!resposta.ok) throw new Error("Erro ao buscar foto da câmera");
+
+    return await resposta.blob();
+}
+
+// LISTAR ALERTAS DAS CÂMERAS
+export async function obterAlertasCameras(idUsuario) {
+    const resposta = await autenticacaoTokenDispositivos(`/cameras/alertas/usuario/${idUsuario}`);
+
+    const data = await resposta.json();
+
+    if (!resposta.ok) throw new Error(data.erro || "Erro ao buscar alertas das câmeras");
+
+    return data;
+}
