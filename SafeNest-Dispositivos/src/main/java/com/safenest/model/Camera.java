@@ -1,3 +1,4 @@
+
 package com.safenest.model;
 
 import jakarta.persistence.*;
@@ -13,9 +14,10 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class Camera {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "id_usuario")
@@ -24,6 +26,7 @@ public class Camera {
     @Column(name = "endereco")
     private String endereco;
 
+    @Column(name = "status")
     private String status;
 
     @Column(name = "nome_usuario")
@@ -31,5 +34,4 @@ public class Camera {
 
     @Column(name = "data_hora")
     private LocalDateTime dataHora;
-
 }
