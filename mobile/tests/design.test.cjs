@@ -9,7 +9,7 @@ function load(relative, dependencies = {}, globals = {}) {
   const source = fs.readFileSync(path.join(__dirname, '..', relative), 'utf8');
   const { code } = babel.transformSync(source, {
     babelrc: false, configFile: false,
-    plugins: ['@babel/plugin-transform-modules-commonjs'],
+    plugins: ['@babel/plugin-transform-modules-commonjs', '@babel/plugin-transform-react-jsx'],
   });
   const module = { exports: {} };
   vm.runInNewContext(code, {
@@ -200,6 +200,57 @@ test('accessible lock marks the state as unavailable when consultation fails', a
   assert.equal(known, false);
   assert.equal(loading, false);
   assert.match(message, /Não foi possível consultar/);
+});
+
+test('contrast preference changes the interface in both designs and keeps readable text', () => {
+  const { getDesignColors } = load('src/design/preferences.js');
+  function luminance(hex) {
+    const rgb = hex.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16) / 255)
+      .map(value => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+    return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+  }
+  function contrast(first, second) {
+    const values = [luminance(first), luminance(second)].sort((a, b) => b - a);
+    return (values[0] + 0.05) / (values[1] + 0.05);
+  }
+  for (const adapted of [false, true]) {
+    const standard = getDesignColors({ adapted, colorVision: false });
+    const adjusted = getDesignColors({ adapted, colorVision: true });
+    for (const key of ['bg', 'raised', 'text', 'muted', 'line', 'accent']) assert.notEqual(standard[key], adjusted[key]);
+    assert.ok(contrast(adjusted.text, adjusted.surface) >= 4.5);
+    assert.ok(contrast(adjusted.muted, adjusted.surface) >= 4.5);
+    assert.ok(contrast('#FFFFFF', adjusted.accent) >= 4.5);
+    assert.ok(contrast('#FFFFFF', adjusted.red) >= 4.5);
+  }
+});
+
+test('contact redesign preserves phone calls, editing, deletion and saved photos', async () => {
+  let edits = 0;
+  let deletions = 0;
+  const calls = [];
+  const { default: ContactCard } = load('src/components/ContactCard.js', {
+    react: { createElement: (type, props, ...children) => ({ type, props: { ...props, children } }) },
+    'react-native': { View: 'View', Image: 'Image', Pressable: 'Pressable', StyleSheet: { create: value => value },
+      Linking: { openURL: async value => calls.push(value) }, Alert: { alert: () => assert.fail('Não deve falhar') } },
+    '../design/DesignProvider': { useDesign: () => ({ c: {}, prefs: { adapted: false } }) },
+    '../design/UI': { Icon: 'Icon', Txt: 'Text' },
+  });
+  const card = ContactCard({ nome_contato: 'Contato de teste', telefone: '(19) 99999-0000', foto: 'file:///foto-local.jpg', onEdit: () => edits++, onDelete: () => deletions++ });
+  const elements = [];
+  function visit(node) {
+    if (!node || typeof node !== 'object') return;
+    if (Array.isArray(node)) return node.forEach(visit);
+    elements.push(node);
+    visit(node.props?.children);
+  }
+  visit(card);
+  await elements.find(node => node.props?.accessibilityLabel === 'Ligar para Contato de teste').props.onPress();
+  elements.find(node => node.props?.accessibilityLabel === 'Editar contato Contato de teste').props.onPress();
+  elements.find(node => node.props?.accessibilityLabel === 'Excluir contato Contato de teste').props.onPress();
+  assert.deepEqual(calls, ['tel:19999990000']);
+  assert.equal(edits, 1);
+  assert.equal(deletions, 1);
+  assert.equal(elements.find(node => node.type === 'Image').props.source.uri, 'file:///foto-local.jpg');
 });
 
 function apiHarness(responses, token = 'access') {

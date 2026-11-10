@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, ScrollView, Switch, View } from 'react-native';
 import { useDesign } from './DesignProvider';
-import { Brand, Button, Card, Heading, PageTitle, Row, Screen, Txt } from './UI';
+import { Brand, Button, Card, Heading, Icon, PageTitle, Row, Screen, Txt } from './UI';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
 
@@ -51,7 +51,7 @@ export default function AppearanceScreen() {
 
 export function SettingsScreen({ navigation }) {
   const { usuario, logout } = useAuth();
-  const { prefs, saving, savePreferences } = useDesign();
+  const { c, prefs, saving, savePreferences } = useDesign();
   async function change(alteracoes) {
     try {
       await savePreferences(alteracoes);
@@ -61,7 +61,16 @@ export function SettingsScreen({ navigation }) {
   }
   return <Screen navigation={navigation} back>
     <PageTitle eyebrow="SUA CONTA" title="Configurações" subtitle="Preferências e controle da sua unidade." />
-    <Card><Txt weight="600">{usuario?.nome_usuario}</Txt><Txt muted>{usuario?.email_usuario}</Txt></Card>
+    <Card>
+      <Row style={{ alignItems: 'flex-start' }}>
+        <View style={{ width: 48, height: 48, borderRadius: 24, backgroundColor: c.raised, justifyContent: 'center', alignItems: 'center' }}><Icon name="user" size={24} /></View>
+        <View style={{ flex: 1, gap: 4 }}>
+          <Txt muted size={12}>Informações pessoais</Txt>
+          <Txt weight="600">{usuario?.nome_usuario}</Txt>
+          <Txt muted style={{ flexShrink: 1 }}>{usuario?.email_usuario}</Txt>
+        </View>
+      </Row>
+    </Card>
     <Heading title="Acessibilidade" />
     <PreferenceOptions adapted={prefs.adapted} colorVision={prefs.colorVision} disabled={saving}
       onAdapted={adapted => change({ adapted })} onColorVision={colorVision => change({ colorVision })} />

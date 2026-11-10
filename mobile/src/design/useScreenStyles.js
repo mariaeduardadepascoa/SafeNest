@@ -17,10 +17,11 @@ export function useScreenStyles(original, screen) {
 
     const result = {};
 
-    const palette = prefs.adapted ? { '#D54144': c.red, '#EA8C2F': '#926018' } : {
+    const palette = {
       '#2B5081': c.accent, '#F8FAFC': c.bg, '#252525': c.text, '#1E1E1E': c.text,
       '#848484': c.muted, '#BABABB': c.muted, '#E2E2E2': c.line, '#C2D1E4': c.raised,
       '#D54144': c.red, '#EA8C2F': '#926018',
+      '#64748B': c.muted, '#94A3B8': c.muted, '#CBD5E1': c.line, '#E2E8F0': c.line,
     };
 
 
@@ -116,7 +117,7 @@ export function useScreenStyles(original, screen) {
       override('negadoText', { color: c.red, fontSize: 14 });
       override('timeText', { color: c.muted, fontSize: 11, maxWidth: 90 });
       override('whiteContainerIcon', { backgroundColor: c.raised, borderRadius: 12, width: 40, height: 40 });
-      override('redContainerIcon', { backgroundColor: c.raised, borderRadius: 12, width: 40, height: 40 });
+      override('redContainerIcon', { backgroundColor: c.red, borderRadius: 12, width: 40, height: 40 });
     }
 
     if (screen === 'ContactCard') {
@@ -133,5 +134,5 @@ export function useScreenStyles(original, screen) {
 
     return result;
 
-  }, [original, screen, c.bg, c.accent, c.red, prefs.adapted, prefs.colorVision, insets.top]);
+  }, [original, screen, c.bg, c.accent, c.red, c.text, c.muted, c.line, c.raised, c.surface, prefs.adapted, prefs.colorVision, insets.top]);
 }

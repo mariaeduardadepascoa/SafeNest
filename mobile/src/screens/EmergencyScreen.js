@@ -107,7 +107,7 @@ export default function EmergencyScreen({ navigation }) {
     }
 
     const content = (
-        <View style={styles.container}>
+        <View style={[styles.container, prefs.adapted && { paddingTop: 12 }]}>
             <View style={styles.containerTitlesPage}>
                 <Text style={styles.titlePage}>Emergência</Text>
                 <Text style={styles.subtitlePage}>Em caso de emergências, contate-os.</Text>
@@ -157,7 +157,7 @@ export default function EmergencyScreen({ navigation }) {
             </View>
         </View>
     );
-    return prefs.adapted ? content : <Screen navigation={navigation} scroll={false}>{content}</Screen>;
+    return <Screen navigation={navigation} scroll={false}>{content}</Screen>;
 }
 
 const legacyStyles = StyleSheet.create({

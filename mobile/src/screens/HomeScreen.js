@@ -21,11 +21,16 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 import { FechaduraSection } from '../components/FechaduraSection';
+import { ScreenHeader } from '../design/UI';
+import { useDesign } from '../design/DesignProvider';
+import { useScreenStyles } from '../design/useScreenStyles';
 
 
 export default function HomeScreen({ navigation }) {
+    const styles = useScreenStyles(legacyStyles, 'HomeScreen');
     const insets = useSafeAreaInsets();
     const { usuario } = useAuth();
+    const { c } = useDesign();
     const [recentes, setRecentes] = useState([]);
     const [carregandoAtividades, setCarregandoAtividades] = useState(true);
 
@@ -51,8 +56,8 @@ export default function HomeScreen({ navigation }) {
     );
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={[styles.contentContainer, { paddingBottom: 100 + insets.bottom }]} showsVerticalScrollIndicator={false}>
-            <LogoSafeNest width={215} />
+        <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={[styles.contentContainer, { paddingTop: insets.top + 12, paddingBottom: 100 + insets.bottom }]} showsVerticalScrollIndicator={false}>
+            <ScreenHeader navigation={navigation} />
             <View style={styles.container2}>
                 <View style={styles.titlesContainer}>
                     <Text style={styles.titles}>Fechadura</Text>
@@ -109,7 +114,7 @@ export default function HomeScreen({ navigation }) {
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
     },

@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '../context/AuthContext';
 import { salvarUsuario } from '../services/tokenStorage';
 import { atualizarPreferenciaAcessivel } from '../services/api';
-import { defaultPreferences, preferenceKey, resolvePreferences } from './preferences';
+import { defaultPreferences, preferenceKey, resolvePreferences, getDesignColors } from './preferences';
 
 const DesignContext = createContext(null);
 
@@ -105,13 +105,7 @@ export function DesignProvider({ children }) {
     }
   }
 
-  const c = {
-    bg: preferencias.adapted ? '#F8FAFC' : '#F4F7FB', surface: '#FFFFFF', raised: '#EDF1F6',
-    text: '#18283C', muted: '#647286', line: '#E3E8EF',
-    accent: preferencias.adapted ? '#2B5081' : '#0B2342',
-    green: preferencias.colorVision ? '#244B72' : '#237157',
-    red: preferencias.colorVision ? '#926018' : '#AD4444',
-  };
+  const c = getDesignColors(preferencias);
 
   const dadosDoDesign = {
     prefs: preferencias,

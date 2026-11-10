@@ -66,16 +66,16 @@ export default function HistoryScreen({ navigation }) {
 
 
     const content = (
-        <View style={styles.container}>
+        <View style={[styles.container, prefs.adapted && { paddingTop: 12 }]}>
             <View style={styles.containerTitlesPage}>
                 <Text style={styles.titlePage}>Histórico</Text>
                 <Text style={styles.subtitlePage}>Visualize todos os eventos aqui.</Text>
             </View>
 
-            <View style={{ flexDirection: 'row', flexWrap: prefs.adapted ? 'wrap' : 'nowrap', marginHorizontal: prefs.adapted ? 12 : 22, marginBottom: 16, padding: 4, borderRadius: 26, backgroundColor: c.raised }}>
+            <View style={{ flexDirection: 'row', flexWrap: prefs.adapted ? 'wrap' : 'nowrap', marginTop: prefs.adapted ? 22 : 0, marginHorizontal: prefs.adapted ? 12 : 22, marginBottom: 16, padding: 4, borderRadius: 26, backgroundColor: c.raised }}>
                 {['Todos', 'Acessos', 'Alertas'].map(label => <Pressable key={label} accessibilityRole="button" accessibilityState={{ selected: filter === label }}
-                    onPress={() => setFilter(label)} style={{ flex: 1, minWidth: prefs.adapted ? 88 : undefined, minHeight: prefs.adapted ? 56 : 44, paddingVertical: prefs.adapted ? 12 : 0, justifyContent: 'center', alignItems: 'center', borderRadius: 22, backgroundColor: filter === label ? c.accent : 'transparent' }}>
-                    <Text style={{ color: filter === label ? '#FFFFFF' : prefs.adapted ? '#2B5081' : c.muted, fontSize: prefs.adapted ? 18 : undefined }}>{label}</Text>
+                    onPress={() => setFilter(label)} style={{ flex: 1, minWidth: prefs.adapted ? 80 : undefined, minHeight: prefs.adapted ? 48 : 44, paddingVertical: prefs.adapted ? 8 : 0, justifyContent: 'center', alignItems: 'center', borderRadius: 22, backgroundColor: filter === label ? c.accent : 'transparent' }}>
+                    <Text style={{ color: filter === label ? '#FFFFFF' : prefs.adapted ? c.accent : c.muted, fontSize: prefs.adapted ? 16 : undefined }}>{label}</Text>
                 </Pressable>)}
             </View>
 
@@ -110,7 +110,7 @@ export default function HistoryScreen({ navigation }) {
             />
         </View >
     );
-    return prefs.adapted ? content : <Screen navigation={navigation} scroll={false}>{content}</Screen>;
+    return <Screen navigation={navigation} scroll={false}>{content}</Screen>;
 }
 
 const legacyStyles = StyleSheet.create({
