@@ -1,5 +1,7 @@
+
 package com.safenest.controller;
 
+import com.safenest.dto.CameraResponse;
 import com.safenest.model.Alerta;
 import com.safenest.model.Camera;
 import com.safenest.service.CameraService;
@@ -19,18 +21,23 @@ public class CameraController {
     private final CameraService service;
 
     @GetMapping("/usuario/{idUsuario}")
-    public List<Camera> listarPorUsuario(@PathVariable Long idUsuario) {
+    public List<CameraResponse> listarPorUsuario(
+            @PathVariable Long idUsuario
+    ) {
         return service.listarPorUsuario(idUsuario);
     }
 
     @PostMapping("/usuario")
     @ResponseStatus(HttpStatus.CREATED)
-    public Camera criar(@RequestBody Camera camera) {
+    public CameraResponse criar(@RequestBody Camera camera) {
         return service.criar(camera);
     }
 
     @PutMapping("/{id}")
-    public Camera atualizar(@PathVariable Long id, @RequestBody Camera camera) {
+    public CameraResponse atualizar(
+            @PathVariable Long id,
+            @RequestBody Camera camera
+    ) {
         return service.atualizar(id, camera);
     }
 
@@ -46,8 +53,17 @@ public class CameraController {
     }
 
     @PostMapping("/usuario/{idUsuario}/sincronizar")
-    public Map<String, Object> sincronizar(@PathVariable Long idUsuario) {
+    public Map<String, Object> sincronizar(
+            @PathVariable Long idUsuario
+    ) {
         return service.sincronizarComIa(idUsuario);
+    }
+
+    @PostMapping("/{id}/sincronizar")
+    public Map<String, Object> sincronizarCamera(
+            @PathVariable Long id
+    ) {
+        return service.sincronizarCameraComIa(id);
     }
 
     @GetMapping("/{id}/ia/status")
@@ -55,22 +71,30 @@ public class CameraController {
         return service.statusDaIa(id);
     }
 
-    @GetMapping(value = "/{id}/ia/foto", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(
+            value = "/{id}/ia/foto",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
     public byte[] fotoDoUltimoAlerta(@PathVariable Long id) {
         return service.ultimaFotoDaIa(id);
     }
 
-    @PostMapping("/{id}/sincronizar")
-    public Map<String, Object> sincronizarCamera(@PathVariable Long id) {
-        return service.sincronizarCameraComIa(id);
+    @GetMapping("/{id}/video")
+    public Map<String, String> video(@PathVariable Long id) {
+        return Map.of("url", service.urlVideo(id));
     }
+
     @PostMapping("/alerta")
     @ResponseStatus(HttpStatus.CREATED)
     public void alerta(@RequestBody Map<String, Object> dados) {
         service.registrarAlertaFogo(dados);
     }
+
+
     @GetMapping("/alertas/usuario/{idUsuario}")
-    public List<Alerta> alertasDoUsuario(@PathVariable Long idUsuario) {
+    public List<Alerta> alertasDoUsuario(
+            @PathVariable Long idUsuario
+    ) {
         return service.listarAlertasDoUsuario(idUsuario);
     }
 }
