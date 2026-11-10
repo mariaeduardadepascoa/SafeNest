@@ -1,12 +1,12 @@
-import AuthLayout from '../design/AuthLayout';
-import { useScreenStyles } from '../design/useScreenStyles';
+import EstruturaEntrada from '../design/AuthLayout';
+import { useEstilos } from '../design/useScreenStyles';
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, StatusBar } from 'react-native';
 import { resetPassword } from '../services/api';
 import { colorsLightMode, typography } from '../theme';
 
 export default function ResetPasswordScreen({ route, navigation }) {
-    const styles = useScreenStyles(legacyStyles, 'ResetPasswordScreen');
+    const estilos = useEstilos(estilosAntigos, 'ResetPasswordScreen');
     const [novaSenha, setNovaSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [loading, setLoading] = useState(false);
@@ -40,15 +40,15 @@ export default function ResetPasswordScreen({ route, navigation }) {
     }
 
     return (
-        <AuthLayout style={styles.container}>
-            <Text style={styles.title}>Redefinir senha</Text>
-            <Text style={styles.subtitle}>Digite sua nova senha abaixo</Text>
+        <EstruturaEntrada style={estilos.container}>
+            <Text style={estilos.title}>Redefinir senha</Text>
+            <Text style={estilos.subtitle}>Digite sua nova senha abaixo</Text>
 
-            <View style={styles.authSubContainer}>
-                <Text style={styles.caption}>Nova senha</Text>
-                <View style={styles.inputs}>
+            <View style={estilos.authSubContainer}>
+                <Text style={estilos.caption}>Nova senha</Text>
+                <View style={estilos.inputs}>
                     <TextInput accessibilityLabel="Nova senha"
-                        style={styles.textInput}
+                        style={estilos.textInput}
                         secureTextEntry
                         value={novaSenha}
                         onChangeText={setNovaSenha}
@@ -58,11 +58,11 @@ export default function ResetPasswordScreen({ route, navigation }) {
                 </View>
             </View>
 
-            <View style={styles.authSubContainer}>
-                <Text style={styles.caption}>Confirmar senha</Text>
-                <View style={styles.inputs}>
+            <View style={estilos.authSubContainer}>
+                <Text style={estilos.caption}>Confirmar senha</Text>
+                <View style={estilos.inputs}>
                     <TextInput accessibilityLabel="Confirme a nova senha"
-                        style={styles.textInput}
+                        style={estilos.textInput}
                         secureTextEntry
                         value={confirmarSenha}
                         onChangeText={setConfirmarSenha}
@@ -72,16 +72,16 @@ export default function ResetPasswordScreen({ route, navigation }) {
                 </View>
             </View>
 
-            <TouchableOpacity accessibilityRole="button" style={styles.input} onPress={handleReset} disabled={loading}>
-                <Text style={styles.text}>{loading ? 'Redefinindo...' : 'Redefinir senha'}</Text>
+            <TouchableOpacity accessibilityRole="button" style={estilos.input} onPress={handleReset} disabled={loading}>
+                <Text style={estilos.text}>{loading ? 'Redefinindo...' : 'Redefinir senha'}</Text>
             </TouchableOpacity>
 
             <StatusBar style="auto" />
-        </AuthLayout>
+        </EstruturaEntrada>
     );
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

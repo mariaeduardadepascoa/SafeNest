@@ -2,11 +2,11 @@ import React, { useCallback, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, TextInput, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { atualizarTag, cadastrarTag, deletarTag, obterTags } from '../services/api';
-import { Button, Card, Heading, Icon, PageTitle, Row, Screen, Txt } from './UI';
-import { useDesign } from './DesignProvider';
+import { Botao, Cartao, TituloSecao, Icone, TituloPagina, Linha, Tela, Texto } from './UI';
+import { useVisual } from './DesignProvider';
 
-export default function TagsScreen({ navigation }) {
-  const { c } = useDesign();
+export default function TelaTags({ navigation }) {
+  const { c } = useVisual();
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -45,7 +45,7 @@ export default function TagsScreen({ navigation }) {
     };
   }, []));
 
-  async function perform(acao, limparFormulario = false) {
+  async function executarAcao(acao, limparFormulario = false) {
     if (running.current) {
       return;
     }
@@ -72,26 +72,26 @@ export default function TagsScreen({ navigation }) {
       setBusy(false);
     }
   }
-  return <Screen navigation={navigation} back>
-    <PageTitle eyebrow="CONTROLE DE ACESSO" title="Tags de acesso" subtitle="Gerencie quem pode entrar na sua casa." />
-    <Card style={{ gap: 16 }}>
-      <Txt weight="600">{editing ? 'Editar nome da tag' : 'Cadastrar uma tag'}</Txt>
-      <Txt muted size={13}>{editing ? 'O nome será atualizado na sua conta.' : 'Informe o nome e toque em cadastrar. Em seguida, aproxime a tag do leitor da fechadura.'}</Txt>
+  return <Tela navigation={navigation} back>
+    <TituloPagina eyebrow="CONTROLE DE ACESSO" title="Tags de acesso" subtitle="Gerencie quem pode entrar na sua casa." />
+    <Cartao style={{ gap: 16 }}>
+      <Texto weight="600">{editing ? 'Editar nome da tag' : 'Cadastrar uma tag'}</Texto>
+      <Texto muted size={13}>{editing ? 'O nome será atualizado na sua conta.' : 'Informe o nome e toque em cadastrar. Em seguida, aproxime a tag do leitor da fechadura.'}</Texto>
       <TextInput accessibilityLabel="Nome do dono da tag" placeholder="Nome do dono da tag" placeholderTextColor={c.muted} value={name} onChangeText={setName} editable={!busy}
         style={{ minHeight: 54, borderWidth: 1, borderColor: c.line, borderRadius: 14, padding: 14, fontSize: 16, color: c.text }} />
-      <Button title={editing ? 'Salvar nome' : 'Cadastrar tag no leitor'} disabled={!name.trim()} busy={busy}
-        onPress={() => perform(() => editing ? atualizarTag(editing, name.trim()) : cadastrarTag(name.trim()), true)} />
-      {!!editing && <Button title="Cancelar edição" secondary disabled={busy} onPress={() => { setEditing(null); setName(''); }} />}
-      {busy && <Txt accessibilityLiveRegion="polite">Aguardando resposta… Para cadastrar, mantenha a tag próxima ao leitor.</Txt>}
-    </Card>
-    <Heading title="Tags cadastradas" action="Atualizar" onPress={() => perform(async () => {})} />
-    {!!error && <Txt accessibilityRole="alert" style={{ color: c.red }}>{error}</Txt>}
-    {loading ? <ActivityIndicator /> : !tags.length ? <Card><Txt muted>Nenhuma tag cadastrada.</Txt></Card> : tags.map(tag => <Card key={tag.idTag} style={{ marginBottom: 12, gap: 12 }}>
-      <Row><Icon name="credit-card" /><Txt weight="600" style={{ flex: 1 }}>{tag.nomeTag || 'Tag sem nome'}</Txt></Row>
-      <Button title={`Editar ${tag.nomeTag || 'tag'}`} secondary disabled={busy} onPress={() => { setEditing(tag.idTag); setName(tag.nomeTag || ''); }} />
-      <Button title={`Remover ${tag.nomeTag || 'tag'}`} destructive disabled={busy} onPress={() => Alert.alert('Remover tag?', 'Esta credencial será removida da conta.', [
-        { text: 'Cancelar', style: 'cancel' }, { text: 'Remover', style: 'destructive', onPress: () => perform(() => deletarTag(tag.idTag)) },
+      <Botao title={editing ? 'Salvar nome' : 'Cadastrar tag no leitor'} disabled={!name.trim()} busy={busy}
+        onPress={() => executarAcao(() => editing ? atualizarTag(editing, name.trim()) : cadastrarTag(name.trim()), true)} />
+      {!!editing && <Botao title="Cancelar edição" secondary disabled={busy} onPress={() => { setEditing(null); setName(''); }} />}
+      {busy && <Texto accessibilityLiveRegion="polite">Aguardando resposta… Para cadastrar, mantenha a tag próxima ao leitor.</Texto>}
+    </Cartao>
+    <TituloSecao title="Tags cadastradas" action="Atualizar" onPress={() => executarAcao(async () => {})} />
+    {!!error && <Texto accessibilityRole="alert" style={{ color: c.red }}>{error}</Texto>}
+    {loading ? <ActivityIndicator /> : !tags.length ? <Cartao><Texto muted>Nenhuma tag cadastrada.</Texto></Cartao> : tags.map(tag => <Cartao key={tag.idTag} style={{ marginBottom: 12, gap: 12 }}>
+      <Linha><Icone name="credit-card" /><Texto weight="600" style={{ flex: 1 }}>{tag.nomeTag || 'Tag sem nome'}</Texto></Linha>
+      <Botao title={`Editar ${tag.nomeTag || 'tag'}`} secondary disabled={busy} onPress={() => { setEditing(tag.idTag); setName(tag.nomeTag || ''); }} />
+      <Botao title={`Remover ${tag.nomeTag || 'tag'}`} destructive disabled={busy} onPress={() => Alert.alert('Remover tag?', 'Esta credencial será removida da conta.', [
+        { text: 'Cancelar', style: 'cancel' }, { text: 'Remover', style: 'destructive', onPress: () => executarAcao(() => deletarTag(tag.idTag)) },
       ])} />
-    </Card>)}
-  </Screen>;
+    </Cartao>)}
+  </Tela>;
 }

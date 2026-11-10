@@ -1,5 +1,6 @@
-import { useScreenStyles } from '../design/useScreenStyles';
-import { useDesign } from '../design/DesignProvider';
+import { useEstilos } from '../design/useScreenStyles';
+import { useVisual } from '../design/DesignProvider';
+import { Feather } from '@expo/vector-icons';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import HouseIcon from '../../assets/houseIcon-entrada-permitida.svg';
@@ -35,8 +36,8 @@ function tempoDecorrido(dataHora) {
 }
 
 export default function ActivitysCard({ historico, onPress }) {
-    const styles = useScreenStyles(legacyStyles, 'ActivitysCard');
-    const { c } = useDesign();
+    const estilos = useEstilos(estilosAntigos, 'ActivitysCard');
+    const { c, prefs } = useVisual();
 
     // estilização para os acessos
     let title = 'Entrada permitida';
@@ -56,33 +57,36 @@ export default function ActivitysCard({ historico, onPress }) {
     // para ser importado com letra maiscula
     const Icone = ICONES[icone];
 
-    const textoStyle = variant === 'negado' ? styles.negadoText : styles.normalText;
+    const textoStyle = variant === 'negado' ? estilos.negadoText : estilos.normalText;
+    const alertaSemFundo = !prefs.adapted && historico.tipo === 'alerta';
 
     return (
         <Pressable
             accessibilityRole={onPress ? 'button' : undefined}
             accessibilityLabel={`${title}${subtitle ? `, ${subtitle}` : ''}, ${tempoDecorrido(historico.data_hora)}`}
             onPress={() => onPress && onPress({ ...historico, titulo: title })} //manda o item e o título para abrir os detalhes
-            style={[styles.card,
-            variant === 'perigo' && styles.perigoCard, //se variant === perigo -> perigoCard
-            variant === 'negado' && styles.negadoCard, //se variant === negado -> negadoCard
+            style={[estilos.card,
+            variant === 'perigo' && estilos.perigoCard, //se variant === perigo -> perigoCard
+            variant === 'negado' && estilos.negadoCard, //se variant === negado -> negadoCard
             ]}>
-            <View style={styles.left}>
-                <View style={[variant === 'negado' ? styles.redContainerIcon : styles.whiteContainerIcon, variant === 'negado' && { backgroundColor: c.red }]}>
-                    <Icone width={20} height={20} />
+            <View style={estilos.left}>
+                <View style={[variant === 'negado' ? estilos.redContainerIcon : estilos.whiteContainerIcon,
+                    variant === 'negado' && { backgroundColor: c.red },
+                    alertaSemFundo && { backgroundColor: 'transparent' }]}>
+                    {prefs.colorVision || alertaSemFundo ? <Feather name={variant === 'negado' ? 'x-circle' : variant === 'perigo' ? 'alert-triangle' : 'check-circle'} size={20} color={variant === 'negado' ? (alertaSemFundo ? c.red : '#FFFFFF') : variant === 'perigo' ? c.red : c.accent} /> : <Icone width={20} height={20} />}
                 </View>
-                <View style={styles.texts}>
+                <View style={estilos.texts}>
                     <Text style={textoStyle}>{title}</Text>
-                    {subtitle && <Text style={[textoStyle, styles.subtitleText]}>{subtitle}</Text>}
+                    {subtitle && <Text style={[textoStyle, estilos.subtitleText]}>{subtitle}</Text>}
                 </View>
             </View>
 
-            <Text style={[textoStyle, styles.timeText]}>{tempoDecorrido(historico.data_hora)}</Text>
+            <Text style={[textoStyle, estilos.timeText]}>{tempoDecorrido(historico.data_hora)}</Text>
         </Pressable>
     );
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     card: {
         flexDirection: 'row',
         alignItems: 'center',

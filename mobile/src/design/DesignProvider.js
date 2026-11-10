@@ -2,14 +2,15 @@
 
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator, Modal, Text, View } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { salvarUsuario } from '../services/tokenStorage';
 import { atualizarPreferenciaAcessivel } from '../services/api';
-import { defaultPreferences, preferenceKey, resolvePreferences, getDesignColors } from './preferences';
+import { preferenciasIniciais, chavePreferencias, lerPreferencias, coresDoVisual } from './preferences';
 
-const DesignContext = createContext(null);
+const ContextoVisual = createContext(null);
 
-export function DesignProvider({ children }) {
+export function ProvedorVisual({ children }) {
   const { usuario, setUsuario } = useAuth();
 
   let idUsuario = 'guest';
@@ -17,7 +18,7 @@ export function DesignProvider({ children }) {
     idUsuario = usuario.id_usuario;
   }
 
-  const [preferencias, setPreferencias] = useState(defaultPreferences);
+  const [preferencias, setPreferencias] = useState(preferenciasIniciais);
   const [usuarioCarregado, setUsuarioCarregado] = useState(null);
   const [salvando, setSalvando] = useState(false);
 
@@ -34,7 +35,7 @@ export function DesignProvider({ children }) {
       let preferenciasSalvas = null;
 
       try {
-        const chave = preferenceKey(idUsuario);
+        const chave = chavePreferencias(idUsuario);
         const textoSalvo = await AsyncStorage.getItem(chave);
         preferenciasSalvas = JSON.parse(textoSalvo);
       } catch {
@@ -42,7 +43,7 @@ export function DesignProvider({ children }) {
       }
 
       if (telaAtiva) {
-        const preferenciasDaConta = resolvePreferences(preferenciasSalvas, usuario);
+        const preferenciasDaConta = lerPreferencias(preferenciasSalvas, usuario);
         setPreferencias(preferenciasDaConta);
         setUsuarioCarregado(idUsuario);
       }
@@ -56,13 +57,14 @@ export function DesignProvider({ children }) {
   }, [idUsuario, usuario?.versao_adaptada]);
 
   async function salvarPreferencias(alteracoes) {
-    // espera a conta carregar para impeder que dois cliques salvem ao mesmo tempo
+    // Espera a conta carregar e evita dois salvamentos ao mesmo tempo.
     if (salvamentoEmAndamento.current || usuarioCarregado !== idUsuario) {
       return false;
     }
 
     salvamentoEmAndamento.current = true;
     setSalvando(true);
+    const inicioDaTroca = Date.now();
 
     const novasPreferencias = { ...preferencias, ...alteracoes };
     let usuarioAtualizado = null;
@@ -84,8 +86,8 @@ export function DesignProvider({ children }) {
         await salvarUsuario(usuarioAtualizado);
       }
 
-      //guarda as preferências locais na chave douser
-      const chave = preferenceKey(idUsuario);
+      // Guarda as preferências no espaço reservado para esta pessoa.
+      const chave = chavePreferencias(idUsuario);
       const textoParaSalvar = JSON.stringify(novasPreferencias);
       await AsyncStorage.setItem(chave, textoParaSalvar);
 
@@ -100,12 +102,15 @@ export function DesignProvider({ children }) {
 
       return true;
     } finally {
+      // Dá tempo de mostrar o indicador mesmo quando o salvamento é muito rápido.
+      const tempoRestante = Math.max(0, 300 - (Date.now() - inicioDaTroca));
+      if (tempoRestante > 0) await new Promise(concluir => setTimeout(concluir, tempoRestante));
       salvamentoEmAndamento.current = false;
       setSalvando(false);
     }
   }
 
-  const c = getDesignColors(preferencias);
+  const c = coresDoVisual(preferencias);
 
   const dadosDoDesign = {
     prefs: preferencias,
@@ -115,9 +120,19 @@ export function DesignProvider({ children }) {
     savePreferences: salvarPreferencias,
   };
 
-  return <DesignContext.Provider value={dadosDoDesign}>{children}</DesignContext.Provider>;
+  return <ContextoVisual.Provider value={dadosDoDesign}>
+    {children}
+    <Modal visible={salvando} transparent animationType="fade" onRequestClose={() => {}}>
+      <View style={{ flex: 1, backgroundColor: 'rgba(11,35,66,0.32)', alignItems: 'center', justifyContent: 'center' }} accessibilityViewIsModal>
+        <View style={{ padding: 28, borderRadius: 20, backgroundColor: c.surface, alignItems: 'center', gap: 14 }} accessibilityRole="progressbar" accessibilityLabel="Aplicando suas preferências" accessibilityState={{ busy: true }}>
+          <ActivityIndicator size="large" color={c.accent} />
+          <Text style={{ color: c.text, fontSize: 18 }}>Aplicando preferências…</Text>
+        </View>
+      </View>
+    </Modal>
+  </ContextoVisual.Provider>;
 }
 
-export function useDesign() {
-  return useContext(DesignContext);
+export function useVisual() {
+  return useContext(ContextoVisual);
 }

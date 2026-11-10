@@ -1,19 +1,19 @@
-import AuthLayout from '../design/AuthLayout';
-import { useScreenStyles } from '../design/useScreenStyles';
+import EstruturaEntrada from '../design/AuthLayout';
+import { useEstilos } from '../design/useScreenStyles';
 import React, { useRef, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, Switch } from 'react-native';
 import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import { cadastro, login } from '../services/api';
-import { useDesign } from '../design/DesignProvider';
+import { useVisual } from '../design/DesignProvider';
 import { useAuth } from '../context/AuthContext';
 import LogoSafeNest from '../design/AuthBrand';
 import ProgressBar from '../components/ProgressBar';
 
 export default function RegisterAgeScreen({ navigation, route }) {
-    const styles = useScreenStyles(legacyStyles, 'RegisterAgeScreen');
-    const { prefs } = useDesign();
+    const estilos = useEstilos(estilosAntigos, 'RegisterAgeScreen');
+    const { prefs } = useVisual();
     const [wantsAccessible, setWantsAccessible] = useState(prefs.adapted);
     const { nome, email, senha } = route.params;
     const [ageRange, setAgeRange] = useState('18-60');
@@ -45,7 +45,7 @@ export default function RegisterAgeScreen({ navigation, route }) {
     }
 
     return (
-        <AuthLayout style={styles.container}>
+        <EstruturaEntrada style={estilos.container}>
 
             <LogoSafeNest
                 width={160}
@@ -53,32 +53,32 @@ export default function RegisterAgeScreen({ navigation, route }) {
                 style={{ marginTop: 15 }}
             />
 
-            <View style={styles.progressBarContainer} accessible accessibilityLabel="Cadastro, etapa 3 de 3">
+            <View style={estilos.progressBarContainer} accessible accessibilityLabel="Cadastro, etapa 3 de 3">
                 <ProgressBar
                     totalSteps={3}
                     currentStep={3}
                 />
             </View>
 
-            <View style={styles.mainTexts}>
-                <Text style={styles.title}>
+            <View style={estilos.mainTexts}>
+                <Text style={estilos.title}>
                     Cadastre-se e construa seu espaço protegido.
                 </Text>
 
-                <Text style={styles.subtitle}>
+                <Text style={estilos.subtitle}>
                     Deixe seu lar sempre seguro.
                 </Text>
             </View>
 
-            <View style={styles.contentArea}>
+            <View style={estilos.contentArea}>
 
-                <View style={styles.authContainer}>
+                <View style={estilos.authContainer}>
 
-                    <View style={styles.ageTitleRow}>
+                    <View style={estilos.ageTitleRow}>
 
                         <Text
                             style={[
-                                styles.caption,
+                                estilos.caption,
                                 { width: undefined }
                             ]}
                         >
@@ -88,12 +88,12 @@ export default function RegisterAgeScreen({ navigation, route }) {
                         <TouchableOpacity accessibilityRole="button"
                             accessibilityLabel="Informações sobre o design acessível"
                             accessibilityState={{ expanded: infoCardOpen }}
-                            style={styles.visibilityButton}
+                            style={estilos.visibilityButton}
                             onPress={() =>
                                 setInfoCardOpen(!infoCardOpen)
                             }
                         >
-                            <Text style={styles.seta}>
+                            <Text style={estilos.seta}>
                                 {infoCardOpen ? '⌄' : '›'}
                             </Text>
                         </TouchableOpacity>
@@ -101,14 +101,14 @@ export default function RegisterAgeScreen({ navigation, route }) {
                     </View>
 
                     {infoCardOpen && (
-                        <View style={styles.infoCard}>
+                        <View style={estilos.infoCard}>
 
-                            <Text style={styles.infoCardText}>
+                            <Text style={estilos.infoCardText}>
                                 Você pode escolher o design acessível original do SafeNest,
                                 independentemente da sua idade.
                             </Text>
 
-                            <Text style={styles.infoCardTextBold}>
+                            <Text style={estilos.infoCardTextBold}>
                                 É possível editar essa adaptação nas configurações
                                 do aplicativo.
                             </Text>
@@ -118,9 +118,9 @@ export default function RegisterAgeScreen({ navigation, route }) {
 
                     <TouchableOpacity accessibilityRole="radio" accessibilityState={{ checked: ageRange === '18-60' }}
                         style={[
-                            styles.radioOption,
+                            estilos.radioOption,
                             ageRange === '18-60' &&
-                            styles.radioOptionSelected
+                            estilos.radioOptionSelected
                         ]}
                         onPress={() =>
                             setAgeRange('18-60')
@@ -129,21 +129,21 @@ export default function RegisterAgeScreen({ navigation, route }) {
 
                         <View
                             style={[
-                                styles.radioCircle,
+                                estilos.radioCircle,
                                 ageRange === '18-60' &&
-                                styles.radioCircleSelected
+                                estilos.radioCircleSelected
                             ]}
                         >
                             {ageRange === '18-60' &&
-                                <View style={styles.radioDot} />
+                                <View style={estilos.radioDot} />
                             }
                         </View>
 
                         <Text
                             style={[
-                                styles.radioText,
+                                estilos.radioText,
                                 ageRange === '18-60' &&
-                                styles.radioTextSelected
+                                estilos.radioTextSelected
                             ]}
                         >
                             Entre 18 e 60 anos
@@ -153,9 +153,9 @@ export default function RegisterAgeScreen({ navigation, route }) {
 
                     <TouchableOpacity accessibilityRole="radio" accessibilityState={{ checked: ageRange === '60+' }}
                         style={[
-                            styles.radioOption,
+                            estilos.radioOption,
                             ageRange === '60+' &&
-                            styles.radioOptionSelected
+                            estilos.radioOptionSelected
                         ]}
                         onPress={() =>
                             setAgeRange('60+')
@@ -164,21 +164,21 @@ export default function RegisterAgeScreen({ navigation, route }) {
 
                         <View
                             style={[
-                                styles.radioCircle,
+                                estilos.radioCircle,
                                 ageRange === '60+' &&
-                                styles.radioCircleSelected
+                                estilos.radioCircleSelected
                             ]}
                         >
                             {ageRange === '60+' &&
-                                <View style={styles.radioDot} />
+                                <View style={estilos.radioDot} />
                             }
                         </View>
 
                         <Text
                             style={[
-                                styles.radioText,
+                                estilos.radioText,
                                 ageRange === '60+' &&
-                                styles.radioTextSelected
+                                estilos.radioTextSelected
                             ]}
                         >
                             Mais de 60 anos
@@ -191,22 +191,22 @@ export default function RegisterAgeScreen({ navigation, route }) {
             </View>
 
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, maxWidth: '100%', paddingVertical: 12 }}>
-                <Text style={[styles.caption, { flexShrink: 1 }]}>Quero usar o design acessível original</Text>
+                <Text style={[estilos.caption, { flexShrink: 1 }]}>Quero usar o design acessível original</Text>
                 <Switch accessibilityLabel="Quero usar o design acessível original" value={wantsAccessible} onValueChange={setWantsAccessible} disabled={carregando} />
             </View>
-            <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: carregando, busy: carregando }} style={styles.input} onPress={finishRegister} disabled={carregando}>
-                {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={styles.text}>Cadastre-se</Text>}
+            <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: carregando, busy: carregando }} style={estilos.input} onPress={finishRegister} disabled={carregando}>
+                {carregando ? <ActivityIndicator color={colorsLightMode.white} /> : <Text style={estilos.text}>Cadastre-se</Text>}
             </TouchableOpacity>
 
-            <Text style={styles.caption}>Já tem uma conta?<Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
+            <Text style={estilos.caption}>Já tem uma conta?<Text accessibilityRole="link" style={estilos.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
 
             <StatusBar style="auto" />
 
-        </AuthLayout>
+        </EstruturaEntrada>
     );
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

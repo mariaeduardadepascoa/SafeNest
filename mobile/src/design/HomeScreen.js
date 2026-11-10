@@ -5,10 +5,12 @@ import { useAuth } from '../context/AuthContext';
 import { obterHistorico } from '../services/api';
 import ActivityCard from '../components/ActivitysCard';
 import HistoricoModal from '../components/HistoricoModal';
-import { LockCard } from './LockCard';
-import { Card, Heading, Icon, PageTitle, Row, Screen, Txt, Button } from './UI';
+import { CartaoFechadura } from './LockCard';
+import { useVisual } from './DesignProvider';
+import { FechaduraSection } from '../components/FechaduraSection';
+import { Cartao, TituloSecao, Icone, TituloPagina, Linha, Tela, Texto, Botao } from './UI';
 
-export default function HomeScreen({ navigation }) {
+export default function Inicio({ navigation }) {
   const { usuario } = useAuth();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,31 +50,32 @@ export default function HomeScreen({ navigation }) {
       telaAtiva = false;
     };
   }, [usuario.id_usuario]));
-  return <Screen navigation={navigation}>
-    <PageTitle eyebrow={`BEM-VINDO(A), ${usuario.nome_usuario?.split(' ')[0]?.toUpperCase() || ''}`} title="Seu lar, bem cuidado." subtitle="Mais tranquilidade para você e sua família." />
-    <LockCard navigation={navigation} />
-    <Heading title="Acesso rápido" />
-    <Row style={{ alignItems: 'stretch' }}>
+  return <Tela navigation={navigation}>
+    <TituloPagina eyebrow={`BEM-VINDO(A), ${usuario.nome_usuario?.split(' ')[0]?.toUpperCase() || ''}`} title="Seu lar, bem cuidado." subtitle="Mais tranquilidade para você e sua família." />
+    <CartaoFechadura navigation={navigation} />
+    <TituloSecao title="Acesso rápido" />
+    <Linha style={{ alignItems: 'stretch' }}>
       {[['Tags de acesso', 'Gerenciar credenciais', 'credit-card', 'Tags'], ['Emergência', 'Contatos e chamadas', 'phone', 'Emergência']].map(([title, subtitle, icon, route]) =>
         <Pressable key={route} accessibilityRole="button" accessibilityLabel={title} onPress={() => navigation.navigate(route)} style={{ flex: 1 }}>
-          <Card style={{ flex: 1, minHeight: 132, gap: 10 }}><Icon name={icon} /><Txt weight="600">{title}</Txt><Txt muted size={12}>{subtitle}</Txt></Card>
+          <Cartao style={{ flex: 1, minHeight: 132, gap: 10 }}><Icone name={icon} /><Texto weight="600">{title}</Texto><Texto muted size={12}>{subtitle}</Texto></Cartao>
         </Pressable>)}
-    </Row>
-    <Heading title="Monitoramento" />
-    <Card><Row><Icon name="video" /><View style={{ flex: 1 }}><Txt weight="600">Câmera da residência</Txt><Txt muted size={12}>Acompanhe a transmissão da sua câmera.</Txt></View></Row>
-      <View style={{ height: 16 }} /><Button title="Ver câmera" secondary onPress={() => navigation.navigate('Câmera')} />
-    </Card>
-    <Heading title="Atividades recentes" action="Ver todas" onPress={() => navigation.navigate('Histórico')} />
-    {loading ? <ActivityIndicator accessibilityLabel="Carregando atividades" /> : error ? <Txt accessibilityRole="alert">Não foi possível carregar: {error}</Txt> : !events.length ? <Card><Txt muted>Nenhuma atividade registrada.</Txt></Card> :
+    </Linha>
+    <TituloSecao title="Monitoramento" />
+    <Cartao><Linha><Icone name="video" /><View style={{ flex: 1 }}><Texto weight="600">Câmera da residência</Texto><Texto muted size={12}>Acompanhe a transmissão da sua câmera.</Texto></View></Linha>
+      <View style={{ height: 16 }} /><Botao title="Ver câmera" secondary onPress={() => navigation.navigate('Câmera')} />
+    </Cartao>
+    <TituloSecao title="Atividades recentes" action="Ver todas" onPress={() => navigation.navigate('Histórico')} />
+    {loading ? <ActivityIndicator accessibilityLabel="Carregando atividades" /> : error ? <Texto accessibilityRole="alert">Não foi possível carregar: {error}</Texto> : !events.length ? <Cartao><Texto muted>Nenhuma atividade registrada.</Texto></Cartao> :
       <View style={{ gap: 12 }}>{events.map(event => <ActivityCard key={`${event.tipo}-${event.id_acesso ?? event.id_alerta}`} historico={event} onPress={setSelected} />)}</View>}
     <HistoricoModal visible={!!selected} evento={selected} onClose={() => setSelected(null)} />
-  </Screen>;
+  </Tela>;
 }
 
-export function DevicesScreen({ navigation }) {
-  return <Screen navigation={navigation}><PageTitle eyebrow="SUA UNIDADE" title="Dispositivos" subtitle="Acesso e monitoramento em um só lugar." />
-    <LockCard navigation={navigation} />
-    <Heading title="Câmera" /><Card><Txt muted>Abra a transmissão da câmera configurada no aplicativo.</Txt><View style={{ height: 16 }} /><Button title="Abrir câmera" onPress={() => navigation.navigate('Câmera')} /></Card>
-    <Heading title="Credenciais" /><Button title="Gerenciar tags RFID" secondary onPress={() => navigation.navigate('Tags')} />
-  </Screen>;
+export function Dispositivos({ navigation }) {
+  const { prefs } = useVisual();
+  return <Tela navigation={navigation}><TituloPagina eyebrow="SUA UNIDADE" title="Dispositivos" subtitle={prefs.adapted ? 'Abra a porta, veja a câmera e cuide das tags.' : 'Acesso e monitoramento em um só lugar.'} />
+    {prefs.adapted ? <FechaduraSection /> : <CartaoFechadura navigation={navigation} />}
+    <TituloSecao title="Câmera" /><Cartao><Texto muted>Abra a transmissão da câmera configurada no aplicativo.</Texto><View style={{ height: 16 }} /><Botao title="Abrir câmera" onPress={() => navigation.navigate('Câmera')} /></Cartao>
+    <TituloSecao title={prefs.adapted ? 'Tags de entrada' : 'Credenciais'} /><Botao title={prefs.adapted ? 'Cadastrar ou editar tags' : 'Gerenciar tags RFID'} secondary onPress={() => navigation.navigate('Tags')} />
+  </Tela>;
 }

@@ -21,16 +21,16 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 import { FechaduraSection } from '../components/FechaduraSection';
-import { ScreenHeader } from '../design/UI';
-import { useDesign } from '../design/DesignProvider';
-import { useScreenStyles } from '../design/useScreenStyles';
+import { TituloPagina, Tela } from '../design/UI';
+import { useVisual } from '../design/DesignProvider';
+import { useEstilos } from '../design/useScreenStyles';
 
 
 export default function HomeScreen({ navigation }) {
-    const styles = useScreenStyles(legacyStyles, 'HomeScreen');
+    const estilos = useEstilos(estilosAntigos, 'HomeScreen');
     const insets = useSafeAreaInsets();
     const { usuario } = useAuth();
-    const { c } = useDesign();
+    const { c } = useVisual();
     const [recentes, setRecentes] = useState([]);
     const [carregandoAtividades, setCarregandoAtividades] = useState(true);
 
@@ -56,43 +56,44 @@ export default function HomeScreen({ navigation }) {
     );
 
     return (
-        <ScrollView style={[styles.container, { backgroundColor: c.bg }]} contentContainerStyle={[styles.contentContainer, { paddingTop: insets.top + 12, paddingBottom: 100 + insets.bottom }]} showsVerticalScrollIndicator={false}>
-            <ScreenHeader navigation={navigation} />
-            <View style={styles.container2}>
-                <View style={styles.titlesContainer}>
-                    <Text style={styles.titles}>Fechadura</Text>
+        <Tela navigation={navigation} scroll={false}>
+        <ScrollView style={[estilos.container, { backgroundColor: c.bg }]} contentContainerStyle={[estilos.contentContainer, { paddingTop: 18, paddingBottom: 120 + insets.bottom }]} showsVerticalScrollIndicator={false}>
+            <TituloPagina title="Início" subtitle="Veja e controle os acessos da sua casa." style={{ marginBottom: 0 }} />
+            <View style={estilos.container2}>
+                <View style={estilos.titlesContainer}>
+                    <Text style={estilos.titles}>FECHADURA</Text>
                 </View>
 
                 <FechaduraSection></FechaduraSection>
             </View>
-            <View style={styles.container2}>
-                <View style={styles.titlesContainer}>
-                    <Text style={styles.titles}>DISPOSITIVOS</Text>
-                    <Pressable accessibilityRole="button" accessibilityLabel="Ver todos os dispositivos" style={styles.pressables} onPress={() => navigation.navigate('Dispositivos')}>
-                    <Text style={styles.spanVerMais}>Ver todos </Text>
+            <View style={estilos.container2}>
+                <View style={estilos.titlesContainer}>
+                    <Text style={estilos.titles}>DISPOSITIVOS</Text>
+                    <Pressable accessibilityRole="button" accessibilityLabel="Ver todos os dispositivos" style={estilos.pressables} onPress={() => navigation.navigate('Dispositivos')}>
+                    <Text style={estilos.spanVerMais}>Ver todos </Text>
                     <Ionicons name="chevron-forward" size={15} color={colorsLightMode.primary} style={{ marginTop: 1.5 }}/>
                     </Pressable>
                 </View>
 
                 <Pressable accessibilityRole="button" accessibilityLabel="Abrir câmera" onPress={() => navigation.navigate('Câmera')}><SensorCard
-                    Icon={OrangeCameraIcon}
+                    Icone={OrangeCameraIcon}
                     title="Câmera - entrada"
                     status="VER"
                 /></Pressable>
 
                 <Pressable accessibilityRole="button" accessibilityLabel="Gerenciar tags de acesso" onPress={() => navigation.navigate('Tags')}><SensorCard
-                    Icon={GroupIcon}
+                    Icone={GroupIcon}
                     title="Tags de acesso"
                     status="VER"
                 /></Pressable>
 
             </View>
 
-            <View style={styles.container2}>
-                <View style={styles.titlesContainer}>
-                    <Text style={styles.titles}>ATIVIDADES RECENTES</Text>
-                    <Pressable style={styles.pressables} onPress={() => navigation.navigate('Histórico')}>
-                        <Text style={styles.spanVerMais}>Ver todos</Text>
+            <View style={estilos.container2}>
+                <View style={estilos.titlesContainer}>
+                    <Text style={estilos.titles}>ATIVIDADES RECENTES</Text>
+                    <Pressable style={estilos.pressables} onPress={() => navigation.navigate('Histórico')}>
+                        <Text style={estilos.spanVerMais}>Ver todos</Text>
                         <Ionicons name="chevron-forward" size={15} color={colorsLightMode.primary} style={{ marginTop: 1.5 }}/>
                     </Pressable>
                 </View>
@@ -100,7 +101,7 @@ export default function HomeScreen({ navigation }) {
                 {carregandoAtividades ? (
                     <ActivityIndicator size="small" color={colorsLightMode.primary} />
                 ) : recentes.length === 0 ? (
-                    <Text style={styles.emptyText}>Nenhuma atividade recente.</Text>
+                    <Text style={estilos.emptyText}>Nenhuma atividade recente.</Text>
                 ) : (
                     recentes.map((item) => (
                         <ActivityCard
@@ -111,10 +112,11 @@ export default function HomeScreen({ navigation }) {
                 )}
             </View>
         </ScrollView>
+        </Tela>
     );
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     container: {
         flex: 1,
     },

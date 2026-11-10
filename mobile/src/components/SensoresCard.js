@@ -1,28 +1,28 @@
 import { View, Text, StyleSheet } from 'react-native';
 import WifiIcon from '../../assets/Wifi.svg';
 import { colorsLightMode, typography } from '../theme';
-import { useScreenStyles } from '../design/useScreenStyles';
+import { useEstilos } from '../design/useScreenStyles';
 
-export default function SensorCard({Icon, title, status, warning = false}) {
-    const styles = useScreenStyles(legacyStyles, 'SensorCard');
+export default function SensorCard({Icone, title, status, warning = false}) {
+    const estilos = useEstilos(estilosAntigos, 'SensorCard');
     return (
-        <View style={[styles.card, warning && styles.warningCard]}>
+        <View style={[estilos.card, warning && estilos.warningCard]}>
 
-            <View style={styles.left}>
-                <Icon width={26} height={26} />
-                <Text style={warning? styles.warningText : styles.normalText}>{title}</Text>
+            <View style={estilos.left}>
+                <Icone width={26} height={26} />
+                <Text style={warning? estilos.warningText : estilos.normalText}>{title}</Text>
             </View>
 
-            <View style={styles.right}>
+            <View style={estilos.right}>
                 {!warning && (<WifiIcon width={20} height={20} />)}
-                <Text style={warning? styles.warningText : styles.normalText}>{status}</Text>
+                <Text style={warning? estilos.warningText : estilos.normalText}>{status}</Text>
             </View>
             
         </View>
     );
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     card: {
         flexDirection: 'row',
         alignItems: 'center',

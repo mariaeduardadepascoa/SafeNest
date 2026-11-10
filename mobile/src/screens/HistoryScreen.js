@@ -1,8 +1,8 @@
-import { useScreenStyles } from '../design/useScreenStyles';
+import { useEstilos } from '../design/useScreenStyles';
 // import { StyleSheet, Text, View, Alert, ActivityIndicator, FlatList } from 'react-native';
 import { StyleSheet, Text, View, Alert, ActivityIndicator, SectionList, Pressable } from 'react-native';
-import { useDesign } from '../design/DesignProvider';
-import { Screen } from '../design/UI';
+import { useVisual } from '../design/DesignProvider';
+import { TituloPagina, Tela } from '../design/UI';
 import { colorsLightMode, typography } from '../theme';
 import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
@@ -13,8 +13,8 @@ import HistoricoModal from '../components/HistoricoModal';
 import { obterHistorico } from '../services/api';
 
 export default function HistoryScreen({ navigation }) {
-    const styles = useScreenStyles(legacyStyles, 'HistoryScreen');
-    const { prefs, c } = useDesign();
+    const estilos = useEstilos(estilosAntigos, 'HistoryScreen');
+    const { prefs, c } = useVisual();
     const [filter, setFilter] = useState('Todos');
     const { usuario } = useAuth();
     const [dados, setDados] = useState([]);
@@ -46,7 +46,7 @@ export default function HistoryScreen({ navigation }) {
         ));
 
     const ItemSeparator = () => (
-        <View style={styles.separator} />
+        <View style={estilos.separator} />
     );
 
     function agruparPorData(lista) {
@@ -66,13 +66,14 @@ export default function HistoryScreen({ navigation }) {
 
 
     const content = (
-        <View style={[styles.container, prefs.adapted && { paddingTop: 12 }]}>
-            <View style={styles.containerTitlesPage}>
-                <Text style={styles.titlePage}>Histórico</Text>
-                <Text style={styles.subtitlePage}>Visualize todos os eventos aqui.</Text>
-            </View>
+        <View style={[estilos.container, prefs.adapted && { paddingTop: 12 }]}>
+            {prefs.adapted ? <View style={{ paddingHorizontal: 22, paddingTop: 6 }}>
+                <TituloPagina title="Histórico" subtitle="Veja quem entrou e os avisos da sua casa." />
+            </View> : <View style={{ width: '100%', paddingHorizontal: 22, paddingTop: 18 }}>
+                <TituloPagina eyebrow="REGISTROS DA UNIDADE" title="Histórico" subtitle="Acompanhe os acessos e alertas da sua casa." />
+            </View>}
 
-            <View style={{ flexDirection: 'row', flexWrap: prefs.adapted ? 'wrap' : 'nowrap', marginTop: prefs.adapted ? 22 : 0, marginHorizontal: prefs.adapted ? 12 : 22, marginBottom: 16, padding: 4, borderRadius: 26, backgroundColor: c.raised }}>
+            <View style={{ flexDirection: 'row', flexWrap: prefs.adapted ? 'wrap' : 'nowrap', marginTop: prefs.adapted ? 4 : 0, marginHorizontal: prefs.adapted ? 12 : 22, marginBottom: 16, padding: 4, borderRadius: 26, backgroundColor: c.raised }}>
                 {['Todos', 'Acessos', 'Alertas'].map(label => <Pressable key={label} accessibilityRole="button" accessibilityState={{ selected: filter === label }}
                     onPress={() => setFilter(label)} style={{ flex: 1, minWidth: prefs.adapted ? 80 : undefined, minHeight: prefs.adapted ? 48 : 44, paddingVertical: prefs.adapted ? 8 : 0, justifyContent: 'center', alignItems: 'center', borderRadius: 22, backgroundColor: filter === label ? c.accent : 'transparent' }}>
                     <Text style={{ color: filter === label ? '#FFFFFF' : prefs.adapted ? c.accent : c.muted, fontSize: prefs.adapted ? 16 : undefined }}>{label}</Text>
@@ -80,20 +81,20 @@ export default function HistoryScreen({ navigation }) {
             </View>
 
             {carregando ? (
-                <View style={styles.centeredMessage}>
+                <View style={estilos.centeredMessage}>
                     <ActivityIndicator size="large" color={colorsLightMode.primary} />
                 </View>
             ) : visible.length === 0 ? (
-                <View style={styles.centeredMessage}>
-                    <Text style={styles.emptyText}>Nenhum evento encontrado.</Text>
+                <View style={estilos.centeredMessage}>
+                    <Text style={estilos.emptyText}>Nenhum evento encontrado.</Text>
                 </View>
             ) : (
-                <View style={styles.scrollArea}>
+                <View style={estilos.scrollArea}>
                     <SectionList
                         sections={secoes}
                         keyExtractor={(d) => d.tipo === 'acesso' ? 'acesso-' + d.id_acesso : 'alerta-' + d.id_alerta}
                         renderSectionHeader={({ section }) => (
-                            <Text style={styles.dateHeader}>{section.title}</Text>
+                            <Text style={estilos.dateHeader}>{section.title}</Text>
                         )}
                         renderItem={({ item }) => <ActivitysCard historico={item} onPress={setEventoSelecionado} />}
                         ItemSeparatorComponent={ItemSeparator}
@@ -110,10 +111,10 @@ export default function HistoryScreen({ navigation }) {
             />
         </View >
     );
-    return <Screen navigation={navigation} scroll={false}>{content}</Screen>;
+    return <Tela navigation={navigation} scroll={false}>{content}</Tela>;
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,

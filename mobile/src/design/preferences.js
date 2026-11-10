@@ -3,14 +3,14 @@
 // - colorVision: cores alternativas
 // - configured: já terminou a escolha inicial do aparelho
 
-export const defaultPreferences = {
+export const preferenciasIniciais = {
   adapted: false,
   colorVision: false,
   configured: false,
 };
 
 // As telas recebem a mesma paleta, inclusive no modo acessível.
-export function getDesignColors(preferencias) {
+export function coresDoVisual(preferencias) {
   if (preferencias.colorVision) {
     return {
       bg: '#FFFFFF', surface: '#FFFFFF', raised: '#E5EDF7',
@@ -29,8 +29,8 @@ export function getDesignColors(preferencias) {
 }
 
 // junta o que está salvo no celular com a escolha que veio da conta
-export function resolvePreferences(preferenciasSalvas, usuario) {
-  const preferencias = { ...defaultPreferences };
+export function lerPreferencias(preferenciasSalvas, usuario) {
+  const preferencias = { ...preferenciasIniciais };
 
   if (preferenciasSalvas) {
     preferencias.adapted = preferenciasSalvas.adapted === true;
@@ -46,7 +46,7 @@ export function resolvePreferences(preferenciasSalvas, usuario) {
 }
 
 
-export function preferenceKey(idUsuario) { // função de uma chave diferente para não misturar as preferências
+export function chavePreferencias(idUsuario) { // função de uma chave diferente para não misturar as preferências
   if (idUsuario === null || idUsuario === undefined) {
     return 'safenest:appearance:v1:guest';
   }

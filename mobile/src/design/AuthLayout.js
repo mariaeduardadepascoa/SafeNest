@@ -1,12 +1,12 @@
-// arquivo para evitar ma estrutura das telas de login e cadastro de acordo com o celular
+// Organiza as telas de entrada para caberem no celular, mesmo com o teclado aberto.
 
 import React from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDesign } from './DesignProvider';
+import { useVisual } from './DesignProvider';
 
-export default function AuthLayout({ children, style }) {
-  const { prefs, c } = useDesign();
+export default function EstruturaEntrada({ children, style }) {
+  const { prefs, c } = useVisual();
 
   if (prefs.adapted) {
     return <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }}>

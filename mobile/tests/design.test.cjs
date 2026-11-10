@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const babel = require('@babel/core');
 
-function load(relative, dependencies = {}, globals = {}) {
+function carregarModulo(relative, dependencies = {}, globals = {}) {
   const source = fs.readFileSync(path.join(__dirname, '..', relative), 'utf8');
   const { code } = babel.transformSync(source, {
     babelrc: false, configFile: false,
@@ -21,63 +21,103 @@ function load(relative, dependencies = {}, globals = {}) {
 }
 
 test('account preference selects the original accessible design across sessions', () => {
-  const { resolvePreferences } = load('src/design/preferences.js');
-  assert.equal(resolvePreferences(null, { versao_adaptada: true }).adapted, true);
-  assert.equal(resolvePreferences({ adapted: true }, { versao_adaptada: false }).adapted, false);
-  const restored = resolvePreferences({ colorVision: true, configured: true }, { versao_adaptada: true });
+  const { lerPreferencias } = carregarModulo('src/design/preferences.js');
+  assert.equal(lerPreferencias(null, { versao_adaptada: true }).adapted, true);
+  assert.equal(lerPreferencias({ adapted: true }, { versao_adaptada: false }).adapted, false);
+  const restored = lerPreferencias({ colorVision: true, configured: true }, { versao_adaptada: true });
   assert.equal(restored.colorVision, true);
   assert.equal(restored.configured, true);
 });
 
 test('preferences are isolated by account, with a separate guest choice', () => {
-  const { preferenceKey, resolvePreferences } = load('src/design/preferences.js');
-  assert.notEqual(preferenceKey(1), preferenceKey(2));
-  assert.notEqual(preferenceKey(), preferenceKey(1));
-  assert.equal(resolvePreferences(null, { versao_adaptada: false }).configured, false);
-  assert.equal(resolvePreferences(null, null).adapted, false);
+  const { chavePreferencias, lerPreferencias } = carregarModulo('src/design/preferences.js');
+  assert.notEqual(chavePreferencias(1), chavePreferencias(2));
+  assert.notEqual(chavePreferencias(), chavePreferencias(1));
+  assert.equal(lerPreferencias(null, { versao_adaptada: false }).configured, false);
+  assert.equal(lerPreferencias(null, null).adapted, false);
 });
 
 test('accessible mode returns original style sheets and contemporary mode does not mutate them', () => {
   let adapted = true;
   const original = { card: { minHeight: 64, backgroundColor: '#2B5081' }, normalText: { color: '#FFFFFF' } };
-  const { useScreenStyles } = load('src/design/useScreenStyles.js', {
+  const { useEstilos } = carregarModulo('src/design/useScreenStyles.js', {
     react: { useMemo: fn => fn() },
     'react-native': { StyleSheet: { flatten: value => value } },
     'react-native-safe-area-context': { useSafeAreaInsets: () => ({ top: 0 }) },
-    './DesignProvider': { useDesign: () => ({ prefs: { adapted, colorVision: false }, c: { bg: '#F4F7FB', accent: '#0B2342', surface: '#FFFFFF', text: '#18283C', line: '#E3E8EF', raised: '#EDF1F6', muted: '#647286', red: '#AD4444' } }) },
+    './DesignProvider': { useVisual: () => ({ prefs: { adapted, colorVision: false }, c: { bg: '#F4F7FB', accent: '#0B2342', surface: '#FFFFFF', text: '#18283C', line: '#E3E8EF', raised: '#EDF1F6', muted: '#647286', red: '#AD4444' } }) },
   });
-  assert.equal(useScreenStyles(original, 'ActivitysCard'), original);
+  assert.equal(useEstilos(original, 'ActivitysCard'), original);
   adapted = false;
-  const modern = useScreenStyles(original, 'ActivitysCard');
+  const modern = useEstilos(original, 'ActivitysCard');
   assert.equal(modern.card.backgroundColor, '#FFFFFF');
   assert.equal(modern.normalText.color, '#18283C');
   assert.equal(original.card.backgroundColor, '#2B5081');
 });
 
 test('accessible authentication has readable inputs and flexible sizes without changing other screens', () => {
-  const { useScreenStyles } = load('src/design/useScreenStyles.js', {
+  const { useEstilos } = carregarModulo('src/design/useScreenStyles.js', {
     react: { useMemo: fn => fn() },
     'react-native': { StyleSheet: { flatten: value => value } },
     'react-native-safe-area-context': { useSafeAreaInsets: () => ({ top: 0 }) },
-    './DesignProvider': { useDesign: () => ({ prefs: { adapted: true, colorVision: false }, c: { red: '#AD4444' } }) },
+    './DesignProvider': { useVisual: () => ({ prefs: { adapted: true, colorVision: false }, c: { red: '#AD4444' } }) },
   });
   const original = { container: {}, textInput: { color: '#848484', height: '100%' }, textSubContainer: {}, input: { width: 260, height: 60 }, title: { fontSize: 20 } };
   for (const screen of ['LoginScreen', 'RegisterEmailScreen', 'RegisterPasswordScreen', 'RegisterAgeScreen']) {
-    const styles = useScreenStyles(original, screen);
-    assert.equal(styles.textInput.color, '#000000');
-    assert.equal(styles.textSubContainer.color, '#000000');
-    assert.equal(styles.textInput.fontSize, 20);
-    assert.equal(styles.input.width, '100%');
-    assert.equal(styles.input.height, undefined);
-    assert.equal(styles.input.minHeight, 64);
-    assert.equal(styles.title.fontSize, 28);
+    const estilos = useEstilos(original, screen);
+    assert.equal(estilos.textInput.color, '#000000');
+    assert.equal(estilos.textSubContainer.color, '#000000');
+    assert.equal(estilos.textInput.fontSize, 20);
+    assert.equal(estilos.input.width, '100%');
+    assert.equal(estilos.input.height, undefined);
+    assert.equal(estilos.input.minHeight, 64);
+    assert.equal(estilos.title.fontSize, 28);
   }
-  assert.equal(useScreenStyles(original, 'HomeScreen'), original);
+  const inicio = useEstilos(original, 'HomeScreen');
+  assert.equal(inicio.input.width, 260);
+  assert.equal(inicio.textInput.color, '#848484');
   assert.equal(original.input.width, 260);
 });
 
 // Executa um manipulador da tela sem acessar rede ou acionar dispositivos.
-function screenHandler(file, name, globals) {
+test('editar o nome da câmera preserva o endereço que não foi alterado', async () => {
+  let enviado;
+  const salvar = funcaoDaTela('CameraScreen.js', 'salvarCamera', {
+    nome: ' Entrada ', endereco: '', cameraEditando: { id: 8 },
+    Alert: { alert() { throw Error('Validação inesperada'); } },
+    executar: acao => acao(), atualizarCamera: async (id, dados) => { enviado = { id, ...dados }; },
+    setFormularioAberto() {}, setUrlVideo() {}, setEstadoCamera() {}, setEstadoIa() {}, setFoto() {}, atualizarLista: async () => {},
+  });
+  await salvar();
+  assert.equal(enviado.id, 8);
+  assert.equal(enviado.nomeUsuario, 'Entrada');
+  assert.equal('endereco' in enviado, false);
+});
+
+test('cadastrar câmera usa o usuário conectado e o endereço informado', async () => {
+  let enviado;
+  const salvar = funcaoDaTela('CameraScreen.js', 'salvarCamera', {
+    nome: ' Entrada ', endereco: ' rtsp://servidor/entrada ', cameraEditando: null, usuario: { id_usuario: 42 },
+    Alert: { alert() { throw Error('Validação inesperada'); } },
+    executar: acao => acao(), cadastrarCamera: async dados => { enviado = dados; },
+    setFormularioAberto() {}, setUrlVideo() {}, setEstadoCamera() {}, setEstadoIa() {}, setFoto() {}, atualizarLista: async () => {},
+  });
+  await salvar();
+  assert.equal(enviado.idUsuario, 42);
+  assert.equal(enviado.endereco, 'rtsp://servidor/entrada');
+});
+
+test('vídeo usa o endereço devolvido pela API para a câmera escolhida', async () => {
+  let endereco;
+  const abrir = funcaoDaTela('CameraScreen.js', 'verVideo', {
+    cameraAtual: { id: 8 }, executar: acao => acao(), setAvisoVideo() {},
+    setUrlVideo: valor => { endereco = valor; },
+    obterVideoCamera: async id => { assert.equal(id, 8); return 'http://servidor:8889/entrada/'; },
+  });
+  await abrir();
+  assert.equal(endereco, 'http://servidor:8889/entrada/');
+});
+
+function funcaoDaTela(file, name, globals) {
   const source = fs.readFileSync(path.join(__dirname, '..', 'src/screens', file), 'utf8');
   const ast = babel.parseSync(source, { babelrc: false, configFile: false, parserOpts: { plugins: ['jsx'] } });
   const component = ast.program.body.find(node => node.type === 'ExportDefaultDeclaration').declaration;
@@ -91,7 +131,7 @@ function screenHandler(file, name, globals) {
 
 test('registration shows an explanation for missing data without sending requests', async () => {
   const alerts = [];
-  const confirm = screenHandler('RegisterEmailScreen.js', 'confirmEmail', {
+  const confirm = funcaoDaTela('RegisterEmailScreen.js', 'confirmEmail', {
     verificacaoEmAndamento: { current: false }, emailSent: false, nome: '', email: '',
     Alert: { alert: (...args) => alerts.push(args) },
   });
@@ -106,7 +146,7 @@ test('registration keeps the send locked until email delivery finishes', async (
   const lock = { current: false };
   let lookups = 0;
   let sent = 0;
-  const confirm = screenHandler('RegisterEmailScreen.js', 'confirmEmail', {
+  const confirm = funcaoDaTela('RegisterEmailScreen.js', 'confirmEmail', {
     verificacaoEmAndamento: lock, emailSent: false, nome: 'Maria', email: '  MARIA@example.com  ',
     setVerificando: state => states.push(state), setEmailError() {},
     verificarEmailExiste: async email => { assert.equal(email, 'maria@example.com'); lookups++; return false; },
@@ -129,7 +169,7 @@ test('registration keeps the send locked until email delivery finishes', async (
 test('verification code accepts pasted numbers and ignores other characters', () => {
   let result;
   let focused;
-  const change = screenHandler('RegisterEmailScreen.js', 'codeChange', {
+  const change = funcaoDaTela('RegisterEmailScreen.js', 'codeChange', {
     code: ['', '', '', ''], setCode: value => { result = Array.from(value); },
     codeRefs: [0, 1, 2, 3].map(index => ({ current: { focus: () => { focused = index; } } })),
   });
@@ -203,24 +243,24 @@ test('accessible lock marks the state as unavailable when consultation fails', a
 });
 
 test('contrast preference changes the interface in both designs and keeps readable text', () => {
-  const { getDesignColors } = load('src/design/preferences.js');
-  function luminance(hex) {
+  const { coresDoVisual } = carregarModulo('src/design/preferences.js');
+  function brilho(hex) {
     const rgb = hex.match(/[a-f\d]{2}/gi).map(value => parseInt(value, 16) / 255)
       .map(value => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
     return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
   }
-  function contrast(first, second) {
-    const values = [luminance(first), luminance(second)].sort((a, b) => b - a);
+  function compararCores(first, second) {
+    const values = [brilho(first), brilho(second)].sort((a, b) => b - a);
     return (values[0] + 0.05) / (values[1] + 0.05);
   }
   for (const adapted of [false, true]) {
-    const standard = getDesignColors({ adapted, colorVision: false });
-    const adjusted = getDesignColors({ adapted, colorVision: true });
+    const standard = coresDoVisual({ adapted, colorVision: false });
+    const adjusted = coresDoVisual({ adapted, colorVision: true });
     for (const key of ['bg', 'raised', 'text', 'muted', 'line', 'accent']) assert.notEqual(standard[key], adjusted[key]);
-    assert.ok(contrast(adjusted.text, adjusted.surface) >= 4.5);
-    assert.ok(contrast(adjusted.muted, adjusted.surface) >= 4.5);
-    assert.ok(contrast('#FFFFFF', adjusted.accent) >= 4.5);
-    assert.ok(contrast('#FFFFFF', adjusted.red) >= 4.5);
+    assert.ok(compararCores(adjusted.text, adjusted.surface) >= 4.5);
+    assert.ok(compararCores(adjusted.muted, adjusted.surface) >= 4.5);
+    assert.ok(compararCores('#FFFFFF', adjusted.accent) >= 4.5);
+    assert.ok(compararCores('#FFFFFF', adjusted.red) >= 4.5);
   }
 });
 
@@ -228,22 +268,22 @@ test('contact redesign preserves phone calls, editing, deletion and saved photos
   let edits = 0;
   let deletions = 0;
   const calls = [];
-  const { default: ContactCard } = load('src/components/ContactCard.js', {
+  const { default: ContactCard } = carregarModulo('src/components/ContactCard.js', {
     react: { createElement: (type, props, ...children) => ({ type, props: { ...props, children } }) },
     'react-native': { View: 'View', Image: 'Image', Pressable: 'Pressable', StyleSheet: { create: value => value },
       Linking: { openURL: async value => calls.push(value) }, Alert: { alert: () => assert.fail('Não deve falhar') } },
-    '../design/DesignProvider': { useDesign: () => ({ c: {}, prefs: { adapted: false } }) },
-    '../design/UI': { Icon: 'Icon', Txt: 'Text' },
+    '../design/DesignProvider': { useVisual: () => ({ c: {}, prefs: { adapted: false } }) },
+    '../design/UI': { Icone: 'Icon', Texto: 'Text' },
   });
   const card = ContactCard({ nome_contato: 'Contato de teste', telefone: '(19) 99999-0000', foto: 'file:///foto-local.jpg', onEdit: () => edits++, onDelete: () => deletions++ });
   const elements = [];
-  function visit(node) {
+  function percorrer(node) {
     if (!node || typeof node !== 'object') return;
-    if (Array.isArray(node)) return node.forEach(visit);
+    if (Array.isArray(node)) return node.forEach(percorrer);
     elements.push(node);
-    visit(node.props?.children);
+    percorrer(node.props?.children);
   }
-  visit(card);
+  percorrer(card);
   await elements.find(node => node.props?.accessibilityLabel === 'Ligar para Contato de teste').props.onPress();
   elements.find(node => node.props?.accessibilityLabel === 'Editar contato Contato de teste').props.onPress();
   elements.find(node => node.props?.accessibilityLabel === 'Excluir contato Contato de teste').props.onPress();
@@ -253,10 +293,112 @@ test('contact redesign preserves phone calls, editing, deletion and saved photos
   assert.equal(elements.find(node => node.type === 'Image').props.source.uri, 'file:///foto-local.jpg');
 });
 
-function apiHarness(responses, token = 'access') {
+test('modern contact modal saves the existing contact and preserves its photo', () => {
+  const state = ['  Ana  ', ' (19) 99999-0000 ', 'file:///contato.jpg'];
+  let saved;
+  const { default: AddContactModal } = carregarModulo('src/components/AddContactModal.js', {
+    react: {
+      createElement: (type, props, ...children) => ({ type, props: { ...props, children } }),
+      useState: () => [state.shift(), () => {}], useEffect() {},
+    },
+    'react-native': { View: 'View', Text: 'Text', Modal: 'Modal', TextInput: 'TextInput', Pressable: 'Pressable',
+      Image: 'Image', ActivityIndicator: 'ActivityIndicator', KeyboardAvoidingView: 'KeyboardAvoidingView',
+      ScrollView: 'ScrollView', Platform: { OS: 'android' }, StyleSheet: { create: value => value }, Alert: { alert: () => assert.fail('Dados válidos') } },
+    '../design/useScreenStyles': { useEstilos: estilos => estilos },
+    '../theme': { colorsLightMode: {}, typography: {} },
+    'expo-image-picker': {}, '../../assets/personWhiteIcon.svg': {}, '../../assets/Pen tool.svg': {},
+    'react-native-safe-area-context': { useSafeAreaInsets: () => ({ top: 24, bottom: 16 }) },
+    '../design/DesignProvider': { useVisual: () => ({ c: {}, prefs: { adapted: false } }) },
+    '../design/UI': { Botao: 'Button', Icone: 'Icon', Texto: 'Text' },
+  });
+  const modal = AddContactModal({ visible: true, contato: { id: 7 }, onClose() {}, onSave: value => { saved = value; }, salvando: false });
+  const elements = [];
+  function percorrer(node) {
+    if (!node || typeof node !== 'object') return;
+    if (Array.isArray(node)) return node.forEach(percorrer);
+    elements.push(node); percorrer(node.props?.children);
+  }
+  percorrer(modal);
+  elements.find(node => node.type === 'Button').props.onPress();
+  assert.equal(saved.id, 7);
+  assert.equal(saved.nome, 'Ana');
+  assert.equal(saved.telefone, '(19) 99999-0000');
+  assert.equal(saved.foto, 'file:///contato.jpg');
+  assert.ok(elements.some(node => node.type === 'KeyboardAvoidingView' && node.props.behavior === 'height'));
+  assert.ok(elements.some(node => node.type === 'ScrollView'));
+});
+
+test('troca de cores mostra carregamento, salva a escolha e atualiza a paleta', async () => {
+  const preferencias = carregarModulo('src/design/preferences.js');
+  const valores = [{ adapted: false, colorVision: false, configured: true }, 1, false];
+  const referencias = [];
+  let posicaoEstado = 0;
+  let posicaoReferencia = 0;
+  let concluirGravacao;
+  let gravado;
+  const { ProvedorVisual } = carregarModulo('src/design/DesignProvider.js', {
+    react: {
+      createElement: (type, props, ...children) => ({ type, props: { ...props, children } }),
+      createContext: () => ({ Provider: 'Contexto' }), useContext() {}, useEffect() {},
+      useState: () => { const posicao = posicaoEstado++; return [valores[posicao], valor => { valores[posicao] = valor; }]; },
+      useRef: inicial => { const posicao = posicaoReferencia++; if (!referencias[posicao]) referencias[posicao] = { current: inicial }; return referencias[posicao]; },
+    },
+    'react-native': { ActivityIndicator: 'Indicador', Modal: 'Modal', Text: 'Texto', View: 'View' },
+    '@react-native-async-storage/async-storage': { setItem: (chave, texto) => { gravado = JSON.parse(texto); return new Promise(concluir => { concluirGravacao = concluir; }); } },
+    '../context/AuthContext': { useAuth: () => ({ usuario: { id_usuario: 1, versao_adaptada: false }, setUsuario() {} }) },
+    '../services/tokenStorage': { salvarUsuario: async () => {} },
+    '../services/api': { atualizarPreferenciaAcessivel: () => assert.fail('Trocar cores não precisa alterar a API') },
+    './preferences': preferencias,
+  }, { setTimeout });
+  function desenhar() { posicaoEstado = 0; posicaoReferencia = 0; return ProvedorVisual({ children: null }); }
+  let tela = desenhar();
+  const salvar = tela.props.value.savePreferences({ colorVision: true });
+  tela = desenhar();
+  assert.equal(tela.props.children[1].props.visible, true);
+  assert.equal(gravado.colorVision, true);
+  concluirGravacao();
+  await salvar;
+  tela = desenhar();
+  assert.equal(tela.props.children[1].props.visible, false);
+  assert.equal(tela.props.value.prefs.colorVision, true);
+  assert.equal(tela.props.value.c.accent, '#123C69');
+});
+
+test('formulário acessível de contato usa as cores adaptadas nos campos', () => {
+  const { coresDoVisual } = carregarModulo('src/design/preferences.js');
+  const cores = coresDoVisual({ adapted: true, colorVision: true });
+  const campos = ['Ana', '190', null];
+  const { default: Formulario } = carregarModulo('src/components/AddContactModal.js', {
+    react: { createElement: (type, props, ...children) => ({ type, props: { ...props, children } }), useEffect() {}, useState: () => [campos.shift(), () => {}] },
+    'react-native': { Modal: 'Modal', View: 'View', Text: 'Text', TextInput: 'Campo', Image: 'Image', Pressable: 'Pressable', ScrollView: 'Rolagem', KeyboardAvoidingView: 'Teclado', ActivityIndicator: 'Indicador', Platform: { OS: 'android' }, Alert: { alert() {} }, StyleSheet: { create: valor => valor } },
+    'expo-image-picker': {},
+    'react-native-safe-area-context': { useSafeAreaInsets: () => ({ top: 24, bottom: 16 }) },
+    '../design/DesignProvider': { useVisual: () => ({ c: cores, prefs: { adapted: true, colorVision: true } }) },
+    '../design/UI': { Botao: 'Botao', Icone: 'Icone', Texto: 'Texto' },
+  });
+  const tela = Formulario({ visible: true, contato: null, salvando: false, onClose() {}, onSave() {} });
+  const encontrados = [];
+  function percorrer(no) {
+    if (Array.isArray(no)) return no.forEach(percorrer);
+    if (!no || typeof no !== 'object') return;
+    if (no.type === 'Campo') encontrados.push(no);
+    percorrer(no.props?.children);
+  }
+  percorrer(tela);
+  assert.equal(encontrados.length, 2);
+  for (const campo of encontrados) {
+    assert.equal(campo.props.style.color, cores.text);
+    assert.equal(campo.props.style.borderColor, cores.line);
+    assert.equal(campo.props.placeholderTextColor, cores.muted);
+    assert.equal(campo.props.style.fontSize, 20);
+    assert.equal(campo.props.style.minHeight, 64);
+  }
+});
+
+function prepararTesteApi(responses, token = 'access') {
   const calls = [];
   const stored = [];
-  const api = load('src/services/api.js', {
+  const api = carregarModulo('src/services/api.js', {
     '../services/tokenStorage': {
       obterAccessToken: async () => token,
       obterRefreshToken: async () => 'refresh',
@@ -275,7 +417,7 @@ function apiHarness(responses, token = 'access') {
 }
 
 test('accessible design preference is saved through the real authenticated user endpoint', async () => {
-  const { api, calls } = apiHarness([{ body: { usuario: { id_usuario: 7, versao_adaptada: true } } }]);
+  const { api, calls } = prepararTesteApi([{ body: { usuario: { id_usuario: 7, versao_adaptada: true } } }]);
   const user = await api.atualizarPreferenciaAcessivel(7, true);
   assert.equal(user.versao_adaptada, true);
   assert.match(calls[0].url, /:3000\/usuario\/7$/);
@@ -285,7 +427,7 @@ test('accessible design preference is saved through the real authenticated user 
 });
 
 test('device command refreshes expired tokens and retries the device API', async () => {
-  const { api, calls, stored } = apiHarness([
+  const { api, calls, stored } = prepararTesteApi([
     { status: 401 }, { body: { accessToken: 'renewed' } }, { body: { mensagem: 'comando enviado' } },
   ]);
   await api.abrirFechadura(9);
@@ -298,18 +440,18 @@ test('device command refreshes expired tokens and retries the device API', async
 });
 
 test('a rejected account update is surfaced rather than reported as saved', async () => {
-  const { api } = apiHarness([{ status: 403, body: { erro: 'Sem permissão' } }]);
+  const { api } = prepararTesteApi([{ status: 403, body: { erro: 'Sem permissão' } }]);
   await assert.rejects(api.atualizarPreferenciaAcessivel(7, true), /Sem permissão/);
 });
 
 test('explicit accessible choice at registration overrides the age default', async () => {
-  const { api, calls } = apiHarness([{ body: { usuario: { id_usuario: 1 } } }]);
+  const { api, calls } = prepararTesteApi([{ body: { usuario: { id_usuario: 1 } } }]);
   await api.cadastro('Pessoa', 'pessoa@example.com', '123456', '60+', false);
   assert.equal(JSON.parse(calls[0].options.body).versao_adaptada, false);
 });
 
 test('removing a lock uses the existing endpoint without trailing spaces', async () => {
-  const { api, calls } = apiHarness([{}]);
+  const { api, calls } = prepararTesteApi([{}]);
   await api.excluirFechadura();
   assert.match(calls[0].url, /:8080\/fechadura$/);
   assert.equal(calls[0].options.method, 'DELETE');
