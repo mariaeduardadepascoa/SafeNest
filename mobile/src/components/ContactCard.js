@@ -1,140 +1,64 @@
-import { useScreenStyles } from '../design/useScreenStyles';
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
-import { colorsLightMode, typography } from '../theme';
-import { Linking, Alert } from 'react-native';
-import EditIcon from '../../assets/Edit.svg';
-import PhoneCallIcon from '../../assets/Phone call.svg';
-import DeleteIcon from '../../assets/delete.svg';
+import React from 'react';
+import { Alert, Image, Linking, Pressable, StyleSheet, View } from 'react-native';
+import { useDesign } from '../design/DesignProvider';
+import { Icon, Txt } from '../design/UI';
 
 export default function ContactCard({ nome_contato, telefone, foto, onEdit, onDelete }) {
-    const styles = useScreenStyles(legacyStyles, 'ContactCard');
-    const primeiraLetra = nome_contato ? nome_contato.charAt(0).toUpperCase() : '?';
+    const { c, prefs } = useDesign();
 
-    async function ligacao(telefone) {
-        const numeroLimpo = telefone.replace(/[^0-9+]/g, ''); // remove qualquer caractere que não seja um número (parênteses, traços e espaços)
+    async function ligar() {
+        const numero = String(telefone || '').replace(/[^0-9+]/g, '');
+        if (!numero) {
+            Alert.alert('Telefone indisponível', 'Edite o contato para informar um número.');
+            return;
+        }
 
         try {
-            await Linking.openURL(`tel:${numeroLimpo}`);
-        } catch (err) {
-            console.log('erro real:', err);
-            Alert.alert('Erro', 'Não foi possível realizar a ligação.');
+            await Linking.openURL(`tel:${numero}`);
+        } catch {
+            Alert.alert('Erro', 'Não foi possível abrir a ligação.');
         }
     }
+
     return (
-
-        <View style={styles.contatos}>
-            <View style={styles.card}>
-
-                <View style={styles.infoContato}>
-                    <View style={styles.contatoFoto}>{foto ? (<Image source={{ uri: foto }} style={styles.foto} />) : (<Text style={styles.letraContato}>{primeiraLetra}</Text>)}
+        <View style={[styles.card, { backgroundColor: c.surface, borderColor: c.line }]}>
+            <View style={styles.conteudo}>
+                <View style={styles.informacoes}>
+                    <View style={styles.nomeFoto}>
+                        {foto && <Image source={{ uri: foto }} accessibilityLabel={`Foto de ${nome_contato}`} style={styles.foto} />}
+                        <Txt size={prefs.adapted ? 18 : 16} weight="500" style={{ flex: 1 }}>{nome_contato}</Txt>
                     </View>
-                    <Text style={styles.nomeContato} numberOfLines={1} ellipsizeMode="tail">{nome_contato}</Text>
+                    <Txt muted size={13}>Contato de emergência</Txt>
+                    <Txt size={prefs.adapted ? 28 : 26} style={{ marginTop: 5, flexShrink: 1 }}>{telefone || 'Número não informado'}</Txt>
                 </View>
-
-                <View style={styles.botoesContato}>
-                    <Pressable accessibilityRole="button" accessibilityLabel={`Editar contato ${nome_contato}`} hitSlop={8} style={styles.editContato} onPress={onEdit}>
-                        <EditIcon width={'50%'} height={'50%'} />
-                    </Pressable>
-                    <Pressable accessibilityRole="button" accessibilityLabel={`Excluir contato ${nome_contato}`} hitSlop={8} style={styles.deleteContato} onPress={onDelete}>
-                        <DeleteIcon width={'60%'} height={'60%'} />
-                    </Pressable>
-                    <Pressable accessibilityRole="button" accessibilityLabel={`Ligar para ${nome_contato}`} style={styles.callContato} onPress={() => ligacao(telefone)}>
-                        <PhoneCallIcon width={18} height={'40%'} />
-                        <Text style={styles.ligarText}>Ligar</Text>
-                    </Pressable>
-                </View>
-
+                <Pressable accessibilityRole="button" accessibilityLabel={`Ligar para ${nome_contato}`}
+                    accessibilityHint="Abre o aplicativo de telefone" onPress={ligar}
+                    style={({ pressed }) => [styles.telefone, { backgroundColor: c.raised, opacity: pressed ? 0.65 : 1 }]}>
+                    <Icon name="phone" size={22} />
+                </Pressable>
+            </View>
+            <View style={[styles.acoes, { borderTopColor: c.line }]}>
+                <Pressable accessibilityRole="button" accessibilityLabel={`Editar contato ${nome_contato}`} onPress={onEdit} style={styles.acao}>
+                    <Icon name="edit-2" size={16} /><Txt size={14}>Editar</Txt>
+                </Pressable>
+                <Pressable accessibilityRole="button" accessibilityLabel={`Excluir contato ${nome_contato}`} onPress={onDelete} style={styles.acao}>
+                    <Icon name="trash-2" size={16} color={c.red} /><Txt size={14} style={{ color: c.red }}>Excluir</Txt>
+                </Pressable>
             </View>
         </View>
     );
 }
 
-const legacyStyles = StyleSheet.create({
-    contatos: {
-        alignItems: 'center',
-        paddingTop: 24,
-    },
+const styles = StyleSheet.create({
     card: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '95%',
-        height: 74,
-        backgroundColor: colorsLightMode.white,
-        borderRadius: 10,
-        borderWidth: 2,
-        borderColor: colorsLightMode.gray,
-        justifyContent: 'space-between',
-        paddingHorizontal: 10,
-        gap: 8,
+        width: '100%', borderWidth: 1, borderRadius: 28,
+        paddingHorizontal: 22, paddingTop: 24, paddingBottom: 8, marginTop: 16,
     },
-    infoContato: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        // justifyContent: 'flex-start',
-        flexShrink: 1,
-        flexGrow: 1,
-        gap: 10,
-    },
-    contatoFoto: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        backgroundColor: colorsLightMode.primary,
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-        flexShrink: 0, //faz o elemento diminuir
-    },
-    foto: {
-        width: '100%',
-        height: '100%',
-    },
-    letraContato: {
-        ...typography.title,
-        color: colorsLightMode.white,
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    nomeContato: {
-        ...typography.caption,
-        flexShrink: 1,
-    },
-    botoesContato: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-        flexShrink: 0,
-    },
-    editContato: {
-        borderRadius: '100%',
-        backgroundColor: colorsLightMode.lightBlue,
-        width: 30,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    deleteContato: {
-        borderRadius: '100%',
-        backgroundColor: colorsLightMode.danger,
-        width: 30,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    callContato: {
-        width: 80,
-        height: 40,
-        backgroundColor: colorsLightMode.primary,
-        borderRadius: 10,
-        justifyContent: 'space-around',
-        paddingHorizontal: 6,
-        alignItems: 'center',
-        flexDirection: 'row',
-        flexShrink: 0,
-    },
-    ligarText: {
-        ...typography.caption,
-        color: colorsLightMode.white,
-    },
+    conteudo: { flexDirection: 'row', alignItems: 'center', gap: 16 },
+    informacoes: { flex: 1, gap: 6, minWidth: 0 },
+    nomeFoto: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+    foto: { width: 36, height: 36, borderRadius: 18 },
+    telefone: { width: 56, height: 56, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
+    acoes: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 18, marginTop: 16, borderTopWidth: 1, paddingTop: 4 },
+    acao: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, minHeight: 44, paddingHorizontal: 4 },
 });

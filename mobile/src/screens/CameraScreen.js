@@ -20,7 +20,7 @@ export default function CameraScreen({ navigation }) {
       onStopped={() => setStatus('Transmissão interrompida')}
       onError={() => setStatus('Não foi possível acessar a câmera. Verifique a conexão e o endereço RTSP.')} />;
   const reconnect = () => { setStatus('Conectando à câmera…'); setAttempt(v => v + 1); };
-  if (prefs.adapted) return <View style={{ flex: 1, padding: 18, gap: 18 }}>{player}<Txt accessibilityLiveRegion="polite">{status}</Txt><Button title="Reconectar câmera" onPress={reconnect} /></View>;
+  if (prefs.adapted) return <Screen navigation={navigation} scroll={false}><View style={{ flex: 1, padding: 18, gap: 18, paddingBottom: 100 }}>{player}<Txt accessibilityLiveRegion="polite">{status}</Txt><Button title="Reconectar câmera" onPress={reconnect} /></View></Screen>;
   return <Screen navigation={navigation}>
     <PageTitle eyebrow="MONITORAMENTO" title="Sua casa, por perto." subtitle="Acompanhe a transmissão da câmera." />
     <Card style={{ padding: 0, overflow: 'hidden' }}>{player}</Card>

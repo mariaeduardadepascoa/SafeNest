@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import WifiIcon from '../../assets/Wifi.svg';
 import { colorsLightMode, typography } from '../theme';
+import { useScreenStyles } from '../design/useScreenStyles';
 
 export default function SensorCard({Icon, title, status, warning = false}) {
+    const styles = useScreenStyles(legacyStyles, 'SensorCard');
     return (
         <View style={[styles.card, warning && styles.warningCard]}>
 
@@ -20,7 +22,7 @@ export default function SensorCard({Icon, title, status, warning = false}) {
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     card: {
         flexDirection: 'row',
         alignItems: 'center',

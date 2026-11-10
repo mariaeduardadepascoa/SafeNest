@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { House, Clock, Camera, Warning, SquaresFour } from "phosphor-react-native";
-import { Pressable, View, Text } from 'react-native';
 import { useDesign } from '../design/DesignProvider';
 import ModernHomeScreen, { DevicesScreen } from '../design/HomeScreen';
 import AppearanceScreen from '../design/AppearanceScreen';
@@ -22,13 +21,9 @@ export default function MainTabNavigator() {
     <Tab.Navigator
       initialRouteName="Início"
       screenOptions={({ navigation }) => ({
-        headerShown: prefs.adapted,
-        headerTitle: 'SafeNest',
-        headerStyle: { backgroundColor: c.bg },
-        headerRight: () => <Pressable accessibilityRole="button" accessibilityLabel="Abrir configurações" onPress={() => navigation.navigate('Configurações')}
-          style={{ minWidth: 48, minHeight: 48, justifyContent: 'center', paddingRight: 16 }}><Text>⚙</Text></Pressable>,
+        headerShown: false,
         tabBarActiveTintColor: c.accent,
-        tabBarInactiveTintColor: '#647286',
+        tabBarInactiveTintColor: c.muted,
         tabBarLabelStyle: {
           fontSize: 12,
           fontFamily: 'RobotoMedium',

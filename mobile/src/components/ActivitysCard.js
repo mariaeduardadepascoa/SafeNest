@@ -1,4 +1,5 @@
 import { useScreenStyles } from '../design/useScreenStyles';
+import { useDesign } from '../design/DesignProvider';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import HouseIcon from '../../assets/houseIcon-entrada-permitida.svg';
@@ -35,6 +36,7 @@ function tempoDecorrido(dataHora) {
 
 export default function ActivitysCard({ historico, onPress }) {
     const styles = useScreenStyles(legacyStyles, 'ActivitysCard');
+    const { c } = useDesign();
 
     // estilização para os acessos
     let title = 'Entrada permitida';
@@ -66,7 +68,7 @@ export default function ActivitysCard({ historico, onPress }) {
             variant === 'negado' && styles.negadoCard, //se variant === negado -> negadoCard
             ]}>
             <View style={styles.left}>
-                <View style={variant === 'negado' ? styles.redContainerIcon : styles.whiteContainerIcon}>
+                <View style={[variant === 'negado' ? styles.redContainerIcon : styles.whiteContainerIcon, variant === 'negado' && { backgroundColor: c.red }]}>
                     <Icone width={20} height={20} />
                 </View>
                 <View style={styles.texts}>
