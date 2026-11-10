@@ -1,16 +1,19 @@
+import AuthLayout from '../design/AuthLayout';
+import { useScreenStyles } from '../design/useScreenStyles';
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import { Alert, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 
-import LogoSafeNest from '../../assets/logoSafeNestescrita.svg';
+import LogoSafeNest from '../design/AuthBrand';
 import ProgressBar from '../components/ProgressBar';
 import LockIcon from '../../assets/Lock.svg';
 import EyeIcon from '../../assets/Eye.svg';
 import EyeOffIcon from '../../assets/Eye off.svg';
 
 export default function RegisterPasswordScreen({ navigation, route }) {
+    const styles = useScreenStyles(legacyStyles, 'RegisterPasswordScreen');
     const { nome, email } = route.params; // pega o que veio da tela anterior
 
     const [password, setPassword] = useState('');
@@ -33,7 +36,7 @@ export default function RegisterPasswordScreen({ navigation, route }) {
     }
 
     return (
-        <View style={styles.container}>
+        <AuthLayout style={styles.container}>
 
             <LogoSafeNest
                 width={160}
@@ -41,7 +44,7 @@ export default function RegisterPasswordScreen({ navigation, route }) {
                 style={{ marginTop: 15 }}
             />
 
-            <View style={styles.progressBarContainer}>
+            <View style={styles.progressBarContainer} accessible accessibilityLabel="Cadastro, etapa 2 de 3">
                 <ProgressBar
                     totalSteps={3}
                     currentStep={2}
@@ -72,16 +75,21 @@ export default function RegisterPasswordScreen({ navigation, route }) {
 
                             <LockIcon width={20} height={20} />
 
-                            <TextInput
+                            <TextInput accessibilityLabel="Crie sua senha"
                                 style={styles.textInput}
                                 placeholder="Digite aqui uma senha"
-                                placeholderTextColor={colorsLightMode.subtitles}
+                                placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
                                 value={password}
                                 onChangeText={setPassword}
                                 secureTextEntry={!showPassword}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                autoComplete="new-password"
                             />
 
-                            <TouchableOpacity
+                            <TouchableOpacity accessibilityRole="button"
+                                accessibilityLabel={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                                style={styles.visibilityButton}
                                 onPress={() =>
                                     setShowPassword(!showPassword)
                                 }
@@ -106,16 +114,19 @@ export default function RegisterPasswordScreen({ navigation, route }) {
 
                             <LockIcon width={20} height={20} />
 
-                            <TextInput
+                            <TextInput accessibilityLabel="Confirme sua senha"
                                 style={styles.textInput}
                                 placeholder="Confirme a senha"
-                                placeholderTextColor={colorsLightMode.subtitles}
+                                placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
                                 value={confirmPassword}
                                 onChangeText={setConfirmPassword}
                                 secureTextEntry={!showConfirmPassword}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                autoComplete="new-password"
                             />
 
-                            <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                            <TouchableOpacity accessibilityRole="button" accessibilityLabel={showConfirmPassword ? 'Ocultar confirmação da senha' : 'Mostrar confirmação da senha'} style={styles.visibilityButton} onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
                                 {showConfirmPassword ? <EyeIcon /> : <EyeOffIcon />}
                             </TouchableOpacity>
 
@@ -127,22 +138,22 @@ export default function RegisterPasswordScreen({ navigation, route }) {
 
             </View>
 
-            <TouchableOpacity style={styles.input} onPress={handleConfirmPassword}
+            <TouchableOpacity accessibilityRole="button" style={styles.input} onPress={handleConfirmPassword}
             >
                 <Text style={styles.text}>Continuar</Text>
             </TouchableOpacity>
 
             <Text style={styles.caption}>Já tem uma conta?
-                <Text style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text>
+                <Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text>
             </Text>
 
             <StatusBar style="auto" />
 
-        </View>
+        </AuthLayout>
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

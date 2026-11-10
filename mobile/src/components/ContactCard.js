@@ -1,3 +1,4 @@
+import { useScreenStyles } from '../design/useScreenStyles';
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import { Linking, Alert } from 'react-native';
@@ -6,6 +7,7 @@ import PhoneCallIcon from '../../assets/Phone call.svg';
 import DeleteIcon from '../../assets/delete.svg';
 
 export default function ContactCard({ nome_contato, telefone, foto, onEdit, onDelete }) {
+    const styles = useScreenStyles(legacyStyles, 'ContactCard');
     const primeiraLetra = nome_contato ? nome_contato.charAt(0).toUpperCase() : '?';
 
     async function ligacao(telefone) {
@@ -30,13 +32,13 @@ export default function ContactCard({ nome_contato, telefone, foto, onEdit, onDe
                 </View>
 
                 <View style={styles.botoesContato}>
-                    <Pressable style={styles.editContato} onPress={onEdit}>
+                    <Pressable accessibilityRole="button" accessibilityLabel={`Editar contato ${nome_contato}`} hitSlop={8} style={styles.editContato} onPress={onEdit}>
                         <EditIcon width={'50%'} height={'50%'} />
                     </Pressable>
-                    <Pressable style={styles.deleteContato} onPress={onDelete}>
+                    <Pressable accessibilityRole="button" accessibilityLabel={`Excluir contato ${nome_contato}`} hitSlop={8} style={styles.deleteContato} onPress={onDelete}>
                         <DeleteIcon width={'60%'} height={'60%'} />
                     </Pressable>
-                    <Pressable style={styles.callContato} onPress={() => ligacao(telefone)}>
+                    <Pressable accessibilityRole="button" accessibilityLabel={`Ligar para ${nome_contato}`} style={styles.callContato} onPress={() => ligacao(telefone)}>
                         <PhoneCallIcon width={18} height={'40%'} />
                         <Text style={styles.ligarText}>Ligar</Text>
                     </Pressable>
@@ -47,7 +49,7 @@ export default function ContactCard({ nome_contato, telefone, foto, onEdit, onDe
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     contatos: {
         alignItems: 'center',
         paddingTop: 24,

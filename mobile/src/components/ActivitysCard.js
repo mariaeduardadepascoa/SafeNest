@@ -1,3 +1,4 @@
+import { useScreenStyles } from '../design/useScreenStyles';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import HouseIcon from '../../assets/houseIcon-entrada-permitida.svg';
@@ -33,6 +34,7 @@ function tempoDecorrido(dataHora) {
 }
 
 export default function ActivitysCard({ historico, onPress }) {
+    const styles = useScreenStyles(legacyStyles, 'ActivitysCard');
 
     // estilização para os acessos
     let title = 'Entrada permitida';
@@ -56,6 +58,8 @@ export default function ActivitysCard({ historico, onPress }) {
 
     return (
         <Pressable
+            accessibilityRole={onPress ? 'button' : undefined}
+            accessibilityLabel={`${title}${subtitle ? `, ${subtitle}` : ''}, ${tempoDecorrido(historico.data_hora)}`}
             onPress={() => onPress && onPress({ ...historico, titulo: title })} //manda o item e o título para abrir os detalhes
             style={[styles.card,
             variant === 'perigo' && styles.perigoCard, //se variant === perigo -> perigoCard
@@ -66,8 +70,8 @@ export default function ActivitysCard({ historico, onPress }) {
                     <Icone width={20} height={20} />
                 </View>
                 <View style={styles.texts}>
-                    <Text style={textoStyle} numberOfLines={2}>{title}</Text>
-                    {subtitle && <Text style={[textoStyle, styles.subtitleText]} numberOfLines={1}>{subtitle}</Text>}
+                    <Text style={textoStyle}>{title}</Text>
+                    {subtitle && <Text style={[textoStyle, styles.subtitleText]}>{subtitle}</Text>}
                 </View>
             </View>
 
@@ -76,7 +80,7 @@ export default function ActivitysCard({ historico, onPress }) {
     );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
     card: {
         flexDirection: 'row',
         alignItems: 'center',

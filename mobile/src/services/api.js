@@ -115,7 +115,7 @@ export async function login(email, senha) {
 
 
 // CADASTRO
-export async function cadastro(nome, email, senha, ageRange) {
+export async function cadastro(nome, email, senha, ageRange, versaoAdaptada = ageRange === '60+') {
     const resposta = await fetch(`${API_URL}/auth/cadastro`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -123,7 +123,7 @@ export async function cadastro(nome, email, senha, ageRange) {
             nome_usuario: nome,
             email_usuario: email,
             senha_usuario: senha,
-            versao_adaptada: ageRange === '60+', //comparação que retorna true ou false
+            versao_adaptada: versaoAdaptada, //comparação que retorna true ou false
         }),
     });
 
@@ -294,7 +294,7 @@ export async function destravarFechadura(id_fechadura) {
 }
 
 export async function excluirFechadura() {
-    const resposta = await autenticacaoTokenDispositivos('/fechadura    ', {
+    const resposta = await autenticacaoTokenDispositivos('/fechadura', {
         method: 'DELETE',
     });
 

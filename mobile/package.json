@@ -29,14 +29,14 @@
     "react-native-svg": "15.15.4",
     "react-native-vlc-media-player": "^1.0.98",
     "react-native-web": "^0.21.2",
-    "react-native-webview": "13.16.1",
-    "undefined": "caminho\\para\\SafeNest\\mobile"
+    "react-native-webview": "13.16.1"
   },
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test:design": "node --test tests/design.test.cjs"
   },
   "private": true,
   "devDependencies": {
