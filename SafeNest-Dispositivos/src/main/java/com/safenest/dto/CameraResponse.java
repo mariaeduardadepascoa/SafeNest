@@ -1,3 +1,4 @@
+
 package com.safenest.dto;
 
 import com.safenest.model.Camera;
@@ -6,16 +7,14 @@ public record CameraResponse(
         Long id,
         Long idUsuario,
         String nomeUsuario,
-        String status,
-        String endereco
+        String status
 ) {
-    public static CameraResponse from(Camera c) {
+    public static CameraResponse from(Camera camera) {
         return new CameraResponse(
-                c.getId(),
-                c.getIdUsuario(),
-                c.getNomeUsuario(),
-                c.getStatus(),
-                c.getEndereco()
+                camera.getId(),
+                camera.getIdUsuario(),
+                camera.getNomeUsuario(),
+                camera.getStatus()
         );
     }
 }
