@@ -1,5 +1,5 @@
-import AuthLayout from '../design/AuthLayout';
-import { useScreenStyles } from '../design/useScreenStyles';
+import EstruturaEntrada from '../design/AuthLayout';
+import { useEstilos } from '../design/useScreenStyles';
 
 import React, { useState, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
@@ -13,7 +13,7 @@ import PersonIcon from '../../assets/person.svg';
 import { cadastro, verificarEmailExiste, enviarCodigoVerificacao, verificarCodigoVerificacao } from '../services/api';
 
 export default function RegisterEmailScreen({ navigation, route }) {
-    const styles = useScreenStyles(legacyStyles, 'RegisterEmailScreen');
+    const estilos = useEstilos(estilosAntigos, 'RegisterEmailScreen');
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
@@ -97,7 +97,7 @@ export default function RegisterEmailScreen({ navigation, route }) {
     }
 
     return (
-        <AuthLayout style={styles.container}>
+        <EstruturaEntrada style={estilos.container}>
 
             <LogoSafeNest
                 width={160}
@@ -105,36 +105,36 @@ export default function RegisterEmailScreen({ navigation, route }) {
                 style={{ marginTop: 15 }}
             />
 
-            <View style={styles.progressBarContainer} accessible accessibilityLabel="Cadastro, etapa 1 de 3">
+            <View style={estilos.progressBarContainer} accessible accessibilityLabel="Cadastro, etapa 1 de 3">
                 <ProgressBar
                     totalSteps={3}
                     currentStep={1}
                 />
             </View>
 
-            <View style={styles.mainTexts}>
-                <Text style={styles.title}>
+            <View style={estilos.mainTexts}>
+                <Text style={estilos.title}>
                     Cadastre-se e construa seu espaço protegido.
                 </Text>
 
-                <Text style={styles.subtitle}>
+                <Text style={estilos.subtitle}>
                     Deixe seu lar sempre seguro.
                 </Text>
             </View>
 
-            <View style={styles.contentArea}>
+            <View style={estilos.contentArea}>
 
-                <View style={styles.authContainer}>
+                <View style={estilos.authContainer}>
 
-                    <View style={styles.authSubContainer}>
+                    <View style={estilos.authSubContainer}>
 
-                        <Text style={styles.caption}>Insira seu nome</Text>
-                        <View style={styles.inputs}>
+                        <Text style={estilos.caption}>Insira seu nome</Text>
+                        <View style={estilos.inputs}>
                             <PersonIcon width={30} height={30} />
                             <TextInput accessibilityLabel="Nome completo"
-                                style={styles.textInput}
+                                style={estilos.textInput}
                                 placeholder="Seu nome completo"
-                                placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
+                                placeholderTextColor={estilos.inputHint?.color || colorsLightMode.subtitles}
                                 value={nome}
                                 onChangeText={setNome}
                                 editable={!emailSent && !verificando}
@@ -142,14 +142,14 @@ export default function RegisterEmailScreen({ navigation, route }) {
                         </View>
                     </View>
 
-                    <View style={styles.authSubContainer}>
-                        <Text style={styles.caption}>Insira seu email</Text>
-                        <View style={[styles.inputs, emailError && styles.inputsError]}>
+                    <View style={estilos.authSubContainer}>
+                        <Text style={estilos.caption}>Insira seu email</Text>
+                        <View style={[estilos.inputs, emailError && estilos.inputsError]}>
                             <PersonIcon width={30} height={30} />
                             <TextInput accessibilityLabel="E-mail"
-                                style={styles.textInput}
+                                style={estilos.textInput}
                                 placeholder="email123@email.com"
-                                placeholderTextColor={styles.inputHint?.color || colorsLightMode.subtitles}
+                                placeholderTextColor={estilos.inputHint?.color || colorsLightMode.subtitles}
                                 value={email}
                                 onChangeText={(text) => {
                                     setEmail(text);
@@ -165,19 +165,19 @@ export default function RegisterEmailScreen({ navigation, route }) {
                     </View>
 
                     {emailSent && (
-                        <View style={styles.authSubContainer}>
+                        <View style={estilos.authSubContainer}>
 
-                            <Text style={styles.caption}>
+                            <Text style={estilos.caption}>
                                 Insira o código enviado por email
                             </Text>
 
-                            <View style={styles.codeContainer}>
+                            <View style={estilos.codeContainer}>
 
                                 {code.map((digit, index) => (
                                     <TextInput accessibilityLabel={`Dígito ${index + 1} do código de verificação`}
                                         key={index}
                                         ref={codeRefs[index]}
-                                        style={styles.codeBox}
+                                        style={estilos.codeBox}
                                         value={digit}
                                         onChangeText={(text) =>
                                             codeChange(text, index)
@@ -203,29 +203,29 @@ export default function RegisterEmailScreen({ navigation, route }) {
 
             {!emailSent ? (
                 <>
-                    <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: verificando, busy: verificando }} style={styles.input} onPress={confirmEmail} disabled={verificando}>
-                        <Text style={styles.text}>{verificando ? 'Enviando código…' : 'Enviar código de confirmação'}</Text>
+                    <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: verificando, busy: verificando }} style={estilos.input} onPress={confirmEmail} disabled={verificando}>
+                        <Text style={estilos.text}>{verificando ? 'Enviando código…' : 'Enviar código de confirmação'}</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.caption}>Já tem uma conta?<Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
+                    <Text style={estilos.caption}>Já tem uma conta?<Text accessibilityRole="link" style={estilos.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
                 </>
             ) : (
                 <>
-                    <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: verificando, busy: verificando }} style={styles.input} onPress={confirmEmail} disabled={verificando}>
-                        <Text style={styles.text}>{verificando ? 'Verificando código…' : 'Confirmar e-mail'}</Text>
+                    <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: verificando, busy: verificando }} style={estilos.input} onPress={confirmEmail} disabled={verificando}>
+                        <Text style={estilos.text}>{verificando ? 'Verificando código…' : 'Confirmar e-mail'}</Text>
                     </TouchableOpacity>
 
-                    <Text style={styles.caption}>Já tem uma conta?<Text accessibilityRole="link" style={styles.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
+                    <Text style={estilos.caption}>Já tem uma conta?<Text accessibilityRole="link" style={estilos.caption2} onPress={() => navigation.navigate('Login')}> Faça login.</Text></Text>
                 </>
             )}
 
             <StatusBar style="auto" />
 
-        </AuthLayout>
+        </EstruturaEntrada>
     );
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

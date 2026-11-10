@@ -46,18 +46,18 @@ const UrlModal = ({ visible, onClose, url, accessToken }) => {
             />
 
             {erro && (
-                <View style={styles.errorOverlay}>
-                    <Text style={styles.errorText}>
+                <View style={estilos.errorOverlay}>
+                    <Text style={estilos.errorText}>
                         Não foi possível conectar à fechadura. Confirme que o celular está conectado na rede SafeNest-Setup e tente novamente.
                     </Text>
-                    <TouchableOpacity style={styles.retryButton} onPress={tentarNovamente}>
-                        <Text style={styles.retryText}>Tentar novamente</Text>
+                    <TouchableOpacity style={estilos.retryButton} onPress={tentarNovamente}>
+                        <Text style={estilos.retryText}>Tentar novamente</Text>
                     </TouchableOpacity>
                 </View>
             )}
 
-            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                <Text style={styles.closeText}>Fechar</Text>
+            <TouchableOpacity style={estilos.closeButton} onPress={onClose}>
+                <Text style={estilos.closeText}>Fechar</Text>
             </TouchableOpacity>
         </Modal>
     );
@@ -65,7 +65,7 @@ const UrlModal = ({ visible, onClose, url, accessToken }) => {
 
 export default UrlModal;
 
-const styles = StyleSheet.create({
+const estilos = StyleSheet.create({
     closeButton: {
         padding: 16,
         backgroundColor: colorsLightMode.danger,

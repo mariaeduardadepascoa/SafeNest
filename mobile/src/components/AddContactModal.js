@@ -1,13 +1,13 @@
-import { useScreenStyles } from '../design/useScreenStyles';
-import { View, Text, StyleSheet, Modal, TextInput, Pressable, ActivityIndicator, Image, Alert } from 'react-native';
-import { colorsLightMode, typography } from '../theme';
-import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Modal, TextInput, Pressable, ActivityIndicator, Image, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import PersonWhiteIcon from '../../assets/personWhiteIcon.svg';
-import PenToolIcon from '../../assets/Pen tool.svg';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useVisual } from '../design/DesignProvider';
+import { Botao, Icone, Texto } from '../design/UI';
 
 export default function AddContactModal({ visible, onClose, onSave, contato, salvando }) {
-    const styles = useScreenStyles(legacyStyles, 'AddContactModal');
+    const { c, prefs } = useVisual();
+    const insets = useSafeAreaInsets();
     const [nome, setNome] = useState('');
     const [telefone, setTelefone] = useState('');
     const [foto, setFoto] = useState(null);
@@ -40,218 +40,61 @@ export default function AddContactModal({ visible, onClose, onSave, contato, sal
         }
     }
 
+    function salvarContato() {
+        if (salvando) return;
+        if (!nome.trim() || !telefone.replace(/\D/g, '')) {
+            Alert.alert('Confira os dados', 'Informe o nome e o telefone do contato.');
+            return;
+        }
+        onSave({ id: contato?.id, nome: nome.trim(), telefone: telefone.trim(), foto });
+    }
+
     return (
-        <Modal
-            visible={visible}
-            transparent
-            animationType="fade"
-            onRequestClose={onClose}
-        >
-            <Pressable
-                style={styles.overlay}
-                onPress={onClose}
-                accessible={false}
-            >
-                <Pressable
-                    style={styles.modalCard}
-                    onPress={() => { }}
-                    accessible={false}
-                    accessibilityViewIsModal
-                >
-                    <View style={styles.titlesModal}>
-                        <Text style={styles.title} accessibilityRole="header">
-                            {
-                                contato
-                                    ? 'Editando contato'
-                                    : 'Adicionando um contato de emergência'
-                            }
-                        </Text>
-
-                        <Pressable
-                            onPress={onClose}
-                            accessibilityRole="button"
-                            accessibilityLabel="Fechar"
-                            hitSlop={12} //margem invisivel
-                        >
-                            <Text style={styles.closeText}
-                                importantForAccessibility="no"
-                                accessibilityElementsHidden
-                            >✕</Text>
-
+        <Modal visible={visible} transparent animationType="slide" onRequestClose={salvando ? () => {} : onClose}>
+            <KeyboardAvoidingView style={{ flex: 1, backgroundColor: 'rgba(11,35,66,0.38)' }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                <ScrollView keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag"
+                    contentContainerStyle={{ flexGrow: 1, paddingTop: insets.top + 16, paddingBottom: Math.max(insets.bottom, 16), paddingHorizontal: 16 }}>
+                    <Pressable accessible={false} disabled={salvando} onPress={onClose} style={{ flex: 1, minHeight: 16 }} />
+                    <View accessibilityViewIsModal style={{ backgroundColor: c.surface, borderColor: c.line, borderWidth: 1, borderRadius: 28, padding: 22, gap: 20 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
+                            <View style={{ flex: 1, gap: 4 }}>
+                                <Texto accessibilityRole="header" size={24} weight="600">{contato ? 'Editar contato' : 'Novo contato'}</Texto>
+                                <Texto muted size={13}>Uma pessoa de confiança para ter por perto.</Texto>
+                            </View>
+                            <Pressable accessibilityRole="button" accessibilityLabel="Fechar contato" disabled={salvando} onPress={onClose}
+                                style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: c.raised, alignItems: 'center', justifyContent: 'center' }}>
+                                <Icone name="x" />
+                            </Pressable>
+                        </View>
+                        <Pressable accessibilityRole="button" accessibilityLabel={foto ? 'Alterar foto do contato' : 'Adicionar foto do contato'}
+                            accessibilityHint="Abre a galeria de imagens" disabled={salvando} onPress={escolherFoto} style={{ alignSelf: 'center', alignItems: 'center', gap: 8 }}>
+                            <View>
+                                <View style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: c.raised, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' }}>
+                                    {foto ? <Image source={{ uri: foto }} accessibilityLabel={`Foto de ${nome || 'contato'}`} style={{ width: '100%', height: '100%' }} /> : <Icone name="user" size={34} />}
+                                </View>
+                                <View style={{ position: 'absolute', bottom: 0, right: -4, width: 30, height: 30, borderRadius: 15, backgroundColor: c.accent, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: c.surface }}>
+                                    <Icone name="camera" size={15} color="#FFFFFF" />
+                                </View>
+                            </View>
+                            <Texto size={12}>{foto ? 'Alterar foto' : 'Adicionar foto'}</Texto>
                         </Pressable>
-                    </View>
-
-                    <Pressable
-                        accessible
-                        accessibilityRole="button"
-                        accessibilityLabel={foto ? 'Alterar foto do contato' : 'Adicionar foto do contato'}
-                        accessibilityHint="Abre a galeria de imagens"
-                        style={styles.photoWrapper}
-                        onPress={escolherFoto}
-                    >
-
-                        <View style={styles.photoButton}>
-                            {foto ? (
-                                <Image source={{ uri: foto }} style={styles.photoImage} />
-                            ) : (
-                                <PersonWhiteIcon width={80} height={80} />
-                            )}
+                        <View style={{ gap: 8 }}>
+                            <Texto weight="600" size={13}>Nome do contato</Texto>
+                            <TextInput accessibilityLabel="Nome do contato" placeholder="Como essa pessoa se chama?" placeholderTextColor={c.muted}
+                                value={nome} onChangeText={setNome} editable={!salvando} autoCapitalize="words"
+                                style={{ minHeight: prefs.adapted ? 64 : 54, padding: 14, borderWidth: 1, borderColor: c.line, borderRadius: 14, fontSize: prefs.adapted ? 20 : 16, color: c.text }} />
                         </View>
-                        <View style={styles.editBadge}>
-                            <PenToolIcon width={14} height={14} />
+                        <View style={{ gap: 8 }}>
+                            <Texto weight="600" size={13}>Telefone</Texto>
+                            <TextInput accessibilityLabel="Número do contato" placeholder="DDD e número ou telefone de emergência" placeholderTextColor={c.muted}
+                                value={telefone} onChangeText={setTelefone} editable={!salvando} keyboardType="phone-pad"
+                                style={{ minHeight: prefs.adapted ? 64 : 54, padding: 14, borderWidth: 1, borderColor: c.line, borderRadius: 14, fontSize: prefs.adapted ? 20 : 16, color: c.text }} />
                         </View>
-                    </Pressable>
-
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.label}>Nome</Text>
-
-                        <TextInput
-                            placeholder="Digite aqui o nome do contato"
-                            style={styles.input}
-                            value={nome}
-                            onChangeText={setNome}
-                            accessibilityLabel="Nome do contato"
-                        />
+                        <Botao title={contato ? 'Salvar alterações' : 'Adicionar contato'} busy={salvando} onPress={salvarContato} />
                     </View>
-
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.label}>Número</Text>
-
-                        <TextInput
-                            placeholder="Digite aqui o número do contato"
-                            keyboardType="phone-pad"
-                            style={styles.input}
-                            value={telefone}
-                            onChangeText={setTelefone}
-                            accessibilityLabel="Número do contato"
-                        />
-                    </View>
-
-                    <Pressable
-                        style={[styles.saveButton, salvando && styles.saveButtonDisabled]}
-                        disabled={salvando}
-                        onPress={() => {
-                            onSave({
-                                id: contato?.id || Date.now().toString(),
-                                nome,
-                                telefone,
-                                foto
-                            });
-                        }}
-                        accessibilityRole="button"
-                        accessibilityLabel={salvando ? 'Salvando contato' : contato ? 'Salvar alterações' : 'Salvar contato'}
-                        accessibilityState={{ disabled: salvando, busy: salvando }}
-                    >
-                        {salvando ? (
-                            <ActivityIndicator color="#FFF" />
-                        ) : (
-                            <Text style={styles.saveText}>
-                                {contato ? 'Salvar alterações' : 'Salvar contato'}
-                            </Text>
-                        )}
-                    </Pressable>
-
-                </Pressable>
-            </Pressable>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </Modal>
     );
+
 }
-
-const legacyStyles = StyleSheet.create({
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.35)',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-    closeText: {
-        ...typography.title,
-        color: colorsLightMode.black,
-        fontWeight: 'bold',
-    },
-    modalCard: {
-        width: '100%',
-        backgroundColor: '#FFF',
-        paddingHorizontal: 25,
-        borderTopWidth: 2,
-        borderTopColor: colorsLightMode.gray,
-        paddingVertical: 35,
-    },
-    titlesModal: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        gap: 10,
-        justifyContent: 'space-between',
-    },
-    title: {
-        ...typography.title,
-        marginBottom: 35,
-        flex: 1,
-    },
-
-    photoWrapper: {
-        alignSelf: 'center',
-        marginBottom: 35,
-    },
-    photoButton: {
-        width: 110,
-        height: 110,
-        borderRadius: 55,
-        backgroundColor: '#2F5B9A',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-    },
-    photoImage: {
-        width: '100%',
-        height: '100%',
-    },
-    editBadge: {
-        position: 'absolute',
-        bottom: -2,
-        right: -2,
-        width: 32,
-        height: 32,
-        borderRadius: 16,
-        backgroundColor: '#2E2E2E',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 2,
-        borderColor: '#FFF',
-    },
-
-    inputContainer: {
-        marginBottom: 25,
-    },
-
-    label: {
-        ...typography.subtitle,
-        color: colorsLightMode.primary,
-        marginBottom: 10,
-    },
-
-    input: {
-        height: 55,
-        borderWidth: 1,
-        borderColor: colorsLightMode.gray,
-        borderRadius: 8,
-        ...typography.body,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    },
-
-    saveButton: {
-        height: 55,
-        backgroundColor: colorsLightMode.primary,
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-    },
-
-    saveText: {
-        color: '#FFF',
-        fontSize: 18,
-        fontWeight: '600',
-    },
-});

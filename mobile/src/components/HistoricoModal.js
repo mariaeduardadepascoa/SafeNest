@@ -1,9 +1,9 @@
-import { useScreenStyles } from '../design/useScreenStyles';
+import { useEstilos } from '../design/useScreenStyles';
 import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 
 export default function HistoricoModal({ visible, evento, onClose }) {
-    const styles = useScreenStyles(legacyStyles, 'HistoricoModal');
+    const estilos = useEstilos(estilosAntigos, 'HistoricoModal');
     if (!evento) return null;
 
     const momento = new Date(evento.data_hora);
@@ -12,30 +12,30 @@ export default function HistoricoModal({ visible, evento, onClose }) {
 
     return (
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-            <Pressable style={styles.overlay} onPress={onClose}>
+            <Pressable style={estilos.overlay} onPress={onClose}>
                 {/* Pressable vazio para que tocar dentro da caixa não feche o modal */}
-                <Pressable style={styles.container} onPress={() => { }} accessible={false} accessibilityViewIsModal>
-                    <Text style={styles.title}>{evento.titulo}</Text>
+                <Pressable style={estilos.container} onPress={() => { }} accessible={false} accessibilityViewIsModal>
+                    <Text style={estilos.title}>{evento.titulo}</Text>
 
                     {evento.tipo === 'acesso' && (
-                        <View style={styles.row}>
-                            <Text style={styles.label}>Dono da tag</Text>
-                            <Text style={styles.value}>{evento.nome_tag || `Tag ${evento.id_tag}`}</Text>
+                        <View style={estilos.row}>
+                            <Text style={estilos.label}>Dono da tag</Text>
+                            <Text style={estilos.value}>{evento.nome_tag || `Tag ${evento.id_tag}`}</Text>
                         </View>
                     )}
 
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Data</Text>
-                        <Text style={styles.value}>{data}</Text>
+                    <View style={estilos.row}>
+                        <Text style={estilos.label}>Data</Text>
+                        <Text style={estilos.value}>{data}</Text>
                     </View>
 
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Hora</Text>
-                        <Text style={styles.value}>{hora}</Text>
+                    <View style={estilos.row}>
+                        <Text style={estilos.label}>Hora</Text>
+                        <Text style={estilos.value}>{hora}</Text>
                     </View>
 
-                    <Pressable accessibilityRole="button" accessibilityLabel="Fechar detalhes do evento" style={styles.closeButton} onPress={onClose}>
-                        <Text style={styles.closeText}>Fechar</Text>
+                    <Pressable accessibilityRole="button" accessibilityLabel="Fechar detalhes do evento" style={estilos.closeButton} onPress={onClose}>
+                        <Text style={estilos.closeText}>Fechar</Text>
                     </Pressable>
                 </Pressable>
             </Pressable>
@@ -43,7 +43,7 @@ export default function HistoricoModal({ visible, evento, onClose }) {
     );
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     overlay: {
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',

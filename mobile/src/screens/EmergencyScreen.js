@@ -1,6 +1,6 @@
-import { useScreenStyles } from '../design/useScreenStyles';
-import { useDesign } from '../design/DesignProvider';
-import { Screen } from '../design/UI';
+import { useEstilos } from '../design/useScreenStyles';
+import { useVisual } from '../design/DesignProvider';
+import { TituloPagina, Tela } from '../design/UI';
 import { StyleSheet, Text, View, Pressable, Alert, ScrollView, ActivityIndicator } from 'react-native';
 import { colorsLightMode, typography } from '../theme';
 import ContactCard from '../components/ContactCard.js';
@@ -12,8 +12,8 @@ import { obterContatosEmergencia, criarContatoEmergencia, atualizarContatoEmerge
 import { getFotosLocais, salvarFotoLocal, removerFotoLocal } from '../services/fotosLocais';
 
 export default function EmergencyScreen({ navigation }) {
-    const styles = useScreenStyles(legacyStyles, 'EmergencyScreen');
-    const { prefs } = useDesign();
+    const estilos = useEstilos(estilosAntigos, 'EmergencyScreen');
+    const { prefs } = useVisual();
     const { usuario } = useAuth();
     const [modalVisible, setModalVisible] = useState(false);
     const [contatos, setContatos] = useState([]);
@@ -106,15 +106,17 @@ export default function EmergencyScreen({ navigation }) {
         );
     }
 
+    const ListaContatos = prefs.adapted ? View : ScrollView;
     const content = (
-        <View style={[styles.container, prefs.adapted && { paddingTop: 12 }]}>
-            <View style={styles.containerTitlesPage}>
-                <Text style={styles.titlePage}>Emergência</Text>
-                <Text style={styles.subtitlePage}>Em caso de emergências, contate-os.</Text>
-            </View>
-            <View style={styles.contentArea}>
-                <View style={styles.titlesTop}>
-                    <Text style={styles.title}>CONTATOS DE EMERGÊNCIA</Text>
+        <View style={[estilos.container, prefs.adapted && { flex: 0, width: '100%', paddingTop: 0, alignItems: 'stretch' }]}>
+            {prefs.adapted ? <View style={{ paddingTop: 6 }}>
+                <TituloPagina title="Contatos de emergência" subtitle="Escolha uma pessoa para ligar ou editar." />
+            </View> : <View style={{ width: '100%', paddingHorizontal: 22, paddingTop: 18 }}>
+                <TituloPagina eyebrow="SEMPRE POR PERTO" title="Emergência" subtitle="Seus contatos de confiança, a uma ligação de distância." />
+            </View>}
+            <View style={[estilos.contentArea, prefs.adapted && { flex: 0, width: '100%', paddingHorizontal: 0, paddingTop: 0 }]}>
+                <View style={[estilos.titlesTop, prefs.adapted && { flexWrap: 'wrap', justifyContent: 'space-between', gap: 8 }]}>
+                    <Text style={estilos.title}>CONTATOS DE EMERGÊNCIA</Text>
                     <Pressable accessibilityRole="button" accessibilityLabel="Adicionar contato de emergência" style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' }} onPress={() => { setContatoEditando(null); setModalVisible(true); }}>
                         <PlusCircleIcon width={28} height={28} />
                     </Pressable>
@@ -129,18 +131,17 @@ export default function EmergencyScreen({ navigation }) {
                 />
 
                 {carregando ? (
-                    <View style={styles.centeredMessage}>
+                    <View style={estilos.centeredMessage}>
                         <ActivityIndicator size="large" color={colorsLightMode.primary} />
                     </View>
                 ) : contatos.length === 0 ? (
-                    <View style={styles.centeredMessage}>
-                        <Text style={styles.emptyText}>Você não tem nenhum contato de emergência adicionado ainda.</Text>
+                    <View style={estilos.centeredMessage}>
+                        <Text style={estilos.emptyText}>Você não tem nenhum contato de emergência adicionado ainda.</Text>
                     </View>
                 ) : (
-                    <ScrollView
-                        style={styles.scrollArea}
-                        contentContainerStyle={styles.scrollContent}
-                        indicatorStyle="black"
+                    <ListaContatos
+                        style={prefs.adapted ? { marginTop: 8 } : estilos.scrollArea}
+                        contentContainerStyle={prefs.adapted ? undefined : estilos.scrollContent}
                     >
                         {contatos.map((contato) => (
                             <ContactCard
@@ -152,15 +153,15 @@ export default function EmergencyScreen({ navigation }) {
                                 onDelete={() => handleDelete(contato)}
                             />
                         ))}
-                    </ScrollView>
+                    </ListaContatos>
                 )}
             </View>
         </View>
     );
-    return <Screen navigation={navigation} scroll={false}>{content}</Screen>;
+    return <Tela navigation={navigation} scroll={prefs.adapted}>{content}</Tela>;
 }
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',

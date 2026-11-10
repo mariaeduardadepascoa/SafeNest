@@ -6,20 +6,20 @@ import PlusIcon from '../../assets/add_30dp_FFFFFF_FILL0_wght600_GRAD0_opsz24.sv
 
 const AddLockButton = ({ onPress }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.7}>
-      <View style={styles.cornerDot} />
-      <View style={styles.circle}>
+    <TouchableOpacity style={estilos.button} onPress={onPress} activeOpacity={0.7}>
+      <View style={estilos.cornerDot} />
+      <View style={estilos.circle}>
         <PlusIcon />
       </View>
-      <View style={styles.texts}>
-        <Text style={styles.title}>Adicionar Fechadura</Text>
-        <Text style={styles.subtitle}>Conecte sua fechadura</Text>
+      <View style={estilos.texts}>
+        <Text style={estilos.title}>Adicionar Fechadura</Text>
+        <Text style={estilos.subtitle}>Conecte sua fechadura</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({
+const estilos = StyleSheet.create({
   button: {
     position: 'relative',
     padding: 10,

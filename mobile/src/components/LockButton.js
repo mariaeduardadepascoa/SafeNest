@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native'
-import { useScreenStyles } from '../design/useScreenStyles';
+import { useEstilos } from '../design/useScreenStyles';
 import React, { useState, useRef, useCallback } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { colorsLightMode, typography } from '../theme';
@@ -11,10 +11,13 @@ import TagIcon from '../../assets/Credit card.svg';
 import TrashRedIcon from '../../assets/icon.svg';
 import personIcon from '../../assets/personWhiteIcon.svg';
 import { obterAccessToken } from '../services/tokenStorage';
+import { useVisual } from '../design/DesignProvider';
+import { Botao, Cartao, Icone, Linha, Texto } from '../design/UI';
 
 const LockButton = ({ id_fechadura }) => {
     const navigation = useNavigation();
-    const styles = useScreenStyles(legacyStyles, 'LockButton');
+    const { c, prefs } = useVisual();
+    const estilos = useEstilos(estilosAntigos, 'LockButton');
     const [travado, setTravado] = useState(false);
     const [menuVisible, setMenuVisible] = useState(false);
     const [tagModalVisible, setTagModalVisible] = useState(false);
@@ -135,26 +138,51 @@ const LockButton = ({ id_fechadura }) => {
         }
     };
 
+    if (prefs.adapted) return <Cartao style={{ width: '100%', gap: 18 }}>
+        <Linha><Icone name="lock" size={26} /><Texto size={22} weight="600" style={{ flex: 1 }}>Porta de entrada</Texto>
+            <Pressable accessibilityRole="button" accessibilityLabel="Opções da fechadura" onPress={abrirMenu} style={{ width: 48, height: 48, justifyContent: 'center', alignItems: 'center' }}><Icone name="more-vertical" size={24} /></Pressable>
+        </Linha>
+        <Texto accessibilityLiveRegion="polite">{carregandoStatus ? 'Consultando a fechadura…' : !statusConhecido ? 'Não foi possível consultar' : travado ? 'Acesso bloqueado' : 'Acesso liberado'}</Texto>
+        <Botao title="Abrir porta" busy={carregandoAbrir} disabled={!statusConhecido || carregandoStatus || carregandoTravar} onPress={handleAbrir} />
+        <Linha style={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+            <View style={{ flex: 1, minWidth: 150 }}><Texto weight="600">Bloquear acesso</Texto><Texto muted>Ative para impedir a entrada.</Texto></View>
+            {carregandoStatus || carregandoTravar ? <ActivityIndicator color={c.accent} /> : <Switch accessibilityLabel="Bloquear acesso pela fechadura" value={travado} onValueChange={handleToggleTravar} disabled={!statusConhecido || carregandoAbrir} trackColor={{ false: c.line, true: c.accent }} thumbColor="#FFFFFF" />}
+        </Linha>
+        <Botao title="Cadastrar ou editar tags" secondary onPress={() => navigation.navigate('Tags')} />
+        <Botao title="Atualizar estado" secondary busy={carregandoStatus} disabled={carregandoAbrir || carregandoTravar || carregandoTag} onPress={() => setRefresh(valor => valor + 1)} />
+        {!!erroStatus && <Texto accessibilityRole="alert">{erroStatus}</Texto>}
+        <Modal visible={menuVisible} transparent animationType="fade" onRequestClose={() => setMenuVisible(false)}>
+            <Pressable accessible={false} onPress={() => setMenuVisible(false)} style={{ flex: 1, padding: 24, justifyContent: 'center', backgroundColor: 'rgba(11,35,66,0.32)' }}>
+                <Pressable accessible={false} accessibilityViewIsModal onPress={() => {}}>
+                    <Cartao style={{ gap: 16 }}><Texto size={22} weight="600">Opções da fechadura</Texto>
+                        <Botao title="Excluir fechadura" secondary onPress={handleExcluir} />
+                        <Botao title="Voltar" secondary onPress={() => setMenuVisible(false)} />
+                    </Cartao>
+                </Pressable>
+            </Pressable>
+        </Modal>
+    </Cartao>;
+
     return (
-        <View style={styles.container}>
-            <View style={styles.titlesView}>
-                <View style={styles.headerLeft}>
-                    <View style={styles.containerIcon}>
+        <View style={estilos.container}>
+            <View style={estilos.titlesView}>
+                <View style={estilos.headerLeft}>
+                    <View style={estilos.containerIcon}>
                         <Locker width={30} height={30} color={colorsLightMode.white} />
                     </View>
-                    <View style={styles.titles}>
-                        <Text style={styles.title}>Fechadura - entrada</Text>
-                        <Text style={styles.status} accessibilityLiveRegion="polite">{carregandoStatus ? 'Consultando estado…' : statusConhecido ? (travado ? 'Acesso bloqueado' : 'Acesso liberado') : 'Estado indisponível'}</Text>
+                    <View style={estilos.titles}>
+                        <Text style={estilos.title}>Fechadura - entrada</Text>
+                        <Text style={estilos.status} accessibilityLiveRegion="polite">{carregandoStatus ? 'Consultando estado…' : statusConhecido ? (travado ? 'Acesso bloqueado' : 'Acesso liberado') : 'Estado indisponível'}</Text>
                     </View>
                 </View>
                 <TouchableOpacity accessibilityRole="button" accessibilityLabel="Opções da fechadura" hitSlop={12} onPress={abrirMenu}>
-                    <Text style={styles.menuDots}>⋮</Text>
+                    <Text style={estilos.menuDots}>⋮</Text>
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.content}>
+            <View style={estilos.content}>
                 <TouchableOpacity
-                    style={[styles.principalButton, carregandoAbrir && styles.buttonDisabled]}
+                    style={[estilos.principalButton, carregandoAbrir && estilos.buttonDisabled]}
                     onPress={handleAbrir}
                     accessibilityRole="button"
                     accessibilityLabel="Abrir fechadura"
@@ -165,31 +193,31 @@ const LockButton = ({ id_fechadura }) => {
                     ) : (
                         <>
                             <UnlockIcon width={20} height={20} />
-                            <Text style={styles.text1}>Abrir</Text>
+                            <Text style={estilos.text1}>Abrir</Text>
                         </>
                     )}
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles.tagButton, carregandoTag && styles.buttonDisabled]}
+                    style={[estilos.tagButton, carregandoTag && estilos.buttonDisabled]}
                     onPress={() => setTagModalVisible(true)}
                     accessibilityRole="button"
                     disabled={carregandoTag || !statusConhecido}
                 >
                     <TagIcon width={18} height={18} />
-                    <Text style={styles.text2}>Cadastrar Tag</Text>
+                    <Text style={estilos.text2}>Cadastrar Tag</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.tagButton, { minHeight: 56, height: undefined, paddingVertical: 12 }]}
+                <TouchableOpacity style={[estilos.tagButton, { minHeight: 56, height: undefined, paddingVertical: 12 }]}
                     accessibilityRole="button" accessibilityLabel="Editar ou remover tags de acesso"
                     onPress={() => navigation.navigate('Tags')}>
-                    <Text style={styles.text2}>Editar ou remover tags</Text>
+                    <Text style={estilos.text2}>Editar ou remover tags</Text>
                 </TouchableOpacity>
 
-                <View style={styles.travarButton}>
-                    <View style={styles.travarButtonTexts}>
+                <View style={estilos.travarButton}>
+                    <View style={estilos.travarButtonTexts}>
                         <LockIcon width={18} height={18} />
-                        <Text style={styles.text3}>Travar</Text>
+                        <Text style={estilos.text3}>Travar</Text>
                     </View>
                     {carregandoTravar || carregandoStatus ? (
                         <ActivityIndicator color={colorsLightMode.primary} />
@@ -207,8 +235,8 @@ const LockButton = ({ id_fechadura }) => {
                 {!!erroStatus && <Text accessibilityRole="alert" style={{ color: colorsLightMode.danger }}>{erroStatus}</Text>}
                 <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: carregandoStatus || carregandoAbrir || carregandoTravar || carregandoTag, busy: carregandoStatus }}
                     disabled={carregandoStatus || carregandoAbrir || carregandoTravar || carregandoTag}
-                    onPress={() => setRefresh(v => v + 1)} style={[styles.tagButton, { minHeight: 56, height: undefined, paddingVertical: 12 }]}>
-                    <Text style={styles.text2}>{carregandoStatus ? 'Atualizando…' : 'Atualizar estado'}</Text>
+                    onPress={() => setRefresh(v => v + 1)} style={[estilos.tagButton, { minHeight: 56, height: undefined, paddingVertical: 12 }]}>
+                    <Text style={estilos.text2}>{carregandoStatus ? 'Atualizando…' : 'Atualizar estado'}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -220,14 +248,14 @@ const LockButton = ({ id_fechadura }) => {
                 animationType="fade"
                 onRequestClose={() => setMenuVisible(false)}
             >
-                <Pressable style={styles.menuOverlay} onPress={() => setMenuVisible(false)}>
-                    <View style={styles.menuPopup}>
-                        <TouchableOpacity style={styles.menuItem} onPress={handleExcluir}>
+                <Pressable style={estilos.menuOverlay} onPress={() => setMenuVisible(false)}>
+                    <View style={estilos.menuPopup}>
+                        <TouchableOpacity style={estilos.menuItem} onPress={handleExcluir}>
                             <TrashRedIcon
                                 width={20}
                                 height={20}
                             />
-                            <Text style={styles.menuItemText}>Excluir fechadura</Text>
+                            <Text style={estilos.menuItemText}>Excluir fechadura</Text>
                         </TouchableOpacity>
                     </View>
                 </Pressable>
@@ -239,16 +267,16 @@ const LockButton = ({ id_fechadura }) => {
                 transparent //deixa o fundo visivel
                 onRequestClose={() => setTagModalVisible(false)}
             >
-                <View style={styles.modalOverlay}>
-                    <View style={styles.tagModal}>
-                        <Text style={styles.tagModalTitle}>Cadastrar tag NFC</Text>
-                        <Text style={styles.tagModalSubtitle}>
+                <View style={estilos.modalOverlay}>
+                    <View style={estilos.tagModal}>
+                        <Text style={estilos.tagModalTitle}>Cadastrar tag NFC</Text>
+                        <Text style={estilos.tagModalSubtitle}>
                             Aproxime a tag do leitor de sua fechadura e informe o nome do dono.
                         </Text>
 
                         <TextInput
                             accessibilityLabel="Nome do dono da tag"
-                            style={styles.tagInput}
+                            style={estilos.tagInput}
                             placeholder="Nome do dono da tag"
                             placeholderTextColor={colorsLightMode.darkGray}
                             value={nomeDono}
@@ -257,16 +285,16 @@ const LockButton = ({ id_fechadura }) => {
                             }}
                         />
 
-                        <View style={styles.tagModalButtons}>
-                            <TouchableOpacity style={styles.cancelButton} onPress={() => {
+                        <View style={estilos.tagModalButtons}>
+                            <TouchableOpacity style={estilos.cancelButton} onPress={() => {
                                 setNomeDono('');
                                 setTagModalVisible(false);
                             }}
                             >
-                                <Text style={styles.cancelButtonText}>Cancelar</Text>
+                                <Text style={estilos.cancelButtonText}>Cancelar</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.saveButton} onPress={handleSalvarTag}>
-                                <Text style={styles.saveButtonText}>Salvar</Text>
+                            <TouchableOpacity style={estilos.saveButton} onPress={handleSalvarTag}>
+                                <Text style={estilos.saveButtonText}>Salvar</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -277,7 +305,7 @@ const LockButton = ({ id_fechadura }) => {
 };
 
 
-const legacyStyles = StyleSheet.create({
+const estilosAntigos = StyleSheet.create({
     container: {
         alignSelf: 'center',
         width: 320,
