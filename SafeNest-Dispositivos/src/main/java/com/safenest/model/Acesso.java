@@ -22,6 +22,9 @@ public class Acesso {
     @Column(name = "id_tag")
     private Long idTag;
 
+    @Column(name = "origem")
+    private String origem = "rfid";
+
     @Column(name = "id_usuario")
     private Long idUsuario;
 

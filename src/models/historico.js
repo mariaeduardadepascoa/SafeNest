@@ -3,7 +3,7 @@ const supabase = require('../config/supabaseClient');
 async function obterAcessos(id_usuario) {
     const {data, error} = await supabase
         .from('acessos')
-        .select('id_acesso, id_tag, data_hora, id_usuario')
+        .select('id_acesso, id_tag, data_hora, id_usuario, origem')
         .eq('id_usuario', id_usuario)
         .order('data_hora', { ascending: false }) //ascending: false -> mais recente ao mais antigo
         .limit(20);

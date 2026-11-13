@@ -1,42 +1,71 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, AppState } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AddLockButton from '../components/AddLockButton';
 import LockButton from './LockButton';
 import UrlModal from '../components/UrlModal';
 import { obterFechadura } from '../services/api';
 import { obterAccessToken } from '../services/tokenStorage';
+import { useAuth } from '../context/AuthContext';
+import { Botao, Texto } from '../design/UI';
 
 function useFechadura() {
     const [fechadura, setFechadura] = useState(null); 
     const [carregando, setCarregando] = useState(true);
-
-    async function carregarFechadura() {
-        try {
-            setCarregando(true);
-            const data = await obterFechadura();
-            setFechadura(data);
-        } catch (err) {
-            console.error(err);
-            setFechadura(null);
-        } finally {
-            setCarregando(false);
-        }
-    }
+    const [erro, setErro] = useState('');
+    const [atualizacao, setAtualizacao] = useState(0);
+    const { usuario } = useAuth();
 
     useFocusEffect(
         useCallback(() => {
+            let telaAtiva = true;
+            let novaConsulta;
+            let tentativas = 0;
+            setFechadura(null);
+            setCarregando(true);
+
+            async function carregarFechadura() {
+                let encontrouFechadura = false;
+                try {
+                    const identificador = await obterFechadura();
+                    encontrouFechadura = !!identificador;
+                    if (telaAtiva) {
+                        setFechadura(identificador);
+                        setErro('');
+                    }
+                } catch (falha) {
+                    if (telaAtiva) setErro(falha.message);
+                } finally {
+                    if (telaAtiva) {
+                        setCarregando(false);
+                        if (!encontrouFechadura && tentativas < 12) {
+                            tentativas += 1;
+                            novaConsulta = setTimeout(() => {
+                                if (AppState.currentState === 'active') carregarFechadura();
+                            }, 5000);
+                        }
+                    }
+                }
+            }
             carregarFechadura();
-        }, [])
+            const retornoAoApp = AppState.addEventListener('change', estado => {
+                if (estado === 'active') setAtualizacao(valor => valor + 1);
+            });
+            return () => {
+                telaAtiva = false;
+                clearTimeout(novaConsulta);
+                retornoAoApp.remove();
+            };
+        }, [atualizacao, usuario?.id_usuario])
     );
 
-    return { fechadura, carregando, recarregar: carregarFechadura };
+    return { fechadura, carregando, erro, recarregar: () => setAtualizacao(valor => valor + 1) };
 }
 
 export function FechaduraSection() {
     const [modalVisible, setModalVisible] = useState(false);
     const [accessToken, setAccessToken] = useState("");
-    const { fechadura, carregando } = useFechadura();
+    const { fechadura, carregando, erro, recarregar } = useFechadura();
 
     const abrirModal = async () => {
         const token = await obterAccessToken();
@@ -55,10 +84,13 @@ export function FechaduraSection() {
     if (!fechadura) {
         return (
             <View>
-                <AddLockButton onPress={abrirModal} />
+                {erro ? <View style={{ gap: 12 }}>
+                    <Texto accessibilityRole="alert">Não foi possível consultar a fechadura: {erro}</Texto>
+                    <Botao title="Tentar consultar novamente" onPress={recarregar} />
+                </View> : <AddLockButton onPress={abrirModal} />}
                 <UrlModal
                     visible={modalVisible}
-                    onClose={() => setModalVisible(false)}
+                    onClose={() => { setModalVisible(false); recarregar(); }}
                     url="http://192.168.4.1"
                     accessToken={accessToken}
                 />

@@ -174,11 +174,13 @@ public class MqttListenerService implements MqttCallback {
         }
     }
 
-    public void publish(String topico, String payload) {
+    public boolean publish(String topico, String payload) {
         try {
             mqttClient.publish(topico, new MqttMessage(payload.getBytes()));
+            return true;
         } catch (MqttException e) {
             System.err.println("Erro ao publicar mensagem MQTT: " + e.getMessage());
+            return false;
         }
     }
 

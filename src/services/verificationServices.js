@@ -1,7 +1,4 @@
-const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config();
-
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY); //para conseguir acessar e alteara colunas do supabase
+const supabase = require('../config/supabaseClient');
 
 function gerarCodigoVerificacaoAleatorio() {
     return Math.floor(1000 + Math.random() * 9000).toString(); // 4 dígitos)

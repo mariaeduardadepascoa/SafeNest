@@ -1,53 +1,98 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { Alert, View } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, AppState, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { abrirFechadura, destravarFechadura, excluirFechadura, obterFechadura, statusFechadura, travarFechadura } from '../services/api';
 import { Botao, Cartao, TituloSecao, Icone, TituloPagina, Linha, Tela, Texto } from './UI';
 import { useVisual } from './DesignProvider';
+import UrlModal from '../components/UrlModal';
+import { obterAccessToken } from '../services/tokenStorage';
+import { useAuth } from '../context/AuthContext';
 
 export function CartaoFechadura({ navigation, details = false }) {
   const { c } = useVisual();
+  const { usuario } = useAuth();
   const [id, setId] = useState(null);
   const [blocked, setBlocked] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [refresh, setRefresh] = useState(0);
+  const [cadastroAberto, setCadastroAberto] = useState(false);
+  const [tokenCadastro, setTokenCadastro] = useState('');
+  const [abrindoCadastro, setAbrindoCadastro] = useState(false);
+
+  async function adicionarFechadura() {
+    if (running.current) return;
+    running.current = true;
+    setAbrindoCadastro(true);
+    try {
+      const token = await obterAccessToken();
+      if (!token) throw new Error('Entre novamente na sua conta para cadastrar a fechadura.');
+      setTokenCadastro(token);
+      setCadastroAberto(true);
+    } catch (erro) {
+      Alert.alert('Não foi possível abrir o cadastro', erro.message);
+    } finally {
+      running.current = false;
+      setAbrindoCadastro(false);
+    }
+  }
 
   // Guarda se um comando já está sendo enviado, sem esperar a tela atualizar.
   const running = useRef(false);
+  const numeroDoComando = useRef(0);
 
-  // Consulta a API ao abrir a tela ou tocar em Atualizar estado.
+  // Ao voltar das configurações do Wi-Fi, consulta o vínculo novamente.
+  useEffect(() => {
+    const retornoAoApp = AppState.addEventListener('change', estado => {
+      if (estado === 'active') setRefresh(valor => valor + 1);
+    });
+    return () => retornoAoApp.remove();
+  }, []);
+
+  // Consulta ao abrir e a cada cinco segundos, sem interromper os comandos.
   useFocusEffect(useCallback(() => {
     let telaAtiva = true;
+    let novaConsulta;
+    let primeiraConsulta = true;
+    setId(null);
 
     async function carregarFechadura() {
-      setLoading(true);
-      setError('');
+      if (!telaAtiva) return;
+      if (AppState.currentState !== 'active' || running.current) {
+        novaConsulta = setTimeout(carregarFechadura, 5000);
+        return;
+      }
+      if (primeiraConsulta) setLoading(true);
+      const comandoConsultado = numeroDoComando.current;
 
       try {
         const idFechadura = await obterFechadura();
+        if (!telaAtiva || comandoConsultado !== numeroDoComando.current || running.current) return;
 
         if (telaAtiva) {
           setId(idFechadura);
-          setBlocked(null);
+          setError('');
+          if (!idFechadura) setBlocked(null);
         }
 
         if (idFechadura) {
           const acessoBloqueado = await statusFechadura();
 
-          if (telaAtiva) {
+          if (telaAtiva && comandoConsultado === numeroDoComando.current && !running.current) {
             setBlocked(acessoBloqueado);
           }
         }
       } catch (erro) {
-        if (telaAtiva) {
+        if (telaAtiva && comandoConsultado === numeroDoComando.current && !running.current) {
           setError(erro.message);
           setBlocked(null);
         }
       } finally {
         if (telaAtiva) {
           setLoading(false);
+          primeiraConsulta = false;
+          novaConsulta = setTimeout(carregarFechadura, 5000);
         }
       }
     }
@@ -56,8 +101,9 @@ export function CartaoFechadura({ navigation, details = false }) {
 
     return () => {
       telaAtiva = false;
+      clearTimeout(novaConsulta);
     };
-  }, [refresh]));
+  }, [refresh, usuario?.id_usuario]));
 
   // A ação recebida é uma função já existente da API, por exemplo abrirFechadura.
   async function enviarComando(acao, abrindoPorta = false) {
@@ -67,14 +113,12 @@ export function CartaoFechadura({ navigation, details = false }) {
 
     running.current = true;
     setBusy(true);
+    numeroDoComando.current += 1;
 
     try {
       await acao(id);
 
-      if (abrindoPorta) {
-        // A API confirma o envio. Isso não comprova que a porta abriu fisicamente.
-        Alert.alert('Comando enviado', 'O pedido de abertura foi enviado à fechadura.');
-      } else {
+      if (!abrindoPorta) {
         const acessoBloqueado = await statusFechadura();
         setBlocked(acessoBloqueado);
       }
@@ -93,10 +137,12 @@ export function CartaoFechadura({ navigation, details = false }) {
       </View>
     </Linha>
     {!!error && <Texto style={{ color: c.red }}>{error}</Texto>}
-    <Botao title="Atualizar estado" secondary disabled={busy || loading} onPress={() => setRefresh(v => v + 1)} />
-    <Botao title="Abrir fechadura" busy={busy || loading} disabled={!id || !!error} onPress={() => Alert.alert('Abrir a fechadura?', 'Confirme para enviar o comando ao dispositivo.', [
-      { text: 'Cancelar', style: 'cancel' }, { text: 'Abrir', onPress: () => enviarComando(abrirFechadura, true) },
-    ])} />
+    {!id && !loading && !error && <Texto muted>Aguardando o vínculo com sua conta. Após configurar, volte ao Wi-Fi da casa e feche a configuração.</Texto>}
+    {!id && !error && <Botao title="Adicionar fechadura" busy={abrindoCadastro} disabled={busy || loading} onPress={adicionarFechadura} />}
+    <UrlModal visible={cadastroAberto} url="http://192.168.4.1" accessToken={tokenCadastro}
+      onClose={() => { setCadastroAberto(false); setTokenCadastro(''); setRefresh(valor => valor + 1); }} />
+    {!!id && <>
+    <Botao title="Abrir fechadura" busy={busy || loading} disabled={!id || !!error} onPress={() => enviarComando(abrirFechadura, true)} />
     {details ? <>
       <Botao title={blocked ? 'Liberar acesso' : 'Bloquear acesso'} secondary disabled={busy || loading || !id || blocked === null}
         onPress={() => enviarComando(blocked ? destravarFechadura : travarFechadura)} />
@@ -105,12 +151,14 @@ export function CartaoFechadura({ navigation, details = false }) {
         { text: 'Cancelar', style: 'cancel' }, { text: 'Remover', style: 'destructive', onPress: async () => {
           if (running.current) return;
           running.current = true; setBusy(true);
+          numeroDoComando.current += 1;
           try { await excluirFechadura(); setId(null); setBlocked(null); }
           catch (e) { Alert.alert('Erro ao remover', e.message); }
           finally { running.current = false; setBusy(false); }
         } },
       ])} />
     </> : <Botao title="Ver detalhes da fechadura" secondary onPress={() => navigation.navigate('Fechadura')} />}
+    </>}
   </Cartao>;
 }
 export default function TelaFechadura({ navigation }) {

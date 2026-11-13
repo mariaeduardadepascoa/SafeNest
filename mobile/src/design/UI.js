@@ -6,6 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useVisual } from './DesignProvider';
+import FotoDoPerfil from '../components/FotoDoPerfil';
 
 export function Texto({ children, muted, size = 14, weight = '400', style, ...props }) {
   const { c, prefs } = useVisual();
@@ -58,7 +59,7 @@ export function Cabecalho({ navigation, back = false }) {
     <Pressable accessibilityRole="button" accessibilityLabel={back ? 'Voltar' : 'Abrir configurações'}
       onPress={() => back ? navigation.goBack() : navigation.navigate('Configurações')}
       style={{ width: prefs.adapted ? 56 : 44, height: prefs.adapted ? 56 : 44, flexShrink: 0, borderRadius: prefs.adapted ? 28 : 22, backgroundColor: c.raised, alignItems: 'center', justifyContent: 'center' }}>
-      <Icone name={back ? 'arrow-left' : 'user'} />
+      {back ? <Icone name="arrow-left" /> : <FotoDoPerfil tamanho={prefs.adapted ? 56 : 44} />}
     </Pressable>
   </Linha>;
 }

@@ -16,6 +16,7 @@ export default function HistoricoModal({ visible, evento, onClose }) {
         setErroFoto(false);
     }, [evento, visible]);
     if (!evento) return null;
+    const aberturaPeloApp = evento.tipo === 'acesso' && (evento.origem === 'aplicativo' || (!evento.origem && evento.id_tag === null));
 
     const momento = new Date(evento.data_hora);
     const data = momento.toLocaleDateString('pt-BR');
@@ -27,14 +28,22 @@ export default function HistoricoModal({ visible, evento, onClose }) {
                 {/* Pressable vazio para que tocar dentro da caixa não feche o modal */}
                 <Pressable style={[estilos.container, { maxHeight: '85%', backgroundColor: c.surface }]} onPress={() => { }} accessible={false} accessibilityViewIsModal>
                     <ScrollView contentContainerStyle={{ gap: 14 }}>
-                    <Text style={estilos.title}>{evento.titulo}</Text>
+                    <Text style={estilos.title}>{aberturaPeloApp ? 'Abertura pelo aplicativo' : evento.titulo}</Text>
 
-                    {evento.tipo === 'acesso' && (
+                    {evento.tipo === 'acesso' && !aberturaPeloApp && (
                         <View style={estilos.row}>
                             <Text style={estilos.label}>Dono da tag</Text>
                             <Text style={estilos.value}>{evento.nome_tag || `Tag ${evento.id_tag}`}</Text>
                         </View>
                     )}
+
+                    {aberturaPeloApp && <View style={{ gap: 10 }}>
+                        <View style={estilos.row}>
+                            <Text style={estilos.label}>Origem</Text>
+                            <Text style={estilos.value}>Aplicativo SafeNest</Text>
+                        </View>
+                        <Text style={[estilos.label, { color: c.text }]}>Comando de abertura enviado. Este registro não confirma a abertura física da porta.</Text>
+                    </View>}
 
                     <View style={estilos.row}>
                         <Text style={estilos.label}>Data</Text>
