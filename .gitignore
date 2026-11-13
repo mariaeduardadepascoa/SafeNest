@@ -5,7 +5,9 @@ node_modules
 .expo/
 .env.online
 
-./codigoFechadura/secrets.h
+codigoFechadura/secrets.h
+__pycache__/
+*.py[cod]
 
 .env.*
 **/.env

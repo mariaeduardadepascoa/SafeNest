@@ -5,11 +5,23 @@
 #include <MFRC522.h>
 #include <PubSubClient.h>
 #include <WiFiClientSecure.h>
+#include <WiFiClient.h>
+#include <Preferences.h>
 #include "secrets.h"
 #include <nvs_flash.h>
 //==================== MQTT ====================
 
+// No secrets.h, defina MQTT_USAR_TLS como 0 se o broker não usar TLS.
+// Sem essa definição, mantém a conexão segura da versão anterior.
+#ifndef MQTT_USAR_TLS
+#define MQTT_USAR_TLS 1
+#endif
+
+#if MQTT_USAR_TLS
 WiFiClientSecure espClient;
+#else
+WiFiClient espClient;
+#endif
 PubSubClient mqtt(espClient);
 
 //==================== WiFi ====================
@@ -17,6 +29,9 @@ PubSubClient mqtt(espClient);
 WiFiManager internet;
 WiFiManagerParameter campo_user_id("user_id", "User ID", "", 512);
 String userId;
+Preferences configuracao;
+bool limparConfiguracao = false;
+bool cadastroPendente = false;
 
 //==================== RFID ====================
 
@@ -51,8 +66,6 @@ const unsigned long TIMEOUT_CADASTRO = 8000;
 //====================================================
 
 void conectarWiFi() {
-
-  internet.addParameter(&campo_user_id);
 
   internet.setHostname("Fechadura-SafeNest");
 
@@ -287,13 +300,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   internet.setCustomHeadElement(customHead);
 
-  bool conectado = internet.autoConnect("SafeNest-Setup", AP_SETUP_PASSWORD);
+  configuracao.begin("safenest", false);
+  userId = configuracao.getString("token", "");
+  configuracao.end();
+
+  // Sem identificação salva, abre o cadastro mesmo que já exista Wi-Fi salvo.
+  bool conectado = userId.length() == 0
+    ? internet.startConfigPortal("SafeNest-Setup", AP_SETUP_PASSWORD)
+    : internet.autoConnect("SafeNest-Setup", AP_SETUP_PASSWORD);
 
   if (!conectado) {
     ESP.restart();
+    return;
   }
 
-  userId = campo_user_id.getValue();
+  String novoToken = campo_user_id.getValue();
+  novoToken.trim();
+  if (novoToken.length() > 0) {
+    userId = novoToken;
+    configuracao.begin("safenest", false);
+    configuracao.putString("token", userId);
+    configuracao.end();
+  }
+
+  if (userId.length() == 0) {
+    Serial.println("Abra Adicionar fechadura no aplicativo para preencher a conta.");
+    delay(2000);
+    ESP.restart();
+    return;
+  }
 
 }
 
@@ -335,9 +370,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
     lockState = "destravada";
   }
 
-  if(lockState == "travada"){
-    return;
-  }
   if (comando == "travar") {
     lockState = "travada";
   }
@@ -347,7 +379,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     inicioCadastro = millis();
     Serial.println("Modo cadastro ativado, aproxime a tag...");
   }               
-  if (comando == "abrirfechadura") {
+  if (comando == "abrirfechadura" && lockState != "travada") {
     Serial.println("abrir fechadura");
     digitalWrite(rele, HIGH);
     digitalWrite(led_verde, HIGH);
@@ -370,11 +402,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
 
   if (comando == "excluir") {
-    Serial.println("excluindo");
-    internet.resetSettings();
-    WiFi.disconnect(true, true);
-    delay(500);
-    ESP.restart();
+    // O loop limpa a configuração fora da função de recebimento do MQTT.
+    limparConfiguracao = true;
     }
 }
 
@@ -385,7 +414,7 @@ void conectarMQTT() {
   mqtt.setServer(MQTT_BROKER, MQTT_PORT);
   mqtt.setCallback(callback);
 
-  while (!mqtt.connected()) {
+  if (WiFi.status() == WL_CONNECTED && !mqtt.connected()) {
 
     Serial.println("Conectando ao MQTT...");
 
@@ -416,12 +445,12 @@ void conectarMQTT() {
         "online",
         true
       );
+      cadastroPendente = true;
     } else {
 
       Serial.print("Erro MQTT: ");
       Serial.println(mqtt.state());
 
-      delay(2000);
     }
   }
 }
@@ -441,7 +470,12 @@ void cadastrarFechadura(){
   String topic = "fechadura/" + deviceAddress + "/cadastrarFechadura";
 
   serializeJson(doc, json);
-  mqtt.publish(topic.c_str(), json.c_str());
+  if (mqtt.publish(topic.c_str(), json.c_str())) {
+    cadastroPendente = false;
+    Serial.println("Pedido de cadastro enviado. Confira o vínculo no aplicativo.");
+  } else {
+    Serial.println("Falha ao enviar o cadastro. Uma nova tentativa será feita.");
+  }
 
 }
 
@@ -548,9 +582,15 @@ void setup() {
 
   rfid.PCD_Init();
 
+  internet.addParameter(&campo_user_id);
+  WiFi.mode(WIFI_STA);
+  WiFi.setAutoReconnect(true);
   conectarWiFi();
 
+#if MQTT_USAR_TLS
+  // Mantém o comportamento anterior: TLS sem validar o certificado do servidor.
   espClient.setInsecure();
+#endif
 
   deviceAddress = WiFi.macAddress();
   Serial.println(deviceAddress);
@@ -560,24 +600,59 @@ void setup() {
 
   lockState = "destravada";
 
+  if (!mqtt.setBufferSize(2048)) {
+    Serial.println("Não foi possível reservar espaço para as mensagens MQTT.");
+  }
   conectarMQTT();
-
-  cadastrarFechadura();
+  if (mqtt.connected()) cadastrarFechadura();
 }
 
 //====================================================
 
 void loop() {
+  static unsigned long ultimaTentativaWifi = 0;
+  static unsigned long ultimaTentativaMqtt = 0;
+  static unsigned long ultimaTentativaCadastro = 0;
+
+  if (limparConfiguracao) {
+    digitalWrite(rele, LOW);
+    mqtt.publish(topicStatus.c_str(), "offline", true);
+    mqtt.disconnect();
+    configuracao.begin("safenest", false);
+    configuracao.remove("token");
+    configuracao.end();
+    internet.resetSettings();
+    WiFi.disconnect(true, true);
+    delay(500);
+    ESP.restart();
+    return;
+  }
 
   if (WiFi.status() != WL_CONNECTED) {
-    conectarWiFi();
+    if (millis() - ultimaTentativaWifi >= 10000) {
+      ultimaTentativaWifi = millis();
+      WiFi.reconnect();
+    }
+    delay(10);
+    return;
   }
 
   if (!mqtt.connected()) {
-    conectarMQTT();
+    if (millis() - ultimaTentativaMqtt >= 5000) {
+      ultimaTentativaMqtt = millis();
+      conectarMQTT();
+    }
+    delay(10);
+    return;
   }
 
   mqtt.loop();
+  if (limparConfiguracao) return;
+
+  if (cadastroPendente && millis() - ultimaTentativaCadastro >= 5000) {
+    ultimaTentativaCadastro = millis();
+    cadastrarFechadura();
+  }
 
   if (modoCadastro) {
 

@@ -116,6 +116,13 @@ public class DispositivosService {
         acessoRepository.save(acesso);
     }
 
+    public void registrarAberturaPeloApp(Long idUsuario) {
+        Acesso acesso = new Acesso();
+        acesso.setIdUsuario(idUsuario);
+        acesso.setOrigem("aplicativo");
+        acessoRepository.save(acesso);
+    }
+
     public Alerta addAlerta(String tipo, Long idUsuario) {
         Alerta alerta = new Alerta();
         alerta.setTipoAlerta(tipo);

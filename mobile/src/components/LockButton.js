@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator, Alert } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator, Alert, AppState } from 'react-native'
 import { useEstilos } from '../design/useScreenStyles';
 import React, { useState, useRef, useCallback } from 'react'
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -34,32 +34,50 @@ const LockButton = ({ id_fechadura }) => {
 
     // ref pra checagem síncrona imediata (o state do React só atualiza no próximo render)
     const acaoEmAndamento = useRef(false);
+    const numeroDoComando = useRef(0);
 
-    // Consulta novamente ao voltar para a tela ou tocar em Atualizar estado.
+    // Consulta ao voltar e a cada cinco segundos enquanto a tela estiver aberta.
     useFocusEffect(useCallback(() => {
         let telaAtiva = true;
+        let proximaConsulta;
+        let primeiraConsulta = true;
         const carregarStatus = async () => {
-            setCarregandoStatus(true);
-            setStatusConhecido(false);
-            setErroStatus('');
+            if (!telaAtiva) return;
+            if (AppState.currentState !== 'active' || acaoEmAndamento.current) {
+                proximaConsulta = setTimeout(carregarStatus, 5000);
+                return;
+            }
+            if (primeiraConsulta) {
+                setCarregandoStatus(true);
+                setStatusConhecido(false);
+            }
+            const comandoConsultado = numeroDoComando.current;
             try {
                 const blocked = await statusFechadura();
-                if (telaAtiva) {
+                if (telaAtiva && comandoConsultado === numeroDoComando.current && !acaoEmAndamento.current) {
                     setTravado(blocked);
                     setStatusConhecido(true);
+                    setErroStatus('');
                 }
             } catch (error) {
-                if (telaAtiva) {
+                if (telaAtiva && comandoConsultado === numeroDoComando.current && !acaoEmAndamento.current) {
                     setStatusConhecido(false);
-                    setErroStatus('Não foi possível consultar a fechadura. Tente atualizar o estado.');
+                    setErroStatus('Não foi possível consultar a fechadura. A consulta será repetida automaticamente.');
                 }
             } finally {
-                if (telaAtiva) setCarregandoStatus(false);
+                if (telaAtiva) {
+                    setCarregandoStatus(false);
+                    primeiraConsulta = false;
+                    proximaConsulta = setTimeout(carregarStatus, 5000);
+                }
             }
         };
         carregarStatus();
-        return () => { telaAtiva = false; };
-    }, [refresh]));
+        const retornoAoApp = AppState.addEventListener('change', estado => {
+            if (estado === 'active') setRefresh(valor => valor + 1);
+        });
+        return () => { telaAtiva = false; clearTimeout(proximaConsulta); retornoAoApp.remove(); };
+    }, [refresh, id_fechadura]));
 
     const abrirMenu = () => setMenuVisible(true);
 
@@ -78,10 +96,9 @@ const LockButton = ({ id_fechadura }) => {
         if (acaoEmAndamento.current) return; // ignora toque se já tem algo rodando
         acaoEmAndamento.current = true;
         setCarregandoAbrir(true);
+        numeroDoComando.current += 1;
         try {
             await abrirFechadura(id_fechadura);
-            Alert.alert('Comando enviado', 'O pedido de abertura foi enviado à fechadura.');
-            setRefresh(valor => valor + 1);
         } catch (error) {
             Alert.alert('Erro ao abrir', error.message);
             console.error("Erro ao abrir fechadura:", error);
@@ -95,6 +112,7 @@ const LockButton = ({ id_fechadura }) => {
         if (acaoEmAndamento.current) return;
         acaoEmAndamento.current = true;
         setCarregandoTravar(true);
+        numeroDoComando.current += 1;
         setTravado(value); // feedback visual imediato
 
         try {
@@ -115,7 +133,7 @@ const LockButton = ({ id_fechadura }) => {
                 setStatusConhecido(true);
             } catch {
                 setStatusConhecido(false);
-                setErroStatus('Estado indisponível. Atualize antes de enviar outro comando.');
+                setErroStatus('Estado indisponível. A consulta será repetida automaticamente.');
             }
         } finally {
             setCarregandoTravar(false);
@@ -149,7 +167,6 @@ const LockButton = ({ id_fechadura }) => {
             {carregandoStatus || carregandoTravar ? <ActivityIndicator color={c.accent} /> : <Switch accessibilityLabel="Bloquear acesso pela fechadura" value={travado} onValueChange={handleToggleTravar} disabled={!statusConhecido || carregandoAbrir} trackColor={{ false: c.line, true: c.accent }} thumbColor="#FFFFFF" />}
         </Linha>
         <Botao title="Cadastrar ou editar tags" secondary onPress={() => navigation.navigate('Tags')} />
-        <Botao title="Atualizar estado" secondary busy={carregandoStatus} disabled={carregandoAbrir || carregandoTravar || carregandoTag} onPress={() => setRefresh(valor => valor + 1)} />
         {!!erroStatus && <Texto accessibilityRole="alert">{erroStatus}</Texto>}
         <Modal visible={menuVisible} transparent animationType="fade" onRequestClose={() => setMenuVisible(false)}>
             <Pressable accessible={false} onPress={() => setMenuVisible(false)} style={{ flex: 1, padding: 24, justifyContent: 'center', backgroundColor: 'rgba(11,35,66,0.32)' }}>
@@ -233,11 +250,6 @@ const LockButton = ({ id_fechadura }) => {
                     )}
                 </View>
                 {!!erroStatus && <Text accessibilityRole="alert" style={{ color: colorsLightMode.danger }}>{erroStatus}</Text>}
-                <TouchableOpacity accessibilityRole="button" accessibilityState={{ disabled: carregandoStatus || carregandoAbrir || carregandoTravar || carregandoTag, busy: carregandoStatus }}
-                    disabled={carregandoStatus || carregandoAbrir || carregandoTravar || carregandoTag}
-                    onPress={() => setRefresh(v => v + 1)} style={[estilos.tagButton, { minHeight: 56, height: undefined, paddingVertical: 12 }]}>
-                    <Text style={estilos.text2}>{carregandoStatus ? 'Atualizando…' : 'Atualizar estado'}</Text>
-                </TouchableOpacity>
             </View>
 
 

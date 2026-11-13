@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, Image, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, TextInput, View } from 'react-native';
+import { ActivityIndicator, Alert, AppState, KeyboardAvoidingView, Linking, Modal, Platform, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { useVisual } from '../design/DesignProvider';
 import { Botao, Cartao, TituloPagina, TituloSecao, Tela, Texto } from '../design/UI';
 import TransmissaoCamera from '../design/CameraStream';
 import { obterCameras, cadastrarCamera, atualizarCamera, removerCamera, obterStatusCamera,
-  sincronizarCameras, sincronizarCamera, obterStatusIaCamera, obterVideoCamera, obterFotoCamera, obterAlertasCameras } from '../services/api';
+  sincronizarCameras, obterStatusIaCamera, obterVideoCamera } from '../services/api';
 
 export default function CameraScreen({ navigation }) {
   const { usuario } = useAuth();
@@ -14,6 +14,7 @@ export default function CameraScreen({ navigation }) {
   const telaAberta = useIsFocused();
   const [cameras, setCameras] = useState([]);
   const [cameraAtual, setCameraAtual] = useState(null);
+  const [detalhesAbertos, setDetalhesAbertos] = useState(false);
   const [carregando, setCarregando] = useState(true);
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState('');
@@ -21,25 +22,29 @@ export default function CameraScreen({ navigation }) {
   const [avisoVideo, setAvisoVideo] = useState('');
   const [estadoCamera, setEstadoCamera] = useState(null);
   const [estadoIa, setEstadoIa] = useState(null);
-  const [foto, setFoto] = useState('');
-  const [alertas, setAlertas] = useState(null);
+  const [erroConsulta, setErroConsulta] = useState('');
+  const [erroSincronizacao, setErroSincronizacao] = useState('');
   const [formularioAberto, setFormularioAberto] = useState(false);
   const [cameraEditando, setCameraEditando] = useState(null);
   const [nome, setNome] = useState('');
   const [endereco, setEndereco] = useState('');
   const acaoEmAndamento = useRef(false);
+  const consultasAutomaticas = useRef({ estado: false, sincronizacao: false });
+  const pedidoDeVideo = useRef(0);
 
   useFocusEffect(useCallback(() => {
     let telaAtiva = true;
     async function carregar() {
       setCarregando(true);
       setErro('');
+      setDetalhesAbertos(false);
+      pedidoDeVideo.current += 1;
       try {
         const lista = await obterCameras(usuario.id_usuario);
         if (telaAtiva) {
           setCameras(lista);
           setCameraAtual(anterior => lista.find(camera => camera.id === anterior?.id) || lista[0] || null);
-          setUrlVideo(''); setEstadoCamera(null); setEstadoIa(null); setFoto(''); setAlertas(null);
+          setUrlVideo(''); setEstadoCamera(null); setEstadoIa(null);
         }
       } catch (falha) {
         if (telaAtiva) setErro(falha.message);
@@ -49,8 +54,77 @@ export default function CameraScreen({ navigation }) {
     }
     if (usuario?.id_usuario) carregar();
     else setCarregando(false);
-    return () => { telaAtiva = false; };
+    return () => { telaAtiva = false; pedidoDeVideo.current += 1; };
   }, [usuario?.id_usuario]));
+
+  // Atualiza os estados sem abrir avisos ou bloquear os botões da câmera.
+  useFocusEffect(useCallback(() => {
+    if (!cameraAtual?.id) return;
+    let telaAtiva = true;
+    let proximaConsulta;
+    setEstadoCamera(null); setEstadoIa(null); setErroConsulta('');
+
+    async function consultar() {
+      if (!telaAtiva) return;
+      try {
+        if (AppState.currentState !== 'active' || acaoEmAndamento.current || consultasAutomaticas.current.estado) return;
+        consultasAutomaticas.current.estado = true;
+        try {
+          const [camera, deteccao] = await Promise.allSettled([
+            obterStatusCamera(cameraAtual.id), obterStatusIaCamera(cameraAtual.id),
+          ]);
+          if (!telaAtiva || AppState.currentState !== 'active') return;
+          setEstadoCamera(camera.status === 'fulfilled' ? camera.value : null);
+          setEstadoIa(deteccao.status === 'fulfilled' ? deteccao.value : null);
+          const falhas = [camera, deteccao].filter(resposta => resposta.status === 'rejected');
+          setErroConsulta(falhas.map(resposta => resposta.reason?.message || 'Não foi possível consultar a câmera.').join(' '));
+        } finally {
+          consultasAutomaticas.current.estado = false;
+        }
+      } finally {
+        if (telaAtiva) proximaConsulta = setTimeout(consultar, 10000);
+      }
+    }
+
+    consultar();
+    const retornoAoApp = AppState.addEventListener('change', estado => {
+      if (estado === 'active' && !consultasAutomaticas.current.estado) { clearTimeout(proximaConsulta); consultar(); }
+    });
+    return () => { telaAtiva = false; clearTimeout(proximaConsulta); retornoAoApp.remove(); };
+  }, [cameraAtual?.id, usuario?.id_usuario]));
+
+  // Mantém as câmeras da conta sincronizadas com a IA a cada minuto.
+  useFocusEffect(useCallback(() => {
+    if (!usuario?.id_usuario || !cameras.length) return;
+    let telaAtiva = true;
+    let proximaSincronizacao;
+
+    async function sincronizar() {
+      if (!telaAtiva) return;
+      try {
+        if (AppState.currentState !== 'active' || acaoEmAndamento.current || consultasAutomaticas.current.sincronizacao) return;
+        consultasAutomaticas.current.sincronizacao = true;
+        try {
+          const resultado = await sincronizarCameras(usuario.id_usuario);
+          if (telaAtiva && AppState.currentState === 'active') {
+            setErroSincronizacao(resultado.erros?.length ? 'Algumas câmeras não puderam ser sincronizadas com a detecção. Uma nova tentativa será feita automaticamente.' : '');
+          }
+        } catch (falha) {
+          if (telaAtiva) setErroSincronizacao(falha.message);
+        } finally {
+          consultasAutomaticas.current.sincronizacao = false;
+        }
+      } finally {
+        if (telaAtiva) proximaSincronizacao = setTimeout(sincronizar, 60000);
+      }
+    }
+
+    sincronizar();
+    const retornoAoApp = AppState.addEventListener('change', estado => {
+      if (estado === 'active' && !consultasAutomaticas.current.sincronizacao) { clearTimeout(proximaSincronizacao); sincronizar(); }
+    });
+    return () => { telaAtiva = false; clearTimeout(proximaSincronizacao); retornoAoApp.remove(); };
+  }, [usuario?.id_usuario, cameras.length]));
 
   async function atualizarLista() {
     const lista = await obterCameras(usuario.id_usuario);
@@ -69,10 +143,20 @@ export default function CameraScreen({ navigation }) {
   }
 
   function escolherCamera(camera) {
-    setCameraAtual(camera); setUrlVideo(''); setFoto(''); setEstadoCamera(null); setEstadoIa(null); setAvisoVideo('');
+    setCameraAtual(camera); setUrlVideo(''); setEstadoCamera(null); setEstadoIa(null); setAvisoVideo('');
+    setDetalhesAbertos(true);
+    verVideo(camera);
+  }
+
+  function fecharDetalhes() {
+    pedidoDeVideo.current += 1;
+    setDetalhesAbertos(false);
+    setUrlVideo('');
+    setAvisoVideo('');
   }
 
   function abrirFormulario(camera = null) {
+    fecharDetalhes();
     setCameraEditando(camera);
     setNome(camera?.nomeUsuario || '');
     // A listagem não devolve o RTSP. Em uma edição, vazio mantém o endereço atual.
@@ -94,31 +178,28 @@ export default function CameraScreen({ navigation }) {
         await cadastrarCamera({ idUsuario: usuario.id_usuario, nomeUsuario: nome.trim(), endereco: endereco.trim() });
       }
       setFormularioAberto(false);
-      setUrlVideo(''); setEstadoCamera(null); setEstadoIa(null); setFoto('');
+      setUrlVideo(''); setEstadoCamera(null); setEstadoIa(null);
       await atualizarLista();
     });
   }
 
-  async function verVideo() {
+  async function verVideo(camera = cameraAtual) {
+    const pedido = ++pedidoDeVideo.current;
     setUrlVideo(''); setAvisoVideo('Buscando transmissão…');
     await executar(async () => {
-      const url = await obterVideoCamera(cameraAtual.id);
+      const url = await obterVideoCamera(camera.id);
+      if (pedido !== pedidoDeVideo.current) return;
       if (!/^https?:\/\//i.test(url || '')) throw new Error('O servidor não devolveu uma URL de vídeo válida.');
       setUrlVideo(url);
       setAvisoVideo('Abrindo transmissão…');
     });
   }
 
-  async function verFoto() {
+  async function abrirNoNavegador() {
     await executar(async () => {
-      const arquivo = await obterFotoCamera(cameraAtual.id);
-      const imagem = await new Promise((concluir, falhar) => {
-        const leitor = new FileReader();
-        leitor.onload = () => concluir(leitor.result);
-        leitor.onerror = () => falhar(new Error('Não foi possível abrir a foto.'));
-        leitor.readAsDataURL(arquivo);
-      });
-      setFoto(imagem);
+      const url = urlVideo || await obterVideoCamera(cameraAtual.id);
+      if (!/^https?:\/\//i.test(url || '')) throw new Error('O servidor não devolveu uma URL de vídeo válida.');
+      await Linking.openURL(url);
     });
   }
 
@@ -130,47 +211,39 @@ export default function CameraScreen({ navigation }) {
     {!!erro && <Texto accessibilityRole="alert" style={{ color: c.red, marginBottom: 16 }}>{erro}</Texto>}
     {carregando ? <ActivityIndicator color={c.accent} accessibilityLabel="Carregando câmeras" /> : !cameras.length ? <Cartao><Texto>Nenhuma câmera cadastrada.</Texto></Cartao> :
       cameras.map(camera => <Pressable key={camera.id} accessibilityRole="button" accessibilityState={{ selected: cameraAtual?.id === camera.id, disabled: ocupado }} disabled={ocupado}
-        accessibilityLabel={`Selecionar ${camera.nomeUsuario || 'câmera'}`} onPress={() => escolherCamera(camera)} style={{ marginBottom: 12 }}>
-        <Cartao style={{ borderColor: cameraAtual?.id === camera.id ? c.accent : c.line, borderWidth: cameraAtual?.id === camera.id ? 2 : 1 }}>
+        accessibilityLabel={`Abrir detalhes de ${camera.nomeUsuario || 'câmera'}`} accessibilityHint="Mostra o vídeo ao vivo e as informações da câmera" onPress={() => escolherCamera(camera)} style={{ marginBottom: 12 }}>
+        <Cartao>
           <Texto weight="600">{camera.nomeUsuario || `Câmera ${camera.id}`}</Texto><Texto muted>Último estado informado: {camera.status || 'não informado'}</Texto>
-          {cameraAtual?.id === camera.id && <Texto>Selecionada</Texto>}
+          <Texto muted>Toque para ver a câmera</Texto>
         </Cartao>
       </Pressable>)}
-    {!!cameraAtual && <View style={{ gap: 12, marginTop: 16 }}>
-      <TituloSecao title={cameraAtual.nomeUsuario || 'Câmera selecionada'} />
-      <Botao title="Ver ao vivo / Reconectar" busy={ocupado} onPress={verVideo} />
+    {detalhesAbertos && cameraAtual && telaAberta && <Modal visible animationType="slide" onRequestClose={fecharDetalhes}>
+      <Tela navigation={{ ...navigation, goBack: fecharDetalhes }} back>
+      <TituloPagina title={cameraAtual.nomeUsuario || 'Câmera selecionada'} subtitle="Transmissão ao vivo e informações da câmera." />
+      <View style={{ gap: 12 }}>
+      {!!erro && <Texto accessibilityRole="alert" style={{ color: c.red }}>{erro}</Texto>}
       {!!urlVideo && telaAberta && <Cartao style={{ height: 252, padding: 0, overflow: 'hidden' }}>
         <TransmissaoCamera key={urlVideo} url={urlVideo}
-          aoCarregar={() => setAvisoVideo('Página da transmissão carregada. A imagem depende da conexão com o servidor de vídeo.')}
-          aoFalhar={() => setAvisoVideo('Não foi possível abrir o vídeo. Verifique a rede e o servidor de transmissão.')} />
+          aoCarregar={() => setAvisoVideo('')}
+          aoFalhar={() => setAvisoVideo('Não foi possível abrir o vídeo no app. Tente abrir no navegador e confira a conexão com o Wi-Fi.')} />
       </Cartao>}
       {!!avisoVideo && <Texto accessibilityLiveRegion="polite">{avisoVideo}</Texto>}
-      <Botao title="Consultar estado da câmera" secondary disabled={ocupado} onPress={() => executar(async () => setEstadoCamera(await obterStatusCamera(cameraAtual.id)))} />
+      <Botao title="Reconectar vídeo" secondary busy={ocupado} onPress={() => verVideo()} />
+      <Botao title="Abrir vídeo-navegador" secondary disabled={ocupado} onPress={abrirNoNavegador} />
+      <Texto muted>O estado é atualizado automaticamente a cada 10 segundos.</Texto>
+      {!!erroConsulta && <Texto accessibilityRole="alert" style={{ color: c.red }}>{erroConsulta}</Texto>}
       {!!estadoCamera && <Texto accessibilityLiveRegion="polite">Estado: {estadoCamera.status || 'não informado'}{estadoCamera.fogo_detectado ? ' — Fogo detectado' : ''}</Texto>}
-      <Botao title="Sincronizar com a detecção de incêndio" secondary disabled={ocupado} onPress={() => executar(async () => {
-        await sincronizarCamera(cameraAtual.id); setEstadoIa(await obterStatusIaCamera(cameraAtual.id));
-      })} />
-      <Botao title="Consultar detecção de incêndio" secondary disabled={ocupado} onPress={() => executar(async () => setEstadoIa(await obterStatusIaCamera(cameraAtual.id)))} />
       {!!estadoIa && <Texto accessibilityLiveRegion="polite">Detecção: {estadoIa.estado || 'não informado'}{estadoIa.fogo_detectado ? ' — Fogo detectado' : ''}{estadoIa.ultimo_erro ? ` — ${estadoIa.ultimo_erro}` : ''}</Texto>}
-      <Botao title="Ver foto do último alerta" secondary disabled={ocupado} onPress={verFoto} />
-      {!!foto && <Image source={{ uri: foto }} accessibilityLabel="Foto do último alerta da câmera selecionada" resizeMode="contain" style={{ width: '100%', height: 240 }} />}
       <Botao title="Editar câmera" secondary disabled={ocupado} onPress={() => abrirFormulario(cameraAtual)} />
       <Botao title="Remover câmera" destructive disabled={ocupado} onPress={() => Alert.alert('Remover câmera?', 'O cadastro será removido e o monitoramento dessa câmera será interrompido.', [
         { text: 'Cancelar', style: 'cancel' }, { text: 'Remover', style: 'destructive', onPress: () => executar(async () => {
-          await removerCamera(cameraAtual.id); setUrlVideo(''); setFoto(''); setEstadoCamera(null); setEstadoIa(null); setAlertas(null); await atualizarLista();
+          await removerCamera(cameraAtual.id); fecharDetalhes(); setEstadoCamera(null); setEstadoIa(null); await atualizarLista();
         }) },
       ])} />
-    </View>}
-    {!!cameras.length && <View style={{ gap: 12, marginTop: 24 }}>
-      <Botao title="Sincronizar todas as câmeras" secondary disabled={ocupado} onPress={() => executar(async () => {
-        await sincronizarCameras(usuario.id_usuario); await atualizarLista(); Alert.alert('Sincronização enviada', 'Consulte o estado de cada câmera para verificar o monitoramento.');
-      })} />
-      <Botao title="Ver alertas das câmeras" secondary disabled={ocupado} onPress={() => executar(async () => setAlertas(await obterAlertasCameras(usuario.id_usuario)))} />
-      {alertas !== null && (!alertas.length ? <Texto>Nenhum alerta registrado.</Texto> : alertas.map(alerta => <Cartao key={alerta.id}>
-        <Texto weight="600">{alerta.tipoAlerta || 'Alerta da câmera'}</Texto><Texto muted>{alerta.dataHora ? new Date(alerta.dataHora).toLocaleString('pt-BR') : 'Data não informada'}</Texto>
-        {!!alerta.imagemUrl && <Image source={{ uri: alerta.imagemUrl }} accessibilityLabel="Imagem do alerta" resizeMode="contain" style={{ width: '100%', height: 180 }} />}
-      </Cartao>))}
-    </View>}
+      {!!erroSincronizacao && <Texto accessibilityRole="alert" style={{ color: c.red }}>{erroSincronizacao}</Texto>}
+      </View>
+      </Tela>
+    </Modal>}
     <Modal visible={formularioAberto} transparent animationType="slide" onRequestClose={() => { if (!ocupado) setFormularioAberto(false); }}>
       <KeyboardAvoidingView style={{ flex: 1, backgroundColor: 'rgba(11,35,66,0.35)' }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 24 }}>

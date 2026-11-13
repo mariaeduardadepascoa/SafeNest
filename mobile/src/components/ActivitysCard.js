@@ -41,9 +41,16 @@ export default function ActivitysCard({ historico, onPress }) {
 
     // estilização para os acessos
     let title = 'Entrada permitida';
-    let subtitle = `Tag ${historico.id_tag}`;
+    let subtitle = historico.id_tag != null ? `Tag ${historico.id_tag}` : 'Origem não informada';
     let variant = 'normal';
     let icone = 'casa'
+
+    // Respostas antigas da API ainda podem vir sem o campo origem.
+    const aberturaPeloApp = historico.tipo === 'acesso' && (historico.origem === 'aplicativo' || (!historico.origem && historico.id_tag === null));
+    if (aberturaPeloApp) {
+        title = 'Abertura pelo aplicativo';
+        subtitle = 'Comando de abertura enviado';
+    }
 
     //estilização para os alertas
     if (historico.tipo === 'alerta') {

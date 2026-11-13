@@ -15,6 +15,16 @@ public class SafenestApplication {
                 .directory("./")
                 .load();
 
+        // Impede iniciar a API com o banco online ou com outro banco local.
+        String hostLocal = dotenv.get("SUPABASE_DB_HOST");
+        if (!("127.0.0.1".equals(hostLocal) || "localhost".equals(hostLocal))
+                || !"54322".equals(dotenv.get("SUPABASE_DB_PORT"))
+                || !"postgres".equals(dotenv.get("SUPABASE_DB_NAME"))) {
+            throw new IllegalStateException("Use o Supabase do Docker: host 127.0.0.1, porta 54322 e banco postgres no .env da API Java.");
+        }
+        System.setProperty("spring.datasource.url", "jdbc:postgresql://127.0.0.1:54322/postgres");
+        System.out.println("BANCO LOCAL: Supabase do Docker em 127.0.0.1:54322/postgres");
+
         System.out.println("DB HOST: " + dotenv.get("SUPABASE_DB_HOST"));
         System.out.println("DB PORT: " + dotenv.get("SUPABASE_DB_PORT"));
         System.out.println("DB NAME: " + dotenv.get("SUPABASE_DB_NAME"));

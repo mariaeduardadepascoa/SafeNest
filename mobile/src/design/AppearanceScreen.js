@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Alert, ScrollView, Switch, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Switch, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { useVisual } from './DesignProvider';
 import { Logo, Botao, Cartao, TituloSecao, Icone, TituloPagina, Linha, Tela, Texto } from './UI';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
+import { useFotoPerfil } from '../context/FotoPerfilContext';
+import FotoDoPerfil from '../components/FotoDoPerfil';
 
 export function OpcoesVisuais({ adapted, colorVision, onAdapted, onColorVision, disabled }) {
   const { c, prefs } = useVisual();
@@ -63,6 +66,36 @@ export default function EscolhaVisual() {
 export function Configuracoes({ navigation }) {
   const { usuario, logout } = useAuth();
   const { c, prefs, saving, savePreferences } = useVisual();
+  const { foto, salvarFoto } = useFotoPerfil();
+  const [salvandoFoto, setSalvandoFoto] = useState(false);
+
+  async function escolherFotoPerfil() {
+    if (salvandoFoto) return;
+    setSalvandoFoto(true);
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permissão necessária', 'Precisamos de acesso às suas fotos para adicionar sua imagem de perfil.');
+        return;
+      }
+      const resultado = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'], allowsEditing: true, aspect: [1, 1], quality: 0.7,
+      });
+      if (!resultado.canceled && resultado.assets?.[0]?.uri) await salvarFoto(resultado.assets[0].uri);
+    } catch (erro) {
+      Alert.alert('Não foi possível salvar a foto', erro.message);
+    } finally {
+      setSalvandoFoto(false);
+    }
+  }
+
+  async function removerFotoPerfil() {
+    if (salvandoFoto) return;
+    setSalvandoFoto(true);
+    try { await salvarFoto(null); }
+    catch (erro) { Alert.alert('Não foi possível remover a foto', erro.message); }
+    finally { setSalvandoFoto(false); }
+  }
   async function alterarEscolha(alteracoes) {
     try {
       await savePreferences(alteracoes);
@@ -74,13 +107,25 @@ export function Configuracoes({ navigation }) {
     <TituloPagina eyebrow="SUA CONTA" title="Configurações" subtitle={prefs.adapted ? 'Escolha como prefere usar o aplicativo.' : 'Preferências e controle da sua unidade.'} />
     <Cartao>
       <Linha style={{ alignItems: 'flex-start', flexDirection: prefs.adapted ? 'column' : 'row' }}>
-        <View style={{ width: 48, height: 48, borderRadius: 24, backgroundColor: c.raised, justifyContent: 'center', alignItems: 'center' }}><Icone name="user" size={24} /></View>
+        <Pressable accessibilityRole="button" accessibilityLabel={foto ? 'Alterar sua foto de perfil' : 'Adicionar sua foto de perfil'}
+          accessibilityHint="Abre a galeria de imagens" disabled={salvandoFoto || saving} onPress={escolherFotoPerfil}>
+          <FotoDoPerfil tamanho={prefs.adapted ? 96 : 80} />
+          <View style={{ position: 'absolute', bottom: 0, right: -4, width: 30, height: 30, borderRadius: 15,
+            backgroundColor: c.accent, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: c.surface }}>
+            <Icone name="camera" size={15} color="#FFFFFF" />
+          </View>
+        </Pressable>
         <View style={{ flex: 1, gap: 4 }}>
           <Texto muted size={12}>Informações pessoais</Texto>
           <Texto weight="600">{usuario?.nome_usuario}</Texto>
           <Texto muted style={{ flexShrink: 1 }}>{usuario?.email_usuario}</Texto>
         </View>
       </Linha>
+      <View style={{ gap: 10, marginTop: 18 }}>
+        <Botao title={foto ? 'Alterar foto de perfil' : 'Adicionar foto de perfil'} secondary busy={salvandoFoto} disabled={saving} onPress={escolherFotoPerfil} />
+        {!!foto && <Botao title="Remover foto de perfil" secondary disabled={salvandoFoto || saving} onPress={removerFotoPerfil} />}
+        <Texto muted size={12}>A foto fica salva somente neste aparelho.</Texto>
+      </View>
     </Cartao>
     <TituloSecao title="Acessibilidade" />
     <OpcoesVisuais adapted={prefs.adapted} colorVision={prefs.colorVision} disabled={saving}

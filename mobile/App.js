@@ -6,6 +6,7 @@ import AppNavigator from './src/navigation/AppNavigator.js';
 import { AuthProvider } from './src/context/AuthContext.js';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ProvedorVisual } from './src/design/DesignProvider';
+import { ProvedorFotoPerfil } from './src/context/FotoPerfilContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -14,10 +15,10 @@ export default function App() {
     RobotoBold: Roboto_700Bold,
   });
   return (
-    <SafeAreaProvider><AuthProvider><ProvedorVisual>
+    <SafeAreaProvider><AuthProvider><ProvedorFotoPerfil><ProvedorVisual>
       <NavigationContainer>
         <AppNavigator />
       </NavigationContainer>
-    </ProvedorVisual></AuthProvider></SafeAreaProvider>
+    </ProvedorVisual></ProvedorFotoPerfil></AuthProvider></SafeAreaProvider>
   );
 }

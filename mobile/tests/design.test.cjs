@@ -109,12 +109,59 @@ test('cadastrar câmera usa o usuário conectado e o endereço informado', async
 test('vídeo usa o endereço devolvido pela API para a câmera escolhida', async () => {
   let endereco;
   const abrir = funcaoDaTela('CameraScreen.js', 'verVideo', {
+    pedidoDeVideo: { current: 0 },
     cameraAtual: { id: 8 }, executar: acao => acao(), setAvisoVideo() {},
     setUrlVideo: valor => { endereco = valor; },
     obterVideoCamera: async id => { assert.equal(id, 8); return 'http://servidor:8889/entrada/'; },
   });
   await abrir();
   assert.equal(endereco, 'http://servidor:8889/entrada/');
+});
+
+test('tocar no cartão abre os detalhes e inicia o vídeo da câmera tocada', () => {
+  let selecionada;
+  let detalhes = false;
+  let video;
+  const abrir = funcaoDaTela('CameraScreen.js', 'escolherCamera', {
+    setCameraAtual: camera => { selecionada = camera; }, setDetalhesAbertos: valor => { detalhes = valor; },
+    setUrlVideo() {}, setEstadoCamera() {}, setEstadoIa() {}, setAvisoVideo() {},
+    verVideo: camera => { video = camera; },
+  });
+  const camera = { id: 9, nomeUsuario: 'Webcam SafeNest' };
+  abrir(camera);
+  assert.equal(selecionada, camera);
+  assert.equal(detalhes, true);
+  assert.equal(video, camera);
+});
+
+test('fechar detalhes impede que uma resposta atrasada reabra o vídeo', async () => {
+  let concluir;
+  let video = '';
+  const pedidoDeVideo = { current: 0 };
+  const abrir = funcaoDaTela('CameraScreen.js', 'verVideo', {
+    pedidoDeVideo, cameraAtual: { id: 9 }, executar: acao => acao(), setAvisoVideo() {},
+    setUrlVideo: valor => { video = valor; },
+    obterVideoCamera: () => new Promise(resolve => { concluir = resolve; }),
+  });
+  const fechar = funcaoDaTela('CameraScreen.js', 'fecharDetalhes', {
+    pedidoDeVideo, setDetalhesAbertos() {}, setAvisoVideo() {}, setUrlVideo: valor => { video = valor; },
+  });
+  const carregamento = abrir();
+  fechar();
+  concluir('http://servidor:8889/webcam/');
+  await carregamento;
+  assert.equal(video, '');
+});
+
+test('abrir no navegador usa a página de vídeo da API', async () => {
+  let endereco;
+  const abrir = funcaoDaTela('CameraScreen.js', 'abrirNoNavegador', {
+    urlVideo: '', cameraAtual: { id: 9 }, executar: acao => acao(),
+    obterVideoCamera: async id => { assert.equal(id, 9); return 'http://192.168.137.1:8889/webcam/'; },
+    Linking: { openURL: async url => { endereco = url; } },
+  });
+  await abrir();
+  assert.equal(endereco, 'http://192.168.137.1:8889/webcam/');
 });
 
 function funcaoDaTela(file, name, globals) {
@@ -191,6 +238,44 @@ test('accessible history applies all three filters to the real events', () => {
   }
 });
 
+test('os dois visuais reconhecem um cadastro que termina depois da primeira consulta', async () => {
+  for (const [arquivo, nome] of [['src/design/LockCard.js', 'CartaoFechadura'], ['src/components/FechaduraSection.js', 'useFechadura']]) {
+    const codigo = fs.readFileSync(path.join(__dirname, '..', arquivo), 'utf8');
+    const arvore = babel.parseSync(codigo, { babelrc: false, configFile: false, parserOpts: { plugins: ['jsx'] } });
+    const funcao = arvore.program.body.map(no => no.declaration || no).find(no => no.id?.name === nome);
+    const efeito = funcao.body.body.find(no => no.expression?.callee?.name === 'useFocusEffect');
+    const trecho = efeito.expression.arguments[0].arguments[0];
+    let proximaConsulta;
+    let consultas = 0;
+    let identificador;
+    let mensagem = '';
+    const aoAbrir = vm.runInNewContext(`(${codigo.slice(trecho.start, trecho.end)})`, {
+      setId: valor => { identificador = valor; }, setFechadura: valor => { identificador = valor; },
+      setLoading() {}, setCarregando() {}, setBlocked() {},
+      setError: valor => { mensagem = valor; }, setErro: valor => { mensagem = valor; },
+      obterFechadura: async () => ++consultas === 1 ? null : 7,
+      statusFechadura: async () => false,
+      AppState: { currentState: 'active', addEventListener: () => ({ remove() {} }) },
+      running: { current: false }, numeroDoComando: { current: 0 },
+      setTimeout: acao => { proximaConsulta = acao; return 1; },
+      clearTimeout() {},
+    });
+    const sair = aoAbrir();
+    await new Promise(setImmediate);
+    assert.equal(identificador, null);
+    assert.equal(typeof proximaConsulta, 'function');
+    const tentarNovamente = proximaConsulta;
+    proximaConsulta = null;
+    tentarNovamente();
+    await new Promise(setImmediate);
+    assert.equal(identificador, 7);
+    assert.equal(mensagem, '');
+    if (nome === 'CartaoFechadura') assert.equal(typeof proximaConsulta, 'function');
+    else assert.equal(proximaConsulta, null);
+    sair();
+  }
+});
+
 test('accessible lock reloads on return and ignores an outdated response from the previous visit', async () => {
   const source = fs.readFileSync(path.join(__dirname, '../src/components/LockButton.js'), 'utf8');
   const ast = babel.parseSync(source, { babelrc: false, configFile: false, parserOpts: { plugins: ['jsx'] } });
@@ -202,6 +287,8 @@ test('accessible lock reloads on return and ignores an outdated response from th
   const reported = [];
   const known = [];
   const focus = vm.runInNewContext(`(${source.slice(callback.start, callback.end)})`, {
+    AppState: { currentState: 'active', addEventListener: () => ({ remove() {} }) },
+    acaoEmAndamento: { current: false }, numeroDoComando: { current: 0 }, setTimeout() {}, clearTimeout() {},
     setCarregandoStatus() {}, setErroStatus() {}, setStatusConhecido: value => known.push(value),
     setTravado: value => reported.push(value),
     statusFechadura: () => {
@@ -231,6 +318,8 @@ test('accessible lock marks the state as unavailable when consultation fails', a
   let loading = false;
   let message = '';
   const focus = vm.runInNewContext(`(${source.slice(callback.start, callback.end)})`, {
+    AppState: { currentState: 'active', addEventListener: () => ({ remove() {} }) },
+    acaoEmAndamento: { current: false }, numeroDoComando: { current: 0 }, setTimeout() {}, clearTimeout() {},
     setCarregandoStatus: value => { loading = value; }, setErroStatus: value => { message = value; },
     setStatusConhecido: value => { known = value; }, setTravado() { assert.fail('Não deve inventar um estado'); },
     statusFechadura: async () => { throw Error('Sem conexão'); },
@@ -240,6 +329,104 @@ test('accessible lock marks the state as unavailable when consultation fails', a
   assert.equal(known, false);
   assert.equal(loading, false);
   assert.match(message, /Não foi possível consultar/);
+});
+
+function consultaAutomaticaDaCamera(nome, globais) {
+  const codigo = fs.readFileSync(path.join(__dirname, '../src/screens/CameraScreen.js'), 'utf8');
+  const arvore = babel.parseSync(codigo, { babelrc: false, configFile: false, parserOpts: { plugins: ['jsx'] } });
+  const tela = arvore.program.body.find(no => no.type === 'ExportDefaultDeclaration').declaration;
+  const chamadas = tela.body.body.filter(no => no.expression?.callee?.name === 'useFocusEffect');
+  const trecho = chamadas.map(no => no.expression.arguments[0].arguments[0])
+    .find(no => no.body.body.some(funcao => funcao.type === 'FunctionDeclaration' && funcao.id.name === nome));
+  assert.ok(trecho);
+  return vm.runInNewContext(`(${codigo.slice(trecho.start, trecho.end)})`, globais);
+}
+
+test('câmera consulta automaticamente, pausa em segundo plano e cancela ao sair', async () => {
+  let consultas = 0;
+  let agendada;
+  let estado;
+  const aplicativo = { currentState: 'active', addEventListener: () => ({ remove() {} }) };
+  const abrir = consultaAutomaticaDaCamera('consultar', {
+    cameraAtual: { id: 3 }, AppState: aplicativo,
+    acaoEmAndamento: { current: false }, consultasAutomaticas: { current: { estado: false } },
+    setEstadoCamera: valor => { estado = valor; }, setEstadoIa() {}, setErroConsulta() {},
+    obterStatusCamera: async id => { consultas++; assert.equal(id, 3); return { status: 'online' }; },
+    obterStatusIaCamera: async () => ({ estado: 'monitorando' }),
+    setTimeout: (acao, intervalo) => { assert.equal(intervalo, 10000); agendada = acao; return 1; },
+    clearTimeout: () => { agendada = null; },
+  });
+  const sair = abrir();
+  await new Promise(setImmediate);
+  assert.equal(estado.status, 'online');
+  assert.equal(consultas, 1);
+  aplicativo.currentState = 'background';
+  await agendada();
+  assert.equal(consultas, 1);
+  aplicativo.currentState = 'active';
+  await agendada();
+  assert.equal(consultas, 2);
+  const consultaAntiga = agendada;
+  sair();
+  assert.equal(agendada, null);
+  await consultaAntiga();
+  assert.equal(consultas, 2);
+});
+
+test('sincronização da câmera tenta novamente após erro e não cria consultas simultâneas', async () => {
+  let concluir;
+  let chamadas = 0;
+  let agendada;
+  let mensagem = '';
+  const abrir = consultaAutomaticaDaCamera('sincronizar', {
+    usuario: { id_usuario: 2 }, cameras: [{ id: 3 }],
+    AppState: { currentState: 'active', addEventListener: () => ({ remove() {} }) },
+    acaoEmAndamento: { current: false }, consultasAutomaticas: { current: { sincronizacao: false } },
+    sincronizarCameras: id => {
+      assert.equal(id, 2); chamadas++;
+      if (chamadas === 1) return new Promise(resolve => { concluir = resolve; });
+      return Promise.reject(Error('IA indisponível'));
+    },
+    setErroSincronizacao: valor => { mensagem = valor; },
+    setTimeout: (acao, intervalo) => { assert.equal(intervalo, 60000); agendada = acao; return 1; },
+    clearTimeout: () => { agendada = null; },
+  });
+  const sair = abrir();
+  assert.equal(chamadas, 1);
+  assert.equal(agendada, undefined);
+  concluir({ erros: [] });
+  await new Promise(setImmediate);
+  assert.equal(mensagem, '');
+  await agendada();
+  assert.equal(chamadas, 2);
+  assert.equal(mensagem, 'IA indisponível');
+  sair();
+  assert.equal(agendada, null);
+});
+
+test('abrir a fechadura envia um comando sem confirmação ou aviso de sucesso nos dois visuais', async () => {
+  for (const acessivel of [false, true]) {
+    const arquivo = acessivel ? 'src/components/LockButton.js' : 'src/design/LockCard.js';
+    const codigo = fs.readFileSync(path.join(__dirname, '..', arquivo), 'utf8');
+    const arvore = babel.parseSync(codigo, { babelrc: false, configFile: false, parserOpts: { plugins: ['jsx'] } });
+    const tela = acessivel
+      ? arvore.program.body.flatMap(no => no.declarations || []).find(no => no.id.name === 'LockButton').init
+      : arvore.program.body.find(no => no.declaration?.id?.name === 'CartaoFechadura').declaration;
+    const funcao = acessivel
+      ? tela.body.body.flatMap(no => no.declarations || []).find(no => no.id.name === 'handleAbrir').init
+      : tela.body.body.find(no => no.id?.name === 'enviarComando');
+    let comandos = 0;
+    const enviar = async id => { assert.equal(id, 4); comandos++; };
+    const executar = vm.runInNewContext(`(${codigo.slice(funcao.start, funcao.end)})`, {
+      running: { current: false }, acaoEmAndamento: { current: false }, numeroDoComando: { current: 0 },
+      id: 4, id_fechadura: 4, abrirFechadura: enviar,
+      setBusy() {}, setCarregandoAbrir() {}, setRefresh() {},
+      Alert: { alert() { assert.fail('Não deve abrir popup ao concluir a abertura'); } },
+    });
+    if (acessivel) await executar();
+    else await executar(enviar, true);
+    assert.equal(comandos, 1);
+  }
 });
 
 test('contrast preference changes the interface in both designs and keeps readable text', () => {
@@ -291,6 +478,105 @@ test('contact redesign preserves phone calls, editing, deletion and saved photos
   assert.equal(edits, 1);
   assert.equal(deletions, 1);
   assert.equal(elements.find(node => node.type === 'Image').props.source.uri, 'file:///foto-local.jpg');
+});
+
+test('foto do perfil é salva localmente e fica separada por conta', async () => {
+  const dados = new Map([['fotos_contatos_emergencia', 'fotos-dos-contatos']]);
+  const perfil = carregarModulo('src/context/FotoPerfilContext.js', {
+    react: { createContext: () => ({}) }, './AuthContext': {},
+    '@react-native-async-storage/async-storage': {
+      getItem: async chave => dados.get(chave) || null,
+      setItem: async (chave, valor) => dados.set(chave, valor), removeItem: async chave => dados.delete(chave),
+    },
+  });
+  await perfil.guardarFotoPerfil(1, 'file:///perfil-1.jpg');
+  await perfil.guardarFotoPerfil(2, 'file:///perfil-2.jpg');
+  assert.equal(await perfil.lerFotoPerfil(1), 'file:///perfil-1.jpg');
+  assert.equal(await perfil.lerFotoPerfil(2), 'file:///perfil-2.jpg');
+  await perfil.guardarFotoPerfil(1, null);
+  assert.equal(await perfil.lerFotoPerfil(1), null);
+  assert.equal(await perfil.lerFotoPerfil(2), 'file:///perfil-2.jpg');
+  assert.equal(dados.get('fotos_contatos_emergencia'), 'fotos-dos-contatos');
+  assert.throws(() => perfil.chaveFotoPerfil(null), /Entre na sua conta/);
+});
+
+test('trocar de conta não mostra a foto do usuário anterior', () => {
+  let id = 1;
+  const { ProvedorFotoPerfil } = carregarModulo('src/context/FotoPerfilContext.js', {
+    react: {
+      createContext: () => ({ Provider: 'Contexto' }),
+      createElement: (tipo, props) => ({ tipo, props }), useEffect() {}, useRef: valor => ({ current: valor }),
+      useState: () => [{ idUsuario: 1, foto: 'file:///perfil-1.jpg' }, () => {}],
+    },
+    './AuthContext': { useAuth: () => ({ usuario: { id_usuario: id } }) },
+    '@react-native-async-storage/async-storage': {},
+  });
+  assert.equal(ProvedorFotoPerfil({}).props.value.foto, 'file:///perfil-1.jpg');
+  id = 2;
+  assert.equal(ProvedorFotoPerfil({}).props.value.foto, null);
+});
+
+test('foto do perfil usa as mesmas opções da galeria dos contatos e respeita cancelamento e permissão', async () => {
+  for (const caso of ['escolhida', 'cancelada', 'negada']) {
+    let fotoSalva;
+    let opcoes;
+    let avisos = 0;
+    const { Configuracoes } = carregarModulo('src/design/AppearanceScreen.js', {
+      react: { createElement: (tipo, props, ...children) => ({ tipo, props: { ...props, children } }), useState: () => [false, () => {}] },
+      'react-native': { Alert: { alert: () => avisos++ }, Pressable: 'Pressable', ScrollView: 'ScrollView', Switch: 'Switch', View: 'View' },
+      'react-native-safe-area-context': { SafeAreaView: 'SafeAreaView' },
+      'expo-image-picker': {
+        requestMediaLibraryPermissionsAsync: async () => ({ status: caso === 'negada' ? 'denied' : 'granted' }),
+        launchImageLibraryAsync: async dados => { opcoes = dados; return { canceled: caso === 'cancelada', assets: [{ uri: 'file:///nova-foto.jpg' }] }; },
+      },
+      './DesignProvider': { useVisual: () => ({ c: {}, prefs: {}, saving: false }) },
+      './UI': { Logo: 'Logo', Botao: 'Botao', Cartao: 'Cartao', TituloSecao: 'TituloSecao', Icone: 'Icone', TituloPagina: 'TituloPagina', Linha: 'Linha', Tela: 'Tela', Texto: 'Texto' },
+      '../context/AuthContext': { useAuth: () => ({ usuario: { id_usuario: 1 } }) },
+      '../context/FotoPerfilContext': { useFotoPerfil: () => ({ foto: null, salvarFoto: async uri => { fotoSalva = uri; } }) },
+      '../components/FotoDoPerfil': 'FotoDoPerfil',
+    });
+    const elementos = [];
+    function percorrer(no) {
+      if (!no || typeof no !== 'object') return;
+      if (Array.isArray(no)) return no.forEach(percorrer);
+      elementos.push(no); percorrer(no.props?.children);
+    }
+    percorrer(Configuracoes({ navigation: {} }));
+    await elementos.find(no => no.props?.title === 'Adicionar foto de perfil').props.onPress();
+    assert.equal(fotoSalva, caso === 'escolhida' ? 'file:///nova-foto.jpg' : undefined);
+    assert.equal(avisos, caso === 'negada' ? 1 : 0);
+    if (caso !== 'negada') {
+      assert.equal(opcoes.allowsEditing, true);
+      assert.equal(opcoes.quality, 0.7);
+      assert.equal(Array.from(opcoes.aspect).join(','), '1,1');
+      assert.equal(Array.from(opcoes.mediaTypes).join(','), 'images');
+    }
+  }
+});
+
+test('histórico identifica a abertura pelo app sem inventar uma tag', () => {
+  let selecionado;
+  const { default: CartaoAtividade } = carregarModulo('src/components/ActivitysCard.js', {
+    react: { createElement: (tipo, props, ...children) => ({ tipo, props: { ...props, children } }) },
+    '../design/useScreenStyles': { useEstilos: estilos => estilos },
+    '../design/DesignProvider': { useVisual: () => ({ c: {}, prefs: {} }) },
+    '@expo/vector-icons': { Feather: 'Feather' },
+    'react-native': { View: 'View', Text: 'Text', Pressable: 'Pressable', StyleSheet: { create: valor => valor } },
+    '../theme': { colorsLightMode: {}, typography: {} },
+    '../../assets/houseIcon-entrada-permitida.svg': 'Casa', '../../assets/alertIcon-perigo.svg': 'Alerta',
+    '../../assets/perigoIcon-acesso-negado2.svg': 'Negado', '../../assets/okIcon-entrada-permitida.svg': 'Correto',
+  }, { Date, React: { createElement: (tipo, props, ...children) => ({ tipo, props: { ...props, children } }) } });
+  for (const origem of ['aplicativo', undefined]) {
+    const cartao = CartaoAtividade({ historico: { tipo: 'acesso', origem, id_tag: null, data_hora: new Date().toISOString() }, onPress: evento => { selecionado = evento; } });
+    cartao.props.onPress();
+    assert.equal(selecionado.titulo, 'Abertura pelo aplicativo');
+    assert.equal(selecionado.origem, origem);
+    assert.equal(JSON.stringify(cartao).includes('Tag null'), false);
+  }
+  const porTag = CartaoAtividade({ historico: { tipo: 'acesso', origem: 'rfid', id_tag: 3, data_hora: new Date().toISOString() }, onPress: evento => { selecionado = evento; } });
+  porTag.props.onPress();
+  assert.equal(selecionado.titulo, 'Entrada permitida');
+  assert.equal(JSON.stringify(porTag).includes('Tag 3'), true);
 });
 
 test('modern contact modal saves the existing contact and preserves its photo', () => {

@@ -203,7 +203,14 @@ public class FechaduraController {
             return ResponseEntity.status(404).body(Map.of("erro", "Fechadura nao encontrada"));
         }
 
-        mqttListenerService.publish("fechadura/" + address + "/comando", "{\"comando\":\"abrirfechadura\"}");
+        if (Boolean.TRUE.equals(dispositivosService.verificarTrancada(idFechadura))) {
+            return ResponseEntity.status(409).body(Map.of("erro", "O acesso está bloqueado. Libere o acesso antes de abrir a porta."));
+        }
+        boolean enviado = mqttListenerService.publish("fechadura/" + address + "/comando", "{\"comando\":\"abrirfechadura\"}");
+        if (!enviado) {
+            return ResponseEntity.status(503).body(Map.of("erro", "Não foi possível enviar o comando para a fechadura."));
+        }
+        dispositivosService.registrarAberturaPeloApp(idUsuario);
 
         return ResponseEntity.ok(Map.of("mensagem", "comando de abrir enviado"));
     }

@@ -1,5 +1,5 @@
 // INICIALIZAÇÃO
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env'), override: true });
 const express = require('express');
 const cors = require('cors'); //por padrão um site não pode chamar uma API que está em outro endereço/porta, o cors resolve isso
 const routes = require('./routes/routes');
