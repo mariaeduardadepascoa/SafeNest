@@ -1,9 +1,20 @@
 import { useEstilos } from '../design/useScreenStyles';
-import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Modal, View, Text, Pressable, StyleSheet, Image, ScrollView, ActivityIndicator } from 'react-native';
+import { useVisual } from '../design/DesignProvider';
 import { colorsLightMode, typography } from '../theme';
 
 export default function HistoricoModal({ visible, evento, onClose }) {
     const estilos = useEstilos(estilosAntigos, 'HistoricoModal');
+    const { c, prefs } = useVisual();
+    const [carregandoFoto, setCarregandoFoto] = useState(true);
+    const [erroFoto, setErroFoto] = useState(false);
+    const incendio = evento?.tipo === 'alerta' && evento?.tipo_alerta?.toLowerCase() === 'fogo';
+    const imagem = incendio ? evento.imagem_url : null;
+    useEffect(() => {
+        setCarregandoFoto(true);
+        setErroFoto(false);
+    }, [evento, visible]);
     if (!evento) return null;
 
     const momento = new Date(evento.data_hora);
@@ -14,7 +25,8 @@ export default function HistoricoModal({ visible, evento, onClose }) {
         <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
             <Pressable style={estilos.overlay} onPress={onClose}>
                 {/* Pressable vazio para que tocar dentro da caixa não feche o modal */}
-                <Pressable style={estilos.container} onPress={() => { }} accessible={false} accessibilityViewIsModal>
+                <Pressable style={[estilos.container, { maxHeight: '85%', backgroundColor: c.surface }]} onPress={() => { }} accessible={false} accessibilityViewIsModal>
+                    <ScrollView contentContainerStyle={{ gap: 14 }}>
                     <Text style={estilos.title}>{evento.titulo}</Text>
 
                     {evento.tipo === 'acesso' && (
@@ -34,7 +46,20 @@ export default function HistoricoModal({ visible, evento, onClose }) {
                         <Text style={estilos.value}>{hora}</Text>
                     </View>
 
-                    <Pressable accessibilityRole="button" accessibilityLabel="Fechar detalhes do evento" style={estilos.closeButton} onPress={onClose}>
+                    {incendio && <View style={{ gap: 10 }}>
+                        <Text style={[estilos.label, { color: c.text, fontSize: prefs.adapted ? 20 : 16 }]}>Foto do incêndio detectado</Text>
+                        {!imagem ? <Text style={[estilos.value, { color: c.text }]}>Este alerta não possui foto registrada.</Text> : erroFoto ?
+                            <Text accessibilityRole="alert" style={[estilos.value, { color: c.text }]}>Não foi possível carregar a foto deste alerta.</Text> : <>
+                                {carregandoFoto && <ActivityIndicator color={c.accent} accessibilityLabel="Carregando foto do incêndio" />}
+                                <Image key={`${evento.id_alerta}-${imagem}`} source={{ uri: imagem }} resizeMode="contain"
+                                    accessibilityLabel="Foto do incêndio registrada no momento deste alerta"
+                                    style={{ width: '100%', aspectRatio: 4 / 3, borderRadius: 10 }}
+                                    onLoad={() => setCarregandoFoto(false)}
+                                    onError={() => { setCarregandoFoto(false); setErroFoto(true); }} />
+                            </>}
+                    </View>}
+                    </ScrollView>
+                    <Pressable accessibilityRole="button" accessibilityLabel="Fechar detalhes do evento" style={[estilos.closeButton, { minHeight: prefs.adapted ? 60 : 48, justifyContent: 'center', backgroundColor: c.accent }]} onPress={onClose}>
                         <Text style={estilos.closeText}>Fechar</Text>
                     </Pressable>
                 </Pressable>
