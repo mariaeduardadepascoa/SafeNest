@@ -37,16 +37,38 @@ const linksCabecalho = document.getElementById('links-header');
 const botaoMenu = document.getElementById('menu-toggle');
 
 if (botaoMenu && linksCabecalho) {
+    function mudarMenu(aberto) {
+        linksCabecalho.classList.toggle('aberto', aberto);
+        botaoMenu.classList.toggle('ativo', aberto);
+        botaoMenu.setAttribute('aria-expanded', String(aberto));
+        botaoMenu.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+    }
+
     botaoMenu.addEventListener('click', () => {
-        linksCabecalho.classList.toggle('aberto');
-        botaoMenu.classList.toggle('ativo');
+        mudarMenu(!linksCabecalho.classList.contains('aberto'));
     });
 
     linksDoMenu.forEach(link => {
         link.addEventListener('click', () => {
-            linksCabecalho.classList.remove('aberto');
-            botaoMenu.classList.remove('ativo');
+            mudarMenu(false);
         });
+    });
+
+    document.addEventListener('click', evento => {
+        if (!botaoMenu.contains(evento.target) && !linksCabecalho.contains(evento.target)) {
+            mudarMenu(false);
+        }
+    });
+
+    document.addEventListener('keydown', evento => {
+        if (evento.key === 'Escape' && linksCabecalho.classList.contains('aberto')) {
+            mudarMenu(false);
+            botaoMenu.focus();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 992) mudarMenu(false);
     });
 }
 

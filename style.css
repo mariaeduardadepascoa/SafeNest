@@ -181,8 +181,8 @@ section > *,
     align-items: center;
     flex-shrink: 0;
     gap: 5px;
-    width: 2rem;
-    height: 2rem;
+    width: 2.75rem;
+    height: 2.75rem;
     background: transparent;
     border: none;
     padding: 0;
@@ -192,7 +192,7 @@ section > *,
 
 #menu-toggle span {
     display: block;
-    width: 100%;
+    width: 2rem;
     height: 0.15rem;
     background-color: var(--branco-principal);
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -506,34 +506,35 @@ body #inicial-page {
 }
 
 .comparacao {
-    max-width: 90%;
+    max-width: 100%;
     margin: auto;
-    padding: 80px 48px;
-    color: #18283c;
-    font-family: "DM Sans", Arial, sans-serif;
+    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 8vw, 8rem);
+    color: var(--azul-marinho);
+    font-family: var(--font-family);
 }
 
 .comparacao h2 {
-    margin: 18px 0;
-    font-family: "Manrope", Arial, sans-serif;
-    font-size: 39px;
-    font-weight: 600;
-    line-height: 1.23;
-    letter-spacing: -1.5px;
+    margin: 0 0 1.5rem;
+    font-family: var(--font-family);
+    font-size: clamp(2.1rem, 5.5vw, 3.8rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -.03em;
 }
 
 .introducao-comparacao {
-    max-width: 560px;
-    color: #647286;
+    max-width: 42rem;
+    margin: 0;
+    color: var(--sn-txt);
     font-size: var(--font-size-normalText);
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .comparacao .tabela-rolagem {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    margin-top: 38px;
+    margin-top: 2.5rem;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     border: 1px solid #e1e7ed;
@@ -542,36 +543,38 @@ body #inicial-page {
 
 .comparacao table {
     width: 100%;
-    min-width: 650px;
-        border-collapse: collapse;
+    min-width: 48rem;
+    border-collapse: collapse;
     text-align: left;
-    font-size: 11px;
+    font-size: var(--font-size-normalText);
     line-height: 1.6;
 }
 
 .comparacao thead th {
-    padding: 25px 22px;
+    padding: 1.5rem;
     vertical-align: bottom;
-    font-size: 17px;
+    font-size: var(--font-size-subtitle);
+    font-weight: 700;
 }
 
 .comparacao thead th:first-child {
     width: 26%;
     color: #748494;
-    font-size: 12px;
+    font-size: var(--font-size-normalText);
 }
 
 .comparacao thead th span {
     display: block;
     margin-bottom: 6px;
-    font-size: 7px;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
 }
 
 .comparacao tbody th,
 .comparacao td {
-    padding: 20px 22px;
+    padding: 1.25rem 1.5rem;
     border-top: 1px solid #e1e7ed;
 }
 
@@ -640,11 +643,11 @@ body #inicial-page {
 .comparacao .frase-comparacao > b {
     min-width: 0;
     color: #0b2342;
-    font-family: "Manrope", Arial, sans-serif;
+    font-family: var(--font-family);
     font-size: var(--font-size-subtitle);
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.5;
-    letter-spacing: -0.5px;
+    letter-spacing: normal;
 }
 
 .comparacao .botao-comparacao {
@@ -657,8 +660,8 @@ body #inicial-page {
     border-radius: 7px;
     background: #0b2342;
     color: #fff;
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: var(--font-size-normalText);
+    font-weight: 500;
     text-decoration: none;
     text-align: center;
 }
@@ -1040,10 +1043,6 @@ body #inicial-page {
 .rodape-link {
     width: fit-content;
     max-width: 100%;
-}
-
-.rodape-link:hover {
-    border-bottom: 2px solid var(--branco-terciario);
 }
 
 .rodape-titulo {
@@ -1601,17 +1600,11 @@ body #inicial-page {
     }
 
     .comparacao {
-        padding: 55px 0;
-    }
-
-    .comparacao .eyebrow {
-        font-size: 8px;
-        line-height: 1.8;
-        letter-spacing: 1.5px;
+        padding: 4rem 1.25rem;
     }
 
     .comparacao h2 {
-        font-size: clamp(1.7rem, 4.5vw, 32px);
+        font-size: clamp(2.1rem, 5.5vw, 3.8rem);
     }
 
     .comparacao .frase-comparacao {
@@ -1620,7 +1613,7 @@ body #inicial-page {
     }
 
     .comparacao .frase-comparacao > b {
-        font-size: 18px;
+        font-size: var(--font-size-subtitle);
     }
 }
 
@@ -2202,7 +2195,7 @@ body #inicial-page {
 
 .cartao-inicio {
     position: relative;
-    display: flex;
+    display: none;
     align-items: flex-end;
     min-height: 34rem;
     padding: 2rem;
@@ -2308,7 +2301,8 @@ body #inicial-page {
     gap: 3rem;
     align-items: start;
     padding: 4.5rem clamp(1.25rem, 8vw, 8rem) 2rem;
-    background: var(--azul-marinho);
+    background: #1d3046;
+    border-top: 1px solid #394957;
 }
 
 .rodape .rodape-logo {
@@ -2317,17 +2311,84 @@ body #inicial-page {
 }
 
 .rodape .rodape-titulo {
-    color: var(--azul-secundario);
+    color: #d2d7de;
     letter-spacing: .14em;
+}
+
+.rodape-instagram,
+.rodape-email,
+.rodape-texto3 {
+    color: #bcc5cf;
+}
+
+.icone-rodape {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 1.3rem;
+    height: 1.3rem;
+    background-color: currentColor;
+    mask: var(--desenho-icone) center / contain no-repeat;
+}
+
+.icone-instagram {
+    --desenho-icone: url('./imagens/Instagram.svg');
+}
+
+.icone-email {
+    --desenho-icone: url('./imagens/Mail.svg');
+}
+
+.icone-github {
+    --desenho-icone: url('./imagens/githubIcon.svg');
+}
+
+.rodape .rodape-logo {
+    filter: brightness(0) invert(.82);
+}
+
+.rodape .rodape-texto3 {
+    align-items: center;
+}
+
+.rodape .icone-github {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.rodape .rodape-texto1 {
+    color: #a0acb9;
+}
+
+.rodape a {
+    color: #bcc5cf;
+    text-decoration-color: #728093;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.rodape a:hover,
+.rodape a:focus-visible {
+    color: #d2d7de;
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+}
+
+.rodape-instagram:has(a:hover),
+.rodape-email:has(a:hover),
+.rodape-texto3:has(a:hover),
+.rodape-instagram:focus-within,
+.rodape-email:focus-within,
+.rodape-texto3:focus-within {
+    color: #d2d7de;
 }
 
 .rodape-fim {
     grid-column: 1 / -1;
     margin: 1rem 0 0;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,.14);
+    border-top: 1px solid #394957;
     font-size: .9rem;
-    color: var(--azul-terciario);
+    color: #a0acb9;
 }
 
 @media (max-width: 900px) {
@@ -2412,5 +2473,102 @@ body #inicial-page {
     .rodape {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
+    }
+}
+
+/* A foto começa abaixo do cabeçalho e acompanha toda a seção inicial. */
+body #inicial-page {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    min-height: 100svh;
+    padding: 8rem clamp(1.25rem, 8vw, 8rem) 2rem;
+    gap: 2rem;
+    background: var(--branco-secundario);
+}
+
+#inicial-page::before {
+    content: '';
+    position: absolute;
+    inset: 4.6rem 0 0;
+    background: linear-gradient(90deg, rgba(247, 250, 255, .98) 0%, rgba(247, 250, 255, .94) 32%, rgba(247, 250, 255, .72) 48%, transparent 72%), url('./imagens/camera-seguranca.png') center top / cover no-repeat;
+    pointer-events: none;
+}
+
+#inicial-page .conjuntoDivsInicio {
+    position: relative;
+    width: 52%;
+    margin: 0;
+    padding: 0;
+}
+
+#inicial-page .faixa-informacoes {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1.1rem 1.5rem;
+    margin: 0;
+    border: 1px solid rgba(22, 48, 79, .1);
+    border-radius: 1.2rem;
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 18px rgba(22, 48, 79, .1);
+}
+
+/* No celular, a câmera aparece acima do texto, sem ficar apagada. */
+@media (max-width: 992px) {
+    body #inicial-page {
+        min-height: 0;
+        padding-top: 4.6rem;
+        padding-bottom: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    #inicial-page::before {
+        background-color: #f7faff;
+        background-image: linear-gradient(180deg, transparent 10rem, rgba(247, 250, 255, .15) 14rem, #f7faff 22rem), url('./imagens/camera-seguranca.png');
+        background-size: 100% 100%, auto max(23rem, 56.25vw);
+        background-position: center top, right top;
+        background-repeat: no-repeat;
+    }
+
+    #inicial-page .conjuntoDivsInicio {
+        width: calc(100% - 2.5rem) !important;
+        max-width: 38rem !important;
+        margin: 18rem auto 0;
+        padding-bottom: 0;
+        gap: 1.25rem;
+        text-align: center;
+    }
+
+    #titulo-inicial-page h1 {
+        font-size: clamp(2.25rem, 8vw, 3.5rem);
+        line-height: 1.1;
+    }
+
+    #subtitulo-inicial-page h3 {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    #inicial-page .conjuntoDivsInicio .botoes-pagina-inicial {
+        width: 100% !important;
+    }
+
+    #inicial-page .faixa-informacoes {
+        width: calc(100% - 2.5rem);
+        max-width: 38rem;
+        margin-inline: auto;
+        padding: 1rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem .75rem;
+    }
+
+    #inicial-page .faixa-informacoes li {
+        font-size: .85rem;
+        line-height: 1.4;
+        gap: .5rem;
     }
 }
