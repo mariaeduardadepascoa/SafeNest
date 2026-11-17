@@ -208,7 +208,9 @@ export default function CameraScreen({ navigation }) {
     <TituloPagina eyebrow="MONITORAMENTO" title="Câmeras" subtitle="Escolha uma câmera para ver a imagem e acompanhar os avisos." />
     <Botao title="Adicionar câmera" disabled={ocupado} onPress={() => abrirFormulario()} />
     <TituloSecao title="Suas câmeras" action="Atualizar" onPress={() => executar(atualizarLista)} />
+
     {!!erro && <Texto accessibilityRole="alert" style={{ color: c.red, marginBottom: 16 }}>{erro}</Texto>}
+    
     {carregando ? <ActivityIndicator color={c.accent} accessibilityLabel="Carregando câmeras" /> : !cameras.length ? <Cartao><Texto>Nenhuma câmera cadastrada.</Texto></Cartao> :
       cameras.map(camera => <Pressable key={camera.id} accessibilityRole="button" accessibilityState={{ selected: cameraAtual?.id === camera.id, disabled: ocupado }} disabled={ocupado}
         accessibilityLabel={`Abrir detalhes de ${camera.nomeUsuario || 'câmera'}`} accessibilityHint="Mostra o vídeo ao vivo e as informações da câmera" onPress={() => escolherCamera(camera)} style={{ marginBottom: 12 }}>
