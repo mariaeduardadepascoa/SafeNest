@@ -14,17 +14,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Tab = createBottomTabNavigator();
 
-// O círculo é apenas o fundo: ícones, textos e áreas de toque não mudam.
 function BotaoDaAba({ children, style, ...props }) {
   const { c } = useVisual();
-  return <PlatformPressable {...props} style={style}>
-    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-      {props['aria-selected'] && <View pointerEvents="none" style={{
-      position: 'absolute', width: 54, height: 54, borderRadius: 27,
-      left: '50%', top: '50%', marginLeft: -27, marginTop: -27, backgroundColor: c.raised,
+  return <PlatformPressable {...props} style={[style, { justifyContent: 'center' }]}>
+    {props['aria-selected'] && <View pointerEvents="none" style={{
+      position: 'absolute', width: 69, height: 69, borderRadius: 270,
+      left: '40%', top: '40%', marginLeft: -24, marginTop: -24, backgroundColor: c.raised,
       }} />}
-      {children}
-    </View>
+    {children}
   </PlatformPressable>;
 }
 

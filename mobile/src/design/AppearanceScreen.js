@@ -12,7 +12,7 @@ export function OpcoesVisuais({ adapted, colorVision, onAdapted, onColorVision, 
   const { c, prefs } = useVisual();
   if (prefs.adapted) return <Cartao style={{ gap: 24 }}>
     <View style={{ gap: 10 }}>
-      <Linha style={{ justifyContent: 'space-between' }}><Texto weight="600" style={{ flex: 1 }}>Visual com letras maiores</Texto><Switch accessibilityLabel="Usar design acessível original" value={adapted} onValueChange={onAdapted} disabled={disabled} trackColor={{ false: c.line, true: c.accent }} /></Linha>
+      <Linha style={{ justifyContent: 'space-between' }}><Texto weight="600" style={{ flex: 1 }}>Visual adaptado 60+</Texto><Switch accessibilityLabel="Usar design acessível original" value={adapted} onValueChange={onAdapted} disabled={disabled} trackColor={{ false: c.line, true: c.accent }} /></Linha>
       <Texto muted>Facilita a leitura e o uso dos botões.</Texto>
     </View>
     <View style={{ gap: 10 }}>
@@ -22,7 +22,7 @@ export function OpcoesVisuais({ adapted, colorVision, onAdapted, onColorVision, 
   </Cartao>;
   return <Cartao>
     <Linha style={{ paddingVertical: 12 }}>
-      <View style={{ flex: 1 }}><Texto weight="600">Usar design acessível</Texto><Texto muted size={12}>Mantém o visual original do SafeNest. Você pode mudar quando quiser.</Texto></View>
+      <View style={{ flex: 1 }}><Texto weight="600">Usar design acessível</Texto><Texto muted size={12}>Facilita a leitura e uso de botões, indicado para pessoas com 50 anos ou mais.</Texto></View>
       <Switch accessibilityLabel="Usar design acessível original" value={adapted} onValueChange={onAdapted} disabled={disabled} trackColor={{ false: c.line, true: c.accent }} />
     </Linha>
     <Linha style={{ paddingVertical: 12 }}>

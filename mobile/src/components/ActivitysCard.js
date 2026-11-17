@@ -48,8 +48,8 @@ export default function ActivitysCard({ historico, onPress }) {
     // Respostas antigas da API ainda podem vir sem o campo origem.
     const aberturaPeloApp = historico.tipo === 'acesso' && (historico.origem === 'aplicativo' || (!historico.origem && historico.id_tag === null));
     if (aberturaPeloApp) {
-        title = 'Abertura pelo aplicativo';
-        subtitle = 'Comando de abertura enviado';
+        title = 'Entrada permitida';
+        subtitle = 'Abertura pelo aplicativo';
     }
 
     //estilização para os alertas
@@ -83,7 +83,7 @@ export default function ActivitysCard({ historico, onPress }) {
                     {prefs.colorVision || alertaSemFundo ? <Feather name={variant === 'negado' ? 'x-circle' : variant === 'perigo' ? 'alert-triangle' : 'check-circle'} size={20} color={variant === 'negado' ? (alertaSemFundo ? c.red : '#FFFFFF') : variant === 'perigo' ? c.red : c.accent} /> : <Icone width={20} height={20} />}
                 </View>
                 <View style={estilos.texts}>
-                    <Text style={textoStyle}>{title}</Text>
+                    <Text style={[textoStyle, historico.tipo === 'alerta' && historico.tipo_alerta === 'fogo' && { color: c.red }]}>{title}</Text>
                     {subtitle && <Text style={[textoStyle, estilos.subtitleText]}>{subtitle}</Text>}
                 </View>
             </View>
